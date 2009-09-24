@@ -1,0 +1,443 @@
+RhaptosContent-0.38
+  - content-actions-move (17 Aug 2009)
+    - content actions portlet replaced with content actions bar (shared between
+      collection and module rendering)
+      - bar_content_actions added; used by module_export_template (and collection_view)
+      - bottom_content_actions added; does the same, but for non-JS (and bottom of page)
+      - dynamic.js has JS for menu action
+      - lens operations called in root context instead of content context
+    - one content_template now works for both Rhaptos and CNX: removed the redundant CNXContent version
+    - "book" image added to modules in collection context
+    - multiple star ratings supported per page
+    - CSS additions or changes for Content Actions dropdowns, Content Actions in footer, 
+      "E-mail the author" links, prev/next links book icon, order button, <menclose> example
+    - email-authors macro moved to content_template
+    - Brought print.css up to date
+    - CSS adjustments made for new doctypes, and moving of items 
+      (including removal of obsolete CSS for old Content Actions placement)
+    - #9397: Made "What is a lens?" links consistent.
+    - Added <menclose> message for mathml.
+    - AddThis JS popup disabled in collection due to bug in XHTML handling in FF (was already done for modules)
+    - #9299: Machine readable license now showing up on Collections.
+    - #9318: Added "Order printed Collection" button (when viewing a module within a collection) 
+
+RhaptosContent-0.37.1
+  - #9350: Remove cnxml_snippet_render call (from CNXML abstract work)
+
+RhaptosContent-0.37
+  - Module Edit Workflow (30 Jun 2009)
+    - JS refactor and cleanup; some moved to RhaptosSite
+    - EIP consolidated in RhaptosModuleEditor; several components moved there
+    - #9094: Style adjustments to adjust for Ext's adjustments
+  - #8067: Style improvements for warning messages
+  - #9232 (in its own devset) - naked & in Lens entry comments
+
+RhaptosContent-0.36.1
+ - #9012: pencil.png skins name collision
+
+RhaptosContent-0.36
+ - Siyavula Release (May 14, 2009)
+   - Added endorse functionality
+   - Add use of templates to EIP
+   - Added Rating UI
+   - Added help hovers for tags
+   - Siyavula styling changes
+
+RhaptosContent-0.35
+  - Keep unpublished previews renderable 
+
+RhaptosContent-0.35
+  - Make rendered module index page non-cacheable, explicitly
+
+RhaptosContent-0.34
+  - gentext-be-gone (16 Apr 2009)
+    - remove most gentext templates from content_render.xsl and 
+      content_render_old.xsl; replace these with the static text
+      in English, to improve performance
+
+RhaptosContent-0.33
+  - changed default typeface and size of monospace text (#8633)
+  - Add Hewlett Google Analytics to all pages (ticket:8565)
+  - Put the OER icon, message, and links in the footer (ticket:8592)
+
+RhaptosContent-0.32.5
+  - fix for message reappearing in Firefox after dismissal (#8679)
+
+RhaptosContent-0.32.4
+  - mathml browser support warning message
+
+RhaptosContent-0.32.3
+  - display the table tag as part of the EIP table edit UI. (#8542)
+
+RhaptosContent-0.32.2
+  - cnxml-0.6-hot-fix, third rollout (06 Mar 2009)
+    - EIP better namespace handing across a EIP save (#8474)
+    - EIP-help documentation: 
+      - Many changes to improve media- and table-related elements
+      - Made special template for elements taking linking attributes
+      - Fixed order and notes of children information
+      - Improved some example outputs
+      - Added warning about ampersands in URLs (#8315)
+      - Noted on the old <cnxn> page that <cnxn> is replaced by <link>
+      - Miscellaneous typo, error, and style fixes
+    - Make math black in EIP (#8401)
+    - Fix problem related to EIP redudantly autogenerating IDs (#8224)
+    - EIP rework section title editing (#8194)
+    - Fix styling of "How to cite this content" list (#8118)
+    - CSS changes related to making default <emphasis> bold non-italic in IE (#8326)
+    - <rule> now handles <title> processing on EIP save (#8330)
+    - Add EIP insert links around <preformat> (#8262)
+    - Remove old use of license reporting in citation section of metadata page (#8281)
+
+RhaptosContent-0.32.1
+  - cnxml-0.6-hot-fix, first rollout (04 Feb 2009)
+    - condense whitespace in entered table summaries on EIP save (#8238)
+    - eliminate extraneous EIP insert links around CNXML divs (#8148)
+
+RhaptosContent-0.32
+  - cnxml-0.6 (30 Jan 2009)
+    - better radio button initialization
+    - updated the list of CNXML tags requiring an ID to validate
+    - EIP validation occurs when doing the EIP-render of the new section; in this rendering branch 
+      of handleEipRequest, apply the autoId transform to make it have valid ids if it doesn't have any. 
+      These ids are temporary, only for validation
+    - added the class "eipListTypeRadioButtons" to the radio button input
+      for list type selection in the list edit UI
+    - Use more specific class name to fix IE-related styling for radio
+      buttons in IE, and not obliterate the styling of the "Literal text"
+      input in the process.
+    - Restrict editable appearance to lists and notes with block displays.
+    - Added upgrade script to add CC 3.0 license
+    - "E-mail the author" links use the same citation HTML as in content
+    - Changed 5-level author links to 3-level author links
+    - Updated the tag-help.xml file for CNXML 0.6
+    - expanded the list of valid CNXML tags to include the new-to CNXML 0.6 tags
+    - Modified or added logic for these elements in EIP
+      - <preformat>
+      - <list>
+      - <code>
+      - <exercise>
+      - <note>
+      - <figure>
+      - <title>
+      - <caption>
+    - Modified or added styles for these elements
+      - <audio>
+      - <cite>
+      - <section>
+      - <list>
+      - <cite-title>
+      - <emphasis>
+      - <space>
+      - <preformat>
+
+RhaptosContent-0.31
+  - ramcache (26 Nov 2008) [requires QuickInstaller reinstall]
+    - remove workspaces data in module_export_template (it's unused)
+    - modernize install: replace old, long, skins code with 'install_subskins', add logging
+    - create in install two new RAMCaches for long-term caching
+    - use new table of contents method 'toc_structure' from RhaptosCollection, which is cached
+    - call 'toc_structure' from portal instead of context, since it is not context-dependent and
+      context is taken as a variable by RAMCache
+    - refactor return values of 'similarContent': a boolean for 'more' instead of testing
+      for 4 or more. (Cheaper and less magical.)
+    - set 'similarContent' to be RAMCached
+  - vocw-fixes
+    - Add css_above_slot, so lens-add popups work for plain rhaptos.
+
+RhaptosContent-0.30.1
+  - #7270: temporarily remove AddThis link, because its included JS suddenly breaks lens-add popups
+
+RhaptosContent-0.30
+  - quickperf (30 Sept 2008)
+    - Make recent view portlet collapsible, with default state of collapsed to avoid calling if possible
+    - cache handler associations for various JS files
+    - module_render's ExtJS inlcudes harmonized with all other files that use it
+      (use ext.js instead of ext-all.js)
+    - only include TransMenus JS when necessary (viewing inside a collection)
+
+RhaptosContent-0.29
+  - MyCNX phase 2
+    - modified reuse and attribution to have new wording and formatting
+    - #6496: added "Login Required" tool tip for "A Lens" and "My Favorites" link (anon only)
+    - #6484: My Favorites dialog box has distinct title
+    - (disabled) referenced glosssary terms now use extjs's QuickTips tool tip with a 0.5 second delay
+    - #6490: prevent the Recently Viewed links from containing a link to the current content page
+    - #6240: code for Recently Viewed horizontal portlet for cnx home page (disabled)
+    - #6591: AddThis popup window does not cover lower links
+    - fix Javascript variable declarations not using 'var'. Bad Python coder!
+    - #6506: problem with the lens-adding pop-up resizing in IE
+    - refactor getCourseParameters to current_collection to allow just finding context
+    - always use explicit versions in recently viewed to deal with latest vs latest version (#6380)
+    - #6574: on login through lens/favorites dialog box, reopen that box on page reload
+    - #6376: Removed problem-causing quotation marks from author contact mailtos and shorten them
+    - Style fixes (black math, styling in certain pop-ups)
+    - #6493: remove clickable-looking icons from pop-ups
+    - #6578: lower-case the word "cite" in footer
+
+RhaptosContent-0.28.1
+  - #6525: non-fatal error on empty recently-viewed portlet
+
+RhaptosContent-0.28
+  - MyCNX lands
+    - Favorites add dialog on content
+    - content render improvements: exercise/solution, glossary, et al.
+    - new dynamic content actions portlet
+    - new recently viewed portlet
+
+RhaptosContent-0.27.3
+  - Added Google Analytics JavaScript code to col10522 and its contained modules
+
+RhaptosContent-0.27.2
+  - #6103: tweak line-height in EIP so dropdowns work right again
+
+RhaptosContent-0.27.1
+  - #6096: restore hidden h2 in module header, lost during merge
+
+RhaptosContent-0.27
+  - #5731: popup definitions
+  - #5605: expandable ToC support; move content actions box above table of contents
+  - make sure changes like pop-up definitions, HTML headers (#5741),
+    paragraph output, new section names (#5460), and solution toggles
+    don't mess things up in EIP
+  - major accessibility release
+    - make sure "skip to" links work on collection and metadata pages (#5312)
+    - update eip-help pages to: use new accessible/semantic mark-up in
+      examples, put examples of alt params everywhere media is found
+      (and remove example of nested media), remove some references to
+      the word Connexions, make link to a module in CNX repository absolute
+    - make sure lens pop-ups are accessible to screen readers (#5734, #5726)
+    - various semantic mark-up improvements: HTML headers, alt attributes,
+      <p>s instead of <div>s and <ul>s instead of pipe-separated elements,
+      link strength <img>s with alts instead of background images, <label>
+      for the search input, "skip to" links
+    - added hidden text in several places to make the page easier to
+      understand for a screen reader user
+    - added style changes to Rhaptos/Plone stylesheets to reflect
+      accessible/semantic mark-up, and give them Content Action icons
+    - make "show/hide" toggles accessible to screen readers and keyboard
+      users (using <a> instead <span> styled to look like <a>) 
+    - add "Previous module", "Next module", and "Collection home" labels 
+      to the bottom nav links (#5566)
+  - attribution policy clarifications
+    - change footer display and metadata page w/ regard to license and attribution (#5751/5752)
+
+RhaptosContent-0.26.2
+  - change module print links (pdf) to use the explicit module version
+
+RhaptosContent-0.26.1
+  - remove discussion board links
+
+RhaptosContent-0.26
+  - major EIP release
+    - rev-ed up to sarissa 0.9.9
+    - reved up to prototype 1.6.0.2
+    - added fade animation to editing in EIP
+    - fixed scroll animation to editing in EIP
+    - changed how lists are edited
+    - changed how nodes are inserted
+    - added entire section and section title editing
+    - hover hints on how to edit
+    - after successful edit, retrieve updated XML from server
+    - handle user inputed named character Entity References
+    - removed all EIP specific code, we are EIS only now
+
+RhaptosContent-0.25.2
+  - skip bad similarity items in sidebar display instead of throwing a site error
+
+RhaptosContent-0.25.1
+  - tocperf: fix #4227 by removing tal recursion in favor of python code on the type
+
+RhaptosContent-0.25
+  - enable and restyle/rework lens hover boxes in module display
+  - postplone25: fix #4127 (date attribute problem) and self-linking in content_info 
+
+RhaptosContent-0.24.2
+  - assemble-on-demand: reword PDF link (along with cnxml)
+  - fix #4182: change hardcoded bug reporting URLs to portal_url relative bug_submit_form
+
+RhaptosContent-0.24.1
+  - postplone25: fix #4127 (date attribute problem) and self-linking in content_info
+
+RhaptosContent-0.24
+  - upgrade to Plone 2.5
+  - Fix #3870: IE style fix
+
+RhaptosContent-0.23.1
+  - keep up with CNXContent changes to content_template: rename 'subtype' to 'type'
+    and fix logic wrt display of non-subtyped collections; see #3965, #3966
+
+RhaptosContent-0.23
+  - remove :method for a couple of search forms: fixes search/search urls
+
+RhaptosContent-0.22.1
+  - Fix v0.22's bug with printing modules from within collections.
+
+RhaptosContent-0.22
+  - Now handles multiple collection types instead of hard coding
+    'Course' for most cases
+  - Also switch from using 'Course' as the default label of
+    collections to using 'Collection'
+
+RhaptosContent-0.21
+ - move course links out of sidebar and into area where author links are
+ - class tweak for quality portlet
+
+RhaptosContent-0.20.1
+  - fixed EiS problems introduced during newlook.
+
+RhaptosContent-0.20
+  landing lenses0 branch
+  - add lenses/tags information to module_export_template
+  - add lenses portlets to content_render, replacing Yummy one.
+  - add JS file using ExtJS to do dynamic lens add dialog and hover boxes
+  - add "Add to a lens" link in content actions box
+  - removed a non-nocall TALES use of 'module' from module_export_template
+    to improve performance
+  - use org account names where appropriate
+
+RhaptosContent-0.19.6
+  - update links back to endorsement pages to use new path-based form.
+    Includes content_render_old!
+
+RhaptosContent-0.19.5
+  - Fix site error on display of modules in unpublished course preview.
+
+RhaptosContent-0.19.4
+  - Fix for problem with content viewing looking bad in IE w/o JavaScript
+  - nlt0225: change "abstract" to "summary" throughout site
+  - nlt0212: spaces around "and" in translated content footer
+  - nlt0198: case changes
+  - nlt0196: correct "more" link for more than 10 courses containing a module
+
+RhaptosContent-0.19.3
+  - newer, more standards compliant libxml2 cuases EiS and preview problem
+  due to MathML namespaces appearing in tgroup tags.
+
+RhaptosContent-0.19.2
+  - Newlook bugfixes:
+    - Vertical bar separator for upper-right nav links
+    - music.js tweak that should have accompanied the last CNXContent rollout
+
+RhaptosContent-0.19.1
+  - Newlook bugfixes:
+    - flickering course TOC and author links
+    - blank similar content portlet
+    - course nav/course toc style integration
+    - remove style chooser from "old" rendering path
+    - re-bold "Based on:" on main content view
+
+RhaptosContent-0.19
+  - March 2007 site redesign (newlook)
+
+RhaptosContent-0.18
+  - addition of optional roles (currently Editor and Translator)
+
+RhaptosContent-0.17
+  - Endorsements function using del.icio.us
+
+RhaptosContent-0.16
+  - "Last edited" link now goes to profile or no URL if unknown (bug 2988)
+  - i18n Translation Support
+  - Use nwalsh's docbook gentext support to internationalize text in xsl
+
+RhaptosContent-0.15.1
+  - reenable similarity display (disabled in 0.14.1)
+  - declare "linktype" param in XSL so link-containing modules will work after the libxml upgrade.
+
+RhaptosContent-0.15
+  - add Opensearch 1.1 autodiscovery tagging to content pages
+
+RhaptosContent-0.14.3
+  - make Tony Brandt happy.  qml no longer misbehaves on IE.  javascript change.
+
+RhaptosContent-0.14.2
+  - fix "(unkown)" always appearing in the 'Last edited by' part of the module view footer
+
+RhaptosContent-0.14.1
+  - disabled similarity display until we get the data back in shape.
+
+RhaptosContent-0.14
+  - adhoc-branding branch merged;
+    - react to style properties which can be non-http
+    - observe acquired style properties
+    - add custom header fragment insertion (for adding elements for a style)
+
+RhaptosContent-0.13
+  - Fixed content_info.pt to use the new API for getHistory(), which
+  requires that the module id be passed in
+
+RhaptosContent-0.12
+  - Fixed mailto link (question mark instead of ampersand to separate 
+    subject from initial to: address)
+
+RhaptosContent-0.11
+  -  content_template, content_info updated to no longer preserve the structure (and thus display HTML) of the title
+
+RhaptosContent-0.10
+  - added inital language support
+  - improved vertical alignment of named-item lists
+  - removed padding from images in Playland since it looked weird and 
+    didn't even work in all browsers
+  - those template overrides in editInPlace.xsl are no longer necessary 
+    since class attributes are being put on in unibrowser.xsl instead 
+    (this change must be released after or in tandem with change r14189)
+  - improved appearance of sections inside examples, exercises, and rules
+  - removed unnecessary CSS and made alignment work better for figure         
+    elements (goes w/ unibrowser changes to subfigure tables (r14181))
+
+RhaptosContent-0.9
+  - "More ..." link in sidebar if a module is in many courses (task 2132 partial, bugday, maxwell)
+  - Removal of repeated "sorry" on the metadata page preview (task 2268, maxwell, bugday)
+  - Made title of metadata page a METAL slot so it could include the module title (task 2077, bugday, jccooper)
+  - Word-wrap attempt for history (task 2128 partial, bugday, maxwell)
+  - EIP: "Close this window" link in help (task 1442, bugday, maxwell)
+  - EIP: Move div to top of screen when clicked (task 1099, bugday, bnwest)
+  - EIP: Made the error window an alert, which has an OK button for closure (task 1442, bugday, bnwest)
+  - EIP: 'Click to Insert Text' message for paras with generic comments (task 2255 partial, bugday, bnwest)
+  - EIP: Better warning about leaving the page without saving (task 1464, bugday, maxwell/bnwest)
+
+RhaptosContent-0.8
+  - Added a notification when previewing a module with pending role requests
+
+RhaptosContent-0.7
+  - zip file export/import and other import refactoring
+
+RhaptosContent-0.6
+  - EIP Refactoring
+  - Added table support to EIP
+  - Fixed bug where empty paragraph tags broke EIP
+  - Changed author names to link to the new member profile page
+  - Fix for bug 1639: Use Alternate Title if module has one and is in course
+  - Fix for bug 2061: "click for solution" doesn't work if there is > 1 solution
+  - Correction to EIP help: <cnxn> can only take text in 0.5
+  - Fix for bug 1640: indicate in the history section what version a user is viewing
+
+RhaptosContent-0.5
+  - Mark license link as such so Google will index it
+  - Fix for IE EIP problems
+  - EIP Help Updates
+  - Cleaned up author link display code  
+
+RhaptosContent-0.4
+  - Renamed Product
+  - EIP javascript now uses Sarissa library
+  - If RhaptosPDFLatexTool isn't installed, don't display module print link
+  - EIP now parses XML client side before sending to detect errors earlier
+  - Fixed bug that caused modules in courses to display author links
+    if there were no instructor links
+
+RisaContent-0.3
+  - EIP Doc improvements
+  - Fixed bug 2073
+  - Changed "RISA" logo to a "Rhaptos" one
+  - Allow ins/del tags to pass-through XSL (unused)
+
+RisaContent-0.2
+  - New, enhanced Edit-In-Place feature allows for:
+    * Editing more kinds of tags
+    * Adding and removing tags
+    * Operating in a Workspace or Workgroup
+
+RisaContent-0.1
+  - Initial release

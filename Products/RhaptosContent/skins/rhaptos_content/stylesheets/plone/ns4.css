@@ -1,0 +1,587 @@
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   See /stylesheets/README.txt for an explanation of
+   any CSS browser detection hacks used in this file
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/*/*//*/
+
+body, p, table, td, th, ul, ol, li, dd, dt, dl, h1, h2, h3, h4, h5, h6, div, span, input{
+font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+font-size: 12px;
+}
+
+#cnx_print span, .cnx_division ul, .cnx_division h3, .cnx_division h4, 
+#cnx_global_links a, #cnx_footer p, .cnx_warning, .cnx_warning span, 
+#cnx_authorship, #cnx_parent, .caption, .caption-before{
+font-size: 11px;
+}
+
+#cnx_sidebar{
+position: absolute;
+top: 80px;
+left: 0;
+width: 180px;
+}
+
+.cnx_division{
+margin: 0 0 20px 20px;
+border: 1px solid #8cacbb;
+}
+
+.cnx_division ul{
+padding: 0;
+margin: -.3em .5em 1.5em -1em;
+}
+
+.cnx_division h3{
+padding: .1em 1em;
+background-color: #497caf;
+border: 1px solid #8cacbb;
+background-color: #dee7ec;
+font-weight: normal;
+}
+
+.cnx_division h4{
+margin: 0 1em;
+font-weight: bold;
+}
+
+#cnx_style_chooser, #cnx_eip_link{
+display: none;
+}
+
+
+
+body{
+margin: 0;
+background-color: white;
+}
+
+p{
+margin: 0;
+}
+
+.cnx_before{
+font-weight: bold;
+}
+
+#cnx_main, #cnx_discussion, #cnx_footer, #cnx_header{
+margin: 0 0 20px 200px;
+padding: 15px 0 0;
+}
+
+#cnx_header{
+margin-top: 80px;
+}
+
+#cnx_about_history #cnx_main, #cnx_about_history #cnx_footer, #cnx_about_history #cnx_header{
+margin-left: 20px;
+}
+
+#cnx_course #cnx_header, #cnx_course #cnx_main, #cnx_course #cnx_footer, #cnx_course #cnx_discussion{
+margin-left: 280px;
+}
+
+#cnx_header .cnx_previous_next{
+text-align: right;
+}
+
+#cnx_global{
+position: absolute;
+top: 0;
+left: 0;
+height: 80px;
+width: 115%;
+}
+
+#cnx_logo{
+float: left;
+font-weight: normal;
+padding: 0 15px;
+}
+
+#cnx_logo a span{
+text-decoration: none;
+font-size: 1.5em;
+color: #8cacbb;
+}
+
+#cnx_global_links{
+text-align: right;
+padding-top: 5px;
+color: white;
+}
+
+#cnx_global_links a{
+
+}
+
+#cnx_search{
+text-align: right;
+float: right;
+}
+
+#cnx_search input{
+float: right;
+width: 100px;
+}
+
+#cnx_search .cnx_button{
+margin-top: 1em;
+}
+
+#cnx_print{
+position: absolute;
+top: 80px;
+left: 20px;
+text-align: right;
+}
+
+.example-before, .problem-before, .solution-before, .definition-before, .footnote-reference, .footnote-reference a, .footnote-number, .meaning-number, .equation-number, .view-math, .view-math a, .rule-before, .proof-before, .note-before{
+font-weight: bold;
+text-transform: capitalize;
+}
+
+
+a, pre, code, math *, .cite{
+color: #436976;
+}
+
+.cnxn, a.footnote-reference{
+font-weight: bold;
+}
+
+.name, .example-name, .rule-name{
+font-weight: bold;
+}
+
+
+h1{
+margin: 0.5em 0 0;
+padding: 0;
+font-size: 1.2em;
+border: 0 solid #8cacbb;
+border-bottom-width: 1px;
+font-weight: normal;
+}
+
+#cnx_authorship, #cnx_parent{
+margin-bottom: 10px;
+color: #76797c;
+text-align: right;
+}
+
+#cnx_parent{
+display: block;
+}
+
+#cnx_authorship a{
+color: #76797c;
+}
+
+h2{
+margin: 0;
+padding: 0;
+font-size: 1em;
+border: 0 solid #8cacbb;
+border-bottom-width: 1px;
+font-weight: normal;
+}
+
+.section{
+margin: 0 0 0;
+padding: 5px 0;
+}
+
+.section .section{
+margin-left: 36px;
+margin-bottom: 0;
+}
+
+.section .section h2{
+font-size: 15px;
+border: none;
+font-weight: bold;
+margin-left: -.5em;
+margin-bottom: 0;
+}
+
+.proof h2, .example h2, .problem h2, .solution h2, .statement h2{
+font-weight: normal; 
+border: 0 solid #8cacbb;
+border-bottom-width: 1px;
+}
+
+
+
+table.list{
+margin: 10px 0px;
+}
+
+table.list tr td.name, .bullet{
+font-weight: bold;
+white-space: nowrap;
+padding: 3px 0px;
+}
+
+.para span.list .name{
+display: inline;
+}
+
+
+
+#cnx_discussion{
+clear: both;
+}
+
+#cnx_discussion p{
+background-color: #dee7ec;
+border: 1px solid #8cacbb;
+margin: 2em 0 0;
+padding: .5em 0 1em;
+text-align: center; 
+}
+
+#cnx_discussion ul{
+margin: -1em 0 0;
+}
+
+#cnx_discussion .cnx_extra{
+margin-top: .5em;
+list-style-type: none;
+}
+
+#cnx_footer{
+margin-top: 50px;
+margin-bottom: 0;
+padding-bottom: 15px;
+clear: both;
+}
+
+#cnx_footer p{
+color: #555;
+}
+
+#cnx_license_logo{
+float: left;
+padding: 0 10px .5em 0;
+}
+
+#cnx_metadata_links, #cnx_license{
+margin: 0 0 .5em;
+}
+
+#cnx_updated{
+clear: both;
+margin: 1em 0;
+}
+
+img{
+color: #fff;
+}
+
+
+
+.para{
+margin: 10px 0px;
+line-height: 1.4em;
+}
+
+.para .name{
+margin-bottom: 1px;
+}
+
+
+
+#cnx_abstract{
+padding: 8px 0;
+font-weight: bold;
+}
+
+.cnx_warning{
+background-color: #ffce7b;
+border: 1px solid #ffa500;
+font-weight: bold;
+margin: 1em 0em 0em 0em;
+padding: 0.5em 1em 0.5em 3em;
+vertical-align: middle;
+background-image: url("info.gif");
+background-repeat: no-repeat;
+background-position: 5px 50%;
+}
+
+.cnx_warning a{
+color: black;
+}
+
+pre, code{
+font-family: courier new, courier, monospace;
+font-style: normal;
+color: Black;
+background-color: #dee7ec;
+}
+
+code{
+display: inline;
+}
+
+pre{
+display: block;
+white-space: pre;
+text-align: left;
+line-height: 1em;
+padding: 1em;
+border: 1px solid #8cacbb;
+overflow: auto
+}
+
+code blockquote, pre blockquote, .foreign blockquote, blockquote code, blockquote pre, blockquote .foreign, code cite, pre cite, cite code, cite pre{
+font-style: normal;
+}
+
+
+
+blockquote{
+font-style: italic;
+margin-left: 72px;
+margin-right: 72px;
+line-height: normal;
+}
+
+.quote-source, .term-source{
+color: #960;
+text-decoration: none;
+font-style: normal;
+font-weight: normal;
+}
+
+.quote-source-before, .quote-source-after, .term-source-after, .term-source-before{
+font-style: normal;
+font-weight: normal;
+}
+
+
+
+
+.example, .rule, .definition, .note, .exercise{
+border: 1px solid #8cacbb;
+padding: 10px;
+margin: 10px 0;
+}
+
+.example .para, .statement .para{
+margin: 3px 0px;
+}
+
+.definition .example, .rule .example{
+margin-top: 2px;
+margin-bottom: 2px;
+padding: 2px 10px;
+}
+
+.example .note, .example .definition, .example .rule, .example .example{
+margin-top: 5px;
+margin-bottom: 5px;
+padding: 5px 10px;
+}
+
+.definition .example .para, .rule .example .para{
+margin: 5px 0px;
+}
+
+
+
+.problem, .solution{
+padding: 10px 0px;
+}
+
+.button-text{
+display: none;
+}
+
+
+.term{
+font-weight: bold;
+font-style: normal;
+display: inline;
+}
+
+.meaning{
+margin: 5px 0px;
+}
+
+
+
+i{
+font-weight: bold;
+}
+
+.term code i, code .term i, code i .term, .term i code, .term pre i, pre .term i, pre i .term, .term i pre{
+text-decoration: underline;
+}
+
+i, cite .foreign, .foreign cite, blockquote cite, blockquote .foreign{
+font-style: normal;
+}
+
+cite, .foreign, blockquote cite .foreign, blockquote .foreign cite{
+font-style: italic;
+}
+
+
+
+.equation{
+margin: 5px 0px 10px;
+}
+
+.equation-number{
+float: right;
+top: 5px;
+}
+
+.equation .name{
+margin-bottom: 5px;
+}
+
+
+table.figure{
+text-align: center;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+
+.inner-figure{
+border: 1px solid #8cacbb;
+padding: 10px;
+text-align: center;
+}
+
+tabel.figure .name{
+display: block;
+margin-bottom: .5em;
+text-align: center;
+}
+
+div.subfigure .name{
+display: block;
+margin-bottom: 5px;
+text-align: center;
+}
+
+table.figure table.subfigure, div.subfigure, div.subfigure .name{
+text-align: center;
+}
+
+.caption{
+padding-top: 5px;
+text-align: left;
+}
+
+div.subfigure .caption{
+margin-bottom: 5px;
+}
+
+.caption-before{
+font-weight: bold;
+}
+
+div.table .caption{
+border-top: 1px solid #8cacbb;
+margin: 10px 25%;
+}
+
+
+
+table.table, table.old-table{
+margin: 5px 0px;
+}
+
+
+
+
+.statement{
+margin: 5px 5px 0px 36px;
+}
+
+.proof{ 
+margin: 2px 0px 2px 36px;
+}
+
+
+#cnx_main ul, #cnx_main ol{
+margin: 5px 0;
+}
+
+#cnx_main ul li, #cnx_main ol li{
+padding-top: 10px;
+}
+
+#cnx_main ol .name, #cnx_main ul .name{
+display: block;
+padding-bottom: 5px;
+}
+
+#cnx_main ul{
+list-style-type: square;
+}
+
+td.name .name{
+white-space: nowrap;
+}
+
+
+
+#cnx_about_history #cnx_main p{
+margin: 0 0 10px;
+}
+
+#cnx_about_history .cnx_name{
+font-weight: bold;
+}
+
+#cnx_about_history hr{
+margin: 20px 0;
+}
+
+#cnx_about_history pre{
+font-size: 12px;
+padding: 2px 5px;
+}
+
+#cnx_about_history td{
+padding: 5px 5px 0 0;
+}
+
+
+
+#cnx_course_content{
+position: absolute;
+top: 80px;
+left: 0;
+width: 250px;
+}
+
+#cnx_course_start{
+font-size: 17px;
+font-weight: bold;
+margin: -30px 0 10px;
+}
+
+#cnx_course_website{
+margin: -20px 0 10px;
+}
+
+#cnx_course_contributors, #cnx_course_description{
+margin: 10px 0;
+}
+
+#cnx_course_content ul ul{
+margin-left: -2em;
+margin-bottom: .5em;
+}
+
+#cnx_course_content ul h4{
+margin-left: -.3em;
+}
+
+/* */

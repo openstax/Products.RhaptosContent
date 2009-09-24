@@ -1,0 +1,360 @@
+<metal:page define-macro="master" i18n:domain="rhaptos"
+            tal:define="contenttype context/content_type_decide;
+                        mimetype python: '%s;; charset=utf-8' % contenttype[1];
+                        dtd python:context.dtdmapping(contenttype[0]);
+                        dummy python:request.RESPONSE.setHeader('Content-Type', mimetype)">
+<span tal:replace="structure dtd" />
+
+  <tal:comment replace="nothing">
+  i18n by maxwell
+  </tal:comment>
+
+  <metal:block define-slot="top_slot" />
+  <tal:comment replace="nothing">
+    The 'context.style' structure below is unusual, but some strangeness in the Version Folder
+    or some such causes context to be None if we ask for an acquired property in path syntax.
+    Python syntax (and Python scripts) work, so we do that here.
+  </tal:comment>
+
+  <metal:block use-macro="here/global_defines/macros/defines" />
+  <tal:globaldefine tal:define="global params here/getCourseParameters;
+                                global style params/style | request/style | nothing;
+                                global style python: hasattr(context, 'style') and context.style or style;
+                                global module nocall:options/module | nothing;" />
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head metal:define-macro="head">
+    <metal:base metal:define-slot="base_slot" />
+    <title metal:define-slot="title_slot" tal:content="context/title">[module title]</title>
+    
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"
+          tal:attributes="content mimetype" />
+    
+    <metal:block metal:define-slot="css_above_slot" />
+
+    <tal:styles tal:repeat="s python:here.getStyles(style)">
+      <link tal:attributes="title s/id | nothing;
+                            href s/path;
+                            rel python:test(s['active'], 'stylesheet', default)" 
+            rel="alternate stylesheet"
+            type="text/css" media="screen" />
+      <link rel="stylesheet" type="text/css"
+            href="/stylesheets/plone/print.css"
+            media="print"
+            tal:condition="s/active"
+            tal:define="path s/path"
+            tal:attributes="href python:'/'.join(path.split('/')[:-1] + ['print.css'])"
+            />
+    </tal:styles>
+
+    <metal:block metal:define-slot="css_slot" />
+
+    <metal:block metal:define-slot="js_slot" />
+
+    <metal:block metal:define-slot="head_slot" />
+
+    <tal:simpledefines define="portal_url context/portal_url; portal context/portal_url/getPortalObject">
+    <link rel="search" href="" title="Search this site"
+          tal:attributes="href string:$portal_url/content/search" />
+    <link rel="search" href="" title="Connexions"
+          type="application/opensearchdescription+xml"
+          tal:attributes="href string:$portal_url/opensearchdescription;
+                          title portal/Title" />
+    </tal:simpledefines>
+  </head>
+
+  <body metal:define-slot="body_slot">
+    <div metal:define-macro="header" id="cnx_module_header"
+         tal:attributes="class python:test(module, 'cnx_in_course')">
+      <div style="display:none">
+        <!-- we need to call the PSM machinery to consume messages, but don't want to display them. yet. -->
+        <div metal:use-macro="here/global_statusmessage/macros/portal_message">
+          Portal status message
+        </div>
+      </div>
+
+      <metal:block metal:define-slot="before_title_slot" />
+
+      <h1>
+        <span tal:condition="template/title" tal:replace="string:${template/title}: "/>
+        <span tal:replace="context/Title">[module title]</span>
+      </h1>
+
+      <metal:block metal:define-slot="after_title_slot" />
+      
+      <p tal:condition="context/getCollectionType | nothing">
+        <span i18n:translate="header_collection_type" class="cnx_before">
+          Collection type:
+        </span>
+        <span tal:replace="python:context.getCollectionType('full')"/>
+      </p>
+      
+      <p id="cnx_authorship" i18n:translate="text_content_header_authorship">
+          <span i18n:name="by_colon">
+            <span class="cnx_before" i18n:translate="text_by_header">
+              <span i18n:name="collection_type"
+                    tal:define="coll_type nocall:context/getCollectionType | nothing;
+                                modtype python:coll_type and (coll_type('short') or 'Collection') or 'Module'"
+                    tal:replace="modtype"/>
+              by:
+            </span>
+          </span>
+
+          <span i18n:name="authors"
+                tal:define="authors context/authors;
+                            needsTooltip python:True;">
+            <tal:person tal:repeat="aid authors">
+              <!-- i18n:FIXME need better localization of inline list separation -->
+              <a tal:define="p python:here.desecured.getMemberById(aid)"
+                 tal:content="python:p and p.getProperty('fullname') or aid"
+                 tal:attributes="href string:/member_profile/${aid}">[fullname]</a><span tal:replace="string:, " tal:condition="not:repeat/aid/end">[, ]</span><span tal:replace="string:." tal:condition="repeat/aid/end">.</span>
+            </tal:person>
+            <metal:link metal:define-macro="emailauthor">
+              <tal:link tal:define="needsTooltip needsTooltip | nothing;">
+                <a href="#"
+                    class="cnx_email_author"
+                    tal:define="obj nocall:obj | nocall:context;
+                                authors obj/authors;
+                                authors python:map(context.desecured.getMemberById, authors);
+                                plural python:len(authors) > 1;
+                                emails python:','.join([a.getProperty('email') for a in authors]);
+                                portalemail context/email_from_address;
+                                pss modules/Products/PythonScripts/standard;
+                                portalname context/email_from_name;
+                                portalname python:pss.url_quote(portalname);
+                                coltitle obj/Title;
+                                coltitle python:pss.url_quote(coltitle);
+                                colurl string:${obj/url};
+                                type python:obj.portal_type.lower();
+                                tooltip python:plural and 'E-mail the authors of the %s' % type or 'E-mail the author of the %s' % type"
+                    tal:attributes="href string:mailto:$emails?cc=$portalemail&amp;subject=Feedback on $portalname $type: $coltitle&amp;body=Feedback on $portalname $type: $coltitle ($colurl);
+                                    title python:needsTooltip and tooltip">
+                  <tal:comment replace="nothing">the mess below is to prevent spacing inside the link</tal:comment>
+                  <metal:slot define-slot="linktext">
+                    <span tal:condition="plural" i18n:translate="email_authors">
+                      E-mail the authors</span
+                    ><span tal:condition="not:plural" i18n:translate="email_author">
+                      E-mail the author</span
+                    ></metal:slot></a>
+            </tal:link>
+          </metal:link>
+          </span>
+
+          <tal:optroles tal:repeat="role python:here.roles.items()" 
+                        tal:define="opt_roles_dict here/portal_collaboration/optional_role_info">
+            <tal:FIXME tal:replace="nothing">
+              This is a really ugly condition that should not be set
+              here.  We need one of these three options to improve
+              this:
+              1. Write an API (probably on the Repository or
+              CollaborationTool) for telling which roles are displayed
+              where.
+              2. Use different page templates for Modules and Courses
+              (We'll probably have to add specific actions for modules
+              and courses that will use the correct template.
+              3. Figure out a standard interface that can be used to
+              both modules and courses without having special cases
+              for different roles for different objects.
+            </tal:FIXME>
+            <span class="cnx_optional_role"
+                  tal:condition="python:not(role[0]=='editors' and here.portal_type=='Module')">
+              <span i18n:translate=""
+                    tal:content="python:opt_roles_dict[role[0]][2]+':'" class="cnx_before">[Optional Role Name]</span>
+              <span tal:repeat="p python:role[1]">
+                
+                <tal:badauthor tal:on-error="string:(${p})">
+                  <tal:author tal:define="u python:here.desecured.getMemberById(p)">
+                    <a tal:content="python:u.getProperty('fullname')"
+                      tal:attributes="href string:/member_profile/${p}">[name]</a></tal:author></tal:badauthor><tal:comma tal:condition="not:repeat/p/end">, </tal:comma>
+              </span>
+            </span>
+          </tal:optroles>
+
+	<span i18n:name="parent_authorship">
+	  <span id="cnx_parent" tal:define="parent here/getParent | nothing" tal:condition="nocall:parent" i18n:translate="text_content_header_parent_authorship">
+	    <span i18n:name="based_on_colon">
+	      <span class="cnx_before" i18n:translate="text_based_on_header">Based on: </span>
+	    </span>
+	      <span i18n:name="parent_url">
+		<a tal:attributes="href parent/url" tal:content="parent/title">[content]</a>
+	      </span>
+	    by 
+	      <span i18n:name="parent_authors">
+		<tal:person tal:repeat="p here/parentAuthors">
+		  <tal:badauthor tal:on-error="string:(${p})">
+		    <!-- i18n:FIXME need better localization of inline list separation -->
+		    <a tal:define="p python:here.desecured.getMemberById(p)"
+		      tal:content="python:p.getProperty('fullname')"
+		      tal:attributes="href string:/member_profile/${p}">[fullname]</a></tal:badauthor><span tal:replace="string:, " tal:condition="not:repeat/p/end">[, ]</span>
+		</tal:person>
+	      </span>
+	    </span>
+	  </span>
+	</p>
+
+      <metal:block metal:define-slot="header_slot" />
+      
+      <div class="cnx_clear"> </div>
+    </div>
+
+    <div metal:define-slot="main">
+
+      [page content]
+      
+    </div>
+
+    <div id="cnx_footer" metal:define-macro="footer"
+         tal:define="versionURL versionURL | nothing;
+                     contentinfo python:versionURL and versionURL+'/content_info' or 'content_info';
+                     license_data here/getLicenseData;">
+
+      <h2 class="hiddenStructure" i18n:translate="header_footer">Footer</h2>
+
+      <div id="cnx_partner_logos">
+        <a id="cnx_license_logo" tal:condition="here/license | nothing" tal:attributes="href here/license">
+          <img alt="Creative Commons License" 
+               tal:define="license_version python:context.license.rstrip('/').split('/')[-1];"
+               src="http://i.creativecommons.org/l/by/2.0/88x31.png" 
+               i18n:attributes="alt label_content_footer_cc_license_alt"
+               tal:attributes="src string:http://i.creativecommons.org/l/by/${license_version}/88x31.png" /></a>
+
+        <a id="cnx_oer_logo" 
+           tal:condition="here/license | nothing" 
+           xmlns:dct="http://purl.org/dc/terms/"
+           href="http://opened.creativecommons.org/definition"
+           rel="dct:conformsTo">
+          <img alt="Open Educational Resources Logo" 
+               src="http://i.creativecommons.org/d/oer/88x31.gif" 
+               i18n:attributes="alt label_content_footer_oer_logo_alt" />
+        </a>
+      </div>
+
+      <div id="cnx_metadata_links">
+        <p>
+          <span id="cnx_more_about"
+                i18n:translate="text_content_footer_more_about">More about this content:</span>
+          <a href="content_info" i18n:translate="label_content_footer_metadata"
+             tal:attributes="href contentinfo">Metadata</a>
+          <span>|</span>
+          <a href="content_info#cnx_history_header" i18n:translate="label_content_footer_history"
+             tal:attributes="href string:$contentinfo#cnx_history_header">Version History</a>
+        </p>
+
+      <ul id="cnx_attribution">
+        <li>
+          <a href="content_info#cnx_attribution_header" i18n:translate="label_content_footer_how_to_reuse"
+             tal:attributes="href string:$contentinfo#cnx_attribution_header">
+            How to <span i18n:name="reuse"><b i18n:translate="text_content_footer_reuse">reuse</b></span>
+            and attribute this content</a>
+        </li>
+        <li>
+          <a href="content_info#cnx_cite_header" i18n:translate="label_content_footer_how_to_cite"
+             tal:attributes="href string:$contentinfo#cnx_cite_header">
+            How to <span i18n:name="cite"><b i18n:translate="text_content_footer_cite">cite</b></span>
+            and attribute this content</a>
+        </li>
+      </ul>
+
+      </div>
+
+      <p id="cnx_license" tal:condition="here/license | nothing" i18n:translate="text_content_footer_license_info">
+
+	This work is licensed by 
+	  <span i18n:name="licensors">
+	    <tal:person tal:repeat="p here/licensors | nothing">
+	      <!-- i18n:FIXME need better localization of inline list separation -->
+	      <span tal:replace="string: and " 
+		tal:condition="python:len(here.licensors) > 1 and path('repeat/p/end')">
+		and 
+	      </span>
+	      <tal:badauthor tal:on-error="string:(${p})">
+		<a tal:define="m python:here.desecured.getMemberById(p)" 
+		  tal:content="python:m.getProperty('fullname')"
+		  tal:attributes="href string:/member_profile/${p}">
+		  [fullname]
+		</a></tal:badauthor><span tal:replace="string:, " 
+		tal:condition="python:len(here.licensors) > 2 and not path('repeat/p/end')">
+		[, ]
+	      </span>
+	    </tal:person>
+	  </span> under a 
+	<span i18n:name="license_name">
+	<a rel="license" tal:attributes="href here/license" i18n:translate="label_content_footer_cc_license_text">Creative Commons 
+          Attribution License
+          (<span tal:replace="license_data/label">[CC-BY 3.0]</span>)</a></span>, and is an
+        <span i18n:name="open_educational_resource">
+          <a xmlns:dct="http://purl.org/dc/terms/"
+             href="http://opened.creativecommons.org/definition"
+             rel="dct:conformsTo"
+             i18n:translate="text_open_educational_resource">Open Educational Resource</a>
+        </span>.
+      </p>
+
+	<p id="cnx_updated" tal:define="user here/submitter | nothing;
+	  member python:user and here.desecured.getMemberById(user);
+	  name python:member and member.getProperty('fullname') or '(Unknown)'" 
+	  i18n:translate="text_content_footer_last_edited">
+	  Last edited by 
+	  <span i18n:name="submitter">
+	    <a tal:condition="python:member" 
+	      tal:content="name" tal:attributes="href string:/member_profile/${user}">[submitter]</a>
+	    <span tal:condition="python:not member"  tal:define="user python:user or 'Unknown'" 
+	      tal:replace="string:(${user})">[Unknown user]</span>
+	  </span>
+	  on 
+	   <span i18n:name="timestamp">
+	    <span tal:replace="here/revised/aCommonZ | nothing">[date and time]</span></span>.
+	</p>
+
+    </div>
+
+    <div id="cnx_portal-top" metal:define-macro="global"
+         tal:define="ptitle portal/Title;
+                     pdesc portal/Description">
+
+      <div id="cnx_portal-siteactions">
+        <div metal:use-macro="context/global_siteactions/macros/site_actions">
+           Site-wide actions (Contact, Sitemap, Help, Style Switcher etc)
+        </div>
+      </div>
+
+      <div id="cnx_portal-searchbox">
+        <form name="content_search" action="/content/search">
+          <input name="target" type="hidden" />
+          <label for="cnx_searchGadget" class="hiddenStructure" i18n:translate="label_portal_search">Search:</label>
+          <input id="cnx_searchGadget" name="words" type="text" size="20" accesskey="s" tabindex="1"/>
+          <input name="allterms" value="weakAND" type="hidden" />
+          <input class="searchButton" type="submit" accesskey="s" tabindex="2" value="Search"
+                 i18n:attributes="value value_search" name="search:method" />
+        </form>
+      </div>
+
+      <h1 id="cnx_portal-logo">
+        <a tal:attributes="href utool; title pdesc;">
+         <span tal:replace="pdesc">[desc]</span>
+       </a>
+      </h1>
+
+      <div id="cnx_portal-globalnav">
+        <div metal:use-macro="context/global_sections/macros/portal_tabs">
+          The global sections tabs. (Welcome, News etc)
+        </div>
+      </div>
+
+      <div id="cnx_portal-breadcrumbs">
+        <span i18n:translate="you_are_here">You are here:</span>
+        <a href="/" i18n:translate="tabs_home"
+           tal:attributes="hef portal_url">Home</a>
+         &#187;
+        <a href="/content/" i18n:translate="tabs_content"
+           tal:attributes="hef string:$portal_url/content">Content</a>
+         &#187;
+        <span tal:omit-tag="" tal:content="context/title">[Course Title]</span>
+      </div>
+
+    </div>
+
+  </body>
+</html>
+
+</metal:page>

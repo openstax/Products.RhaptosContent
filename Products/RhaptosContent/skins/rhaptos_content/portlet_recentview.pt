@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="rhaptos">
+
+<tal:comment tal:replace="nothing">
+Rhaptos note: 
+   brand new portlet for recently viewed content
+</tal:comment>
+
+  <body>
+
+    <!-- The workspaces box -->
+    <div metal:define-macro="portlet"
+         tal:define="urlContent     options/urlContent | request/urlContent | nothing;
+                     rvs            python:context.recent_views(urlContent=urlContent);
+                     content_object here/nearestRhaptosObject | nothing;
+                     isModule       python:content_object and content_object.portal_type == 'Module';
+                     isCollection   python:content_object and content_object.portal_type == 'Collection';
+                     isNotModuleOrCollection python:not(isModule or isCollection)"
+         tal:condition="python:rvs != {} and rvs != None and isNotModuleOrCollection"
+         class="portletContainer"
+         id="portlet-recentview">
+        <dl class="portlet" id="portlet-recentview">
+          <dt class="portletHeader">
+            <span class="portletTopLeft"></span>
+            <span i18n:translate="heading_recently_viewed">Recently Viewed</span>
+            <span class="portletTopRight"></span>
+          </dt>
+          <dd class="portletItem odd">
+            <metal:reuse define-macro="body"
+                         tal:define="rawcols rvs/cols;
+                                     rawmods rvs/mods;
+                                     rawlens rvs/lenses;">
+            <tal:cols tal:define="elts python:rawcols[:3];
+                                  listclass string:cnx_collection;"
+                      tal:condition="elts">
+              <h5 i18n:translate="heading_collections">Collections</h5>
+              <ul id="rv-collectionlist">
+                <li tal:repeat="elt elts" metal:define-macro="listing"
+                    tal:attributes="class listclass">
+                  <a href="" tal:content="elt/title" tal:attributes="href elt/url">
+                    Element title
+                  </a>
+                </li>
+              </ul>
+            </tal:cols>
+            <tal:mods tal:define="elts python:rawmods[:3];
+                                  listclass string:cnx_module;"
+                      tal:condition="elts">
+              <h5 i18n:translate="heading_modules">Modules</h5>
+              <ul id="rv-modulelist">
+                <li metal:use-macro="context/portlet_recentview/macros/listing">Entry</li>
+              </ul>
+            </tal:mods>
+            <tal:lens tal:define="elts python:rawlens[:3];
+                                  listclass string:cnx_lens;"
+                      tal:condition="elts">
+              <h5 i18n:translate="heading_lenses">Lenses</h5>
+              <ul id="rv-lenslist">
+                <li metal:use-macro="context/portlet_recentview/macros/listing">Entry</li>
+              </ul>
+            </tal:lens>
+
+            <div class="portletMore"
+                 tal:condition="python:len(rawcols) > 3 or len(rawmods) > 3 or len(rawlens) > 3">
+              <a href="/recentview_more" i18n:translate="text_see_all_recent_arrow"
+                 tal:attributes="href string:$portal_url/recentview_more">See all recently viewed&#8230;</a>
+            </div>
+
+          </metal:reuse>
+          </dd>
+        </dl>
+    </div>
+
+  </body>
+  
+
+</html>
