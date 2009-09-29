@@ -39,5 +39,3 @@ from Products.CMFCore.DirectoryView import registerFileExtension
 from Products.CMFCore.FSFile import FSFile
 registerFileExtension('htmlf', FSFile)
 
-from Extensions import Install  # check syntax on startup
-del Install
