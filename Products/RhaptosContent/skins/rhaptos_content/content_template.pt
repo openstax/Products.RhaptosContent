@@ -124,7 +124,7 @@
                                 portalname python:pss.url_quote(portalname);
                                 coltitle obj/Title;
                                 coltitle python:pss.url_quote(coltitle);
-                                colurl string:${obj/url};
+                                colurl obj/url | obj/absolute_url;
                                 type python:obj.portal_type.lower();
                                 tooltip python:plural and 'E-mail the authors of the %s' % type or 'E-mail the author of the %s' % type"
                     tal:attributes="href string:mailto:$emails?cc=$portalemail&amp;subject=Feedback on $portalname $type: $coltitle&amp;body=Feedback on $portalname $type: $coltitle ($colurl);
