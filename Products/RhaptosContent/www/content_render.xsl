@@ -500,7 +500,7 @@
 	</li>
 	<li>
 	  <a href="/mycnx"> <!-- MyCNX -->
-	    <xsl:text>MyCNX</xsl:text>
+	    <xsl:text>MyRhaptos</xsl:text>
 	  </a>
 	</li>
       </ul>
