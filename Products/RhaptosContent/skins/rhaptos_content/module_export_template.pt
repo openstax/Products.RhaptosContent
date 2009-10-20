@@ -8,6 +8,7 @@
                     utool nocall:here/portal_url;
                     portal utool/getPortalObject;
                     portal_url utool;
+                    portalPath utool/getPortalPath;
                     objectId context/objectId;
                     course nocall:options/course | nothing;
                     module nocall:options/module | nothing;
@@ -96,7 +97,7 @@
                                  tags e/tags; 
                                  approved python:e['approved'] and 1 or 0;
                                  indirect python:test(e['fromImplicit'], e['fromImplicit'], None);
-                                 printableTags python:', '.join(getPrintableTags(namespaceTags, lens_path='/plone'+list['location']))">
+                                 printableTags python:', '.join(getPrintableTags(namespaceTags, lens_path=portalPath+list['location']))">
 		    <title tal:content="e/Title">from here</title>
   		    <comment tal:condition="e/comment" tal:content="python:here.truncate(e['comment'], 200)">
   			  <b>some HTML</b>
@@ -109,7 +110,7 @@
               </tag>
             </tags>
             <tag_namespaces tal:define="li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
-                                            namespaceTags, lens_path='/plone'+list['location'])"
+                                            namespaceTags, lens_path=portalPath+list['location'])"
                             tal:repeat="di li">
               <title tal:content="python:di['tagnamespace'].Title()"></title>
               <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
@@ -135,7 +136,7 @@
 
       <tag_namespaces tal:define="namespaceTags python:ltool.getTagsForContent(objectId, version, inside=inside, tag_type='namespaceTags');
                                   li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
-                                    namespaceTags, lens_path='/plone/lenses')"
+                                    namespaceTags, lens_path=portalPath+/lenses')"
                       tal:repeat="di li">
         <title tal:content="python:di['tagnamespace'].Title()"></title>
         <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
