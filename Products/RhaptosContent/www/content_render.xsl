@@ -129,28 +129,28 @@
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
 	</xsl:if>
 
-        <script type="text/javascript" src="/rhaptosutils.js"><xsl:text> </xsl:text></script>
-	<script type="text/javascript" src="/js/choose-style.js"><xsl:text> </xsl:text></script>
-	<script type="text/javascript" src="/js/toggler.js"><xsl:text> </xsl:text></script>
-	<script type="text/javascript" src="/js/exercise.js"><xsl:text> </xsl:text></script>
-	<script type="text/javascript" src="/js/qml_1-0.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/js/choose-style.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/js/toggler.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/js/exercise.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 
-        <script type="text/javascript" src="/extjs/ext.js"><xsl:text> </xsl:text></script>
-        <script type="text/javascript" src="/js/dynamic.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
         <xsl:if test="display/context">
-        <script type="text/javascript" src="/transmenus/transMenus0_9_2.js"><xsl:text> </xsl:text></script>
-        <script type="text/javascript" src="/transmenus/toc.js"><xsl:text> </xsl:text></script>
+            <script type="text/javascript" src="{publishing/portal/@href}/transmenus/transMenus0_9_2.js"><xsl:text> </xsl:text></script>
+            <script type="text/javascript" src="{publishing/portal/@href}/transmenus/toc.js"><xsl:text> </xsl:text></script>
         </xsl:if>
 
         <!-- login.js only needed when opening lens dialog when anonymous. dynamic load
              would be nice, if someone can figure out how. See lens_add near portlet_log macro -->
-        <script type="text/javascript" src="/register_function.js"><xsl:text> </xsl:text></script>
-        <script type="text/javascript" src="/login.js"><xsl:text> </xsl:text></script>
+             <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
+             <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 	<xsl:variable name="version" select="publishing/version/text()"/>
-	<link rel="source" title="Source" type="text/xml" href="/content/{$objectId}/{$version}/source"/>
-	<link rel="module" title="Module" type="text/xml" href="/content/{$objectId}/latest/"/>
+    <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
+    <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
 	
 	<xsl:if test="$previous">
 	  <link rel="previous" href="{$previous/@href}" title="{$previous/@title}"/>
@@ -471,7 +471,7 @@
       <div id="cnx_portal-globalnav">
       <ul>
 	<li>
-	  <a href="/">
+        <a href="{publishing/portal/@href}">
 	    <xsl:text>Home</xsl:text>
 	  </a>
 	</li>
@@ -479,27 +479,27 @@
           <span class="hiddenStructure"> <!-- Selected: -->
             <xsl:text>Selected:</xsl:text>
           </span>
-	  <a href="/content/"> <!-- Content -->
+          <a href="{publishing/portal/@href}/content/"> <!-- Content -->
 	    <xsl:text>Content</xsl:text>
 	  </a>
 	</li>
         <li>
-          <a href="/lenses/"> <!-- Lenses -->
+            <a href="{publishing/portal/@href}/lenses/"> <!-- Lenses -->
             <xsl:text>Lenses</xsl:text>
 	  </a>
 	</li>
 	<li>
-	  <a href="/aboutus/"> <!-- About Us -->
+        <a href="{publishing/portal/@href}/aboutus/"> <!-- About Us -->
 	    <xsl:text>About Us</xsl:text>
 	  </a>
 	</li>
 	<li>
-	  <a href="/help/"> <!-- Help -->
+        <a href="{publishing/portal/@href}/help/"> <!-- Help -->
 	    <xsl:text>Help</xsl:text>
 	  </a>
 	</li>
 	<li>
-	  <a href="/mycnx"> <!-- MyCNX -->
+        <a href="{publishing/portal/@href}/mycnx"> <!-- MyCNX -->
 	    <xsl:text>MyRhaptos</xsl:text>
 	  </a>
 	</li>
@@ -508,10 +508,10 @@
       <div id="cnx_portal-breadcrumbs">
 	<!-- You are here: -->
 	<xsl:text>You are here: </xsl:text>
-	<a href="/">Home</a>
+    <a href="{publishing/portal/@href}">Home</a>
 	<!-- &#187; -->
 	<xsl:text> &#187; </xsl:text>
-        <a href="/content/"> <!-- Content -->
+    <a href="{publishing/portal/@href}/content/"> <!-- Content -->
 	  <xsl:text>Content</xsl:text>
 	</a>
 	<!-- &#187; -->

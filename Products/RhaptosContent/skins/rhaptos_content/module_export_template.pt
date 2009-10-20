@@ -136,7 +136,7 @@
 
       <tag_namespaces tal:define="namespaceTags python:ltool.getTagsForContent(objectId, version, inside=inside, tag_type='namespaceTags');
                                   li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
-                                    namespaceTags, lens_path=portalPath+/lenses')"
+                                    namespaceTags, lens_path=portalPath+'/lenses')"
                       tal:repeat="di li">
         <title tal:content="python:di['tagnamespace'].Title()"></title>
         <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
