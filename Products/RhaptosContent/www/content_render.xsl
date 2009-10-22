@@ -386,7 +386,7 @@
       </body>
 
       <xsl:if test="$xsl_gallery">
-        <script type="text/javascript" src="/js/music.js"><xsl:text> </xsl:text></script>
+          <script type="text/javascript" src="{publishing/portal/@href}/js/music.js"><xsl:text> </xsl:text></script>
       </xsl:if>
 
     </html>
@@ -425,31 +425,31 @@
       <ul id="cnx_portal-siteactions">
         <xsl:if test="editing/anonymoususer">
           <li class="first">
-            <a href="/login_form"> <!-- Log In -->
+              <a href="{publishing/portal/@href}/login_form"> <!-- Log In -->
               <xsl:text>Log In</xsl:text>
             </a>
           </li>
         </xsl:if>
         <xsl:if test="not(editing/anonymoususer)">
           <li class="first">
-            <a href="/logout"> <!-- Log Out -->
+            <a href="{publishing/portal/@href}/logout"> <!-- Log Out -->
               <xsl:text>Log Out</xsl:text>
             </a>
           </li>
         </xsl:if>
 	<li>
-	  <a href="/aboutus/contact/"> <!-- Contact Us -->
+	  <a href="{publishing/portal/@href}/aboutus/contact/"> <!-- Contact Us -->
 	    <xsl:text>Contact Us</xsl:text>
 	  </a>
 	</li>
 	<li>
-            <a href="/bug_submit_form"> <!-- Report a Bug -->
+            <a href="{publishing/portal/@href}/bug_submit_form"> <!-- Report a Bug -->
 	    <xsl:text>Report a Bug</xsl:text>
 	  </a>
 	</li>
       </ul>
       <div id="cnx_portal-searchbox">
-	<form name="content_search" action="/content/search">
+	<form name="content_search" action="{publishing/portal/@href}/content/search">
           <input name="target" type="hidden"/>
           <label for="cnx_searchGadget" class="hiddenStructure">
             <xsl:text>Search: </xsl:text>
@@ -500,7 +500,12 @@
 	</li>
 	<li>
         <a href="{publishing/portal/@href}/mycnx"> <!-- MyCNX -->
+        <xsl:if test="publishing/portal/@isCNX='true'">
+	    <xsl:text>MyCNX</xsl:text>
+        </xsl:if>
+        <xsl:if test="not(publishing/portal/@isCNX='true')">
 	    <xsl:text>MyRhaptos</xsl:text>
+        </xsl:if>
 	  </a>
 	</li>
       </ul>
@@ -1212,9 +1217,9 @@
                       <xsl:for-each select="/module/rating/stars/star">
                         <xsl:variable name="whichstar">
                           <xsl:choose>
-                            <xsl:when test="@selected = '1'">/full_star.png</xsl:when>
-                            <xsl:when test="@selected = '0.5'">/half_star.png</xsl:when>
-                            <xsl:otherwise>/empty_star.png</xsl:otherwise>
+                            <xsl:when test="@selected = '1'"><xsl:value-of select="/module/publishing/portal/@href"/>/full_star.png</xsl:when>
+                            <xsl:when test="@selected = '0.5'"><xsl:value-of select="/module/publishing/portal/@href"/>/half_star.png</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="/module/publishing/portal/@href"/>/empty_star.png</xsl:otherwise>
                           </xsl:choose>
                         </xsl:variable>
                         <xsl:variable name="can_rate" select="/module/rating/@can_rate" />
@@ -2054,7 +2059,7 @@
             <xsl:if test="not(/module/editing/anonymoususer)">
               <xsl:if test="(@state = 'published_open') or (@state = 'private_open')">
                 <xsl:text> </xsl:text>
-                <a href="lens_add_open_tags?lens_paths:list=/plone{@link}">
+                <a href="lens_add_open_tags?lens_paths:list={/publishing/portal/@path}{@link}">
                   <img src="/pencil_cnx.png" alt="Edit tags" title="Edit tags" />
                 </a>
               </xsl:if>

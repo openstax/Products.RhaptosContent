@@ -153,7 +153,9 @@
   </metadata>
   
   <publishing>
-    <portal tal:attributes="href portal_url">
+    <portal tal:attributes="href portal_url;
+                            path python: '/'.join(portal.getPhysicalPath());
+                            isCNX here/isCNX|nothing;">
       <email tal:content="portal/email_from_address">[email]</email>
       <title tal:content="portal/title">[Portal]</title>
       <description tal:content="portal/description">[desc]</description>
