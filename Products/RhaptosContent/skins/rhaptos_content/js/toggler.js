@@ -301,66 +301,64 @@ function displayInitialMathMLMsg(browser)
     if(browser == "firefox")
     {
         determineFirefoxMessageByVersion();
-    	document.getElementById('ff_mathml_msg2').style.display = 'block';
-    	document.getElementById('cnx_display_ff_msg_link').style.display = 'none';
-    	document.getElementById('no_mathml_support').style.display = 'none';
+        if (document.getElementById('ff_mathml_msg2')) { document.getElementById('ff_mathml_msg2').style.display = 'block'; }
+        if (document.getElementById('cnx_display_ff_msg_link')) { document.getElementById('cnx_display_ff_msg_link').style.display = 'none'; }
+        if (document.getElementById('no_mathml_support')) { document.getElementById('no_mathml_support').style.display = 'none'; }
     }
     else if(browser == "ie")
     {
-        document.getElementById('ie_mathml_msg').style.display = 'inline';
-        document.getElementById('default_mathml_msg2').style.display = 'inline';
-        document.getElementById('no_mathml_support').style.display = 'inline';
+        if (document.getElementById('ie_mathml_msg')) { document.getElementById('ie_mathml_msg').style.display = 'inline'; }
+        if (document.getElementById('default_mathml_msg2')) { document.getElementById('default_mathml_msg2').style.display = 'inline'; }
+        if (document.getElementById('no_mathml_support')) { document.getElementById('no_mathml_support').style.display = 'inline'; }
     }
-        
 }
 
 function determineFirefoxMessageByVersion()
 {
     var version = getFirefoxVersion();
-    
+
     if(version >= 3.0)
     {
-        document.getElementById("ff3_mathml_msg").style.display = 'inline';
+        if (document.getElementById("ff3_mathml_msg")) { document.getElementById("ff3_mathml_msg").style.display = 'inline'; }
     }
     else
     {
-        document.getElementById("ff2_mathml_msg1").style.display = 'inline';
+        if (document.getElementById("ff2_mathml_msg1")) { document.getElementById("ff2_mathml_msg1").style.display = 'inline'; }
     }
 }
 
 function mathmlCorrect(browser)
 {
-	createCookie('cnx_mathml_msg', 'dismiss', 365);
-	var ffMsgLink = document.getElementById('cnx_display_ff_msg_link')
-	if(ffMsgLink != null)
-	{
-	    document.getElementById('cnx_display_ff_msg_link').style.display = 'none'; 
-	}
-	
-	var defaultMsg1 = document.getElementById('default_mathml_msg1')
+    createCookie('cnx_mathml_msg', 'dismiss', 365);
+    var ffMsgLink = document.getElementById('cnx_display_ff_msg_link')
+    if(ffMsgLink != null)
+    {
+        document.getElementById('cnx_display_ff_msg_link').style.display = 'none';
+    }
+
+    var defaultMsg1 = document.getElementById('default_mathml_msg1')
     if(defaultMsg1 != null)
     {
         document.getElementById('default_mathml_msg1').style.display = 'none'; 
     }
-	
-	var defaultMsg2 = document.getElementById('default_mathml_msg2')
+
+    var defaultMsg2 = document.getElementById('default_mathml_msg2')
     if(defaultMsg2 != null)
     {
         document.getElementById('default_mathml_msg2').style.display = 'none'; 
     }
-	
-	var ieMsg = document.getElementById('ie_mathml_msg')
+
+    var ieMsg = document.getElementById('ie_mathml_msg')
     if(ieMsg != null)
     {
         document.getElementById('ie_mathml_msg').style.display = 'none'; 
     }
-	
-	var ffMsg2 = document.getElementById('ff_mathml_msg2')
+
+    var ffMsg2 = document.getElementById('ff_mathml_msg2')
     if(ffMsg2 != null)
     {
         document.getElementById('ff_mathml_msg2').style.display = 'none';
     }
-	
 }
 
 function toggleLensTags(sender)

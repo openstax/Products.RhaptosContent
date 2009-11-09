@@ -64,8 +64,9 @@
                   tal:condition="rate_view">
           <span i18n:translate="text_rate_module">Rate module</span>
           <span class="lensinfowrap">
-            <a href="/help/ratings_what" class="lenslink"
-                tal:attributes="href string:$portal_url/help/ratings_what">
+            <a href="/help/viewing/ratings" class="lenslink"
+                tal:define="help nocall:portal/help/viewing/ratings | nothing" tal:condition="nocall:help"
+                tal:attributes="href help/absolute_url">
               (<span class="hiddenStructure" i18n:translate="text_how_ratings">
                 How does the rating system work</span>?)</a>
             <div class="lensinfo hiddenStructure">
@@ -155,7 +156,8 @@
              tal:attributes="href collmmzip">Collection multimedia ZIP</a>
           <span class="lensinfowrap">
             <a href="" class="lenslink" i18n:translate="text_generic_help"
-               tal:attributes="href string:$portal_url/help/UsingZIPDownload/">(?)</a>
+               tal:define="help nocall:portal/help/viewing/multimediazip | nothing" tal:condition="nocall:help"
+               tal:attributes="href help/absolute_url">(?)</a>
             <metal:help metal:use-macro="topmacros/ziphelp" />
           </span>
           <tal:sep condition="modulepdf">|</tal:sep>
@@ -203,9 +205,10 @@
                              fav colfav" >
           <a href="#" metal:use-macro="topmacros/addtofavinner">My Favorites</a>
           <span class="lensinfowrap">
-            <a href="/help/lens_what" class="lenslink"
+            <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
-               tal:attributes="href string:$portal_url/help/lens_what">(?)</a>
+               tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+               tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="topmacros/favoriteshelp" />
           </span>
           <tal:sep>|</tal:sep>
@@ -215,9 +218,10 @@
                               suffix string:col_bottom">
           <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
-            <a href="/help/lens_what" class="lenslink"
+            <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
-               tal:attributes="href string:$portal_url/help/lens_what">(?)</a>
+               tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+               tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="context/collection_view/macros/lenshelp" />
           </span>
           <tal:sep>|</tal:sep>
@@ -273,9 +277,10 @@
                              fav modfav" >
           <a href="#" metal:use-macro="topmacros/addtofavinner">My Favorites</a>
           <span class="lensinfowrap">
-            <a href="/help/lens_what" class="lenslink"
+            <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
-               tal:attributes="href string:$portal_url/help/lens_what">(?)</a>
+               tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+               tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="topmacros/favoriteshelp" />
           </span>
           <tal:sep>|</tal:sep>
@@ -285,9 +290,10 @@
                               suffix string:mod_bottom">
           <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
-            <a href="/help/lens_what" class="lenslink"
+            <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
-               tal:attributes="href string:$portal_url/help/lens_what">(?)</a>
+               tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+               tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="context/collection_view/macros/lenshelp" />
           </span>
           <tal:sep>|</tal:sep>

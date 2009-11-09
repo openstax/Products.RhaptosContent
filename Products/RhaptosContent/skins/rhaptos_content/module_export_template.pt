@@ -69,7 +69,7 @@
             xmlns:m="http://www.w3.org/1998/Math/MathML"
             xmlns:md="http://cnx.rice.edu/mdml/0.4"
             xmlns:q="http://cnx.rice.edu/qml/1.0"
-            tal:content="here/abstract">[abstract]</span>
+            tal:content="structure here/abstract">[abstract]</span>
     </abstract>
     <license tal:condition="here/license | nothing" tal:attributes="href here/license" />
     <language tal:condition="here/language | nothing" tal:content="here/language">[language]</language>
@@ -328,15 +328,19 @@
         tal:condition="nocall:module">
         <orderable
             tal:define="pfile course/getPrintedFile | nothing;
-            printable python:pfile and pfile.get_size();
-            specialBuy course/buyLink | parameters/buyLink | context/aq_parent/buyLink | nothing;
-            autoBuy course/portal_properties/rhaptos_collection_print_config/buyBookURLformat | nothing;
-            courseId course/objectId;
-            autoBuy python:printable and autoBuy and autoBuy % courseId or None;
-            buyLink python:specialBuy or autoBuy;
-            all_modules course/containedModules;
-            canBuy python: course.getOrderable() and all_modules and buyLink;"
-            tal:condition="canBuy" />
+                        printable python:pfile and pfile.get_size();
+                        specialBuy course/buyLink | parameters/buyLink | context/aq_parent/buyLink | nothing;
+                        autoBuy course/portal_properties/rhaptos_collection_print_config/buyBookURLformat | nothing;
+                        courseId course/objectId;
+                        autoBuy python:printable and autoBuy and autoBuy % courseId or None;
+                        buyURL python:specialBuy or autoBuy;
+                        interstitial string:${course/url}/collection_print_confirmation;
+                        buyLink python:specialBuy or interstitial;
+                        all_modules course/containedModules;
+                        canBuy python:course.getOrderable() and all_modules and buyURL"
+            tal:condition="canBuy"
+            tal:attributes="url buyLink">
+        </orderable>
       </tal:determine-if-we-are-in-a-collection-context-and-strip-me>
     </context>
     <print tal:condition="exists:here/portal_pdflatex" href="?format=pdf"

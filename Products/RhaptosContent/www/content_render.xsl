@@ -147,6 +147,7 @@
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
+
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
@@ -532,7 +533,6 @@
       </div>
     </div>
 
-
     <div id="cnx_columns">
 
       <div id="cnx_sidebar_column">
@@ -647,7 +647,7 @@
                 <div class="lensinfowrap">
                   <!-- What is a lens? -->
                   <p id="cnx_what_is_a_lens">
-                    <a href="/help/lens_what" class="lenslink">
+                    <a href="/help/viewing/lenses" class="lenslink">
                       <xsl:text>What is a lens</xsl:text>
                       <xsl:text>?</xsl:text>
                     </a>
@@ -961,7 +961,7 @@
 	  <div id="cnx_course_header">
 
             <xsl:if test="display/context/orderable">
-              <a id="cnx_order_link" href="{$collurl}/collection_print_confirmation" target="_blank">
+              <a id="cnx_order_link" href="{display/context/orderable/@url}" target="_blank">
                 Order printed collection
               </a>
             </xsl:if>
@@ -1188,7 +1188,7 @@
                 <div id="cnx_rate" class="ratings">
                   <span class="cnx_before">User rating </span>
                   <span class="lensinfowrap">
-                    <a href="/help/ratings_what" class="lenslink">(<span class="hiddenStructure">How does the rating system work</span>?)</a>
+                    <a href="/help/viewing/ratings" class="lenslink">(<span class="hiddenStructure">How does the rating system work</span>?)</a>
                     <div class="lensinfo hiddenStructure">
                       <span class="cnx_before">Ratings</span>
                       <p>
@@ -1394,7 +1394,7 @@
                         <!-- See our -->
                         <xsl:text> See our</xsl:text>
                         <xsl:text> </xsl:text>
-                        <a href="/help/browser-support">
+                        <a href="/help/techsupport/browsers">
                           <!-- browser support page -->
                           <xsl:text>browser support page</xsl:text>
                         </a>
@@ -1857,6 +1857,11 @@
 
     </div>
     
+    <!-- light-weight-branding: IE needs this code to be at the bottom of the page ( see #9797)
+      Otherwise, it could be done right after lenses are loaded.
+     -->
+    <script type="text/javascript" src="lightweight-branding-banner.js"></script>
+
   </xsl:template>
 
   <!-- MP3 (Gallery style) -->

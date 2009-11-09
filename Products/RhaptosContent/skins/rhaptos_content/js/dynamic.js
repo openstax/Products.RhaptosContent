@@ -145,6 +145,15 @@ var LensAdd = function(){
 
              // Strip the HTML for the popup into a title and body
              var dialog = Ext.get("cnx_lens_popup");
+             //IE6 won't find the div, so we'll create one.
+             if (!dialog) {
+               var dialogDom = Ext.DomHelper.insertBefore(Ext.getBody(), 
+            	 {tag:'div', cls:'cnx_popup', children:[
+                   {tag:'div', cls:'x-dlg-hd', children:['Add to a lens']},
+                   {tag:'div', cls:'x-dlg-hd', children:['Add this content to my lens:']}
+                 ]});
+               dialog = Ext.get(dialogDom);
+             }
              title = dialog.first().dom.innerHTML;
              body = dialog.last().removeClass('x-dlg-bd').dom;
              // detach the dialog

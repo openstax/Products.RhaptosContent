@@ -18,10 +18,14 @@
   <body metal:fill-slot="body_slot" id="cnx_about_history"
         tal:define="utool nocall:here/portal_url;
                     portal utool/getPortalObject;
-                    objectId here/objectId | nothing;
+                    objectId context/objectId | nothing;
+                    version context/version;
+                    isPublic context/isPublic;
                     license_data here/getLicenseData;
                     license_version license_data/version;
-                    license_label license_data/label">
+                    license_label license_data/label;
+                    inCollection python:context.portal_type and context.portal_type == 'Collection' or False;
+                    inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
     
     <div metal:use-macro="here/content_template/macros/global" />
 
@@ -59,9 +63,7 @@
 	</tr>
 	<tr>
 	  <td valign="top" class="cnx_before" i18n:translate="text_abstract_header">Summary:</td>
-          <td valign="top"
-              tal:define="abstract context/abstract"
-              tal:content="abstract">[abstract]</td>
+          <td valign="top" tal:content="structure context/abstract_render">[abstract]</td>
 	</tr>
 	<tr tal:replace="nothing">
 	  <td valign="top" class="cnx_before" i18n:translate="text_objectives_header">Objectives:</td>
@@ -161,19 +163,20 @@
         </tr>
 	<!-- line and spacing between sections -->
 	<tr>
-	  <td valign="top" class="cnx_before" i18n:translate="text_version_header">Version:</td>
+	  <td valign="top" class="cnx_before" i18n:translate="text_version_header">Latest version:</td>
 	  <td valign="top"><span tal:replace="here/version">[version]</span>
 	    (<a class="cnxn" href="content_info#cnx_history_header"
 		i18n:translate="label_content_info_history">history</a>)
 	  </td>
 	</tr>
 	<tr>
-	  <td valign="top" class="cnx_before" i18n:translate="text_created_header">Created:</td>
+	  <td valign="top" class="cnx_before" i18n:translate="text_created_header">First publication date:</td>
           <td valign="top" tal:define="created here/created" tal:content="created/aCommonZ">Jan 16, 2003 12:00am</td> 
 	</tr>
 	<tr>
-	  <td valign="top" class="cnx_before" i18n:translate="text_revised_header">Revised:</td>
-	  <td valign="top" tal:content="here/revised/aCommonZ">Jan 29, 2003 4:50pm</td>
+          <td valign="top" class="cnx_before" i18n:translate="text_revised_header" tal:condition="python:inCollection">Last revision to collection:</td>
+          <td valign="top" class="cnx_before" i18n:translate="text_revised_header" tal:condition="python:inModule">Last revision to module:</td>
+          <td valign="top" tal:content="here/revised/aCommonZ">Jan 29, 2003 4:50pm</td>
 	</tr>
 	<tal:block tal:define="parent here/getParent" tal:condition="parent">	
 	  <!-- line and spacing between sections -->
@@ -199,9 +202,72 @@
 	    </span>
 	  </td>
 	</tr>
-
 	</tal:block>
-
+        <tal:block
+            tal:define="ptool              context/rhaptos_print;
+                        utils              python:modules['Products.CMFCore.utils'];
+                        ptool              python:utils.getToolByName(context, 'rhaptos_print');
+                        doesCollXmlExist   python:ptool.doesFileExist(objectId, version, 'xml');
+                        doesCompleteExist  python:ptool.doesFileExist(objectId, version, 'complete.zip');"
+            tal:condition="python:isPublic and inCollection and (doesCollXmlExist or doesCompleteExist)">
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
+          </tr>
+          <tal:row tal:condition="doesCollXmlExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Structure XML:</td>
+              <!-- need a different a[@href] below that hits the PrintTool cache. -->
+              <td valign="top">
+                <a href="source"
+                   tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
+              </td>
+            </tr>
+          </tal:row>
+          <tal:row tal:condition="doesCompleteExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">All collection files:</td>
+              <td valign="top">
+                <a href=""
+                   tal:content="string:${objectId}_${version}_complete.zip"
+                   tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
+              </td>
+            </tr>
+          </tal:row>
+        </tal:block>
+        <tal:block 
+            tal:define="realcontext        python:isPublic and portal.content.getRhaptosObject(objectId, version);
+                        realcontexturl     realcontext/url | nothing;
+                        ptool              context/rhaptos_print;
+                        utils              python:modules['Products.CMFCore.utils'];
+                        ptool              python:utils.getToolByName(context, 'rhaptos_print');
+                        doesZipExist       python:ptool.doesFileExist(objectId, version, 'zip');"
+            tal:condition="python:isPublic and inModule">
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" class="cnx_before" i18n:translate="text_cnxml">Module XML:</td>
+            <td valign="top">
+              <a href="module_export?format=plain"
+                 tal:attributes="href string:${realcontexturl}module_export?format=plain"
+                 tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
+            </td>
+          </tr>
+          <tal:row tal:condition="doesZipExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">All module files:</td>
+              <td valign="top">
+                <a href="module_export?format=zip"
+                   tal:attributes="href string:${realcontexturl}module_export?format=zip"
+                   tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
+              </td>
+            <tr>
+          </tal:row>
+        </tal:block>
       </table>
 
       </div>
@@ -209,16 +275,16 @@
       <div class="section" id="cnx_history_section">
 	<h2 id="cnx_history_header" class="section-header" i18n:translate="heading_version_history">Version History</h2>
 
-      <p tal:condition="not:exists:python:here.getHistory(here.objectId)"
+      <p tal:condition="not:exists:python:here.getHistory(objectId)"
 	  i18n:translate="text_history_only_published">
         Version history is only available for published content.
       </p>
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" tal:condition="exists:python:here.getHistory(here.objectId)">
-	<tal:block tal:repeat="revision python:here.getHistory(here.objectId)">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" tal:condition="exists:python:here.getHistory(objectId)">
+	<tal:block tal:repeat="revision python:here.getHistory(objectId)">
 	<tr>
 	  <td valign="top" class="cnx_before" i18n:translate="text_based_on_header">Version:</td>
 	  <td valign="top">
-	    <b tal:omit-tag="python:here.version != revision.version">
+	    <b tal:omit-tag="python:version != revision.version">
 	    <a class="cnxn" tal:attributes="href string:../${revision/version}" tal:content="revision/version">[version]</a> 
 	    <span tal:replace="revision/revised/aCommonZ">[date]</span>  
 		  <span i18n:translate="text_by">by</span> 
@@ -231,7 +297,7 @@
 		    tal:replace="string:(${user})">[Unknown user]</span>
 		</span>
 	    </b>
-	    <i tal:condition="python:(here.version == revision.version) 
+	    <i tal:condition="python:(version == revision.version) 
 		  and not(here.content.isLatestVersion(here))"
 		  style="padding-left: 1em;"
 		  i18n:translate="text_currently_viewing">Currently viewing this version.</i>
@@ -281,9 +347,9 @@
       <div class="section" id="cnx_cite_section">
 	<h2 id="cnx_cite_header" class="section-header" 
             i18n:translate="heading_how_to_cite">How to Cite and Attribute This Content</h2>
-	<p tal:condition="python:not here.state=='public'" 
-	  i18n:translate="text_citation_only_published">Citation styles are only available for published content.</p>
-	<tal:nopreviewallowed tal:condition="python:here.state=='public'">
+        <p tal:condition="not:isPublic"
+           i18n:translate="text_citation_only_published">Citation styles are only available for published content.</p>
+	<tal:nopreviewallowed tal:condition="isPublic">
 	  <p i18n:translate="text_choose_citation_style">The following citation styles comply with the attribution requirements for the license 
                 (<a class="link"
                     tal:attributes="href here/license"

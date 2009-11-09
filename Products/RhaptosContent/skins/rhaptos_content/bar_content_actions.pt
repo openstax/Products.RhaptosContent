@@ -93,8 +93,9 @@
                 Multimedia ZIP
               </a>
               <div id="cnx_actions_zipwhat">
-                <a href="/help/UsingZIPDownload/"
-                   tal:attributes="href string:$portal_url/help/UsingZIPDownload/"
+                <a href="/help/viewing/multimediazip"
+                   tal:define="help nocall:portal/help/viewing/multimediazip/absolute_url | nothing" tal:condition="nocall:help"
+                   tal:attributes="href help"
                    class="lenslink">(What is the ZIP for?)</a>
                 <div class="lensinfo hiddenStructure" metal:define-macro="ziphelp">
                   <p i18n:translate="text_tooltip_multimedia_zip_explanation_1">
@@ -206,8 +207,9 @@
         </tal:mod>
         <div class="lensinfowrap"
              id="cnx_actions_lenswhat">
-          <a href="/help/lens_what"
-             tal:attributes="href string:$portal_url/help/lens_what"
+          <a href="/help/viewing/lenses"
+             tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+             tal:attributes="href help/absolute_url"
              class="lenslink">(What is a lens?)</a>
           <div metal:use-macro="context/collection_view/macros/lenshelp">
             Explanation of lenses
@@ -293,9 +295,10 @@
 
         <div class="lensinfowrap"
              id="cnx_actions_favoriteswhat">
-          <a href="/help/lens_what" class="lenslink"
+          <a href="/help/viewing/lenses" class="lenslink"
              i18n:translate="text_what_is_my_favorites"
-             tal:attributes="href string:$portal_url/help/lens_what">(What is My Favorites?)</a>
+             tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+             tal:attributes="href help/absolute_url">(What is My Favorites?)</a>
           <div metal:define-macro="favoriteshelp"
                class="lensinfo hiddenStructure">
             <p i18n:translate="text_my_favorites_explanation">

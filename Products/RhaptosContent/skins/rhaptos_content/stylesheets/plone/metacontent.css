@@ -114,9 +114,8 @@
   border-bottom: 1px solid #8cacbb;
   line-height: 1.3em;
   color: Black;
-  padding: .2em 3em .2em 3em;
+  padding: .2em 2em;
   text-transform: lowercase;
-  font-size: .9em;
 }
 
 #cnx_portal-breadcrumbs a{
@@ -126,6 +125,17 @@
 
 * html #cnx_portal-breadcrumbs{padding-top: 2px;}
 *+html #cnx_portal-breadcrumbs{padding-top: 2px;}
+
+/* ===== light-weight branding ==========*/
+
+#cnx_branding_banner{
+  padding: 0.2em 2em;
+}
+
+#cnx_branding_logo{
+  text-align: center;
+  margin: -10px 0 1.5em;
+}
 
 /* ========== some basic elements ========== */
 

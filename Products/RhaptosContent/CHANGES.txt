@@ -1,3 +1,31 @@
+RhaptosContent-0.40
+  - light-weight-branding (30 Oct 2009)
+    - Viewing a lens page now sets (or updates) a cookie with a unique list of lenses visited.
+      Then, content_render.xsl has javascript that detects if this module is in one of the lenses
+      in the cookie (by navigating the DOM tree) and displays an ugly banner
+    - Banner colors, title, and whether a logo exists are stored in the cookie and
+      (aside from the logo) rendered.
+    - branding bar message needs to change based on lens category: {Endorsement, Affiliation}.
+    - branding logo now happens for collections and modules.
+    - Adding styling to CNX look and Rhaptos look for branding bar and
+      logo. Removed unused class from JS and converted another class into a more appropriate ID
+    - Fixing issues with padding in Rhaptos look and font-size in both
+      looks. Removing styling for #cnx_branding_logo in ploneCustom.css
+      files because that <div> shouldn't show up on the lens listing
+      page. Remove branding header from ploneCustom.css files because I
+      don't have such headers for anything else in those files (and don't
+      want to imply that everything under them is related to branding).
+    - Javascript now loads at the bottom of the page, and is inserted when Ext.onReady
+      is fired, not immediately; so there is flicker.
+
+RhaptosContent-0.39
+  - collection-structure-redesign-1 (Oct. 22, 2009)
+    - Added cnxml back into md:abstracts
+    - Updated links to help files
+    - content actions bar logic slightly updated since locked no longer bears on MM Zip
+    - content_info provides links to some data products (collxml, zips, etc) if available
+    - some small content_info wording/styling changes
+
 RhaptosContent-0.38
   - content-actions-move (17 Aug 2009)
     - content actions portlet replaced with content actions bar (shared between

@@ -29,17 +29,16 @@ if module:
 
 if collection:
     colurl = collection.url()
-    
+
     pfile = collection.getPrintedFile()
     printable = pfile and pfile.get_size()
     url = "%s/pdf" % colurl
     dls['collectionpdf'] = printable and url or None
-    
-    locked = collection.getProcessStatus() == 'locked'
+
     zfile = collection.getResourcesZip()
     hasZip = zfile and zfile.get_size() != 0
-    zdlable = printable and (not locked or hasZip)
-    url = "%s/multimediazip" % colurl
+    zdlable = printable and hasZip
+    url = "%s/multimedia" % colurl
     dls['collmmzip'] = zdlable and url or None
 
 ### add to ###
