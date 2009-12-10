@@ -460,10 +460,9 @@ var recentReplace = function(e) {
             urlContent += '/';
         }
         // Get the recently viewed HTML. Used only when viewing a module or a collection
-        // Can't ask for /portlet_... because site may be rooted elsewhere
-        // Can't ask for ./portlent_... because /col####/latest/portlet_... doesn't work
+        // Uses magic global variable portal_url defined in main_template
         relatedUpdater = Ext.get('cnx_recentview_contents').getUpdateManager();
-        relatedUpdater.update({url:"../portlet_recentview_inner",
+        relatedUpdater.update({url:portal_url+"/portlet_recentview_inner",
                                params:{urlContent: urlContent}});
     }
 }

@@ -137,6 +137,8 @@
 
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
+
         <xsl:if test="display/context">
             <script type="text/javascript" src="{publishing/portal/@href}/transmenus/transMenus0_9_2.js"><xsl:text> </xsl:text></script>
             <script type="text/javascript" src="{publishing/portal/@href}/transmenus/toc.js"><xsl:text> </xsl:text></script>
