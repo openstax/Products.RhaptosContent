@@ -7,12 +7,5 @@
 ##parameters=
 ##title=
 ##
-from Products.CMFCore.utils import getToolByName
-
-try:
-    ols_tool = getToolByName(context, 'portal_olsforum')
-except AttributeError:
-    return None
-
-if context.state == 'public':
-    return ols_tool.getForumUrl(context.objectId, context.title, uri=context.url(), st="Module")
+# Per Ross request.
+return None
