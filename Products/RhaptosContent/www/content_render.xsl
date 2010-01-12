@@ -130,7 +130,6 @@
 	</xsl:if>
 
     <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
-    <script type="text/javascript" src="{publishing/portal/@href}/js/choose-style.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/toggler.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/exercise.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>

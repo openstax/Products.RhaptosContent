@@ -97,7 +97,6 @@
 	  .hint {display:none}
 	</style>
 	
-	<script type="text/javascript" src="/js/choose-style.js"><xsl:text> </xsl:text></script>
 	<script type="text/javascript" src="/js/exercise.js"><xsl:text> </xsl:text></script>
 	<script type="text/javascript" src="/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 	
