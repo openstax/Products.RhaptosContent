@@ -133,22 +133,7 @@
 	        tal:condition="tags">
         <tag tal:repeat="tag tags" tal:content="tag">dsp</tag>
       </tags>
-
-      <tag_namespaces tal:define="namespaceTags python:ltool.getTagsForContent(objectId, version, inside=inside, tag_type='namespaceTags');
-                                  li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
-                                    namespaceTags, lens_path=portalPath+'/lenses')"
-                      tal:repeat="di li">
-        <title tal:content="python:di['tagnamespace'].Title()"></title>
-        <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
-        <tags tal:repeat="tag di/tags">
-          <tag>
-            <title tal:content="python:context.restrictedTraverse('@@getNamespaceTagLabel')(tag)"></title>
-            <term tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(prefix='', tag=tag)"></term>
-            <prefixed tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(di['tagnamespace'].getPrefix(), tag)"></prefixed>
-          </tag>
-        </tags>
-      </tag_namespaces>
-
+   
     </lensinfo>
   </metadata>
   
@@ -236,8 +221,9 @@
     <has_lenses tal:content="python:lenses and '1' or '0'"></has_lenses>
     <lenses>
       <tal:loop repeat="lens lenses">
-        <lens tal:attributes="path string:${lens/getPath}/${context/objectId}">
-          <title tal:content="python:lens.getObject().getDisplayName()"></title>
+        <lens tal:attributes="path string:${lens/getPath}/${context/objectId};
+                              link lens/getURL">
+          <title tal:content="lens/getDisplayName"></title>
         </lens>
       </tal:loop>
     </lenses>
@@ -256,7 +242,7 @@
     <span tal:content="options/style | request/style | nothing" />
     <styles tal:define="permastyle context/style | nothing;
                         style context/style | options/style | request/style | nothing;
-			styles options/styles | python:here.getStyles(style);
+			styles options/styles | python:here.getStyles();
                         style_chooser options/style_chooser | python:not permastyle;"
             tal:attributes="chooser python:test(style_chooser, 'true', nothing)">
       <style tal:repeat="s styles"
@@ -378,6 +364,35 @@
     <tal:mathmlbrowser tal:define="hasCookie request/cnx_mathml_msg_browser|nothing">
       <mathmlmsgbrowser tal:content="python:hasCookie and request.cnx_mathml_msg_browser or 'unknown'">[true]</mathmlmsgbrowser>
     </tal:mathmlbrowser>
+    <tal:branding
+      tal:define="
+          brandingCookie  request/lenses | nothing;
+          brandingDict    python:context.findBrandingLens(cats,brandingCookie);
+          gotBranding     python:brandingDict is not None;"
+      tal:condition="gotBranding">
+      <branding
+          lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo=""
+          tal:define="
+              brandingLensId          python:brandingDict['lensId'] or None;
+              brandingColor           python:brandingDict['lensInfo']['bannerColor']or None;
+              brandingForegroundColor python:brandingDict['lensInfo']['bannerForegroundColor'] or None;
+              brandingCategory        python:brandingDict['lensInfo']['category']or None;
+              brandingLocation        python:brandingDict['lensInfo']['location']or None;
+              brandingTitle           python:brandingDict['lensInfo']['title']or None;
+              brandingLogo            python:brandingDict['lensInfo']['logo'] == 'true'
+                                             and (brandingDict['lensInfo']['location']+'/logo') or None;"
+          tal:attributes="
+              lensId                brandingLensId;
+              title                 brandingTitle;
+              location              brandingLocation;
+              category              brandingCategory;
+              bannerColor           brandingColor;
+              bannerForegroundColor brandingForegroundColor;
+              logo                  brandingLogo;">
+        <tal:comment replace="nothing">brandingLens  ltool.restrictedTraverse(brandingLensId); </tal:comment>
+        <tal:comment replace="nothing">brandingDict is <span tal:content="string:${brandingDict}"/> </tal:comment>
+      </branding>
+    </tal:branding>
   </display>
 
   <editing tal:define="mtool context/portal_membership;

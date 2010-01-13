@@ -23,9 +23,7 @@ product_globals = globals()
 
 # Setup XSL transform path
 MODULE_XSL =  os.path.join(package_home(globals()), 'www/content_render.xsl')
-MODULE_XSL_OLD =  os.path.join(package_home(globals()), 'www/content_render_old.xsl')
 ModuleSecurityInfo('Products.RhaptosContent').declarePublic('MODULE_XSL')
-ModuleSecurityInfo('Products.RhaptosContent').declarePublic('MODULE_XSL_OLD')
 
 # Make the skins available as DirectoryViews
 registerDirectory('skins', product_globals)

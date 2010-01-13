@@ -224,6 +224,15 @@
                tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="context/collection_view/macros/lenshelp" />
           </span>
+          <tal:siyahamba condition="context/@@siyavula|nothing">
+          | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
+          </tal:siyahamba>
           <tal:sep>|</tal:sep>
         </tal:lens>
         
@@ -296,6 +305,15 @@
                tal:attributes="href help/absolute_url">(?)</a>
             <div metal:use-macro="context/collection_view/macros/lenshelp" />
           </span>
+          <tal:siyahamba condition="context/@@siyavula|nothing">
+          | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
+          </tal:siyahamba>
           <tal:sep>|</tal:sep>
         </tal:lens>
         

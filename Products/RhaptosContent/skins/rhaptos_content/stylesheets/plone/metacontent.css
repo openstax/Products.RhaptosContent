@@ -935,6 +935,25 @@ li.cnx_lens{
   color: #76797c;
 }
 
+#cnx_endorse_module form{
+  display: inline;
+}
+
+#cnx_endorse_module ul{
+  margin: 1em 0;
+  padding-left: 0;
+}
+
+#cnx_endorse_module li{
+  list-style: none none;
+  padding-left: 0;
+  background-image: none;
+}
+
+input.noborder{
+  border: none;
+}
+
 /* ========== author links box ========== */
 
 #cnx_author_links{
@@ -1055,6 +1074,10 @@ strong, .lensinfotitle{
   display: block;
 }
 
+.lensinfoapproval{
+  margin: 1em 0;
+}
+
 .lensinfocomments p{
   margin-bottom: .5em;
 }
@@ -1099,6 +1122,11 @@ h4 .lenslink{
 
 #cnx_lens_inner .formHelp{
   margin: .2em 0;
+}
+
+.cnx_freeform_note{
+  border: 1px dotted #666;
+  padding: .4em .5em .5em;
 }
 
 .x-window-header-text{

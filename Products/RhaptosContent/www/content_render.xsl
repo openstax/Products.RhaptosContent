@@ -101,10 +101,10 @@
           <xsl:value-of select="$moduletitle"/>
 	</title>
 
-        <link rel="stylesheet" type="text/css" href="/extjs/resources/css/ext-all.css"/>
+        <link rel="stylesheet" type="text/css" href="{publishing/portal/@href}/extjs/resources/css/ext-all.css"/>
 
         <xsl:if test="display/offline">
-        <link rel="stylesheet" type="text/css" href="stylesheets/offline.css"/>
+        <link rel="stylesheet" type="text/css" href="{publishing/portal/@href}/stylesheets/offline.css"/>
         </xsl:if>
 
 	<xsl:choose>
@@ -163,7 +163,7 @@
 	<xsl:if test="display/context/a">
 	  <link rel="up" href="{$collurl}" title="{$colltitle}"/>
 	</xsl:if>
-	<link rel="meta" type="application/rdf+xml" href="content_license"/>
+	<link rel="meta" type="application/rdf+xml" href="{publishing/portal/@href}/content_license"/>
 	<xsl:for-each select="//link[contains(@rel,'annotea')]">
 	  <link>
 	    <xsl:copy-of select="@*"/>
@@ -405,7 +405,7 @@
   
 
   <xsl:template name="ingredients">
-
+	<xsl:variable name="portalPath" select="publishing/portal/@href"/>
 
     <div id="cnx_portal-top">
       <p class="hiddenStructure">
@@ -466,7 +466,7 @@
 	</form>
       </div>
       <h1 id="cnx_portal-logo">
-	<a href="/" title="{publishing/portal/description}">
+	<a href="{publishing/portal/@href}" title="{publishing/portal/description}">
 	  <xsl:value-of select="publishing/portal/description"/>
 	</a>
       </h1>
@@ -532,11 +532,54 @@
 	</xsl:if>
         <xsl:value-of select="$moduletitle"/>
       </div>
+
     </div>
+
+    <xsl:if test='/module/display/branding'>
+      <div id='cnx_branding_banner'>
+        <xsl:attribute name="style">background-color:#<xsl:value-of select="/module/display/branding/@bannerColor"/>;color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="/module/display/branding/@category='Endorsement'">
+            Content endorsed by:
+          </xsl:when>
+          <xsl:when test="/module/display/branding/@category='Affiliation'">
+            Content affiliated with:
+          </xsl:when>
+          <xsl:otherwise>
+            Content included in lens:
+          </xsl:otherwise>
+        </xsl:choose>
+        <a>
+          <xsl:attribute name="href">
+            <xsl:value-of select="/module/display/branding/@location"/>
+          </xsl:attribute>
+          <xsl:attribute name="style">color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
+          <xsl:value-of select="/module/display/branding/@title"/>
+        </a>
+      </div>
+    </xsl:if>
 
     <div id="cnx_columns">
 
       <div id="cnx_sidebar_column">
+
+        <xsl:if test='/module/display/branding/@logo'>
+          <div id="cnx_branding_logo">
+            <a>
+                <xsl:attribute name="href">
+                  <xsl:value-of select="/module/display/branding/@location"/>
+                </xsl:attribute>
+              <img>
+                <xsl:attribute name="src">
+                  <xsl:value-of select="/module/display/branding/@logo"/>
+                </xsl:attribute>
+                <xsl:attribute name="alt">
+                  <xsl:value-of select="/module/display/branding/@title"/>
+                </xsl:attribute>
+              </img>
+            </a>
+          </div>
+        </xsl:if>
 
         <h2 class="hiddenStructure">
           <!-- Navigation -->
@@ -609,18 +652,22 @@
                 <span class="portletTopRight"><xsl:text> </xsl:text></span>
               </dt>
               <dd class="portletItem odd">
-                <b>Select the lenses where this module should be approved</b>:
-                <br/>
+                <h4>Select the lenses where this module should be approved:</h4>
                 <xsl:variable name="approve_form_action" select="/module/approve_module_lenses/@form_action" />
                 <form method="post" action="{$approve_form_action}">
+                  <ul>
                   <xsl:for-each select="/module/approve_module_lenses/lenses/lens">
+                    <li>
                     <input name="paths:list"
                            value="{@path}"
-                           type="checkbox"/>
-                    <xsl:value-of select="title" />
-                    <br/>    
+                           type="checkbox"
+                           class="noborder" />
+                       <a href="{@link}">
+                         <xsl:value-of select="title" />
+                       </a>
+                    </li>
                   </xsl:for-each>
-                  <br/>
+                  </ul>
                   <input class="searchButton" type="submit" value="Approve" />
                 </form>
               </dd>
@@ -648,7 +695,7 @@
                 <div class="lensinfowrap">
                   <!-- What is a lens? -->
                   <p id="cnx_what_is_a_lens">
-                    <a href="/help/viewing/lenses" class="lenslink">
+                    <a href="{publishing/portal/@href}/help/viewing/lenses" class="lenslink">
                       <xsl:text>What is a lens</xsl:text>
                       <xsl:text>?</xsl:text>
                     </a>
@@ -669,7 +716,7 @@
                       <img src="/endorsed.gif" alt="Endorsed" />
                       <xsl:text> </xsl:text>
                       <!-- ([What does "Endorsed by" mean]?) -->
-                      <a href="/help/glossary#endorsement" class="lenslink">
+                      <a href="{publishing/portal/@href}/help/glossary#endorsement" class="lenslink">
                         <xsl:text>(</xsl:text>
                         <span class="hiddenStructure">
                           <xsl:text>What does "Endorsed by" mean</xsl:text>
@@ -699,7 +746,7 @@
                       <xsl:text>Affiliated with</xsl:text>
                       <xsl:text> </xsl:text>
                       <!-- ([What does "Affiliated with" mean]?) -->
-                      <a href="/help/glossary#affiliation" class="lenslink">
+                      <a href="{publishing/portal/@href}/help/glossary#affiliation" class="lenslink">
                         <xsl:text>(</xsl:text>
                         <span class="hiddenStructure">
                           <xsl:text>What does "Affiliated with" mean</xsl:text>
@@ -781,7 +828,7 @@
                     </xsl:for-each>
                     <xsl:if test="related/similar/@more='true'">
                       <li class="portletMore">
-                        <a href="/content/similarity?objectId={$objectId}">
+                        <a href="{publishing/portal/@href}/content/similarity?objectId={$objectId}">
                           <xsl:attribute name="title"><!-- More links to similar content -->
                             <xsl:text>More links to similar content</xsl:text>
                           </xsl:attribute>
@@ -829,7 +876,7 @@
                     </xsl:for-each>
                     <xsl:if test="related/courses/@more='true'">
                       <li class="portletMore">
-                        <a href="/content/search?portal_types:list=Collection&amp;words={$objectId}">
+                        <a href="{publishing/portal/@href}/content/search?portal_types:list=Collection&amp;words={$objectId}">
                           <xsl:attribute name="title"><!-- More collections using this module -->
                             <xsl:text>More collections using this module</xsl:text>
                           </xsl:attribute>
@@ -890,7 +937,7 @@
           </dl>
         </div>
 
-        <xsl:if test="metadata/lensinfo/tags or metadata/lensinfo/tag_namespaces">
+        <xsl:if test="metadata/lensinfo/tags or metadata/lensinfo//tag_namespaces">
           <div class="portletContainer" id="cnx_tags">
             <dl class="portlet">
               <dt class="portletHeader">
@@ -904,7 +951,7 @@
               <dd class="portletItem odd">
                 <div class="lensinfowrap">
                   <p class="cnx_question_mark">
-                    <a href="/help/glossary#tags" class="lenslink">
+                    <a href="{publishing/portal/@href}/help/glossary#tags" class="lenslink">
                       <!-- ([What is a tag]?) -->
                       <xsl:text>(</xsl:text>
                       <span class="hiddenStructure">
@@ -925,21 +972,22 @@
                 <ul class="cnx_tag_listing">
                   <xsl:for-each select="metadata/lensinfo/tags/tag">
                     <li>
-                      <a href="/lenses/tags_browse?tag={.}" title="{.}">
+                      <a href="{$portalPath}/lenses/tags_browse?tag={.}" title="{.}">
                         <xsl:value-of select="."/>
                       </a>
                     </li>
                     <xsl:text> </xsl:text>
                   </xsl:for-each>                  
 
-                  <xsl:for-each select="metadata/lensinfo/tag_namespaces/tags/tag">
+                  <xsl:for-each select="metadata/lensinfo//tag_namespaces/tags[not(.=preceding::entry/tag_namespaces/tags)]/tag">
                     <li>
-                      <a href="/lenses/tags_browse?tag={prefixed}" title="{title}">
+                      <a href="{$portalPath}/lenses/tags_browse?prefix={../../prefix}&amp;tag={term}" title="{title}">
                         <xsl:value-of select="term"/>
                       </a>
                     </li>
                     <xsl:text> </xsl:text>
                   </xsl:for-each>
+
                 </ul>
               </dd>
             </dl>
@@ -994,7 +1042,7 @@
                     <xsl:text>: </xsl:text>
                   </span>
                   <xsl:for-each select="display/context/authors/author">
-                    <a href="/member_profile/{@id}">
+                    <a href="{publishing/portal/@href}/member_profile/{@id}">
                       <xsl:value-of select="name"/>
                     </a>
                     <xsl:if test="position()!=last()">
@@ -1189,7 +1237,7 @@
                 <div id="cnx_rate" class="ratings">
                   <span class="cnx_before">User rating </span>
                   <span class="lensinfowrap">
-                    <a href="/help/viewing/ratings" class="lenslink">(<span class="hiddenStructure">How does the rating system work</span>?)</a>
+                    <a href="{publishing/portal/@href}/help/viewing/ratings" class="lenslink">(<span class="hiddenStructure">How does the rating system work</span>?)</a>
                     <div class="lensinfo hiddenStructure">
                       <span class="cnx_before">Ratings</span>
                       <p>
@@ -1395,7 +1443,7 @@
                         <!-- See our -->
                         <xsl:text> See our</xsl:text>
                         <xsl:text> </xsl:text>
-                        <a href="/help/techsupport/browsers">
+                        <a href="{publishing/portal/@href}/help/techsupport/browsers">
                           <!-- browser support page -->
                           <xsl:text>browser support page</xsl:text>
                         </a>
@@ -1857,11 +1905,6 @@
       </div>
 
     </div>
-    
-    <!-- light-weight-branding: IE needs this code to be at the bottom of the page ( see #9797)
-      Otherwise, it could be done right after lenses are loaded.
-     -->
-    <script type="text/javascript" src="lightweight-branding-banner.js"></script>
 
   </xsl:template>
 
@@ -2065,7 +2108,7 @@
             <xsl:if test="not(/module/editing/anonymoususer)">
               <xsl:if test="(@state = 'published_open') or (@state = 'private_open')">
                 <xsl:text> </xsl:text>
-                <a href="lens_add_open_tags?lens_paths:list={/publishing/portal/@path}{@link}">
+                <a href="lens_add_tags?lens_paths:list={/module/publishing/portal/@path}{@link}">
                   <img src="/pencil_cnx.png" alt="Edit tags" title="Edit tags" />
                 </a>
               </xsl:if>
@@ -2079,7 +2122,7 @@
                 </li>
                 <xsl:text> </xsl:text>
               </xsl:for-each>
-              <xsl:for-each select="entry/tag_namespaces/tags">
+              <xsl:for-each select="entry/tag_namespaces/tags[not(.=preceding::entry/tag_namespaces/tags)]">
                 <li>
                   <a href="{../../../@link}/lens_view/{tag/prefixed}" title="{tag/title}">
                     <xsl:value-of select="tag/term" />
@@ -2103,22 +2146,28 @@
             </xsl:attribute>
           </img>
         </xsl:if>
+
         <p>
           <span class="lensinfohelp">
             <xsl:choose>
+
               <!-- If module is explicit and explicit collection -->
               <xsl:when test="$direct and $contextual">
                 <!-- This module and collection are included in -->
                 <xsl:text>This module and collection are included in</xsl:text>
               </xsl:when>
+
               <!-- If module is not explicit and explicit collection -->
               <xsl:when test="not($direct) and $contextual">
                 <!-- This collection is included in -->
                 <xsl:text>This collection is included in</xsl:text>
               </xsl:when>
-              <!-- If module is explicit and no explicit collection OR implicit collection(s)-->
+
+              <!-- If module is explicit and no explicit collection OR 
+                   implicit collection(s) -->
               <xsl:otherwise>
-                <!-- This module is included in -->
+                  
+                <!-- This module is included in -->	
                 <xsl:choose>
                   <xsl:when test="entry[@approved = '1']">
                     <xsl:text>This module is approved and included in</xsl:text>
@@ -2128,13 +2177,17 @@
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:otherwise>
+
             </xsl:choose>
+
+
             <xsl:if test="@title = @creatorName">
               <!-- a -->
               <xsl:text> </xsl:text>
               <xsl:text>a</xsl:text>
             </xsl:if>
           </span>
+
           <xsl:if test="@title = @creatorName">
             <strong>
               <!-- Lens by: -->
@@ -2172,17 +2225,18 @@
               <xsl:value-of select="entry/@printableTags" />
             </xsl:if>
             -->
+
           </xsl:if>         
           <xsl:if test="not($direct) and not($contextual)">
             <span class="lensinfohelp">
               <xsl:choose>
                 <xsl:when test="$implicit &gt; 1">
                   <!-- As a part of collections: (plural) -->
-                  <xsl:text>As a part of collections:</xsl:text>
+                  <xsl:text>As a part of collections: </xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                   <!-- As a part of collection: (singular) -->
-                  <xsl:text>As a part of collection:</xsl:text>
+                  <xsl:text>As a part of collection: </xsl:text>
                 </xsl:otherwise>
               </xsl:choose>
               <xsl:for-each select="entry[@indirect != 'contextual']">
@@ -2201,6 +2255,85 @@
             </span>
           </xsl:if>
         </p>
+        <!-- show the approved review status if lens is open -->
+        <xsl:if test="contains(@state, '_open')">
+          <div class="lensinfoapproval">
+            <xsl:if test="$direct">
+              <div>
+                <xsl:choose>
+                  <xsl:when test="$contextual">
+                    <strong>Module Review Status:</strong>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <strong>Review Status:</strong>
+                  </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                  <xsl:when test="entry[not(@indirect)][@approved = '1']">
+                    <xsl:text> Approved</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text> In Review</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </div>
+            </xsl:if>
+            <xsl:if test="$contextual">
+              <div>
+                <strong>Collection Review Status:</strong>
+                <xsl:choose>
+                  <xsl:when test="entry[@indirect = 'contextual'][@approved = '1']">
+                    <xsl:text> Approved</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text> In Review</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </div>
+            </xsl:if>
+            <xsl:if test="not($direct) and not($contextual)">
+            <!-- Done this way instead of testing $implicit to avoid the
+                 case where the lens also explicitly includes the module
+                 or the collection -->
+              <div>
+                <strong>Collection Review Status:</strong>
+                <xsl:choose>
+                  <xsl:when test="$implicit &gt; 1">
+                  <!-- More than one implicit case -->
+                    <xsl:for-each select="entry[@indirect]">
+                      <xsl:text> "</xsl:text>
+                      <xsl:value-of select="title" />
+                      <xsl:text>"</xsl:text>
+                      <xsl:choose>
+                        <xsl:when test="@approved = '1'">
+                          <xsl:text> approved</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text> in review</xsl:text>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                      <xsl:if test="position()!=last()">
+                        <xsl:text>,</xsl:text>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                  <!-- Just one implicit case -->
+                    <xsl:choose>
+                      <xsl:when test="entry[@approved = '1']">
+                        <xsl:text> Approved</xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text> In Review</xsl:text>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </div>
+            </xsl:if>
+          </div>
+        </xsl:if>
+
         <xsl:if test="($contextual + $direct = 0 and entry[@indirect = 'implicit']/comment) or (entry[@indirect = 'contextual' or not(@indirect)]/comment)">
           <div class="lensinfocomments">
             <strong>
@@ -2231,6 +2364,7 @@
             </xsl:choose>
           </div>
         </xsl:if>
+
         <p class="lensinfohelp">
           Click the
           <strong>
@@ -2250,6 +2384,7 @@
             </xsl:otherwise>
           </xsl:choose>
         </p>
+
         <xsl:if test="entry/tag_namespaces or entry/tags">
           <p class="lensinfohelp lensinfotags">
             Click the
@@ -2261,6 +2396,7 @@
           </p>
         </xsl:if>
       </div>
+
     </li>
   </xsl:template>
 
