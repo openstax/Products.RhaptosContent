@@ -1,0 +1,529 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal" 
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/content_template/macros/master"
+      i18n:domain="rhaptos">
+
+  <head>
+    <title metal:fill-slot="title_slot"
+      i18n:translate="title_content_info_about">About 
+      <span i18n:name="module_name" tal:replace="here/Title">[Module Title]</span>
+    </title>
+    <metal:header metal:fill-slot="head_slot">
+      <meta name="robots" content="nofollow" />
+    </metal:header>
+  </head>
+
+  <body metal:fill-slot="body_slot" id="cnx_about_history"
+        tal:define="utool nocall:here/portal_url;
+                    portal utool/getPortalObject;
+                    objectId context/objectId | nothing;
+                    version context/version;
+                    isPublic context/isPublic;
+                    license_data here/getLicenseData;
+                    license_version license_data/version;
+                    license_label license_data/label;
+                    inCollection python:context.portal_type and context.portal_type == 'Collection' or False;
+                    inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
+    
+    <div metal:use-macro="here/content_template/macros/global" />
+
+    <div id="cnx_columns">
+      <div id="cnx_content_column">
+
+    <div metal:use-macro="here/content_template/macros/header" />
+
+    <div id="cnx_main" tal:define="authors python:map(here.desecured.getMemberById, path('here/authors'));
+                                   object_url string:${here/portal_url}/content/${objectId}/${here/version}/;">
+
+      <p>
+        <a class="cnxn" href="." i18n:translate="label_view_content_main">View content</a>
+      </p>
+
+      <div class="section" id="cnx_about_section">
+
+      <h2 id="cnx_about_header" class="section-header" i18n:translate="heading_metadata_section">Metadata</h2>
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_name_header">Name:</td>
+          <td valign="top" class="cnx_name" tal:content="here/title">[name]</td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_id_header">ID:</td>
+	  <td valign="top" tal:content="python:objectId or 'n/a'">[id]</td>
+	</tr>
+	<tr tal:define="lang here/language | nothing;
+	    lang_split python:lang and lang.split('-')[0] or '';">
+	  <td valign="top" class="cnx_before" i18n:translate="text_language_header">Language:</td>
+	  <td valign="top"><span tal:replace="python:here.portal_languages.getNameForLanguageCode(lang_split)">[language]</span>
+	      <span tal:condition="lang" tal:replace="string:(${lang})">[language code]</span>
+	    </td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_abstract_header">Summary:</td>
+          <td valign="top" tal:content="structure context/abstract_render">[abstract]</td>
+	</tr>
+	<tr tal:replace="nothing">
+	  <td valign="top" class="cnx_before" i18n:translate="text_objectives_header">Objectives:</td>
+	  <td valign="top">Objectives go here</td>
+	</tr>
+        <tr tal:condition="here/getCollectionType | nothing">
+          <td valign="top" class="cnx_before" i18n:translate="text_collectionType_header">Collection&#160;Subtype:</td>
+          <td valign="top" tal:content="python:here.getCollectionType(display='full')">Type</td>
+        </tr>
+	<tr tal:define="subjects python:same_type(here.subject,'') and [here.subject] or here.subject"
+                tal:condition="subjects">
+	  <td valign="top" class="cnx_before" i18n:translate="text_subject_header">Subject:</td>
+	  <td valign="top">
+			<tal:block tal:repeat="subj subjects"><span tal:replace="subj">[keyword]</span><tal:span tal:condition="not:repeat/subj/end">, </tal:span></tal:block></td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_keywords_header">Keywords:</td>
+	  <td valign="top">
+			<tal:block tal:repeat="word here/keywords"><span tal:replace="word">[keyword]</span><tal:span tal:condition="not:repeat/word/end">, </tal:span></tal:block></td>
+	</tr>
+	<tr tal:condition="here/doctype | nothing">
+	  <td valign="top" class="cnx_before" i18n:translate="text_document_type_header">Document Type:</td>
+	  <td valign="top" tal:content="here/doctype">[doctype]</td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_license_header">License:</td>
+	  <td valign="top">
+	    <a class="link" tal:condition="here/license"
+	    tal:attributes="href here/license" i18n:translate="label_creative_commons_attribution_license">Creative Commons Attribution License</a>
+	    <span tal:replace="license_label">[(CC-BY 3.0)]</span>
+	  </td>
+	</tr>
+	<!-- line and spacing between sections -->
+        <tr>
+          <td colspan="2">
+	    <hr />
+          </td>
+        </tr>
+	<!-- line and spacing between sections -->
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_authors_header">Authors:</td>
+	  <td valign="top">
+	    <span class="cnx_person" tal:repeat="m authors">
+		<tal:badauthor tal:on-error="string:(${m})">
+		<a tal:content="python:m.getProperty('fullname')"
+		tal:attributes="href string:/member_profile/${m/id}">[fullname]</a>
+		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/m/end">, </span>
+	    </span>
+	  </td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_copyright_holders_header">Copyright&#160;Holders: </td>
+	  <td valign="top">
+	    <span class="cnx_person" tal:repeat="p here/licensors">
+	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
+		<tal:badauthor tal:on-error="string:(${p})">
+		<a tal:content="python:m.getProperty('fullname')"
+		tal:attributes="href string:/member_profile/${m/id}">[fullname] </a>
+		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">mizar@rice.edu</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+	      </tal:person>
+	    </span>
+	  </td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_copyright_holders_header">Maintainers: </td>
+	  <td valign="top">
+	    <span class="cnx_person" tal:repeat="p here/maintainers">
+	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
+		<tal:badauthor tal:on-error="string:(${p})">
+		<a tal:content="python:m.getProperty('fullname')"
+		tal:attributes="href string:/member_profile/${m/id}">[fullname]</a>
+		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+	      </tal:person>
+	    </span>
+	  </td>
+          </tr>
+          <tr tal:repeat="role python:here.roles.items()"
+            tal:define="opt_roles_dict here/portal_collaboration/optional_role_info">
+            <td valign="top" class="cnx_before" i18n:translate="" 
+              tal:content="python:opt_roles_dict[role[0]][1]+':'">[Optional Role Name]</td>
+            <td valign="top">
+              <span class="cnx_person" tal:repeat="p python:role[1]">
+                <tal:person tal:define="m python:here.desecured.getMemberById(p)">
+                  <tal:badauthor tal:on-error="string:(${p})">
+                    <a tal:content="python:m.getProperty('fullname')"
+                      tal:attributes="href string:/member_profile/${m/id}">[name]</a>
+                    (<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+                </tal:person>
+              </span>
+            </td>
+          </tr>
+	<!-- line and spacing between sections -->
+        <tr>
+          <td colspan="2">
+	    <hr />
+          </td>
+        </tr>
+	<!-- line and spacing between sections -->
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_version_header">Latest version:</td>
+	  <td valign="top"><span tal:replace="here/version">[version]</span>
+	    (<a class="cnxn" href="content_info#cnx_history_header"
+		i18n:translate="label_content_info_history">history</a>)
+	  </td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_created_header">First publication date:</td>
+          <td valign="top" tal:define="created here/created" tal:content="created/aCommonZ">Jan 16, 2003 12:00am</td> 
+	</tr>
+	<tr>
+          <td valign="top" class="cnx_before" i18n:translate="text_revised_header" tal:condition="python:inCollection">Last revision to collection:</td>
+          <td valign="top" class="cnx_before" i18n:translate="text_revised_header" tal:condition="python:inModule">Last revision to module:</td>
+          <td valign="top" tal:content="here/revised/aCommonZ">Jan 29, 2003 4:50pm</td>
+	</tr>
+	<tal:block tal:define="parent here/getParent" tal:condition="parent">	
+	  <!-- line and spacing between sections -->
+	  <tr>
+	    <td colspan="2">
+	      <hr />
+	    </td>
+	  </tr>
+	  <!-- line and spacing between sections -->
+	  <tr>
+	    <td valign="top" class="cnx_before" i18n:translate="text_based_on_header">Based On:</td>
+	    <td valign="top"><a class="cnxn" tal:attributes="href parent/url" tal:content="parent/title">[title]</a></td>
+	  </tr>
+	  <tr>
+	    <td valign="top" class="cnx_before" i18n:translate="text_originally_by_header">Originally By: </td>
+	    <td valign="top">
+	      <span class="cnx_person" tal:repeat="p here/parentAuthors">
+	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
+		<tal:badauthor tal:on-error="string:(${p})">
+		<span tal:content="python:m.getProperty('fullname')">[fullname]</span>
+		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+	      </tal:person>
+	    </span>
+	  </td>
+	</tr>
+	</tal:block>
+        <tal:block
+            tal:define="ptool              context/rhaptos_print;
+                        utils              python:modules['Products.CMFCore.utils'];
+                        ptool              python:utils.getToolByName(context, 'rhaptos_print');
+                        doesCollXmlExist   python:ptool.doesFileExist(objectId, version, 'xml');
+                        doesCompleteExist  python:ptool.doesFileExist(objectId, version, 'complete.zip');"
+            tal:condition="python:isPublic and inCollection and (doesCollXmlExist or doesCompleteExist)">
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
+          </tr>
+          <tal:row tal:condition="doesCollXmlExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Structure XML:</td>
+              <!-- need a different a[@href] below that hits the PrintTool cache. -->
+              <td valign="top">
+                <a href="source"
+                   tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
+              </td>
+            </tr>
+          </tal:row>
+          <tal:row tal:condition="doesCompleteExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">All collection files:</td>
+              <td valign="top">
+                <a href=""
+                   tal:content="string:${objectId}_${version}_complete.zip"
+                   tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
+              </td>
+            </tr>
+          </tal:row>
+        </tal:block>
+        <tal:block 
+            tal:define="realcontext        python:isPublic and portal.content.getRhaptosObject(objectId, version);
+                        realcontexturl     realcontext/url | nothing;
+                        ptool              context/rhaptos_print;
+                        utils              python:modules['Products.CMFCore.utils'];
+                        ptool              python:utils.getToolByName(context, 'rhaptos_print');
+                        doesZipExist       python:ptool.doesFileExist(objectId, version, 'zip');"
+            tal:condition="python:isPublic and inModule">
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" class="cnx_before" i18n:translate="text_cnxml">Module XML:</td>
+            <td valign="top">
+              <a href="module_export?format=plain"
+                 tal:attributes="href string:${realcontexturl}module_export?format=plain"
+                 tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
+            </td>
+          </tr>
+          <tal:row tal:condition="doesZipExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">All module files:</td>
+              <td valign="top">
+                <a href="module_export?format=zip"
+                   tal:attributes="href string:${realcontexturl}module_export?format=zip"
+                   tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
+              </td>
+            <tr>
+          </tal:row>
+        </tal:block>
+      </table>
+
+      </div>
+
+      <div class="section" id="cnx_history_section">
+	<h2 id="cnx_history_header" class="section-header" i18n:translate="heading_version_history">Version History</h2>
+
+      <p tal:condition="not:exists:python:here.getHistory(objectId)"
+	  i18n:translate="text_history_only_published">
+        Version history is only available for published content.
+      </p>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" tal:condition="exists:python:here.getHistory(objectId)">
+	<tal:block tal:repeat="revision python:here.getHistory(objectId)">
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_based_on_header">Version:</td>
+	  <td valign="top">
+	    <b tal:omit-tag="python:version != revision.version">
+	    <a class="cnxn" tal:attributes="href string:../${revision/version}" tal:content="revision/version">[version]</a> 
+	    <span tal:replace="revision/revised/aCommonZ">[date]</span>  
+		  <span i18n:translate="text_by">by</span> 
+		  <span tal:define="user revision/submitter | nothing; 
+		  member python:user and here.desecured.getMemberById(user);
+		  name python:member and member.getProperty('fullname') or '(Unknown)'">
+		  <a tal:condition="python:member" 
+		    tal:content="name" tal:attributes="href string:/member_profile/${user}">[submitter]</a>
+		  <span tal:condition="python:not member" tal:define="user python:user or 'Unknown'"
+		    tal:replace="string:(${user})">[Unknown user]</span>
+		</span>
+	    </b>
+	    <i tal:condition="python:(version == revision.version) 
+		  and not(here.content.isLatestVersion(here))"
+		  style="padding-left: 1em;"
+		  i18n:translate="text_currently_viewing">Currently viewing this version.</i>
+	  </td>
+	</tr>
+	<tr>
+	  <td valign="top" class="cnx_before" i18n:translate="text_changes_header">Changes:</td>
+	  <td valign="top"><pre tal:content="revision/submitlog">[changelog]</pre></td>
+	</tr>
+	<!-- line and spacing between sections -->
+        <tr tal:condition="not:repeat/revision/end">
+          <td colspan="2">
+            <hr />
+          </td>
+        </tr>
+	<!-- line and spacing between sections -->
+	</tal:block>
+      </table>
+    </div>
+    <div class="section" id="cnx_attribution_section">
+	    <h2 id="cnx_attribution_header" class="section-header" 
+                i18n:translate="heading_attribution">How to Reuse and Attribute This Content</h2>
+        <p i18n:translate="text_derive_copy">If you derive a copy of this content using a <span i18n:name="portal" tal:replace="portal/title">[portal]</span> account and publish your version, proper attribution of the original work will be automatically done for you. </p>
+	    <p i18n:translate="text_license_compliance">If you reuse this work elsewhere, in order to comply with the attribution requirements of the license
+	    	(<a class="link"
+	    	    tal:attributes="href here/license" 
+                    tal:content="license_label"
+                    i18n:name="license_version">[CC-BY 3.0]</a>), you must include</p>
+                <div class="list">
+			<ul class="bullet">
+	    		<li i18n:translate="text_authors_names"><span  class="cnx_before">the authors' names:  </span>
+                  <tal:person tal:repeat="m authors"> 
+                  <tal:definitions tal:define="surname python:m.getProperty('surname'); firstname python:m.getProperty('firstname')">
+                        <tal:span tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span tal:condition="python:len(authors) > 1 and path('not:repeat/m/end')">, </tal:span>
+                  </tal:definitions>
+                </tal:person>
+              </li>
+	    		<li i18n:translate="text_title_of_work" ><span class="cnx_before">the title of the work: </span><span tal:content="here/title"/></li>
+	    		<li i18n:translate="text_url_of_work"><span class="cnx_before">the <span i18n:name="portal" tal:replace="portal/title">[portal]</span> URL where the work can be found: </span><span tal:content="object_url">URL</span></li>
+	    	</ul>
+                </div>
+	
+		<p i18n:translate="text_citation_copyl">See the citation section below for examples you can copy.</p> 
+	    
+    </div>
+
+      <div class="section" id="cnx_cite_section">
+	<h2 id="cnx_cite_header" class="section-header" 
+            i18n:translate="heading_how_to_cite">How to Cite and Attribute This Content</h2>
+        <p tal:condition="not:isPublic"
+           i18n:translate="text_citation_only_published">Citation styles are only available for published content.</p>
+	<tal:nopreviewallowed tal:condition="isPublic">
+	  <p i18n:translate="text_choose_citation_style">The following citation styles comply with the attribution requirements for the license 
+                (<a class="link"
+                    tal:attributes="href here/license"
+                    tal:content="license_label"
+                    i18n:name="license_version">[CC-BY 3.0]</a>)
+                of this work:</p>
+	  <h3 i18n:translate="heading_acs_citation_style">American Chemical Society (ACS) Style Guide:</h3>
+	  <p class="cnx_cite">
+	    <tal:span tal:repeat="m authors">
+	      <tal:person tal:define="surname python:m.getProperty('surname');
+				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+			  tal:content="string:${surname}${firstinitial}.">[surname, f.]</tal:person><tal:span tal:condition="not:repeat/m/end">; </tal:span>
+
+	  </tal:span>
+	  <tal:span tal:content="here/title">[name of module or course]</tal:span><tal:span 
+		    tal:condition="python:not here.title.endswith(',')">, </tal:span>
+	  <span tal:replace="portal/title">[portal]</span> Web site. 
+	  <tal:span tal:content="object_url">[URL]</tal:span>, 
+	  <tal:span tal:content="python:here.revised.strftime('%b %e, %Y')">[Mar 7, 2005]</tal:span>.
+      </p>
+
+	  <h3 i18n:translate="heading_ama_citation_style">American Medical Assocation (AMA) Manual of Style:</h3>
+	  <p class="cnx_cite">
+            <tal:person tal:repeat="m authors">
+              <tal:definitions tal:define="surname python:m.getProperty('surname');
+	      firstinitial python:m.getProperty('firstname') and ' %s' % m.getProperty('firstname')[0]" >
+		<tal:span tal:condition="python:len(authors) &lt; 7" 
+			  tal:content="string:${surname}${firstinitial}">[surname f]</tal:span><tal:span
+			  tal:condition="python:path('not:repeat/m/end') and len(authors) &lt; 7">, </tal:span><tal:span 
+			  tal:condition="python:path('repeat/m/end') and len(authors) &lt; 7">. </tal:span>
+		<tal:span tal:condition="python:len(authors) &gt; 6">
+		  <tal:span tal:condition="python:path('repeat/m/number') &lt; 4" 
+			    tal:content="string:${surname} ${firstinitial}, ">[surname f, ]</tal:span><tal:span 
+			    tal:condition="repeat/m/end">et al. </tal:span>
+		</tal:span>
+	      </tal:definitions>
+	    </tal:person>
+	    <tal:span tal:content="here/title">[name of module of course]</tal:span>
+	    [<span tal:replace="portal/title">[portal]</span> Web site].
+	    <tal:span tal:content="python:here.revised.strftime('%B %e, %Y. ')">[2005, March 7. ]</tal:span>
+	    Available at: <tal:span tal:content="object_url">[URL]</tal:span>.
+	  </p>
+
+	  <h3 i18n:translate="heading_apa_citation_style">American Psychological Assocation (APA) Publication Manual:</h3>
+	  <p class="cnx_cite">
+	    <tal:person tal:repeat="m authors">
+	      <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> &amp; </tal:span>
+	      <tal:span tal:define="surname python:m.getProperty('surname');
+				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+			tal:content="string:${surname}${firstinitial}.">[surname, f.]</tal:span><tal:span
+			tal:condition="not:repeat/m/end">, </tal:span>
+	    </tal:person>
+	    <tal:span tal:content="python:here.revised.strftime('(%Y, %B %e). ')">[(2005, March 7). ]</tal:span>
+	    <i tal:content="here/title">[name of module or course]</i><tal:span
+	       tal:condition="python:not here.title.endswith('?') 
+				     and not here.title.endswith('!') 	
+				     and not here.title.endswith('.')">. </tal:span>
+	    Retrieved from the <span tal:replace="portal/title">[portal]</span> Web site:
+	    <tal:span tal:content="object_url">[URL]</tal:span>
+	  </p>
+	  
+	  <h3 i18n:translate="heading_cms_biblio_citation_style">Chicago Manual of Style (Bibliography):</h3>
+	  <p class="cnx_cite">
+            <tal:person tal:repeat="m authors">
+              <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
+              <tal:definitions tal:define="surname python:m.getProperty('surname');
+					   firstname python:m.getProperty('firstname')">
+		<tal:span tal:condition="repeat/m/start" 
+			  tal:content="python:surname + test(firstname,', %s'%firstname,'')">[surname, firstname]</tal:span><tal:span 
+			  tal:condition="python:len(authors) > 1 and path('repeat/m/start')">, </tal:span><tal:span 
+			  tal:condition="not:repeat/m/start" 
+			  tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span 
+			  tal:condition="python:path('not:repeat/m/end') and path('not:repeat/m/start')">, </tal:span></tal:definitions></tal:person>. 
+	    &quot;<tal:span tal:content="here/title">[name of module or course]</tal:span><tal:span 
+	      tal:condition="python:not here.title.endswith('?') and not here.title.endswith('!') and not 
+		here.title.endswith('.')">.</tal:span>&quot; <span tal:replace="portal/title">[portal]</span>. 
+	    <tal:span tal:content="python:here.revised.strftime('%B %e, %Y. ')">[2005, March 7.]</tal:span>
+	    <tal:span tal:content="object_url">[URL]</tal:span>.
+	  </p>
+
+	  <h3 i18n:translate="heading_cms_note_citation_style">Chicago Manual of Style (Note):</h3>
+	  <p class="cnx_cite">
+	    <tal:person tal:repeat="m authors">
+	      <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
+	      <tal:definitions tal:define="surname python:m.getProperty('surname');
+					   firstname python:m.getProperty('firstname')">
+		<tal:span tal:condition="python:len(authors) &lt; 4">
+		  <tal:span tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span 
+			    tal:condition="python:len(authors) == 3 or path('repeat/m/end')">, </tal:span>
+		</tal:span>
+		<tal:span tal:condition="python:len(authors) > 3">
+		  <tal:span tal:condition="repeat/m/start" 
+		            tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span>
+		  <tal:span tal:condition="repeat/m/end">others, </tal:span>
+		</tal:span>
+	      </tal:definitions>
+	    </tal:person>
+	    &quot;<tal:span tal:content="here/title">[name of module or course]</tal:span><tal:span 
+			    tal:condition="python:not here.title.endswith(',')">,</tal:span>&quot; <span tal:replace="portal/title">[portal]</span>, 
+	    <tal:span tal:content="python:here.revised.strftime('%B %e, %Y, ')">[2005, March 7, ]</tal:span>
+	    <tal:span tal:content="object_url">[URL]</tal:span>.
+	  </p>
+
+	  <h3 i18n:translate="heading_cms_refer_citation_style">Chicago Manual of Style (Reference, in Author-Date style):</h3>
+	  <p class="cnx_cite">
+            <tal:person tal:repeat="m authors">
+              <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> &amp; </tal:span>
+              <tal:span tal:define="surname python:m.getProperty('surname');
+				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+                        tal:content="string:${surname}${firstinitial}.">[surname, i.]</tal:span><tal:span
+                        tal:condition="not:repeat/m/end">, </tal:span>
+            </tal:person>
+	    <tal:span tal:content="string:${here/revised/year}. ">[YEAR. ]</tal:span>
+	    <tal:span tal:content="here/title">[name of module or course]</tal:span><tal:span
+                      tal:condition="python:not here.title.endswith('?') 
+					    and not here.title.endswith('!') 
+					    and not here.title.endswith('.')">. </tal:span>
+	    <span tal:replace="portal/title">[portal]</span>, 
+	    <tal:span tal:content="python:here.revised.strftime('%B %e, %Y. ')">[March 7, 2001. ]</tal:span>
+	    <tal:span tal:content="object_url">[URL]</tal:span>.
+	  </p>
+
+	  <h3 i18n:translate="heading_mla_citation_style">Modern Languages Association (MLA) Style Manual:</h3>
+	  <p class="cnx_cite">
+            <tal:person tal:repeat="m authors">
+              <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
+              <tal:definitions tal:define="surname python:m.getProperty('surname');
+					   firstname python:m.getProperty('firstname')">
+		<tal:span tal:condition="repeat/m/start" 
+			  tal:content="python:surname + test(firstname,', %s'%firstname,'')">[surname, firstname]</tal:span><tal:span 
+			  tal:condition="python:len(authors) > 1 and path('repeat/m/start')">, </tal:span><tal:span 
+			  tal:condition="not:repeat/m/start" 
+			  tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span 
+			  tal:condition="python:path('not:repeat/m/end') and path('not:repeat/m/start')">, </tal:span></tal:definitions></tal:person>. 
+	    <u tal:content="here/title">[name of module or course]</u>. <span tal:replace="portal/title">[portal]</span>. 
+	    <tal:span tal:content="string:${here/revised/day} ${here/revised/pMonth} ${here/revised/year}">[15 Sept. 1997 ]</tal:span>
+	    &lt;<tal:span tal:content="object_url">[URL]</tal:span>&gt;.
+	  </p>
+
+	</tal:nopreviewallowed>
+      </div>
+
+
+    </div>
+
+    <div metal:use-macro="here/content_template/macros/footer" />
+
+      </div>
+    </div>
+
+    <!-- Google Analytics tracking. Only for CNX. This will need to edited out for Rhaptos installs. -->
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <span tal:condition="python:objectId == 'col10522'">
+      <script type="text/javascript">
+        if(typeof(_gat) == 'object') {
+          var pageTracker = _gat._getTracker("UA-5153795-1");
+          pageTracker._initData();
+          pageTracker._trackPageview();
+        }
+      </script>
+    </span>
+    <script type="text/javascript">
+      try {
+        var benchmarkTracker = _gat._getTracker("UA-7903479-1");
+        benchmarkTracker._setDomainName('cnx.org');
+        benchmarkTracker._trackPageview();
+        var overallTracker = _gat._getTracker("UA-5033010-1");
+        overallTracker._setDomainName('cnx.org');
+        overallTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>

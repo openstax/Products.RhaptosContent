@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:metal="http://xml.zope.org/namespaces/metal" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal" 
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="rhaptos"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <tal:comment replace="nothing">filter out the recent view portlet. probably fragile between Plone
+    versions (3.0 has a component architecture portlet setup, I think.)</tal:comment>
+  <metal:head metal:fill-slot="head_slot"
+              tal:define="global sr python:[x for x in sr if 'portlet_recentview' not in x[0]]" />
+
+  <body>
+    <metal:left fill-slot="column_one_slot"></metal:left>
+
+    <div metal:fill-slot="main"  id="recentview"
+         tal:define="rvs context/recent_views">
+      <h1 i18n:translate="heading_recent_view">Recently Viewed Content</h1>
+
+      <table>
+        <tbody>
+          <tr>
+            <td valign="top"
+                style="padding-right: 30px;"
+                tal:define="elts rvs/cols;
+                            listclass string:cnx_collection"
+                tal:condition="elts">
+              <h2 i18n:translate="heading_collections">Collections</h2>
+              <ul id="collectionlist">
+                <li metal:use-macro="context/portlet_recentview/macros/listing">Entry</li>
+              </ul>
+            </td>
+            <td valign="top"
+                style="padding-right: 30px;"
+                tal:define="elts rvs/mods;
+                            listclass string:cnx_module"
+                tal:condition="elts">
+              <h2 i18n:translate="heading_modules">Modules</h2>
+              <ul id="modulelist">
+                <li metal:use-macro="context/portlet_recentview/macros/listing">Entry</li>
+              </ul>
+            </td>
+
+            <td valign="top"
+                tal:define="elts rvs/lenses;
+                            listclass string:cnx_lens"
+                tal:condition="elts">
+              <h2 i18n:translate="heading_lenses">Lenses</h2>
+              <ul id="lenslist">
+                <li metal:use-macro="context/portlet_recentview/macros/listing">Entry</li>
+              </ul>
+            </td>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,1170 @@
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   See /stylesheets/README.txt for an explanation of
+   any CSS browser detection hacks used in this file
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* ========== document top ========== */
+
+#cnx_portal-logo{
+  background: url(logo.jpg) no-repeat;
+  border: 0;
+  margin: 0.75em 0em 0.75em 1.5em;
+  padding: 0;
+}
+
+#cnx_portal-logo a{
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  padding-top: 57px;
+  height: 0px !important;
+  height /**/: 57px;
+  width: 250px;
+  cursor: pointer;
+}
+
+/* to avoid the apparent "peekaboo bug" that exhibited itself when
+   floating the portal-globalnav items instead of leaving them inline */
+* html #cnx_portal-top{
+  height: 1px;
+}
+
+#cnx_portal-siteactions{
+  white-space: nowrap;
+  list-style: none;
+  float: right;
+  margin: 1px 0 0 0;
+  height: auto;
+  padding: 3px 2em 3px 0;
+}
+
+#cnx_portal-siteactions li{
+  display: inline;
+}
+
+#cnx_portal-siteactions li a{
+  border: 1px solid white;
+  color: #76797c;
+  height: auto;
+  padding: 0.2em;
+  margin-right: 0.2em;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+#portal-siteactions li.selected a, #portal-siteactions li a:hover{
+  background-color: #dee7ec;
+  color: #436976;
+  border: 1px solid #8cacbb;
+}
+
+#cnx_portal-searchbox{
+  float: right;
+  clear: right;
+  text-align: right;
+  white-space: nowrap;
+  z-index: 2;
+  margin: 1.5em 0 0 0;
+  padding: 0 2em 0 0;
+  text-transform: lowercase;
+}
+
+#cnx_portal-globalnav ul{
+  white-space: nowrap;
+  list-style: none;
+  line-height: normal;
+  padding: 0em 0em 0em 2em;
+  margin: 0;
+  height: auto;
+}
+
+#cnx_portal-globalnav li{
+  display: inline;
+}
+
+#cnx_portal-globalnav li a{
+  border-color: #8cacbb;
+  border-width: 1px; 
+  border-style: solid solid none solid;
+  color: #436976;
+  height: auto;
+  margin-right: 0.5em;
+  padding: 0em 1.5em;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+#cnx_portal-globalnav li.selected a{
+  background-color: #dee7ec;
+  border: 1px solid #8cacbb;
+  border-bottom: #dee7ec 1px solid;
+  color: #436976;
+}
+
+#cnx_portal-globalnav li a:hover{
+  background-color: #dee7ec;
+  border-color: #8cacbb;
+  border-bottom-color: #dee7ec;
+  color: #436976;
+}
+
+#cnx_portal-breadcrumbs{
+  background-color: #dee7ec;
+  border-top: 1px solid #8cacbb;
+  border-bottom: 1px solid #8cacbb;
+  line-height: 1.3em;
+  color: Black;
+  padding: .2em 2em;
+  text-transform: lowercase;
+}
+
+#cnx_portal-breadcrumbs a{
+  text-decoration: none;
+  color: #436976;
+}
+
+* html #cnx_portal-breadcrumbs{padding-top: 2px;}
+*+html #cnx_portal-breadcrumbs{padding-top: 2px;}
+
+/* ===== light-weight branding ==========*/
+
+#cnx_branding_banner{
+  padding: 0.2em 2em;
+}
+
+#cnx_branding_logo{
+  text-align: center;
+  margin: -10px 0 1.5em;
+}
+
+/* ========== some basic elements ========== */
+
+p{
+  margin: 0.5em 0em 1em 0em;
+  line-height: 1.5em;
+}
+
+img{
+  border: none;
+  vertical-align: middle;
+}
+
+a{
+  text-decoration: none;
+  color: #436976;
+  background-color: transparent;
+}
+
+p a{
+  text-decoration: underline;
+}
+
+p a:visited{
+  color: Purple;
+  background-color: transparent;
+}
+
+p a:active{
+  color: Red;
+  background-color: transparent;
+}
+
+.cnx_before{
+  font-weight: bold;
+}
+
+body{
+  font: 69% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  background-color: white;
+  color: Black;
+  margin: 0;
+  padding: 0;
+}
+
+input{
+  font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  visibility: visible;
+  border: 1px solid #8cacbb;  
+  color: Black;
+  background-color: white;
+  vertical-align: middle;
+}
+
+ul, ol{ 
+  line-height: 1.5em;
+  list-style-type: square;
+  margin: 0.5em 0 0 1.5em;
+  padding: 0;
+  list-style-image: url(bullet.gif);
+}
+
+ol{
+  list-style-type: decimal;
+  list-style-image: none;
+}
+
+li{
+  margin-bottom: 1em;
+}
+
+/* ===== content actions bar at top ===== */
+
+#cnx_course_header, #cnx_module_header{
+  clear: both;
+}
+
+#cnx_actions_top{
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.ca_button{
+  margin: 0 -13px 8px 13px;
+  float: right;
+  display: inline;
+  position: relative;
+  z-index: 3;
+}
+
+.ca_button_link{
+  border: 1px solid white;
+  padding: 6px 12px 8px;
+  text-decoration: none;
+  display: block;
+  font-size: .9em;
+  white-space: nowrap;
+  padding-left: 33px;
+  background-position: 12px 5px;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+#cnx_actions_print .ca_button_link{ background-image: url(printer.png); }
+#cnx_actions_download .ca_button_link, .ca_pdf{ background-image: url(pdf.png); }
+#cnx_actions_addtolens .ca_button_link, .ca_lens{ background-image: url(lenses.png); }
+#cnx_actions_favorites .ca_button_link, .ca_favorites{ background-image: url(favorites-empty.png); }
+#cnx_actions_favorites .ca_in_favorites, .ca_in_favorites{ background-image: url(favorites.png); }
+.ca_zip{ background-image: url(zip.png); }
+
+.ca_single:hover{
+  border: 1px solid #8cacbb;
+}
+
+.ca_menu a.ca_button_link{
+  z-index: 3;
+  position: relative;
+}
+
+.ca_menu_on a.ca_button_link{
+  background-color: white;
+  border: 1px solid #8cacbb;
+  border-bottom-color: white;
+}
+
+.ca_menu img.ca_drop_reverse_arrow{
+  display: none;
+}
+
+.ca_menu_on img.ca_drop_reverse_arrow{
+  display: inline;
+}
+
+.ca_menu_on img.ca_drop_arrow{
+  display: none;
+}
+
+.ca_drop_contents{
+  position: absolute;
+  visibility: hidden;
+  clear: both;
+  margin-top: -1px;
+  padding: .5em 12px .7em;
+  border: 1px solid #8cacbb;
+  background-color: white;
+  z-index: 2;
+  font-size: .9em;
+}
+
+/* these should be removed after better handling of widths is implemented (probably via JS?) */
+.ca_drop_contents{ width: 15.5em; }
+* html .ca_header{ margin-right: 0; }
+
+.ca_menu_on .ca_drop_contents{
+  visibility: visible;
+}
+
+.ca_drop_close{
+  text-decoration: none !important;
+  float: right;
+  text-align: right;
+  font-size: 1.3em;
+}
+
+.ca_header{
+  margin-bottom: .5em;
+  color: #555;
+  white-space: nowrap;
+  margin-right: 2em;
+}
+
+.ca_drop_contents a{
+  white-space: nowrap;
+  text-decoration: underline;
+  outline: none;
+}
+
+.ca_list{
+  margin: 0 0 1em;
+  display: block;
+  list-style: none none;
+}
+
+.ca_list_item{
+  display: block;
+  list-style: none none;
+  padding-left: 22px;
+  margin-bottom: .25em;
+  min-height: 16px;
+  background-repeat: no-repeat;
+  white-space: nowrap;
+}
+
+* html .ca_list_item{
+  height: 16px;
+}
+
+.ca_drop_contents .lensinfo{
+  white-space: normal;
+  font-size: 1em;
+}
+
+#cnx_actions_favoriteswhat, #cnx_actions_lenswhat{
+  margin-bottom: .75em;
+}
+
+#cnx_actions_zipwhat{
+  margin-top: .2em;
+}
+
+/* ========== course header ========== */
+
+#cnx_prev_next_top{
+  margin: 0 0 1em;
+  text-align: right;
+  font-size: .9em;
+  padding: 0;
+  font-weight: bold;
+}
+
+#cnx_prev_next_top ul{
+  list-style: none none;
+}
+
+#cnx_prev_next_top li{
+  display: inline;
+  border-left: 1px solid #436976;
+  padding-left: 1em;
+  margin-left: .5em;
+}
+
+#cnx_prev_next_top li.cnx_first{
+  padding-left: 0;
+  margin-left: 0;
+  border-width: 0;
+}
+
+#cnx_course_home .cnx_before{
+  color: #76797c;
+  font-weight: normal;
+  display: block;
+  font-size: .9em;
+}
+
+#cnx_course_home .name{
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+#cnx_course_home_link{
+  font-size: .9em;
+  white-space: nowrap;
+}
+
+#cnx_course_header #cnx_course_authors{
+  margin-top: .8em;
+  font-size: .9em;
+  color: #76797c;
+}
+
+#cnx_course_header #cnx_course_authors .cnx_before{
+  font-weight: normal;
+}
+
+#cnx_course_header #cnx_course_authors a{
+  color: #76797c;
+  text-decoration: underline;
+}
+
+#cnx_course_header .cnx_email_author, #cnx_module_header .cnx_email_author{
+  background: url(envelope.png) no-repeat 5px 0;
+  padding-left: 25px;
+  padding-bottom: .2em;
+  display: inline-block;
+}
+
+#cnx_order_link{
+  display: block;
+  float: right;                 
+  font-size: .9em;
+  border: 1px solid #8cacbb;
+  text-decoration: none;
+  padding: .5em .7em .6em 30px; 
+  background: url(shopping-cart.png) no-repeat .7em .4em;
+  margin: 1.5em 0 0 2em;
+}
+
+#cnx_course #cnx_order_link{
+  margin: 0 0 1em 2em;
+}
+
+#cnx_course #cnx_authorship{
+  clear: right;
+}
+
+#cnx_book_icon{
+  float: left;
+  margin: 0 .75em .3em 0;
+}
+
+/* ========== module header ========== */
+
+#cnx_module_header{
+  margin-bottom: 2em;
+}
+
+#cnx_module_header h1{
+  margin: 0 0 .4em;
+  font-weight: normal;
+  font-size: 1.75em;
+  border-bottom: 1px solid #8cacbb;
+}
+
+#cnx_abstract{
+  margin-bottom: 1em;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+
+#cnx_authorship, #cnx_parent{
+  margin-bottom: 1em;
+  text-align: right;
+  color: #76797c;
+  font-size: .9em;
+}
+
+#cnx_authorship .cnx_before, #cnx_parent .cnx_before{
+  font-weight: normal;
+}
+
+#cnx_authorship a, #cnx_parent a{
+  color: #76797c;
+}
+
+#cnx_parent{
+  margin-top: -.5em;
+}
+
+.cnx_optional_role{
+  margin-top: .5em;
+  display: block;
+}
+
+#cnx_rate{
+  margin-bottom: .5em;
+  font-size: 1.1em;
+}
+
+.ratingstars img{
+  vertical-align: -2px;
+}
+
+.ratingstars .lensinfo, #cnx_bottom_stars  .lensinfo{
+  width: auto;
+}
+
+.ratings .cannotrate{
+  cursor: default;
+}
+
+.ratings .lensinfo{
+  font-size: .9em;
+}
+
+.rating_quantity{
+  padding-left: .3em;
+  color: #666;
+}
+
+.cnx_clear{
+  clear: both;
+}
+
+/* ========== page layout ========== */
+
+#cnx_sidebar_column{
+  padding: 23px 0 30px 30px;
+  width: 200px;
+  position: absolute;
+  left: 0;
+}
+
+* html #cnx_sidebar_column{
+  width: 230px;
+}
+
+#cnx_content_column{
+  padding: 19px 30px 30px;
+  vertical-align: top;
+  margin-left: 230px;
+}
+
+#cnx_about_history #cnx_content_column{
+  margin-left: 0;
+}
+
+#cnx_main{
+  padding-bottom: 2em;
+  font-size: 1.1em;
+}
+
+/* ========== content actions section at bottom ========== */
+
+#cnx_actions_bottom{
+  clear: both;
+  padding-top: 2em;
+}
+
+.cnx_actions_category{
+  padding: 0 0 .2em 20px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+#cnx_actions_category_feedback{ background-image: url(envelope.png) }
+#cnx_actions_category_download{ background-image: url(pdf.png) }
+#cnx_actions_category_addto{ background-image: url(bookmark.png) }
+
+#cnx_actions_bottom h3, #cnx_actions_bottom h4{
+  margin: 1em 0 .25em;
+  color: #555;
+}
+
+#cnx_actions_bottom h4{
+  display: inline;
+  margin: 0 .15em 0 0;
+  font-size: 1.1em;
+}
+
+.cnx_actions_group{
+  margin-bottom: .3em;
+  font-size: .9em;
+}
+
+.cnx_actions_group .lensinfo{
+  font-size: 1em;
+}
+
+/* ========== prev & next links at bottom ========== */
+
+#cnx_prev_next_bottom{
+  padding: 1em 0;
+  margin: 0;
+  text-align: center;
+  list-style-image: none;
+  list-style-type: none;
+}
+
+* html #cnx_prev_next_bottom{
+  width: 100%;
+}
+
+#cnx_prev_next_bottom li{
+  vertical-align: top;
+  width: 31%;
+  float: left;
+  margin: 1em 0;
+  padding: 0;
+}
+
+#cnx_prev_next_bottom .cnx_before{
+  display: block;
+  font-weight: normal;
+}
+
+#cnx_prev_next_bottom .cnx_previous{
+  text-align: left;
+  margin-right: 3%;
+}
+
+#cnx_prev_next_bottom .cnx_next{
+  text-align: right;
+  margin-left: 3%;
+}
+
+/* ========== footer ========== */
+
+#cnx_footer{
+  font-size: .9em;
+  margin: 5em 0 0;
+  padding-bottom: 1em;
+  color: #555;
+}
+
+* html #cnx_metadata_links{
+  margin-top: -1em;
+}
+
+#cnx_more_about{
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+#cnx_attribution li{
+  margin-bottom: 0;
+}
+
+#cnx_attribution a{
+  text-decoration: underline;
+}
+
+#cnx_partner_logos{              
+  float: right;
+  margin: 0 0 .5em 2em;
+}
+
+#cnx_license{
+  margin-top: 1em;
+}
+
+#cnx_updated{
+  margin: 1em 0;
+}
+
+/* ========== warnings ========== */
+
+.cnx_warning{
+  background-color: #ffce7b;
+  border: 1px solid #ffa500;
+  font-size: .9em;
+  font-weight: bold;
+  margin: 1em 0em 0em 0em;
+  padding: 0.5em 1em 0.5em 26px;
+  background-image: url("info.gif");
+  background-repeat: no-repeat;
+  background-position: 5px 1em;
+}
+
+.cnx_warning a{
+  color: black;
+}
+
+#cnx_no_menclose_support_example{
+  float: right;
+  margin: 0 0 .5em 1.5em;
+}               
+
+#cnx_no_menclose_support_example .cnx_before{
+  display: block;
+}
+
+/* ========== table ========== */
+
+td, th{
+  padding: .3em;
+  border-collapse: collapse;
+}
+
+* html table{
+  font-size: 1em;
+}
+
+/* ========== metadata page ========== */
+
+#cnx_about_history td{
+  padding: .25em .5em 0 0;
+  font-size: 1em;
+}
+
+#cnx_about_history .cnx_name{
+  font-weight: bold;
+}
+
+#cnx_about_history hr{
+  border: 0;
+  margin: .8em 0;
+  height: 1px;
+  color: #ccc;
+  background-color: #ccc;
+}
+
+* html #cnx_about_history hr{
+  margin: 0;
+}
+
+#cnx_cite_section h3{
+  margin-bottom: .5em;
+}
+
+#cnx_cite_section p.cnx_cite{
+  margin-left: 3em;
+}
+
+#cnx_cite_section i{
+  font-style: italic;
+  font-weight: normal;
+}
+
+#cnx_about_history h2{
+  font-size: 150%;
+  display: block;
+  font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  border-bottom: 1px solid #8cacbb;
+  padding-top: .5em;
+  margin: 1em 0;
+}
+
+#cnx_about_history pre{
+  font-size: 1.1em;
+  margin: 0;
+  white-space: -moz-pre-wrap; /* Gecko */
+  white-space: -pre-wrap;     /* Opera 4-6 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  white-space: pre-wrap;      /* CSS3, for when the browsers support it */
+  word-wrap: break-word;      /* IE 5.5+, though it doesn't work in ours because our <pre>s are in <td>s */
+white-space: -moz-pre-wrap; /* Gecko */
+white-space: -pre-wrap;     /* Opera 4-6 */
+white-space: -o-pre-wrap;   /* Opera 7 */
+white-space: pre-wrap;      /* CSS3, for when the browsers support it */
+word-wrap: break-word;      /* IE 5.5+, though it doesn't work in ours because our <pre>s are in <td>s */
+}
+
+/* ========== collection front page ========== */
+
+#cnx_course_start, #cnx_course_website{
+  font-weight: bold;
+}
+
+#cnx_course_start{
+  font-size: 140%;
+  margin-bottom: 1em;
+}
+
+#cnx_instructor, #cnx_institution, #cnx_course_code, #cnx_course_description{
+  margin-left: 3em;
+}
+
+#cnx_instructor .cnx_before, #cnx_institution .cnx_before, #cnx_course_code .cnx_before, #cnx_course_description .cnx_before{
+  margin-left: -3em;
+}
+
+#cnx_course_contributors{
+  margin-left: 6em;
+}
+
+#cnx_course_contributors .cnx_before{
+  margin-left: -3em;
+}
+
+#cnx_course_contributors_contains.cnx_before{
+  display: block;
+  margin: 1em 0 .5em -6em;
+}
+
+/* ========== sidebar ========== */
+
+dl.portlet{
+  margin: 1px 0 1em;
+  border-bottom: 1px solid #8cacbb;
+  background-color: white;
+}
+
+#cnx_lens_inner dl.portlet{
+  background-color: transparent;
+}
+
+dl.portlet a{
+  text-decoration: none;
+  color: #436976;
+}
+
+.portletHeader{
+  background-color: #dee7ec;
+  border: 1px solid #8cacbb;
+  padding: 0em 1em;
+  text-transform: lowercase;
+  font-weight: normal;
+  line-height: 1.6em;
+}
+
+dl.portlet h3, dl.portlet h2{
+  font-weight: normal;
+}
+
+dt.portletHeader a{
+  color: black;
+  outline: none;
+}
+
+dt.portletHeader a:hover{
+  text-decoration: none;
+}
+
+.portletItem{
+  margin: 0;
+  padding: 1em;
+  border-left: 1px solid #8cacbb;
+  border-right: 1px solid #8cacbb;
+}
+
+* html .portletItem{
+  height: 1px;
+}
+
+#cnx_lens_inner .portletItem{
+  border-width: 0;
+}
+
+.portlet .even {
+  background-color: #f7f9fa;
+}
+
+.portletMore{
+  text-align: right;
+  background-image: none !important;
+}
+
+.portlet ul{
+  display: block;
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+
+.portlet li{
+  display: block;
+  padding: 0 0 0 15px;
+  margin: 0 0 .3em;
+  background: url(bullet.gif) no-repeat 1px 0px;
+  list-style: none none;
+  height: 1%;
+}
+
+.portlet ol li{
+  display: list-item;
+  padding: 0;
+  margin-left: 1em;
+  background-image: none;
+  list-style-type: decimal;
+}
+
+.portlet .cnx_null_li{
+  background-image: none;
+}
+
+#cnx_related_material li, #cnx_recent_viewed li, #cnx_lens_info li{
+  padding: 0 0 .8em 20px;
+  margin: -.2em 0 0;
+}
+
+#cnx_related_material li, #cnx_recent_viewed li{
+  background-position: 0 0;
+}
+
+li.cnx_module{
+  background-image: url(/module_icon.gif);
+}
+
+li.cnx_collection{
+  background-image: url(/repository_icon.gif);
+}
+
+li.cnx_lens{
+  background-image: url(/lenses.gif);
+}
+
+.cnx_toggler{
+  text-align: right;
+}
+
+.cnx_toggler span{
+  color: #436976;
+  cursor: pointer;
+}
+
+.cnx_current{
+  color: #e70 !important;
+  font-weight: bold;
+}
+
+#cnx_course_navigation h4, #cnx_course_content h4, 
+#cnx_course_navigation h5, #cnx_course_content h5, 
+#cnx_course_navigation h6, #cnx_course_content h6{
+  display: inline;
+  color: #436976;
+}
+
+#cnx_course_navigation h4, #cnx_course_content h4, 
+#cnx_course_navigation h5, #cnx_course_content h5,
+#cnx_course_navigation h6, #cnx_course_content h6,
+#cnx_course_navigation img, #cnx_course_content img{
+  cursor: pointer;
+}
+
+#cnx_course_navigation li, #cnx_course_content li{
+  background-image: none;
+  line-height: 1.25em;
+  margin-bottom: .5em;
+}
+
+#cnx_course_navigation dd a:hover, #cnx_course_content dd a:hover{
+  text-decoration: underline;
+}
+
+#cnx_course_navigation dd a:visited, #cnx_course_content dd a:visited{
+  color: #76797c;
+}
+
+/* ========== author links box ========== */
+
+#cnx_author_links{
+  float: right;
+  width: 15em;
+  margin-left: 1em;
+  margin-bottom: .5em;
+  position: relative;
+  z-index: 1;
+}
+
+#cnx_author_links h3{
+  font-weight: bold;
+}
+
+.links li{
+  background-image: none;
+  padding-left: 0;
+  margin-left: 14px;
+}
+
+.links li img{
+  margin-left: -14px;
+  padding-right: 4px;
+}
+
+/* lenses and tags boxes */
+
+#cnx_what_is_a_lens{
+  text-align: right;
+  margin: 0;
+}
+
+#cnx_this_content_is_ellipsis{
+  margin: 1em 0;
+  color: #666;
+}
+
+#cnx_tags dt{
+  padding-right: 2px;
+}
+
+#cnx_tags .portletHeader h3{
+  padding-right: 24px !important;
+  background-image: url(/tags.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
+}
+
+.cnx_tag_listing li{
+  display: inline;
+  padding: 0 .5em 0 0 !important;
+  background-image: none;
+  margin: 0 !imporant;
+}
+
+.cnx_tag_listing{
+  line-height: 1.7em;
+  overflow-x: auto;
+  padding-bottom: .5em;
+}
+
+* html .cnx_tag_listing{ padding-bottom: 2em; width: 100%; }
+*+html .cnx_tag_listing{ padding-bottom: 2em; width: 100%; }
+
+#cnx_tags .cnx_question_mark{
+  text-align: right;
+  margin-left: .5em;
+  float: right;
+}
+
+.tagicon{
+  cursor: pointer;
+}
+
+.lenstags{
+  margin: .35em 0 0;
+}
+
+.lenstags .cnx_tag_listing, .lenstags .cnx_tag_listing li{
+  margin-bottom: 0;
+}
+
+/* ===== popup styling ==========*/
+
+.lensinfo{
+  position: absolute;
+  top: 0px;         /* will be moved by JS; if left alone, may cause re-rendering problems at */
+  left: 0px;        /* bottom of the screen when shown the first time */
+  border: 1px solid #8cacbb;
+  background-color: white;
+  padding: 1em;
+  width: 25em;
+  z-index: 3;
+  font-size: .9em;
+}
+
+.cnx_login_required{
+  width: auto;
+  white-space: nowrap !important;
+}
+
+strong, .lensinfotitle{
+  font-weight: bold;
+}
+
+.lensinfologo{
+  float: right;
+  margin: 0 0 .5em .5em;
+}
+
+.lensinfo p{
+  margin: 0 0 1em;
+}
+
+.lensinfohelp{
+  color: #666;
+  display: block;
+}
+
+.lensinfocomments p{
+  margin-bottom: .5em;
+}
+
+.lensinfocomments{
+  margin-bottom: 1em;
+}
+
+p.lensinfohelp{
+  margin-bottom: 0;
+}
+
+p.lensinfotags{
+  margin-top: .75em;
+}
+
+h4 .lenslink{
+  font-weight: normal;
+}
+
+.lensinfo ol{
+  margin-left: 2em;
+}
+
+/* ===== terms pointing to glossary entries ===== */
+
+.x-tip dd{
+  margin: .5em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+ }
+ 
+.lensinfo .meaning, .lensinfo .example, .lensinfo .seealso{
+  margin-left: 0;
+}
+
+/* ===== add-to-lens popup styling ==========*/
+
+#cnx_lens_inner{
+  padding: 1em;
+}
+
+#cnx_lens_inner .formHelp{
+  margin: .2em 0;
+}
+
+.x-window-header-text{
+  color: black;
+  font-weight: normal;
+  text-transform: lowercase;
+}
+
+.x-window-mc{
+  background-color: #f7f9fa;
+}
+
+#cnx_lens_inner legend{
+  display: none;
+}
+
+#cnx_lens_inner h3{
+  margin-bottom: 1em;
+}
+
+#cnx_lens_inner fieldset{
+  border-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#cnx_lens_inner .context{
+  font-size: 1em;
+}
+
+label{
+  font-weight: bold;
+}
+
+.field{
+  margin: .5em 0;
+}
+
+.nakedPortlet .portlet {
+  margin-top: 1em;
+  border: none;
+}
+
+.nakedPortlet dt {
+  display:none;
+}
+
+.nakedPortlet dd.portletItem {
+  margin-top:0px;
+  margin-bottom:0px;
+  padding-top:0px;
+  padding-bottom:0px;
+}
+
+/* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */
+
+.hiddenStructure{
+  position: absolute !important;
+  left: 0 !important;
+  top: -500px !important;
+  background: transparent !important;
+  background-image: none !important ; /* */
+  border: none !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: -1px 0 0 -1px !important;
+  width: 1px !important;
+}

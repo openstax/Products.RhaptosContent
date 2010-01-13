@@ -1,0 +1,183 @@
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   See /stylesheets/README.txt for an explanation of
+   any CSS browser detection hacks used in this file
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* #################### Musical Samples Gallery #################### */
+
+html{
+border: 0;
+}
+
+body{
+margin: 0;
+padding: 0 0 0 200px;
+border: 0; 
+overflow-y: hidden;
+}
+
+#cnx_whole_enchilada{
+height: 100%;
+overflow: auto;
+}
+
+#cnx_whole_enchilada>#cnx_global, #cnx_whole_enchilada>#cnx_sidebar{
+left: 200px;
+}
+
+#musical-examples{
+width: 180px;
+position: absolute;
+top: 0;
+left: 20px;
+overflow: auto;
+border: 1px solid #8cacbb;
+padding: 10px;
+background-color: white;
+margin: 34px 0 20px;
+z-index: 3;
+}
+
+body>#musical-examples{
+position: fixed;
+width: 158px;
+}
+
+#musical-examples span.name{
+display: block;
+position: fixed;
+top: 1.75em;
+top: 20px;
+left: 20px;
+padding: 0 1em;       
+font-weight: normal;
+border: 1px solid #8cacbb;
+background-color: #dee7ec;
+}   
+
+#musical-examples ol{
+padding: 0;            
+margin: .5em 0 1em;
+display: block;
+list-style-type: none;
+}           
+
+#musical-examples li{
+margin: 0;
+display: inline;
+padding: 0;
+}
+
+#musical-examples a.musical-example, a.musical-example-hover{
+text-decoration: none;
+color: #436976;
+display: block;
+border: 1px solid white;
+background-image: url("music-note.png");
+background-repeat: no-repeat;
+background-position: 1px 2px;
+padding: .1em .25em .2em 20px;
+}
+
+#musical-examples a.musical-example:hover, a.musical-example-hover{
+border: 1px solid #8cacbb;
+background-color: #dee7ec;
+}
+
+/* #################### Title Bar at Bottom #################### */
+
+div.content{
+padding: 1em;
+}
+
+.title-bar{
+position: absolute;
+bottom: 0;
+margin: 20px;
+background: url(white-transparent.png);
+color: #436976;
+padding: 10px 20px;
+z-index: 10000;
+display: none;
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=85);
+height: 9.5em;
+border: 1px solid #8cacbb;
+font-weight: bold;
+}
+
+.interactive{
+height: 20em;
+}
+
+body>.title-bar{
+position: fixed;
+left: 200px;
+}
+
+div.titles{
+height: 2em;
+}
+
+div.title{
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+color: #436976;
+position: absolute;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+width: 87%;
+}
+
+div.shadow{
+display: none;
+}
+
+* html div.title{
+width: 95%;
+}
+
+a.close{
+position: absolute;
+top: 10px;
+right: 20px;
+font-size: 1.4em;
+text-decoration: none;
+z-index: 100001;
+}
+
+div.top{
+z-index: 100000;
+}
+
+div.player, div.performance{
+text-align: center;
+}
+
+div.performance{
+font-style: italic;
+margin-top: .9em;
+}
+
+div.title-bar div.player img{
+margin: -2px;
+padding: 0;
+border: 0;
+}
+
+applet, param{
+display: inline;
+}
+
+div.title-bar a{
+color: #436976;
+}
+
+/* special overrides just for gallery, thanks IE */
+
+* html>body #cnx_header .cnx_previous_next{
+width: 100%;
+}
+
+@media all{* html #cnx_header .cnx_previous_next{
+right: 16px;
+}}

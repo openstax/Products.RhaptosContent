@@ -1,0 +1,118 @@
+
+                ###########################################
+                ####### CSS Browser Detection Hacks #######
+                ###########################################
+
+
+The following are an explanation of the CSS browser detection hacks used
+in the stylesheets to account for variations in the ways in which
+different browsers interpret (or do not interpret) the stylesheets. 
+Note that these only cover Mozilla 1+, Windows IE 5-6, Mac IE 5, Safari
+1.0-1.2 and Netscape 4 (only @import hack), and that these hacks may 
+not hold water with future versions of these same browsers or with any 
+other browsers.
+
+
+HACK: 		@import url("location/of/stylesheet/file.css");
+READ BY: 	Mozilla, Windows IE, Mac IE, Safari
+NOT READ BY: 	Netscape
+REASON FOR USE: Used exclusively to hide more advanced stylesheets from 
+		Netscape, which fails to interpret numerous stylesheet 
+		properties correctly or at all.
+NOTES:		Since Netscape is fed its own simpler stylesheet, 
+		browsers which can read the imported stylesheets must 
+		account for any stylings made in the Netscape stylesheet.
+
+
+HACK: 		parenttag>childtag{declarations}
+READ BY: 	Mozilla, Mac IE, Safari
+NOT READ BY: 	Windows IE
+REASON FOR USE: Accounts (in combination with other hacks) for 
+		differences in widths, heights, padding, and borders, 
+		since Mozilla and Safari interpret the box model 
+		differently than IE.  Hides (in combination with other 
+		hacks) in Windows IE style adjustments made for elements 
+		with a fixed position.  Accounts (in combination with 
+		other hacks) for differences in the ways in which 
+		Mozilla, Safari, and IE interpret font-size in tables 
+		(IE and Safari do not inherit ancestor's font-size) and 
+		fixed-width fonts.  Enables Mozilla to have borders on 
+		entire page via html tag whereas IE uses body tag.
+NOTES: 		Can be used in combination with other hacks to 
+		differentiate between Windows IE and Mac IE.  There must 
+		be no space between the tag names and the greater than 
+		sign.  If there is space (e.g. "parenttag > 
+		childtag{}"), Windows IE will interpret it as 
+		"ancestortag descendanttag").  Without the spaces, 
+		Windows IE completely ignores the styling rule.  If 
+		parenttag is variable or unknown, one can always use 
+		"html>body tag" for the same effect.
+
+
+HACK: 		tag[attribute]{declarations}
+READ BY:	Mozilla, Safari
+NOT READ BY: 	Windows IE, Mac IE
+REASON FOR USE: Accounts for differences in widths, heights, padding, 
+		and borders, since Mozilla, Safari, and IE interpret the 
+		box model differently.  Accounts for differences in the 
+		ways in which Mozilla, Safari, and IE interpret 
+		font-size in tables (IE and Safari do not inherit 
+		ancestor's font-size) and fixed-width fonts.
+
+
+HACK: 		* html tag{declarations}
+READ BY: 	Windows IE, Mac IE
+NOT READ BY: 	Mozilla, Safari
+REASON FOR USE: Accounts for differences in widths, heights, padding, 
+		and borders, since Mozilla and Safari interpret the box 
+		model differently than IE.  Accounts for differences in 
+		the ways in which Mozilla, Safari, and IE interpret 
+		font-size in tables (IE and Safari do not inherit 
+		ancestor's font-size) and fixed-width fonts.  Accounts 
+		(in combination with other CSS hacks) for inexplicable 
+		differences in width, padding and margin interpretation 
+		between Windows IE and Mac IE.  Accounts (in combination 
+		with other CSS hacks) for the need of a floated element 
+		in Mac IE to have a width.
+NOTES: 		Can be used in combination with other hacks to 
+		differentiate between Windows IE and Mac IE.
+
+
+HACK:		@media all{selectors{declarations}}
+READ BY: 	Mozilla, Windows IE, Safari
+NOT READ BY: 	Mac IE
+REASON FOR USE:	Accounts (in combination with other CSS hacks) for 
+		differences in widths, heights, padding, and borders, 
+		since Mozilla and IE interpret the box model 
+		differently.
+NOTES: 		Can be used in combination with other hacks to 
+		differentiate between Mozilla and IE and between Mac IE 
+		and Windows IE.  Suitable for use in differentiating 
+		Mozilla from IE when the tag[attribute]{} hack is not 
+		adequate (e.g. when selector is body tag, which doesn't 
+		have any attributes), and suitable for use in 
+		differentiating Mozilla and Safari from both IEs when 
+		Mozilla and Safari share similar properties (such as the 
+		box model).
+
+
+HACK:		@media ScReEn{selectors{declarations}}
+READ BY: 	Mozilla, Windows IE, Safari 1.2
+NOT READ BY: 	Mac IE, Safari 1.0/1.1
+REASON FOR USE:	Accounts (in combination with other CSS hacks) for 
+		differences in properties in Mozilla and Safari 1.0/1.1, 
+		since Safari 1.0/1.1 doesn't inherit font-size in tables 
+		and displays fixed-width fonts differently than Mozilla.
+NOTES: 		Can be used in combination with other hacks to 
+		differentiate between Mozilla and Safari 1.0/1.1.  Does 
+		not work, however, for Safari 1.2
+
+
+HACK:           selector:empty{declaration} /* on a non-empty selector */
+READ BY:        Safari
+NOT READ BY:    Mozilla (see note), Windows and Mac IE (see note)
+REASON FOR USE: Accounts for differences in the ways things are
+                displayed between Safari and other browsers.
+NOTES:          I believe this will still be read by all browsers for
+                elements which truly are empty (no children text nodes
+                or tags)
