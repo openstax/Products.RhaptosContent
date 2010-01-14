@@ -133,6 +133,21 @@
 	        tal:condition="tags">
         <tag tal:repeat="tag tags" tal:content="tag">dsp</tag>
       </tags>
+ 
+     <tag_namespaces tal:define="namespaceTags python:ltool.getTagsForContent(objectId, version, inside=inside, tag_type='namespaceTags');
+                                  li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
+                                    namespaceTags, lens_path=portalPath+'/lenses')"
+                      tal:repeat="di li">
+        <title tal:content="python:di['tagnamespace'].Title()"></title>
+        <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
+        <tags tal:repeat="tag di/tags">
+          <tag>
+            <title tal:content="python:context.restrictedTraverse('@@getNamespaceTagLabel')(tag)"></title>
+            <term tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(prefix='', tag=tag)"></term>
+            <prefixed tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(di['tagnamespace'].getPrefix(), tag)"></prefixed>
+          </tag>
+        </tags>
+      </tag_namespaces>
    
     </lensinfo>
   </metadata>
