@@ -932,7 +932,9 @@ li.cnx_lens{
 }
 
 #cnx_course_navigation dd a:visited, #cnx_course_content dd a:visited{
-  color: #76797c;
+  padding-right: 11px;
+  background: url(read.png) no-repeat right .3em;
+  display: inline-block;
 }
 
 #cnx_endorse_module form{
