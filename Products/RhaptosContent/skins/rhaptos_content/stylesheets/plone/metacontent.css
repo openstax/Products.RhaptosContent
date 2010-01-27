@@ -682,6 +682,14 @@ li{
   display: block;
 }
 
+#ff_mathml_msg2 td{
+  font-weight: normal;
+}
+#ff_mathml_msg2 td a{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 /* ========== table ========== */
 
 td, th{
