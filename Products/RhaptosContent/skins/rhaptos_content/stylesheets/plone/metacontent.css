@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+* html #cnx_portal-logo a{
+  margin-bottom: .5em;
+}
+
 /* to avoid the apparent "peekaboo bug" that exhibited itself when
    floating the portal-globalnav items instead of leaving them inline */
 * html #cnx_portal-top{
@@ -73,8 +77,8 @@
   white-space: nowrap;
   list-style: none;
   line-height: normal;
-  padding: 0em 0em 0em 2em;
-  margin: 0;
+  padding: 0;
+  margin: 0 0 0 2em;
   height: auto;
 }
 
@@ -965,6 +969,10 @@ input.noborder{
   margin-bottom: .5em;
   position: relative;
   z-index: 1;
+}
+
+* html #cnx_author_links *{
+  height: 1%;
 }
 
 #cnx_author_links h3{
