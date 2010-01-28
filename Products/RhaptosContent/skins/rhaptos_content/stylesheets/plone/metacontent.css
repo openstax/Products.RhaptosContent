@@ -619,6 +619,7 @@ li{
   margin: 5em 0 0;
   padding-bottom: 1em;
   color: #555;
+  clear: both;
 }
 
 * html #cnx_metadata_links{
