@@ -444,11 +444,16 @@
 	    <xsl:text>Contact Us</xsl:text>
 	  </a>
 	</li>
-	<li>
-            <a href="{publishing/portal/@href}/bug_submit_form"> <!-- Report a Bug -->
-	    <xsl:text>Report a Bug</xsl:text>
-	  </a>
-	</li>
+        <xsl:if test="/module/bugreport">
+	  <li>
+            <a>
+              <xsl:attribute name="href">
+                <xsl:value-of select ="/module/bugreport/@url" />
+              </xsl:attribute>
+              <xsl:value-of select ="/module/bugreport/@title" />
+            </a>
+	  </li>
+        </xsl:if>
       </ul>
       <div id="cnx_portal-searchbox">
 	<form name="content_search" action="{publishing/portal/@href}/content/search">

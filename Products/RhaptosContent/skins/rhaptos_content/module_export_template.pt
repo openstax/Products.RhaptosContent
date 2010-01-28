@@ -435,6 +435,15 @@
    </contentactionsbottom>
  </structure>
 
+  <tal:bugreport 
+    tal:define="actions           python:context.portal_actions.listFilteredActionsFor(portal);
+                site_actions      python:actions and actions['site_actions'] or None;
+                bugreport_actions python:site_actions and [a for a in site_actions if a['title'] == 'Report a Bug'] or [];
+                bugreport_action  python:bugreport_actions and len(bugreport_actions) and bugreport_actions[0] or None;"
+    tal:condition="bugreport_action">
+      <bugreport title="" url="" tal:attributes="title bugreport_action/title; url bugreport_action/url;"/>
+  </tal:bugreport>
+
   <div tal:define="f here/getDefaultFile" tal:replace="structure f/rootNode" />
 
 </module>
