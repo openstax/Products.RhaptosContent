@@ -53,7 +53,6 @@
   padding: 0.2em;
   margin-right: 0.2em;
   text-decoration: none;
-  text-transform: lowercase;
 }
 
 #portal-siteactions li.selected a, #portal-siteactions li a:hover{
@@ -70,7 +69,6 @@
   z-index: 2;
   margin: 1.5em 0 0 0;
   padding: 0 2em 0 0;
-  text-transform: lowercase;
 }
 
 #cnx_portal-globalnav ul{
@@ -95,7 +93,6 @@
   margin-right: 0.5em;
   padding: 0em 1.5em;
   text-decoration: none;
-  text-transform: lowercase;
 }
 
 #cnx_portal-globalnav li.selected a{
@@ -119,7 +116,6 @@
   line-height: 1.3em;
   color: Black;
   padding: .2em 2em;
-  text-transform: lowercase;
 }
 
 #cnx_portal-breadcrumbs a{
@@ -815,7 +811,6 @@ dl.portlet a{
   background-color: #dee7ec;
   border: 1px solid #8cacbb;
   padding: 0em 1em;
-  text-transform: lowercase;
   font-weight: normal;
   line-height: 1.6em;
 }
@@ -1150,7 +1145,6 @@ h4 .lenslink{
 .x-window-header-text{
   color: black;
   font-weight: normal;
-  text-transform: lowercase;
 }
 
 .x-window-mc{
