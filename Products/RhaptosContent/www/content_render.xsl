@@ -340,7 +340,6 @@
           </div>
         </div>
 
-        <!-- Google Analytics tracking. Only for CNX. This will need to edited out for Rhaptos installs. -->
         <script src="http://www.google-analytics.com/ga.js" type="text/javascript"><xsl:text> </xsl:text></script>
         <script type="text/javascript">
             function trackthisGoogleAnalytics(strCode) {
@@ -352,6 +351,9 @@
               catch(err) {}
             }
         </script>
+
+      <xsl:if test="publishing/portal/@isCNX='true'">
+        <!-- CNX Google Analytics tracking for Collaborative Statistics course. -->
         <xsl:if test="$courseid = 'col10522'">
           <script type="text/javascript">
             if(typeof(_gat) == 'object') {
@@ -362,12 +364,16 @@
             }
           </script>
         </xsl:if>
+        <!-- CNX Google Analytics tracking for the William and Flora Hewlett Foundation. -->
         <script type="text/javascript">
             /* Benchmark Tracker */
             trackthisGoogleAnalytics("UA-7903479-1");
             /* Overall Tracker */
             trackthisGoogleAnalytics("UA-5033010-1");
         </script>
+      </xsl:if>
+
+        <!-- User supplied Google Analytics tracking. -->
         <xsl:if test="$google-analytics-tracking-code">
           <script type="text/javascript" id="user-google-analytics">
             <xsl:attribute name="user">
