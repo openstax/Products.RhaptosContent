@@ -12,6 +12,10 @@
   padding: 0;
 }
 
+* html #cnx_portal-logo{
+  margin-left: .75em;
+}
+
 #cnx_portal-logo a{
   display: block;
   text-decoration: none;
