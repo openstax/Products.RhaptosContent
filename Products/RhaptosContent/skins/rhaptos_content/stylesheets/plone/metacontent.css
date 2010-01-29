@@ -237,7 +237,6 @@ li{
   padding: 6px 12px 8px;
   text-decoration: none;
   display: block;
-  font-size: .9em;
   white-space: nowrap;
   padding-left: 33px;
   background-position: 12px 5px;
@@ -288,7 +287,6 @@ li{
   border: 1px solid #8cacbb;
   background-color: white;
   z-index: 2;
-  font-size: .9em;
 }
 
 /* these should be removed after better handling of widths is implemented (probably via JS?) */
@@ -357,7 +355,6 @@ li{
 #cnx_prev_next_top{
   margin: 0 0 1em;
   text-align: right;
-  font-size: .9em;
   padding: 0;
   font-weight: bold;
 }
@@ -383,7 +380,6 @@ li{
   color: #76797c;
   font-weight: normal;
   display: block;
-  font-size: .9em;
 }
 
 #cnx_course_home .name{
@@ -391,14 +387,8 @@ li{
   font-weight: bold;
 }
 
-#cnx_course_home_link{
-  font-size: .9em;
-  white-space: nowrap;
-}
-
 #cnx_course_header #cnx_course_authors{
   margin-top: .8em;
-  font-size: .9em;
   color: #76797c;
 }
 
@@ -421,7 +411,6 @@ li{
 #cnx_order_link{
   display: block;
   float: right;                 
-  font-size: .9em;
   border: 1px solid #8cacbb;
   text-decoration: none;
   padding: .5em .7em .6em 30px; 
@@ -466,7 +455,6 @@ li{
   margin-bottom: 1em;
   text-align: right;
   color: #76797c;
-  font-size: .9em;
 }
 
 #cnx_authorship .cnx_before, #cnx_parent .cnx_before{
@@ -574,7 +562,6 @@ li{
 
 .cnx_actions_group{
   margin-bottom: .3em;
-  font-size: .9em;
 }
 
 .cnx_actions_group .lensinfo{
@@ -621,7 +608,6 @@ li{
 /* ========== footer ========== */
 
 #cnx_footer{
-  font-size: .9em;
   margin: 5em 0 0;
   padding-bottom: 1em;
   color: #555;
@@ -663,7 +649,6 @@ li{
 .cnx_warning{
   background-color: #ffce7b;
   border: 1px solid #ffa500;
-  font-size: .9em;
   font-weight: bold;
   margin: 1em 0em;
   padding: 0.5em 1em 0.5em 26px;
