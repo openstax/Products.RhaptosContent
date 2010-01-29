@@ -446,9 +446,16 @@
           </li>
         </xsl:if>
 	<li>
-	  <a href="{publishing/portal/@href}/aboutus/contact/"> <!-- Contact Us -->
-	    <xsl:text>Contact Us</xsl:text>
-	  </a>
+          <xsl:if test="publishing/portal/@isCNX='true'">
+	    <a href="{publishing/portal/@href}/aboutus/contact"> <!-- Contact Us -->
+	      <xsl:text>Contact Us</xsl:text>
+	    </a>
+        </xsl:if>
+        <xsl:if test="not(publishing/portal/@isCNX='true')">
+	    <a href="{publishing/portal/@href}/contact-info"> <!-- Contact Us -->
+	      <xsl:text>Contact Us</xsl:text>
+	    </a>
+        </xsl:if>
 	</li>
         <xsl:if test="/module/bugreport">
 	  <li>
