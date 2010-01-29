@@ -77,6 +77,16 @@
   padding: 0 2em 0 0;
 }
 
+#cnx_searchGadget{
+  background: url(/input_background.gif) repeat-x;
+}
+
+.searchButton{
+  background: url(/search_icon.gif) 2px 1px no-repeat;
+  padding: 1px 1px 1px 15px;
+  font-size: .9em;
+}
+
 #cnx_portal-globalnav ul{
   white-space: nowrap;
   list-style: none;
@@ -97,7 +107,7 @@
   color: #436976;
   height: auto;
   margin-right: 0.5em;
-  padding: 0em 1.5em;
+  padding: 0em 1.3em;
   text-decoration: none;
 }
 
