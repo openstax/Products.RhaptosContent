@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:metal="http://xml.zope.org/namespaces/metal" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal" 
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="rhaptos"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <tal:head metal:fill-slot="head_slot"
+            tal:define="dummy python:request.set('disable_border',1)">
+  </tal:head>
+ 
+  <body>
+    <div metal:fill-slot="main">
+
+      <tal:norender condition="nothing">
+      <metal:macro define-macro="checkout">
+        <p i18n:translate="">Select an area in which to work on your content.</p>
+              
+        <div class="field">
+        <select tal:define="area_path area_path | options/area_path | request/area_path | nothing;
+                            aview nocall:context/@@reuse-edit-view"
+                name="area_path">
+          <option tal:define="member context/portal_membership/getAuthenticatedMember"
+                  tal:attributes="value string:Members/${member/id}"
+                  i18n:translate="">Personal Workspace</option>
+          <option disabled="1"> </option>
+          <option i18n:translate="shared_workgroups" disabled="1">Shared Workgroups</option>
+          <option disabled="1">-------------------------</option>
+          <tal:loop repeat="item python:context.getWorkspaces({'id':None, 'title':None, 'folder':None})">
+            <option tal:define="pth python:'/'.join(item['folder'].getPhysicalPath())"
+                    tal:attributes="value pth;
+                                    selected python:pth == area_path"
+                    tal:content="item/title">
+            </option>
+          </tal:loop>
+        </select>
+        </div>
+
+        <div class="field">
+          <input type="checkbox" id="reuse_edit_now" 
+                 name="reuse_edit_now" />
+          <label for="reuse_edit_now" i18n:translate="">
+            Edit the content now
+          </label>
+        </div>
+
+        <metal:slot define-slot="below" />
+
+        <metal:slot define-slot="buttons">
+          <input i18n:attributes="value checkout"
+                 type="submit"
+                 value="Checkout" 
+                 name="checkout" 
+                 class="context" />
+
+          <input i18n:attributes="value cancel"
+                 type="submit"
+                 value="Cancel" 
+                 name="cancel"
+                 class="context" />
+        </metal:slot>
+      </metal:macro>
+      </tal:norender>
+
+      <tal:norender condition="nothing">
+      <metal:macro define-macro="derive">
+        <tal:def define="aview nocall:context/@@reuse-edit-view;
+                         content python:aview.content(contentId, version)">
+          <p>
+            <span tal:replace="context/portal_type" />:
+            <span tal:replace="content/Title" />
+          </p>
+
+          <metal:use use-macro="context/reuse_edit/macros/checkout">            
+
+            <metal:fill fill-slot="below"
+                        tal:define="here nocall:content;
+                                    type here/aq_base/archetype_name|here/portal_type|here/meta_type;
+                                    item type/lower;
+                                    license_url here/getDefaultLicense;
+                                    license_data python:here.getLicenseData(license_url)">
+            
+
+              <tal:comment condition="nothing">
+              Macro below is problematic when doing express edit of modules 
+              since it can only be called on a checked out module. The express 
+              edit UI does not allow that checkout step until later in the 
+              wizard.
+              </tal:comment>
+              <tal:wrap on-error="nothing">
+                <tal:block metal:use-macro="here/unpublishable/macros/publishblocker" />
+              </tal:wrap>
+
+              <div tal:condition="errors/agree|nothing"
+                   i18n:translate="agree_error"
+                   class="popuperror">
+                To proceed, you must agree to the license.
+              </div>
+
+              <metal:use use-macro="context/confirm_fork/macros/form_contents" />
+              <p tal:condition="not:here/license" i18n:translate="text_conffork_noderiv">
+            	Sorry, this content does not allow derivative works to be created.
+              </p>
+            </metal:fill>
+
+            <metal:fill fill-slot="buttons">
+              <input i18n:attributes="value yes_create_copy"
+                     type="submit"
+                     value="Yes, Create Copy" 
+                     name="create_copy"
+                     class="context" />
+              <input i18n:attributes="value no_cancel"
+                     type="submit"
+                     value="No, Cancel" 
+                     name="cancel"
+                     class="context" />
+            </metal:fill>
+
+          </metal:use>
+
+        </tal:def>
+
+      </metal:macro>
+      </tal:norender>
+
+      <h1 i18n:translate="">Heading</h1>
+
+      <metal:heart define-macro="inner"
+                   tal:define="errors python:request.get('errors', {});
+                               section section | options/section|string:;
+                               contentId contentId | options/contentId | request/contentId | nothing;
+                               version version | options/version | request/version | nothing;
+                               hasdata python:1;
+                               isAnon context/portal_membership/isAnonymousUser;">
+
+        <tal:anon condition="isAnon" metal:define-macro="anon"
+                  tal:define="actions python:context.portal_actions.listFilteredActionsFor(context);
+                              checkPermission nocall:context/portal_membership/checkPermission;
+                              portal_url nocall:context/portal_url;
+                              Iterator python:modules['Products.CMFPlone'].IndexIterator;
+                              tabindex python:Iterator(pos=30000, mainSlot=False)">
+          <h2 i18n:translate="heading_login_required">Login Required</h2>
+          <p i18n:translate="text_login_required">
+            This feature requires you to be logged in.
+          </p>
+          <div class="nakedPortlet">
+            <tal:comment replace="nothing">
+              Reuse login portlet. Note that popup.js looks at this, so if this is changed,
+              it needs to be too.
+            </tal:comment>
+            <metal:portlet use-macro="context/portlet_login/macros/portlet" />
+          </div>
+          <!--<div id="cnx_lens_add_button"></div>-->
+        </tal:anon>
+
+        <tal:auth condition="not:isAnon">
+        <tal:data condition="not:hasdata">
+          <p i18n:translate="text_no_data"><strong>Error!</strong> Cannot determine content information.</p>
+        </tal:data>
+
+        <form tal:condition="hasdata"
+              tal:attributes="action string:${context/absolute_url}/@@reuse-edit-view"
+              id="reuse_edit_form"
+              method="post">
+
+          <input type="hidden" name="form.submitted" value="1" />            
+          <input type="hidden" name="form.button" 
+                 id="reuse_edit_button" value="" />
+
+          <input tal:attributes="value contentId"
+                 name="contentId" type="hidden" />
+          <input tal:attributes="value version"
+                 name="version" type="hidden" />
+
+          <tal:hello_wizard condition="not:section">          
+
+            <tal:can_checkout define="aview nocall:context/@@reuse-edit-view"
+                              condition="python:aview.can_checkout(contentId, version)">
+              <metal:use use-macro="context/reuse_edit/macros/checkout" />
+            </tal:can_checkout>
+
+            <tal:cannot_checkout define="aview nocall:context/@@reuse-edit-view"
+                                 condition="python:not aview.can_checkout(contentId, version)">
+
+              <p i18n:translate="">
+                You do not have any roles or permissions on this                
+                <span i18n:name="content"
+                      tal:replace="python:aview.content(contentId, version).portal_type.lower() "/>.
+              </p>
+
+              <p i18n:translate="">
+                Would you like to
+              </p>
+
+              <table class="reuse_edit_table">
+
+              <tr>
+              <td valign="top">
+              <input name="cannot_checkout_action"
+                     type="radio" id="cannot_checkout_action_1" 
+                     value="derive" checked="1" />
+              </td>
+              <td valign="top">
+              <label for="cannot_checkout_action_1" i18n:translate="">
+                Derive a copy<!-- (what's this - Hedley needs help here)-->
+
+<!--                
+<span class="lensinfowrap">
+            <a href="/help/lens_what" class="lenslink"
+               i18n:translate="text_generic_help"
+               tal:attributes="href string:${context/portal_url}/help/lens_what">(?)</a>
+            xxx
+</span>
+
+<div class="lensinfowrap"
+             id="cnx_actions_reuseeditwhat">
+          <a href="/help/lens_what"
+             tal:attributes="href string:${context/portal_url}/help/reuse_edit_what"
+             class="lenslink">(How do I reuse or edit?)</a>
+          <div class="lensinfo hiddenStructure">
+            Reuse and edit help here
+          </div>
+</div>
+-->
+              </label>
+              </td>
+              </tr>
+
+              <tr>
+              <td valign="top">
+              <input name="cannot_checkout_action"
+                     type="radio" id="cannot_checkout_action_2"
+                     value="checkout_anyway" />
+              </td>
+              <td valign="top">
+              <label for="cannot_checkout_action_2">
+                <span i18n:translate="">Check it out anyway.</span>
+                <br />
+                <span i18n:translate="">
+                  To publish your edit you will need to
+                </span>
+                <ul>
+                  <li i18n:translate="">request to be an author</li>
+                  <li i18n:translate="">
+                    invite an author into your workgroup and ask them to 
+                    publish your edits
+                  </li>
+                  <li i18n:translate="">derive a copy later</li>
+                </ul>
+              </label>
+              </td>
+              </tr>
+
+              </table>
+
+              <input i18n:attributes="value continue"
+                     type="submit"
+                     value="Continue" 
+                     name="continue"
+                     class="context" />
+
+              <input i18n:attributes="value cancel"
+                     type="submit"
+                     value="Cancel" 
+                     name="cancel"
+                     class="context" />
+
+            </tal:cannot_checkout>
+
+          </tal:hello_wizard>
+
+          <tal:anyway condition="python:section == 'checkout_anyway'">
+            <metal:use use-macro="context/reuse_edit/macros/checkout" />
+          </tal:anyway>
+
+          <tal:derive condition="python:section == 'derive'">
+            <metal:use use-macro="context/reuse_edit/macros/derive" />
+          </tal:derive>
+
+          <tal:have_copy condition="python:section == 'already_have_copy'">
+            <p>
+              This <span tal:replace="content_type/lower "/> is already in 
+              <span tal:replace="area/Title" />
+            </p>
+
+            <input tal:define="pth python:'/'.join(obj.getPhysicalPath())"
+                   tal:attributes="value request/obj_path|pth"
+                   name="obj_path" type="hidden" />
+
+            <tal:if condition="request/reuse_edit_now|nothing">
+              <input i18n:attributes="value edit_existing_copy"
+                     type="submit"
+                     value="Edit Existing Copy" 
+                     name="edit_existing_copy"
+                     class="context" />
+
+              <input i18n:attributes="value cancel"
+                     type="submit"
+                     value="Cancel" 
+                     name="cancel"
+                     class="context" />
+            </tal:if>
+
+            <tal:if condition="not:request/reuse_edit_now|nothing">
+              <div class="field">
+                <input type="checkbox" id="edit_existing_now" 
+                        name="edit_existing_now" />
+                <label for="reuse_edit_now" i18n:translate="">
+                  Edit existing copy now
+                </label>
+              </div>
+              <input i18n:attributes="value ok"
+                     type="submit"
+                     value="OK"
+                     name="ok"
+                     class="context" />
+            </tal:if>
+
+          </tal:have_copy>
+
+        </form>
+
+        </tal:auth>
+      </metal:heart>
+
+    </div>
+  </body>
+</html>

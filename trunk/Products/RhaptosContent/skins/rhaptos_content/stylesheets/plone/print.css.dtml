@@ -1,0 +1,738 @@
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   See /stylesheets/README.txt for an explanation of
+   any CSS browser detection hacks used in this file
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* <dtml-with base_properties> (do not remove this :) */               
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
+#cnx_portal-siteactions, #cnx_portal-searchbox, #cnx_portal-globalnav,
+#cnx_sidebar_column, #musical-examples, .title-bar, #cnx_actions_bottom,
+#cnx_prev_next_top, #cnx_author_links_togglers, .hiddenStructure,
+.solution-toggles, .ca_button, #cnx_order_link, .cnx_email_author, .lensinfo{
+display: none !important;
+}
+
+p, html, body, img{
+margin: 0;
+padding: 0;
+border: 0;
+}
+
+body{
+font-family: Georgia, Garamond, Times, serif;
+font-size: 11pt;
+padding: .5in;
+}
+
+* html body{
+padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-size: 10pt;
+  margin: 0;
+}
+
+.para{
+margin: 10pt 0;
+}
+
+#cnx_main{  
+line-height: 14pt;
+}           
+
+ul{
+list-style-type: disc;
+}
+
+a{
+color: #436976;
+}
+
+.list{
+margin: 10pt 0;
+}
+
+.list ul, .list ol{
+padding: 0;
+margin: 0 0 0 25pt;
+}
+
+.list ol{
+margin-left: 30pt;
+}
+
+ol.arabic{ list-style-type: decimal; }
+ol.upper-roman{ list-style-type: upper-roman; }
+ol.lower-roman{ list-style-type: lower-roman; }
+ol.upper-alpha{ list-style-type: upper-alpha; }
+ol.lower-alpha{ list-style-type: lower-alpha; }
+ul.bullet{ list-style-type: disc; }
+ul.open-circle{ list-style-type: circle; }
+ul.other{ list-style-type: none; }
+ol.other{ list-style-type: none; }
+ul.labeled-item{ list-style-type: none; }
+
+ol.other, ul.other, ul.labeled-item{
+margin-left: 15pt;
+}
+
+.list li{
+padding: 0;
+margin: 0 0 7pt;
+}
+
+.list-header{
+margin: 10pt 0 5pt;
+}
+
+span .list-header{
+display: inline;
+}
+
+div.list .item-decoration{
+margin-right: .5em;
+}
+
+#cnx_main a:after, #cnx_author_links a:after{
+content: " (" attr(href) ") ";
+color: black;
+text-decoration: none;
+font-weight: normal;
+}
+
+#cnx_main a[href^="/"]:after{
+content: " (&dtml-portal_url;" attr(href) ") ";
+letter-spacing: normal;
+}
+
+#cnx_portal-logo a[href^="/"]:after{
+content: "&dtml-portal_url;" attr(href);
+letter-spacing: normal;
+font-weight: normal;
+color: black;
+}
+
+#cnx_main code a:after, #cnx_main pre a:after, #cnx_main 
+a.footnote-reference:after, #cnx_main a.cite:after, #cnx_main 
+.example.musical a:after, #cnx_main .footnotes a:after, #bibtexfile 
+a:after, #cnx_main #cnx_course_contributors a:after{
+content: "" !important;
+}
+
+#cnx_portal-logo{
+padding-bottom: 3pt;
+margin-bottom: 0;
+border-width: 0;
+}
+
+#cnx_portal-logo a{
+font-size: 14pt;
+color: #436976;
+text-decoration: none;
+width: 100%;
+font-family: Helvetica, Arial, sans-serif;
+font-weight: normal;
+letter-spacing: 5pt;
+}
+
+#cnx_portal-logo a:after{
+font-size: 10pt;
+}
+
+#cnx_portal-top{
+border-bottom: .5pt solid #436976;
+width: 100%;
+padding-bottom: 10pt;
+margin-bottom: 15pt;
+font-size: 8pt;
+}
+
+h1{
+font-family: Helvetica, Arial, sans-serif;
+font-weight: normal;
+font-size: 18pt;
+border-bottom: 1pt solid #8cacbb;
+margin-bottom: 10pt;
+}
+
+#cnx_course h1{
+border-bottom-width: 0;
+}
+
+#cnx_authorship{
+font-size: 8pt;
+margin: 10pt 0 16pt;
+text-align: right;
+color: #436976;
+}
+
+#cnx_parent, .cnx_optional_role{
+display: block;
+margin-top: 7pt;
+}
+
+#cnx_parent{
+margin-top: -9pt;
+color: #436976;
+text-align: right;
+}
+
+#cnx_rate{
+margin: 10pt 0;
+color: #436976;
+}
+
+#cnx_rating_stars img{
+vertical-align: -2pt;
+}
+
+#cnx_rating_quantity{
+padding-left: 5pt;
+font-style: italic;
+}
+
+#cnx_module_header{
+padding-top: 10pt;
+padding-bottom: 10pt;
+font-size: 8pt;
+}
+
+#cnx_course_header{
+padding-bottom: 10pt;
+margin-bottom: 20pt;
+border-bottom: 1pt solid #ccc;
+font-size: 8pt;
+color: #436976;
+}
+
+#cnx_book_icon{
+float: left;
+margin: 0 5pt 5pt 0;
+}
+
+#cnx_course_header .name{
+font-size: 11pt;
+color: black;
+display: block;
+}
+
+#cnx_course_authors{
+margin-top: 10pt;
+}
+
+#cnx_abstract{
+padding-bottom: 10pt;
+font-weight: bold;
+font-size: 11pt;
+}
+
+#cnx_author_links{
+float: right;
+margin: 10pt 0 5pt 20pt;
+}
+
+#cnx_author_links .portletItem{
+border: 1pt solid #8cacbb;
+font-size: 8pt;
+background-color: white;
+padding: 10pt;
+margin: 0;
+clear: left;
+}
+
+#cnx_author_links h2{
+padding: 0 1em;
+border: 1pt solid #8cacbb;
+border-bottom-width: 0;
+color: #8cacbb;
+text-transform: lowercase;
+font-weight: normal;
+float: left;
+}
+
+#cnx_author_links h2, #cnx_author_links h3{
+margin: 0;
+font-size: 8pt;
+}
+
+#cnx_author_links ul{
+margin: 0 0 10pt;
+padding-left: 10pt;
+}
+
+#cnx_author_links li{
+padding: 0;
+margin: 0 0 .3pt;
+}
+
+h2, h3, h4, h5, h6, .glossary-header, .footnotes-header, .references, .problemset-header{
+font-family: Helvetica, Arial, sans-serif;
+border: none;
+}
+
+.section{
+margin: 20pt 0;
+}
+
+.section .section{
+margin-left: 36pt;
+}
+
+.section .section-header, .glossary-header, .footnotes-header, .references, .problemset-header{
+font-size: 13pt;
+}
+
+.example .section-header, .rule .section-header, .exercise .section-header{
+font-size: 11pt;
+}
+
+.example .section, .exercise .section, .rule .section{
+margin: 10pt 0 20pt;
+}
+
+.qmlitem .section{
+margin-top: 0;
+}
+
+.cnx_before, .footnote-reference, .equation-number, .view-math, 
+.view-math a, .references-header, .problemset-header, .glossary-header, 
+.bibtex-reference, .footnotes-header, .cnxn, .term, #cnx_course_start, 
+.name, em{
+font-weight: bold;
+}
+
+#cnx_main .cnx_before{
+text-transform: capitalize;
+}
+
+pre.codeblock{
+border: 1pt dashed black;
+white-space: pre;
+font-size: 8pt;
+overflow: auto;
+padding: 1em 0;
+}
+
+div.preformat{
+margin: 5pt 0;
+}                  
+
+pre.preformatted{
+font-family: Georgia, Garamond, Times, serif;
+font-size: 11pt;
+margin: 5pt 0;
+}                  
+
+span.preformat{
+font-family: "Courier New", Courier, monospace;
+}
+
+.newline hr{
+height: 0;
+margin: 1.4em 0 .25em;
+border: 0 solid black;
+border-width: 0 0 .5pt;
+}
+
+* html .newline hr{ margin: .5em 0 -.2em; }
+*+html .newline hr{ margin: .5em 0 -.2em; }
+
+pre.underline{
+text-decoration: underline;
+}                 
+
+pre.space{
+display: inline;
+}
+
+.example{
+margin: 10pt 0;
+padding: 7pt 10pt;
+border: 1pt solid #8cacbb;
+}
+
+.example .para, .statement .para{
+margin: 7pt 0;
+}
+
+.definition .example, .rule .example{
+margin: 5pt 0;
+padding: 5pt 10pt 0;
+}
+
+.definition .example .para, .rule .example .para{
+margin: 5pt 0;
+}
+
+.example.labview, .example.musical{
+margin: 0;
+text-align: center;
+border: 0;
+}
+
+.exercise{
+margin: 10pt 0;
+padding: 7pt 10pt;
+border: 1pt solid #8cacbb;
+}
+
+.problem, .solution{
+padding: 5pt 0;
+}
+
+.term{
+font-style: normal;
+display: inline;
+}
+
+.definition{
+margin: 10pt 0;
+padding: 7pt 10pt;
+border: 1pt solid #8cacbb;
+}
+
+.meaning, .seealso{
+margin: 5pt 0;
+padding: 2pt 0;
+}
+
+.foreign{
+font-style: italic;
+}
+
+cite, em{
+font-style: inherit;
+}
+
+.foreign i, i .foreign{
+font-style: normal;
+}
+
+.smallcaps{
+font-variant: small-caps;
+}                 
+
+.normal{
+font-weight: normal;
+font-style: normal;
+text-decoration: none;
+font-variant: normal;
+}
+
+.equation{
+margin: 10pt 0;
+position: relative;
+width: 100%;
+}
+
+.equation-number{
+position: absolute;
+top: 50%;
+right: 0;
+}
+
+.equation .name{
+display: block;
+margin-bottom: 10pt;
+text-align: left;
+}
+
+.cnx_warning{
+background-color: #ffce7b;
+border: 1pt solid #ffa500;
+font-size: 8pt;
+font-weight: bold;
+margin: 1em 0 0;
+padding: 0.5em 1em;
+vertical-align: middle;
+}
+
+.cnx_warning a{
+color: black;
+}
+
+.figure{
+text-align: center;
+margin: 10pt auto;
+}
+
+.inner-figure{
+border: 1pt solid #8cacbb;
+padding: 10pt;
+}
+
+.figure .name{
+display: block;
+margin-bottom: 5pt;
+}
+
+.vertical-subfigure, .vertical-subfigure-name, .horizontal-subfigure-name{
+text-align: center;
+}
+
+.caption, .figure-caption, .horizontal-subfigure-caption, .vertical-subfigure-caption{
+font-size: 8pt;
+padding-top: 5pt;
+text-align: left;
+font-weight: normal;
+}
+
+div.table .caption{
+margin: 0 25%;
+}
+
+.vertical-subfigure-caption{
+text-align: center;
+margin-bottom: 10pt;
+}
+
+div.table{
+margin: 10pt 0;
+}
+
+td, th{
+padding: 3pt;
+font-size: 11pt;
+}
+
+.table table, .table td, .table th{
+border: 1pt solid #888 !important;
+border-collapse: collapse;
+}
+
+div.table .name{
+display: block;
+text-align: center;
+margin: 5pt 0;
+}
+
+math, .equation math, math *, .equation math *{
+color: #436976;
+}
+
+math[display="block"], math[mode="display"]{
+font-size: 120%;
+}
+
+.note{
+margin: 5pt 0;
+padding: 7pt 10pt;
+border: 1pt solid #8cacbb;
+}
+
+span.footnote-reference{
+font-size: 8pt;
+vertical-align: 4pt;
+line-height: 10pt;
+}
+
+a.footnote-reference{
+text-decoration: none;
+}
+
+.rule{
+margin: 10pt 0;
+padding: 7pt 10pt;
+border: 1pt solid #8cacbb;
+}
+
+.statement{
+margin: 5pt;
+}
+
+.proof{
+margin: 5pt;
+}
+
+.glossary-container, .references, .footnotes{
+margin: 10pt 0;
+padding: 10pt 0;
+}
+
+.glossary{
+margin: 10pt 0 10pt 36pt;
+}
+
+.glossary-container .glossary div, .glossary h3, .glossary h4, .glossary h5,
+.glossary h6, .glossary p, .glossary dt, .glossary dd{
+display: inline;
+margin: 0;
+padding: 0;
+border: 0;
+}
+
+.glossary-definition dt{
+margin-left: -36pt;
+}
+
+
+.feedback, .hint{
+display: none;
+}
+
+.qmlitem .button{
+background-color: transparent;
+border: 1pt solid #436976;
+font-size: 10pt;
+}
+
+input.button, #cnx_main textarea, #cnx_main form{
+display: block;
+margin: 10pt 0 0;
+}
+
+
+
+#cnx_about_history pre{
+margin: 0;
+padding: 1pt 5pt;
+}
+
+#cnx_about_history #cnx_main p{
+margin-bottom: 15pt;
+}
+
+#cnx_about_history hr{
+border: none;
+height: 1pt;
+background-color: #436976;
+}
+
+.cnx_cite{
+margin-left: 20pt;
+}
+
+#cnx_course .portletContainer, #cnx_course_content img{
+display: none !important;
+}
+ 
+#cnx_course #cnx_course_content{
+display: block !important;
+}
+
+@media pRiNt{body[id] #cnx_course #cnx_sidebar_column{
+/* Mozilla will cut off long floats in Print, but trying to exclude 
+Safari from this declaration */
+width: auto;
+float: none;
+}}
+
+#cnx_course #cnx_sidebar_column{
+display: block !important;
+float: right;
+width: 240pt;
+margin-left: 20pt;
+margin-bottom: 10pt;
+padding: 5pt 10pt;
+border: 1pt solid #8cacbb;
+font-size: 8pt;
+}
+
+#cnx_course_content h3{
+margin-top: 0;
+}
+
+#cnx_course_content h3 a{
+color: black;
+text-decoration: none;
+}
+
+#cnx_course_content ul{
+margin: 2pt 0;
+padding: 0;
+display: block !important;
+}
+
+#cnx_course_content ul ul{
+margin-left: 10pt;
+}
+
+#cnx_course_content li{
+list-style-type: square;
+padding: 2pt 0;
+}
+
+#cnx_course_content li.cnx_null_li{
+list-style-type: none;
+}
+
+#cnx_course_start{
+font-size: 15pt;
+}
+
+#cnx_course_start a:after{
+font-size: 10pt;
+}
+
+#cnx_course_contributors, #cnx_course_description{
+margin: 10pt 0;
+}
+
+#cnx_course_contributors .cnx_before{
+display: block;
+}
+
+
+
+#cnx_prev_next_bottom, #cnx_prev_next_bottom li{
+display: block;
+margin: 0 0 40pt;
+padding: 0;
+text-align: center;
+}
+
+#cnx_prev_next_bottom li{
+width: 31%;
+float: left;
+}
+
+#cnx_prev_next_bottom .cnx_previous{
+text-align: left;
+margin-right: 3%;
+}
+
+#cnx_prev_next_bottom .cnx_next{
+text-align: right;
+margin-left: 3%;
+}
+
+#cnx_prev_next_bottom .cnx_before{
+color: black;
+text-decoration: none;
+display: block;
+font-size: 8pt;
+}
+
+#cnx_footer{
+clear: both;
+font-size: 8pt;
+padding: 10pt 0;
+margin-top: 40pt;
+font-family: tahoma, verdana, helvetica, arial, sans-serif;
+}
+
+#cnx_partner_logos{
+float: right;
+margin: 0 0 5pt 10pt;
+}
+
+#cnx_metadata_links{
+margin-bottom: 5pt;
+}
+
+#cnx_attribution{
+margin-top: 5pt;
+}
+
+#cnx_updated, #cnx_license{
+margin: 10pt 0;
+}
+
+#cnx_updated{
+font-style: italic;
+}
+
+/* </dtml-with> */       
+

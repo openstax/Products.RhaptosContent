@@ -1,0 +1,437 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     lang="en" xml:lang="en"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="rhaptos"
+     tal:define="view options/view;
+                 isAnon context/portal_membership/isAnonymousUser;
+                 portal_url context/portal_url;
+                 portal context/portal_url/getPortalObject;"
+     tal:omit-tag="">
+
+  <tal:comment tal:replace="nothing">
+  Requires from caller:
+    'view': view data from bar_content_actions_view
+  
+  Optional from caller:
+    --
+  
+  Rhaptos note: 
+    brand new template for content actions bar, formerly of content_actions_box.
+    combines functionality from collection_view and content_render/module_export_template
+  </tal:comment>
+
+<div id="cnx_actions_top"
+     style="display:none"
+     tal:define="show view/general/show | nothing"
+     tal:attributes="style python:not show and default or nothing">
+  
+  <!-- PRINT -->
+  <div id="cnx_actions_print" class="ca_button"
+       tal:define="printknown view/printing/available | nothing"
+       style="display: none"
+       tal:attributes="style python:not printknown and default or nothing">
+    <a href="#"
+       onclick="window.print(); return false;"
+       class="ca_single ca_button_link"
+       id="cnx_actions_print_link">
+      <span i18n:translate="text_print_page">Print this page</span>
+    </a>
+  </div>
+  
+  <!-- DOWNLOAD -->
+  <tal:download tal:define="dls view/downloads;
+                            modulepdf dls/modulepdf | nothing;
+                            collectionpdf dls/collectionpdf | nothing;
+                            collmmzip dls/collmmzip | nothing;
+                            colinfo python:collectionpdf or collmmzip;
+                            multi python:len(dls) > 1">
+    
+    <div id="cnx_actions_download" class="ca_button"
+         tal:condition="python:modulepdf and not colinfo">
+      <a href="#"
+        class="ca_single ca_button_link"
+        id="cnx_actions_download_link"
+        tal:attributes="href modulepdf">
+        <span i18n:translate="text_download_pdf">Download PDF</span>
+      </a>
+    </div>
+    
+    <div id="cnx_actions_download" class="ca_button ca_menu"
+         tal:condition="colinfo">
+      <a href="#"
+          class="ca_button_link"
+          id="cnx_actions_download_link">
+        <span tal:condition="python:collectionpdf and collmmzip" i18n:translate="text_download_pdf_or_zip">Download PDF/ZIP</span>
+        <span tal:condition="not:collmmzip" i18n:translate="text_download_pdf">Download PDF</span>
+        <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
+             class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
+      </a>
+    
+      <div id="cnx_actions_download_contents" class="ca_drop_contents">
+        <a href="#" class="ca_drop_close">x</a>
+        <tal:collection tal:condition="python:collectionpdf or collmmzip">
+          <h3 class="ca_header" 
+              i18n:translate="text_menu_header_collection">Collection:</h3>
+          <ul class="ca_list">
+            <li class="ca_list_item ca_pdf"
+                tal:condition="collectionpdf">
+              <a href="#"
+                 tal:attributes="href collectionpdf"
+                 i18n:translate="text_PDF">
+                PDF
+              </a>
+            </li>
+            <li class="lensinfowrap ca_list_item ca_zip"
+                tal:condition="collmmzip">
+              <a href="#"
+                 tal:attributes="href collmmzip"
+                 i18n:translate="text_media_zip">
+                Multimedia ZIP
+              </a>
+              <div id="cnx_actions_zipwhat">
+                <a href="/help/viewing/multimediazip"
+                   tal:define="help nocall:portal/help/viewing/multimediazip/absolute_url | nothing" tal:condition="nocall:help"
+                   tal:attributes="href help"
+                   class="lenslink">(What is the ZIP for?)</a>
+                <div class="lensinfo hiddenStructure" metal:define-macro="ziphelp">
+                  <p i18n:translate="text_tooltip_multimedia_zip_explanation_1">
+                    The multimedia ZIP file provides offline access to 
+                    all the multimedia files that are not available in 
+                    the printed version (PDF) of this collection.
+                  </p>
+                  <p i18n:translate="text_tooltip_multimedia_zip_explanation_2">
+                    To access the files:
+                  </p>
+                  <ol>
+                    <li i18n:translate="text_tooltip_step_download_zip">
+                      download the ZIP
+                    </li>
+                    <li i18n:translate="text_tooltip_step_extract_files">
+                      extract all of its files to a location on your 
+                      hard drive
+                    </li>
+                    <li i18n:translate="text_tooltip_step_open_readme">
+                      open the README file for instructions or go 
+                      directly to mediafiles.html file in your Web 
+                      browser
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </tal:collection>
+        <tal:module tal:condition="modulepdf">
+          <h3 class="ca_header" 
+              i18n:translate="text_menu_header_module">Module:</h3>
+          <ul class="ca_list">
+            <li class="ca_list_item ca_pdf">
+              <a href="#"
+                 tal:attributes="href modulepdf"
+                 i18n:translate="text_PDF">
+                PDF
+              </a>
+            </li>
+          </ul>
+        </tal:module>
+      </div>
+    </div>
+  </tal:download>
+
+    <!-- REUSE / EDIT -->
+    <div id="cnx_actions_reuse_edit" class="ca_button ca_menu">
+      <a href="#"
+         class="ca_button_link"
+         id="cnx_actions_reuse_edit_link">
+        <span i18n:translate="reuse">Reuse</span>
+        /
+        <span i18n:translate="edit">Edit</span>
+
+        <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
+             class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
+      </a>
+      <div id="cnx_actions_reuse_edit_contents" class="ca_drop_contents">
+        <a href="#" class="ca_drop_close">x</a>
+
+        <ul>
+
+          <tal:norender condition="nothing">
+            <metal:macro define-macro="reuse_edit_listitem">
+            <li>
+              <span class="lensinfowrap">
+              <a id="cnx_actions_reuse_edit_popup_link"
+                   class="lenslink cnx_reuse_edit_trigger_link"
+                   tal:define="contentId addtoinfo/contentId|nothing;
+                               version addtoinfo/version|nothing"
+                   tal:attributes="href string:$portal_url/reuse_edit?contentId=$contentId&amp;version=$version&amp;returnTo=${context/absolute_url};
+                                   id python:suffix and 'cnx_actions_reuse_edit_popup_link_'+suffix or default"
+                   i18n:translate="text_a_lens">                   
+                   <input 
+                         type="hidden" class="cnx_reuse_edit_contentId" name="contentId" value="col10400"
+                         tal:attributes="value contentId" />
+                   <input 
+                         type="hidden" class="cnx_reuse_edit_version"   name="version"   value="1.1"
+                         tal:attributes="value version" />
+                   <input 
+                         type="hidden" class="cnx_reuse_edit_urlbase"   name="urlbase"   value=""
+                         tal:attributes="value context/absolute_url" />                          
+                   <metal:slot define-slot="label">Label</metal:slot
+                ></a>
+              <span class="lensinfo hiddenStructure cnx_login_required"
+                    tal:condition="isAnon"
+                    i18n:translate="text_login_required">Login Required</span>
+              </span>
+            </li>
+            </metal:macro>
+          </tal:norender>
+
+          <tal:if define="suffix string:a;
+                          addtoinfo view/addto/col|nothing"
+                  condition="addtoinfo">
+            <metal:use use-macro="template/macros/reuse_edit_listitem">
+              <metal:fill fill-slot="label">
+                <span i18n:translate="collection" tal:omit-tag="">Collection</span>
+              </metal:fill>
+            </metal:use>
+          </tal:if>
+
+          <tal:if define="suffix string:b;
+                          addtoinfo view/addto/mod|nothing"
+                  condition="addtoinfo">
+            <metal:use use-macro="template/macros/reuse_edit_listitem">
+              <metal:fill fill-slot="label">
+                <span i18n:translate="module" tal:omit-tag="">Module</span>
+              </metal:fill>
+            </metal:use>
+          </tal:if>
+
+        </ul>
+
+        <div class="lensinfowrap"
+             id="cnx_actions_reuseeditwhat">
+          <a href="/help/lens_what"
+             tal:attributes="href string:$portal_url/help/reuse_edit_what"
+             class="lenslink">(How do I reuse or edit?)</a>
+          <div class="lensinfo hiddenStructure"
+               i18n:translate="">
+            If you have permission to edit this module, clicking "reuse or edit" will allow you to check the module out into your workspace or a work group and then make your edits. If you don't have permission to edit the module, you can still click "reuse and edit" and adapt it by creating a derived copy of the module and then editing and publishing the copy.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  <tal:lensinfo tal:define="addto view/addto;
+                            addtomod addto/mod | nothing;
+                            addtocol addto/col | nothing;
+                            modfav addtomod/favorite | nothing;
+                            colfav addtocol/favorite | nothing;
+                            anyfavs python:modfav or colfav">
+    
+    <!-- LENS -->
+    <div id="cnx_actions_addtolens" class="ca_button ca_menu">
+      <a href="#"
+         class="ca_button_link"
+         id="cnx_actions_addtolens_link">
+        <span i18n:translate="text_add_to_lens">Add to a lens</span>
+        <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
+             class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
+      </a>
+      <div id="cnx_actions_addtolens_contents" class="ca_drop_contents">
+        <a href="#" class="ca_drop_close">x</a>
+        <tal:col tal:condition="addtocol"
+                 tal:define="addtoinfo addtocol;
+                             suffix string:col;">
+          <h3 class="ca_header"
+              i18n:translate="text_menu_header_add_collection_to">Add collection to:</h3>
+          <ul class="ca_list"
+              metal:define-macro="addtolens">
+            <li class="ca_list_item ca_lens">
+              <span class="lensinfowrap"
+                    metal:define-macro="addtolensinner">
+                <a id="cnx_actions_lens_popup_link"
+                   class="lenslink cnx_lens_trigger_link"
+                   tal:define="contentId addtoinfo/contentId;
+                               version addtoinfo/version"
+                   href="lens_add?contentId=col10400&amp;version=1.1"
+                   tal:attributes="href string:$portal_url/lens_add?contentId=$contentId&amp;version=$version&amp;returnTo=${context/absolute_url};
+                                   id python:suffix and 'cnx_actions_lens_popup_link_'+suffix or default"
+                   i18n:translate="text_a_lens"><input 
+                         type="hidden" class="cnx_lens_contentId" name="contentId" value="col10400"
+                         tal:attributes="value contentId" /><input 
+                         type="hidden" class="cnx_lens_version"   name="version"   value="1.1"
+                         tal:attributes="value version" /><input 
+                         type="hidden" class="cnx_lens_urlbase"   name="urlbase"   value=""
+                         tal:attributes="value context/absolute_url" /><input
+                         type="hidden" class="cnx_lens_title" name="lenstitle"
+                               value="Add to a lens" /><span 
+                        i18n:translate="text_a_lens" tal:omit-tag="">A lens I own</span></a>
+                <span class="lensinfo hiddenStructure cnx_login_required"
+                      tal:condition="isAnon"
+                      i18n:translate="text_login_required">Login Required</span>
+              </span>
+            </li>
+            <li class="ca_list_item ca_lens" tal:condition="context/@@siyavula|nothing">
+                <span class="lensinfowrap"
+                      metal:define-macro="addtoopenlensinner">
+                    <a class="lenslink cnx_lens_trigger_link"
+                       tal:attributes="href string:${context/portal_url}/content/${addtoinfo/contentId}/${addtoinfo/version}/lens_add_select;
+                                       id python:suffix and 'cnx_actions_open_lens_popup_link_'+suffix or default">
+                        <input type="hidden" class="cnx_lens_contentId"
+                               name="contentId"
+                               tal:attributes="value addtoinfo/contentId" /><input 
+                               type="hidden" class="cnx_lens_version" name="version"
+                               tal:attributes="value addtoinfo/version" /><input 
+                               type="hidden" class="cnx_lens_urlbase" name="urlbase"
+                               tal:attributes="value context/absolute_url" /><input 
+                               type="hidden" class="cnx_lens_innerform" name="innerform"
+                               value="open_lens_add_inner" /><input 
+                               type="hidden" class="cnx_lens_title" name="lenstitle"
+                               value="Add to an open lens" /><span 
+                              i18n:translate="text_a_open_lens" tal:omit-tag="">An open lens</span>
+                    </a>
+                </span>
+            </li>
+          </ul>
+        </tal:col>
+        <tal:mod tal:condition="addtomod"
+                 tal:define="addtoinfo addtomod;
+                             suffix string:mod;">
+          <h3 class="ca_header"
+              i18n:translate="text_menu_header_add_module_to">Add module to:</h3>
+          <ul metal:use-macro="template/macros/addtolens">
+            <li>
+              <a href="#">A lens</a>
+            </li>
+          </ul>
+        </tal:mod>
+        <div class="lensinfowrap"
+             id="cnx_actions_lenswhat">
+          <a href="/help/viewing/lenses"
+             tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+             tal:attributes="href help/absolute_url"
+             class="lenslink">(What is a lens?)</a>
+          <div metal:use-macro="context/collection_view/macros/lenshelp">
+            Explanation of lenses
+          </div>
+        </div>
+        <div class="lensinfowrap"
+             id="cnx_actions_openlenswhat" tal:condition="context/@@siyavula|nothing">
+          <a href="/help/openlens_what"
+             tal:attributes="href string:$portal_url/help/openlens_what"
+             class="lenslink">(What is an open lens?)</a>
+          <div metal:use-macro="context/collection_view/macros/openlenshelp">
+            Explanation of open lenses
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- FAVORITES -->
+    <div id="cnx_actions_favorites" class="ca_button ca_menu">
+      <a href="#"
+         class="ca_button_link"
+         tal:define="infavsornot python:anyfavs and 'ca_in_favorites' or 'ca_not_in_favorites'" 
+         tal:attributes="class string:ca_button_link $infavsornot"
+         id="cnx_actions_favorites_link">
+        <span class="ca_text">Add to Favorites</span>
+        <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
+             class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
+             tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
+      </a>
+      <div id="cnx_actions_favorites_contents" class="ca_drop_contents">
+        <a href="#" class="ca_drop_close">x</a>
+        <tal:col tal:condition="addtocol"
+                 tal:define="addtoinfo addtocol;
+                             suffix string:col;
+                             fav colfav">
+          <h3 class="ca_header"
+              i18n:translate="text_menu_header_add_collection_to">Add collection to:</h3>
+          <ul class="ca_list"
+              metal:define-macro="addtofav">
+            <li class="favstar ca_list_item"
+                tal:define="infavsornot python:fav and 'ca_in_favorites' or 'ca_favorites'"
+                tal:attributes="class string:ca_list_item $infavsornot">
+              <span metal:define-macro="addtofavinner"
+                    tal:define="contentId addtoinfo/contentId;
+                                version addtoinfo/version">
+                <tal:block tal:condition="fav">
+                  <span i18n:translate="text_my_favorites">My Favorites</span>
+                  (<a href="lensRemove?contentId=col10400&amp;lensPath=" i18n:translate="text_remove"
+                      tal:attributes="href string:$portal_url/lensRemove?contentId=$contentId&amp;lensPath=$fav&amp;returnTo=${context/absolute_url}">remove</a>)
+                </tal:block>
+                <tal:block tal:condition="not:fav">
+                  <span class="lensinfowrap">
+                    <a id="cnx_actions_fav_popup_link"
+                       class="lenslink cnx_lens_trigger_link"
+                       href="favorites_add?contentId=col10400&amp;version=1.1"
+                       tal:attributes="href string:$portal_url/favorites_add?contentId=$contentId&amp;version=$version&amp;returnTo=${context/absolute_url};
+                                       id python:suffix and 'cnx_actions_fav_popup_link_'+suffix or default"><input 
+                             type="hidden" class="cnx_lens_contentId" name="contentId" value="col10400"
+                             tal:attributes="value contentId" /><input 
+                             type="hidden" class="cnx_lens_version"   name="version"   value="1.1"
+                             tal:attributes="value version" /><input 
+                             type="hidden" class="cnx_lens_urlbase"   name="urlbase"   value=""
+                             tal:attributes="value context/absolute_url" /><input 
+                             type="hidden" class="cnx_lens_innerform" name="innerform"
+                             value="favorites_add_inner" /><input 
+                             type="hidden" class="cnx_lens_title"     name="title"
+                             value="Add to lens: My Favorites" /><span 
+                            i18n:translate="text_my_favorites" tal:omit-tag="">My Favorites</span></a>
+                    <span class="lensinfo hiddenStructure cnx_login_required"
+                          tal:condition="isAnon"
+                          i18n:translate="text_login_required">Login Required</span>
+                  </span>
+                </tal:block>
+              </span>
+            </li>
+          </ul>
+        </tal:col>
+        <tal:mod tal:condition="addtomod"
+                 tal:define="addtoinfo addtomod;
+                             suffix string:mod;
+                             fav modfav">
+          <h3 class="ca_header"
+              i18n:translate="text_menu_header_add_module_to">Add module to:</h3>
+          <ul metal:use-macro="template/macros/addtofav">
+            <li>
+              <a href="#">My Favorites</a>
+            </li>
+          </ul>
+        </tal:mod>
+
+        <div class="lensinfowrap"
+             id="cnx_actions_favoriteswhat">
+          <a href="/help/viewing/lenses" class="lenslink"
+             i18n:translate="text_what_is_my_favorites"
+             tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
+             tal:attributes="href help/absolute_url">(What is My Favorites?)</a>
+          <div metal:define-macro="favoriteshelp"
+               class="lensinfo hiddenStructure">
+            <p i18n:translate="text_my_favorites_explanation">
+            'My Favorites' is a special kind of lens which you can use to bookmark modules and
+            collections directly in Connexions. 'My Favorites' can only be seen by you, and collections
+            saved in 'My Favorites' can remember the last module you were on. You need a Connexions account
+            to use 'My Favorites'.
+            </p>
+          </div>
+        </div>
+
+      </div>
+  
+    </div>
+  </tal:lensinfo>
+
+</div>
+
+</div>

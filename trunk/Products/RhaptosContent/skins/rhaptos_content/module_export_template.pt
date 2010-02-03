@@ -1,0 +1,450 @@
+<?xml version='1.0'?>
+<module xmlns:tal="http://xml.zope.org/namespaces/tal"
+        xmlns:metal="http://xml.zope.org/namespaces/metal"
+        tal:define="encoding here/portal_properties/site_properties/default_charset;
+                    dummy python:request.RESPONSE.setHeader('Content-Type','application/xml;;charset=%s' % encoding);
+                    dummy2 python:request.RESPONSE.setHeader('Cache-Control','no-cache');
+                    repos nocall:here/content;
+                    utool nocall:here/portal_url;
+                    portal utool/getPortalObject;
+                    portal_url utool;
+                    portalPath utool/getPortalPath;
+                    objectId context/objectId;
+                    course nocall:options/course | nothing;
+                    module nocall:options/module | nothing;
+                    version context/version;
+                    ltool context/lens_tool | nothing;
+                    inside python:module and (course.objectId, course.version) or nothing;
+                    cats python:ltool and objectId and 
+                                ltool.getListsIncluding(objectId, version, inside=inside) or {}">
+
+  <tal:recentview define="dummy python:context.setrecentview('viewed_mods', objectId, version,
+                                         module and course.objectId, module and course.version)" />
+
+  <title tal:content="here/Title">[title]</title>
+
+  <metadata tal:define="pending here/getPendingCollaborations | nothing"
+    tal:attributes="pending python:test(pending, 'roles', nothing)">
+    <created tal:content="here/created">[created]</created>
+    <author tal:repeat="p python:map(here.desecured.getMemberById, path('here/authors'))"
+            tal:attributes="id p/getId">
+      <name tal:content="python:p.getProperty('fullname')">[name]</name>
+      <email tal:content="python:p.getProperty('email')">[email]</email>
+    </author>
+    <maintainer tal:repeat="p python:map(here.desecured.getMemberById, path('here/maintainers'))"
+                tal:attributes="id p/getId">
+      <name tal:content="python:p.getProperty('fullname')">[name]</name>
+      <email tal:content="python:p.getProperty('email')">[email]</email>
+    </maintainer>
+    <licensor tal:repeat="p python:map(here.desecured.getMemberById, path('here/licensors'))"
+              tal:attributes="id p/getId">
+      <name tal:content="python:p.getProperty('fullname')">[name]</name>
+      <email tal:content="python:p.getProperty('email')">[email]</email>
+    </licensor>
+    <tal:optionalroles tal:repeat="role python:here.roles.items()"
+      tal:define="opt_roles_dict here/portal_collaboration/optional_role_info">
+      <optionalrole tal:repeat="p python:map(here.desecured.getMemberById, role[1])"
+        tal:attributes="id p/getId;
+                        name python:opt_roles_dict[role[0]][0];
+                        displaybyline python:opt_roles_dict[role[0]][2]">
+        <name tal:content="p/fullname">[name]</name>
+        <email tal:content="p/email">[email]</email>
+      </optionalrole>
+    </tal:optionalroles>
+      
+    <parent tal:define="parent here/getParent | nothing" 
+      tal:condition="nocall:parent"
+      tal:attributes="href parent/url">
+      <title tal:content="parent/title">[title]</title>
+      <author tal:repeat="p python:map(here.desecured.getMemberById, path('here/parentAuthors'))"
+              tal:attributes="id p/getId">
+	<name tal:content="python:p.getProperty('fullname')">[name]</name>
+	<email tal:content="python:p.getProperty('email')">[email]</email>
+      </author>
+    </parent>    
+    <keyword tal:repeat="k here/keywords" tal:content="k">[keyword]</keyword>
+    <abstract tal:condition="here/abstract">
+      <span xmlns="http://cnx.rice.edu/cnxml"
+            xmlns:bib="http://bibtexml.sf.net/"
+            xmlns:m="http://www.w3.org/1998/Math/MathML"
+            xmlns:md="http://cnx.rice.edu/mdml/0.4"
+            xmlns:q="http://cnx.rice.edu/qml/1.0"
+            tal:content="structure here/abstract">[abstract]</span>
+    </abstract>
+    <license tal:condition="here/license | nothing" tal:attributes="href here/license" />
+    <language tal:condition="here/language | nothing" tal:content="here/language">[language]</language>
+    <lensinfo tal:define="cats python:cats and cats.items()">
+      <tal:breakout tal:repeat="item cats">
+      <category tal:define="cat python:item[0];
+                            catdata python:item[1]"
+                tal:attributes="name cat;
+                                quality python:cat in ('Endorsement', 'Affiliation') and 'True' or ''">
+	  <tal:lists tal:repeat="l lists" tal:define="lists python:catdata.values()">
+	  <list tal:define="list python:l[0]; entries python:l[1];
+                        getPrintableTags nocall:context/@@getPrintableTags;"
+                tal:attributes="displayName list/displayName;
+                                 creatorName list/creatorName;
+                                 title list/title;
+                                 logo list/logo | nothing;
+                                 link list/location | nothing;
+                                 state list/state;" >
+		<description tal:condition="nothing" tal:content="structure list/description">
+		  <p>some HTML</p>
+		</description>
+		<tal:entries repeat="e entries" >
+          <entry tal:define="namespaceTags e/namespaceTags|python:[]"
+                 tal:attributes="entryId e/id; 
+                                 tags e/tags; 
+                                 approved python:e['approved'] and 1 or 0;
+                                 indirect python:test(e['fromImplicit'], e['fromImplicit'], None);
+                                 printableTags python:', '.join(getPrintableTags(namespaceTags, lens_path=portalPath+list['location']))">
+		    <title tal:content="e/Title">from here</title>
+  		    <comment tal:condition="e/comment" tal:content="python:here.truncate(e['comment'], 200)">
+  			  <b>some HTML</b>
+			</comment>
+            <tags tal:define="tags python:[t for t in e['tags'].split(' ') if t]"
+                  tal:condition="tags"
+                  tal:repeat="tag tags">
+              <tag>
+                <title tal:content="tag"></title>
+              </tag>
+            </tags>
+            <tag_namespaces tal:define="li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
+                                            namespaceTags, lens_path=portalPath+list['location'])"
+                            tal:repeat="di li">
+              <title tal:content="python:di['tagnamespace'].Title()"></title>
+              <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
+              <tags tal:repeat="tag di/tags">
+                <tag>
+                  <title tal:content="python:context.restrictedTraverse('@@getNamespaceTagLabel')(tag)"></title>
+                  <term tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(prefix='', tag=tag)"></term>
+                  <prefixed tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(di['tagnamespace'].getPrefix(), tag)"></prefixed>
+                </tag>
+              </tags>
+            </tag_namespaces>
+		  </entry>
+        </tal:entries>
+	  </list>
+	  </tal:lists>
+      </category>
+      </tal:breakout>
+
+      <tags tal:define="tags python:ltool.getTagsForContent(objectId, version, inside=inside)"
+	        tal:condition="tags">
+        <tag tal:repeat="tag tags" tal:content="tag">dsp</tag>
+      </tags>
+ 
+     <tag_namespaces tal:define="namespaceTags python:ltool.getTagsForContent(objectId, version, inside=inside, tag_type='namespaceTags');
+                                  li python:context.restrictedTraverse('@@objectifyTagNamespaceList')(
+                                    namespaceTags, lens_path=portalPath+'/lenses')"
+                      tal:repeat="di li">
+        <title tal:content="python:di['tagnamespace'].Title()"></title>
+        <prefix tal:content="python:di['tagnamespace'].getPrefix()"></prefix>
+        <tags tal:repeat="tag di/tags">
+          <tag>
+            <title tal:content="python:context.restrictedTraverse('@@getNamespaceTagLabel')(tag)"></title>
+            <term tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(prefix='', tag=tag)"></term>
+            <prefixed tal:content="python:context.restrictedTraverse('@@getNamespaceTagTerm')(di['tagnamespace'].getPrefix(), tag)"></prefixed>
+          </tag>
+        </tags>
+      </tag_namespaces>
+   
+    </lensinfo>
+  </metadata>
+  
+  <publishing>
+    <portal tal:attributes="href portal_url;
+                            path python: '/'.join(portal.getPhysicalPath());
+                            isCNX here/isCNX|nothing;">
+      <email tal:content="portal/email_from_address">[email]</email>
+      <title tal:content="portal/title">[Portal]</title>
+      <description tal:content="portal/description">[desc]</description>
+    </portal>
+      
+    <objectId tal:content="objectId">[objectId]</objectId>
+    <state tal:content="here/state">[state]</state>
+    <version tal:attributes="latest python:test(repos.isLatestVersion(here), 'true', nothing);" 
+             tal:content="version">[version]</version>
+    <revised tal:content="here/revised/aCommonZ">[revised]</revised>
+    <submitter tal:define="actor here/actor | nothing; submitter here/submitter | nothing;
+                           user python: actor or submitter;
+			   member python:user and here.desecured.getMemberById(user);
+			   name python:member and member.getProperty('fullname') or '(Unknown)'"
+               tal:attributes="id user"
+               tal:content="name">[submitter]</submitter>
+  </publishing>
+
+  <related>
+    <links tal:define="links here/getLinks;
+                       linkMap python:here.orderLinks(links);
+                       types python:sequence.sort([c for c in linkMap.keys() if c not in ['previous','next']]);"
+           tal:condition="links">
+      <link tal:repeat="l links"
+            tal:attributes="rel l/category;
+                            strength l/strength;
+                            href l/target;
+                            title python:l.title.decode(encoding)" />
+    </links>
+    <similar tal:define="similarResults here/similarContent;
+                         similar similarResults/list;
+                         more similarResults/more"
+             tal:condition="similar"
+             tal:attributes="more python:more and 'true' or nothing">
+      <tal:rep tal:repeat="o similar">
+        <a tal:attributes="href string:$portal_url/content/${o/objectId}/latest/;
+                           type o/portal_type"
+           tal:content="o/Title">[link name]</a>
+      </tal:rep>
+    </similar>
+    <courses tal:define="courses python:here.content.catalog(containedModuleIds=objectId)" 
+             tal:condition="courses"
+             tal:attributes="more python:test(len(courses)>10, 'true', nothing)">
+      <a tal:repeat="o python:courses[:10]"
+         tal:attributes="href string:/content/${o/objectId}/latest/; 
+			 id o/objectId;" 
+         tal:content="o/Title">[link name]</a>
+    </courses>
+  </related>
+
+  <tal:rating condition="python:hasattr(context, 'rating')">
+  <rating tal:define="rating python:round(context.rating())"
+          tal:attributes="value rating;
+                          number_of_ratings context/numberOfRatings;
+                          can_rate python:request.AUTHENTICATED_USER.has_permission('Rate Module', context) and 1 or 0">
+    <stars>
+      <tal:loop repeat="item python:context.prepare_rating_for_ui(context.rating())">
+        <star tal:attributes="value repeat/item/number;
+                              value_label python:context.get_rating_value_label(repeat['item'].number());
+                              selected item"/>
+      </tal:loop>
+     </stars>
+  </rating>
+  </tal:rating>
+
+  <tal:google-analytics
+        tal:define="state context/state;
+                    published python:state=='public' or None;
+                    versionFolder python:published and portal.content.getRhaptosObject(objectId);
+                    codeGoogleAnalytics python:published and (context.getGoogleAnalyticsTrackingCode() or versionFolder.getGoogleAnalyticsTrackingCode()) or None;"
+        tal:condition="python:codeGoogleAnalytics is not None">
+    <google-analytics code="" tal:attributes="code codeGoogleAnalytics"/>
+  </tal:google-analytics>
+
+  <approve_module_lenses tal:define="aview nocall:context/@@lensmaker.reviewlist.lenses;
+                                     lenses python:aview()"
+                         tal:attributes="form_action string:${context/absolute_url}/@@lensmaker.reviewlist.approve">
+    <has_lenses tal:content="python:lenses and '1' or '0'"></has_lenses>
+    <lenses>
+      <tal:loop repeat="lens lenses">
+        <lens tal:attributes="path string:${lens/getPath}/${context/objectId};
+                              link lens/getURL">
+          <title tal:content="lens/getDisplayName"></title>
+        </lens>
+      </tal:loop>
+    </lenses>
+  </approve_module_lenses>
+
+  <discussion tal:define="url here/forumUrl" tal:condition="url" tal:attributes="href url" />
+
+  <display>
+    <offline tal:condition="options/offline | nothing" />
+    <base tal:attributes="href here/renderBase" />
+    <viewpath tal:define="virtualPath python:request.get('VIRTUAL_URL_PARTS',(None,None))[1]; 
+                          virtualPath python:virtualPath and '/%s' % virtualPath; 
+                          regularPath request/environ/PATH_INFO;
+                          actionPath python:virtualPath or regularPath"
+                tal:content="actionPath">/content/m0000/latest</viewpath>
+    <span tal:content="options/style | request/style | nothing" />
+    <styles tal:define="permastyle context/style | nothing;
+                        style context/style | options/style | request/style | nothing;
+			styles options/styles | python:here.getStyles();
+                        style_chooser options/style_chooser | python:not permastyle;"
+            tal:attributes="chooser python:test(style_chooser, 'true', nothing)">
+      <style tal:repeat="s styles"
+             tal:attributes="active python:test(s['active'], 'true', 'false');
+                             id s/id;
+                             href s/path;"
+	     tal:content="s/title">[style name]</style>
+    </styles>
+    <eip tal:condition="request/eip | options/eip | nothing" />
+    <statusmessage tal:define="putils context/plone_utils;
+                               messages python: putils.showPortalMessages();
+                               type_css_map python: {'info':'portalMessage',
+                                                     'warn':'portalWarningMessage',
+                                                     'stop':'portalStopMessage'};"
+                   tal:condition="messages">
+        <tal:block tal:repeat="message messages">
+            <div class=""
+                  tal:define="mtype message/type | nothing;"
+                  tal:attributes="class python:mtype and type_css_map[mtype] or 'info';"
+                  tal:content="message/message | nothing">
+                Message
+            </div>
+        </tal:block>
+    </statusmessage>
+    <context tal:condition="nocall:module">
+      <a tal:attributes="href course/url; id course/objectId | string:new; version course/version | string:new;" 
+         tal:content="course/Title">[content name]</a>
+      <type  tal:content="course/getCollectionType"
+        tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
+                        fulltype python:course.getCollectionType('full');">[collectionType]</type>
+      <authors tal:define="authors course/authors">
+        <author tal:repeat="p authors" tal:attributes="id p">
+          <tal:badauthor tal:on-error="string:(${p})">
+            <tal:defineauthor tal:define="m python:here.desecured.getMemberById(p)">
+              <name tal:content="python:m.getProperty('fullname')">[fullname]</name>
+              <email tal:content="python:m.getProperty('email')">[email]</email>
+            </tal:defineauthor>
+          </tal:badauthor>
+        </author>
+      </authors>
+      <navigation tal:condition="nocall:course">
+        <tal:block tal:replace="structure python:portal.toc_structure(course)" />
+      </navigation>
+      <title tal:content="module/Title">[override title]</title>
+      <links tal:define="links module/getLinks;
+                         linkMap python:module.orderLinks(links);
+                         previous python:linkMap.get('previous', [None])[0];
+                         next     python:linkMap.get('next', [None])[0];"
+             tal:condition="links">
+        <link id="cnx_annotea" title="Annotea Server" type="text/xml"
+              tal:attributes="href string:${course/absolute_url}/annotations;
+                            rel python:test(course.state=='public', 'annotea read', 'annotea write')" />
+	    <link tal:repeat="l links"
+              tal:attributes="rel l/category;
+                              strength l/strength;
+                              href l/target;
+                              title python:l.title.decode(encoding)" />
+      </links>
+      <downloads tal:define="pfile course/getPrintedFile | nothing;
+                             printable python:pfile and pfile.get_size();
+                             locked python:course.getProcessStatus() == 'locked';
+                             zfile course/getMultimediaZip | nothing;
+                             hasZip python:zfile and zfile.get_size() != 0;
+                             zdlable python:printable and (not locked or hasZip)">
+        <pdf tal:condition="printable" />
+        <multimediazip tal:condition="zdlable" />
+      </downloads>
+      <tal:determine-if-we-are-in-a-collection-context-and-strip-me
+        tal:condition="nocall:module">
+        <orderable
+            tal:define="pfile course/getPrintedFile | nothing;
+                        printable python:pfile and pfile.get_size();
+                        specialBuy course/buyLink | parameters/buyLink | context/aq_parent/buyLink | nothing;
+                        autoBuy course/portal_properties/rhaptos_collection_print_config/buyBookURLformat | nothing;
+                        courseId course/objectId;
+                        autoBuy python:printable and autoBuy and autoBuy % courseId or None;
+                        buyURL python:specialBuy or autoBuy;
+                        interstitial string:${course/url}/collection_print_confirmation;
+                        buyLink python:specialBuy or interstitial;
+                        all_modules course/containedModules;
+                        canBuy python:course.getOrderable() and all_modules and buyURL"
+            tal:condition="canBuy"
+            tal:attributes="url buyLink">
+        </orderable>
+      </tal:determine-if-we-are-in-a-collection-context-and-strip-me>
+    </context>
+    <print tal:condition="exists:here/portal_pdflatex" href="?format=pdf"
+           tal:attributes="href string:${context/portal_url}/content/$objectId/$version/?format=pdf" />
+    <customheader tal:define="courseheader options/customHeader | nothing;
+                              cmh python:context.customModuleHeader(path=courseheader);"
+                  tal:condition="cmh"
+                  tal:content="structure cmh">CDATA with html fragment</customheader>
+    <twisties tal:define="twistdict context/twistydetect">
+      <downloadcollapsed tal:define="val twistdict/cnx_download | nothing"
+                      tal:condition="val"
+                      tal:content="python:test(val=='none', 'true', 'false')">false</downloadcollapsed>
+      <addtocollapsed tal:define="val twistdict/cnx_add_to | nothing"
+                      tal:condition="val"
+                      tal:content="python:test(val=='none', 'true', 'false')">false</addtocollapsed>
+      <emailauthorcollapsed tal:define="val twistdict/cnx_email_author | nothing"
+                      tal:condition="val"
+                      tal:content="python:test(val=='none', 'true', 'false')">false</emailauthorcollapsed>
+      <navigationcollapsed tal:define="val twistdict/cnx_course_navigation | nothing"
+                      tal:condition="val"
+                      tal:content="python:test(val=='none', 'true', 'false')">false</navigationcollapsed>
+      <recentcollapsed tal:define="val twistdict/cnx_recentview | nothing"
+                      tal:condition="val"
+                      tal:content="python:val=='none' and 'true' or 'false'">false</recentcollapsed>
+      <featuredlinkscollapsed tal:define="val twistdict/cnx_author_links | nothing"
+                      tal:condition="val"
+                      tal:content="python:test(val=='none', 'true', 'false')">false</featuredlinkscollapsed>
+      <printpagelink tal:condition="twistdict/cnx_print_page | nothing" />  <!-- deprecated -->
+    </twisties>
+    <javascriptpresent tal:condition="request/cnx_javascript_present | nothing"
+                       tal:content="python:test(request.cnx_javascript_present=='true', 'true', 'false')">[true]</javascriptpresent>
+    <tal:mathml tal:define="hasCookie request/cnx_mathml_msg|nothing">
+      <displaymathmlmsg tal:content="python:test(hasCookie and request.cnx_mathml_msg or 'unknown')">[true]</displaymathmlmsg>
+    </tal:mathml>
+    <tal:mathmlbrowser tal:define="hasCookie request/cnx_mathml_msg_browser|nothing">
+      <mathmlmsgbrowser tal:content="python:hasCookie and request.cnx_mathml_msg_browser or 'unknown'">[true]</mathmlmsgbrowser>
+    </tal:mathmlbrowser>
+    <tal:branding
+      tal:define="
+          brandingCookie  request/lenses | nothing;
+          brandingDict    python:context.findBrandingLens(cats,brandingCookie);
+          gotBranding     python:brandingDict is not None;"
+      tal:condition="gotBranding">
+      <branding
+          lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo=""
+          tal:define="
+              brandingLensId          python:brandingDict['lensId'] or None;
+              brandingColor           python:brandingDict['lensInfo']['bannerColor']or None;
+              brandingForegroundColor python:brandingDict['lensInfo']['bannerForegroundColor'] or None;
+              brandingCategory        python:brandingDict['lensInfo']['category']or None;
+              brandingLocation        python:brandingDict['lensInfo']['location']or None;
+              brandingTitle           python:brandingDict['lensInfo']['title']or None;
+              brandingLogo            python:brandingDict['lensInfo']['logo'] == 'true'
+                                             and (brandingDict['lensInfo']['location']+'/logo') or None;"
+          tal:attributes="
+              lensId                brandingLensId;
+              title                 brandingTitle;
+              location              brandingLocation;
+              category              brandingCategory;
+              bannerColor           brandingColor;
+              bannerForegroundColor brandingForegroundColor;
+              logo                  brandingLogo;">
+        <tal:comment replace="nothing">brandingLens  ltool.restrictedTraverse(brandingLensId); </tal:comment>
+        <tal:comment replace="nothing">brandingDict is <span tal:content="string:${brandingDict}"/> </tal:comment>
+      </branding>
+    </tal:branding>
+  </display>
+
+  <editing tal:define="mtool context/portal_membership;
+                       anonymous mtool/isAnonymousUser;
+                       module nocall:module | nocall:options/module | nocall:context | nothing;">
+    <user tal:content="user">Anonymous User</user>
+    <anonymoususer tal:condition="anonymous"/>
+ </editing>
+ 
+ <structure tal:define="public python:context.state=='public';
+                        col python:module and course or nothing;
+                        objectId context/objectId;
+                        version context/version;
+                        actionsview python:context.bar_content_actions_view(module=context, collection=col,
+                                                                            objectId=objectId, version=version,
+                                                                            cats=cats)">
+   <contentactionstop>
+      <div tal:condition="public"
+           tal:replace="structure python:context.bar_content_actions(view=actionsview)" />
+      <div id="content_template_messages"></div>
+   </contentactionstop>
+   <contentactionsbottom>
+      <div tal:condition="public"
+           tal:replace="structure python:context.bottom_content_actions(view=actionsview,
+                                                                        module=context, collection=col)" />
+   </contentactionsbottom>
+ </structure>
+
+  <tal:bugreport 
+    tal:define="actions           python:context.portal_actions.listFilteredActionsFor(portal);
+                site_actions      python:actions and actions['site_actions'] or None;
+                bugreport_actions python:site_actions and [a for a in site_actions if a['title'] == 'Report a Bug'] or [];
+                bugreport_action  python:bugreport_actions and len(bugreport_actions) and bugreport_actions[0] or None;"
+    tal:condition="bugreport_action">
+      <bugreport title="" url="" tal:attributes="title bugreport_action/title; url bugreport_action/url;"/>
+  </tal:bugreport>
+
+  <div tal:define="f here/getDefaultFile" tal:replace="structure f/rootNode" />
+
+</module>

@@ -1,0 +1,32 @@
+db = app.devrep
+
+# Fix up potentially bad sequences on this table                
+checkSequenceQuery = '''SELECT last_value FROM licenses_licenseid_seq;'''
+currentval = int(db.manage_test(query=checkSequenceQuery)[0].last_value)
+checkValuesQuery = '''SELECT max(licenseid) FROM licenses;'''     
+maxval = int(db.manage_test(query=checkValuesQuery)[0].max)
+
+if currentval != maxval:
+  fixSequenceQuery = '''SELECT setval('licenses_licenseid_seq', %d);''' % (maxval+1)
+  print "Fixing sequence numbers on licenses table."
+  db.manage_test(query=fixSequenceQuery)
+
+# Make sure the license isn't already there; then insert it.
+checkLicenseQuery = '''
+SELECT * FROM licenses WHERE url = 'http://creativecommons.org/licenses/by/3.0/';
+'''
+
+insertLicenseQuery = '''
+INSERT INTO licenses (code, "version", name, url)
+VALUES ('by', '3.0', 'Attribution',
+'http://creativecommons.org/licenses/by/3.0/');
+'''
+
+if not len(db.manage_test(query=checkLicenseQuery)):
+  db.manage_test(query=insertLicenseQuery)        
+  print "Inserted 3.0 license."
+else:
+  print "License entry already present."
+
+import transaction
+transaction.commit()
