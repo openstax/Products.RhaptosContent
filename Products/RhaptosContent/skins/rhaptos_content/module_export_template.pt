@@ -427,6 +427,7 @@
    <contentactionstop>
       <div tal:condition="public"
            tal:replace="structure python:context.bar_content_actions(view=actionsview)" />
+      <div id="content_template_messages"></div>
    </contentactionstop>
    <contentactionsbottom>
       <div tal:condition="public"

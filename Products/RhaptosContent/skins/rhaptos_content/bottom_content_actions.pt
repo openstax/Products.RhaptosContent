@@ -320,7 +320,45 @@
         <a href="#" metal:use-macro="template/macros/addthis">External bookmarks</a>
       </div>
     </div>
+
+
+    <!-- reuse / edit -->
+    <div class="cnx_actions_category"
+         id="cnx_actions_category_reuse_edit"
+         tal:define="addto view/addto;
+                     addtomod addto/mod | nothing;
+                     addtocol addto/col | nothing;
+                     addtoboth python: addtomod and addtocol;
+                     modfav addtomod/favorite | nothing;
+                     colfav addtocol/favorite | nothing;">
+      <span class="h3_inline">
+        <span i18n:translate="reuse">REUSE</span> / 
+        <span i18n:translate="edit">EDIT</span>:
+      </span>
     
+      <ul class="linear">
+      <tal:if define="suffix string:c;
+                      addtoinfo view/addto/col|nothing"
+              condition="addtoinfo">
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="collection" tal:omit-tag="">Collection</span></metal:fill>
+        </metal:use>
+      </tal:if>
+
+      <tal:if define="suffix string:d;
+                      addtoinfo view/addto/mod|nothing"
+              condition="addtoinfo">
+        <li>|</li>
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="module" tal:omit-tag="">Module</span></metal:fill>
+        </metal:use>
+      </tal:if>
+      </ul>
+
+    </div>
+
+
+
   </div>
 </div>
 

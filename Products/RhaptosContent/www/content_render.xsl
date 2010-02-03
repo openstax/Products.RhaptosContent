@@ -135,6 +135,9 @@
     <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
+
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
 
@@ -333,6 +336,13 @@
           </div>
         </div>
 
+        <div id="cnx_reuse_edit_popup" class="cnx_popup" style="display:none">
+          <div class="x-dlg-hd">Reuse / Edit</div>
+          <div class="x-dlg-bd" id="cnx_reuse_edit_inner">
+            Reuse / edit:
+          </div>
+        </div>
+
         <div id="cnx_login_dlg" class="cnx_popup" style="display:none">
           <div class="x-dlg-hd">Login Required</div>
           <div class="x-dlg-bd" id="cnx_login_inner">
@@ -340,6 +350,7 @@
           </div>
         </div>
 
+        <!-- Google Analytics tracking. Only for CNX. This will need to edited out for Rhaptos installs. -->
         <script src="http://www.google-analytics.com/ga.js" type="text/javascript"><xsl:text> </xsl:text></script>
         <script type="text/javascript">
             function trackthisGoogleAnalytics(strCode) {
