@@ -216,7 +216,7 @@
         
         <tal:lens tal:define="addtoinfo addtocol;
                               suffix string:col_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
@@ -299,7 +299,7 @@
         
         <tal:lens tal:define="addtoinfo addtomod;
                               suffix string:mod_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"

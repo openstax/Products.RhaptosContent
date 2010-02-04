@@ -309,7 +309,7 @@
               i18n:translate="text_menu_header_add_module_to">Add module to:</h3>
           <ul metal:use-macro="template/macros/addtolens">
             <li>
-              <a href="#">A lens</a>
+              <a href="#">A lens I own</a>
             </li>
           </ul>
         </tal:mod>
