@@ -233,10 +233,11 @@
               <div metal:use-macro="context/collection_view/macros/openlenshelp" />
             </span>
           </tal:siyahamba>
-          <tal:sep>|</tal:sep>
         </tal:lens>
-        
-        <tal:addthis metal:define-macro="addthis">
+
+        <tal:addthis metal:define-macro="addthis" tal:define="isCNX context/isCNX | nothing;">
+        <tal:block tal:condition="isCNX">
+          <tal:sep>|</tal:sep>
           <a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=cnx_org"
              i18n:translate="text_external_bookmarks"
              tal:define="url obj/url;
@@ -270,6 +271,7 @@
             <script type="text/javascript"
                     src="http://s7.addthis.com/js/250/addthis_widget.js?pub=cnx_org"></script>
           </tal:broken>
+        </tal:block>
         </tal:addthis>
       </div>
       
@@ -314,9 +316,7 @@
               <div metal:use-macro="context/collection_view/macros/openlenshelp" />
             </span>
           </tal:siyahamba>
-          <tal:sep>|</tal:sep>
         </tal:lens>
-        
         <a href="#" metal:use-macro="template/macros/addthis">External bookmarks</a>
       </div>
     </div>
