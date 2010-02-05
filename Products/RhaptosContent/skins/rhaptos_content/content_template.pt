@@ -71,10 +71,6 @@
         </div>
       </div>
 
-      <div id="content_template_messages">
-        <!-- Messages that are not served by PSM -->
-      </div>
-
       <metal:block metal:define-slot="before_title_slot" />
 
       <h1>

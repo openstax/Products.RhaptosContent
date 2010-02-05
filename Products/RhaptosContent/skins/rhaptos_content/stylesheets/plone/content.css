@@ -517,9 +517,3 @@ pre.space{
 .radio, .checkbox{
   border-width: 0;
 }
-
-/* Make a list display inline */
-ul.linear li {
-    display: inline;
-}
-
