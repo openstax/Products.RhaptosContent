@@ -326,8 +326,8 @@
                class="lensinfo hiddenStructure">
             <p i18n:translate="text_my_favorites_explanation">
             'My Favorites' is a special kind of lens which you can use to bookmark modules and
-            collections directly in Connexions. 'My Favorites' can only be seen by you, and collections
-            saved in 'My Favorites' can remember the last module you were on. You need a Connexions account
+            collections. 'My Favorites' can only be seen by you, and collections
+            saved in 'My Favorites' can remember the last module you were on. You need an account
             to use 'My Favorites'.
             </p>
           </div>
