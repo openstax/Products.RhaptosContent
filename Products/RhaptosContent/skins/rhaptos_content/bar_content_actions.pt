@@ -238,15 +238,6 @@
             Explanation of lenses
           </div>
         </div>
-        <div class="lensinfowrap"
-             id="cnx_actions_openlenswhat" tal:condition="context/@@siyavula|nothing">
-          <a href="/help/openlens_what"
-             tal:attributes="href string:$portal_url/help/openlens_what"
-             class="lenslink">(What is an open lens?)</a>
-          <div metal:use-macro="context/collection_view/macros/openlenshelp">
-            Explanation of open lenses
-          </div>
-        </div>
       </div>
     </div>
     
