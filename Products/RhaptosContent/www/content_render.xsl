@@ -2435,31 +2435,31 @@
       <h5>
         <xsl:text>Lenses</xsl:text>
       </h5>
-      <!-- A lens is a custom view of Connexions content.  You can think 
+      <!-- A lens is a custom view of the content in the repository.  You can think 
            of it as a fancy kind of list that will let you see 
-           Connexions through the eyes of organizations and people you 
+           content through the eyes of organizations and people you 
            trust. -->
       <p>
-        <xsl:text>A lens is a custom view of Connexions content. You can think of it as a fancy kind of list that will let you see Connexions through the eyes of organizations and people you trust.</xsl:text>
+        <xsl:text>A lens is a custom view of the content in the repository. You can think of it as a fancy kind of list that will let you see content through the eyes of organizations and people you trust.</xsl:text>
       </p>
       <!-- What is in a lens? -->
       <h5>
         <xsl:text>What is in a lens?</xsl:text>
       </h5>
-      <!-- Lens makers point to Connexions materials (modules and 
+      <!-- Lens makers point to materials (modules and 
            collections), creating a guide that includes their own 
            comments and descriptive tags about the content. -->
       <p>
-        <xsl:text>Lens makers point to Connexions materials (modules and collections), creating a guide that includes their own comments and descriptive tags about the content.</xsl:text>
+        <xsl:text>Lens makers point to materials (modules and collections), creating a guide that includes their own comments and descriptive tags about the content.</xsl:text>
       </p>
       <!-- Who can create a lens? -->
       <h5>
         <xsl:text>Who can create a lens?</xsl:text>
       </h5>
-      <!-- Any individual Connexions member, a community, or a respected 
+      <!-- Any individual member, a community, or a respected 
            organization. -->
       <p>
-        <xsl:text>Any individual Connexions member, a community, or a respected organization.</xsl:text>
+        <xsl:text>Any individual member, a community, or a respected organization.</xsl:text>
       </p>
       <h5>
         What are tags?
