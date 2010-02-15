@@ -520,7 +520,7 @@
 	  </a>
 	</li>
 	<li>
-        <a href="{publishing/portal/@href}/mycnx"> <!-- MyCNX -->
+        <a href="{publishing/portal/@href}/mydashboard"> <!-- MyCNX -->
         <xsl:if test="publishing/portal/@isCNX='true'">
 	    <xsl:text>MyCNX</xsl:text>
         </xsl:if>
