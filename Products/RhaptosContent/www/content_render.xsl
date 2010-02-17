@@ -468,6 +468,13 @@
             </a>
 	  </li>
         </xsl:if>
+        <xsl:if test="publishing/portal/@isCNX='true'">
+          <li>
+            <a href="/aboutus/cnx_donate">
+              <img src="cnx-donate-button.png" style="vertical-align: middle;"/>
+            </a>
+          </li>
+        </xsl:if>
       </ul>
       <div id="cnx_portal-searchbox">
 	<form name="content_search" action="{publishing/portal/@href}/content/search">
