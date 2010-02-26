@@ -224,7 +224,7 @@
               i18n:translate="text_menu_header_add_module_to">Add module to:</h3>
           <ul metal:use-macro="template/macros/addtolens">
             <li>
-              <a href="#">A lens</a>
+              <a href="#">A lens I own</a>
             </li>
           </ul>
         </tal:mod>
@@ -236,15 +236,6 @@
              class="lenslink">(What is a lens?)</a>
           <div metal:use-macro="context/collection_view/macros/lenshelp">
             Explanation of lenses
-          </div>
-        </div>
-        <div class="lensinfowrap"
-             id="cnx_actions_openlenswhat" tal:condition="context/@@siyavula|nothing">
-          <a href="/help/openlens_what"
-             tal:attributes="href string:$portal_url/help/openlens_what"
-             class="lenslink">(What is an open lens?)</a>
-          <div metal:use-macro="context/collection_view/macros/openlenshelp">
-            Explanation of open lenses
           </div>
         </div>
       </div>
@@ -335,8 +326,8 @@
                class="lensinfo hiddenStructure">
             <p i18n:translate="text_my_favorites_explanation">
             'My Favorites' is a special kind of lens which you can use to bookmark modules and
-            collections directly in Connexions. 'My Favorites' can only be seen by you, and collections
-            saved in 'My Favorites' can remember the last module you were on. You need a Connexions account
+            collections. 'My Favorites' can only be seen by you, and collections
+            saved in 'My Favorites' can remember the last module you were on. You need an account
             to use 'My Favorites'.
             </p>
           </div>
