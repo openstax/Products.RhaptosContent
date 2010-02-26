@@ -2,6 +2,8 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="rhaptos">
 
+  <include package=".browser" />
+
   <genericsetup:registerProfile
       name="default"
       title="Products.RhaptosContent"
