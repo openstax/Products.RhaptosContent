@@ -790,7 +790,7 @@
                       <xsl:text>This content is either by members of the organizations listed or about topics related to the organizations listed. Click each link to see a list of all content affiliated with the organization.</xsl:text>
                     </span>
                   </div>
-                  <ul>
+                  <ul id="cnx_affiliations_expanded">
                     <xsl:for-each select="$affiliations/list">
                       <xsl:call-template name="lens"/>
                     </xsl:for-each>
@@ -808,7 +808,7 @@
                       </xsl:otherwise>
                     </xsl:choose>
                   </h4>
-                  <ul>
+                  <ul id="cnx_otherlenscats_expanded">
                     <xsl:for-each select="$favorites/list">
                       <xsl:call-template name="lens"/>
                     </xsl:for-each>
