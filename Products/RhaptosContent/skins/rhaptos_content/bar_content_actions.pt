@@ -50,7 +50,7 @@
     
     <div id="cnx_actions_download" class="ca_button"
          tal:condition="python:modulepdf and not colinfo">
-      <a href="#"
+      <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
         class="ca_single ca_button_link"
         id="cnx_actions_download_link"
         tal:attributes="href modulepdf">
@@ -79,7 +79,7 @@
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf"
                 tal:condition="collectionpdf">
-              <a href="#"
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 0);}catch(err){}"
                  tal:attributes="href collectionpdf"
                  i18n:translate="text_PDF">
                 PDF
@@ -87,7 +87,7 @@
             </li>
             <li class="lensinfowrap ca_list_item ca_zip"
                 tal:condition="collmmzip">
-              <a href="#"
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:zip', 0);}catch(err){}"
                  tal:attributes="href collmmzip"
                  i18n:translate="text_media_zip">
                 Multimedia ZIP
@@ -130,7 +130,7 @@
               i18n:translate="text_menu_header_module">Module:</h3>
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf">
-              <a href="#"
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
                  tal:attributes="href modulepdf"
                  i18n:translate="text_PDF">
                 PDF

@@ -343,34 +343,41 @@
 
         <script src="http://www.google-analytics.com/ga.js" type="text/javascript"><xsl:text> </xsl:text></script>
         <script type="text/javascript">
-            function trackthisGoogleAnalytics(strCode) {
-              try {
-                var benchmarkTracker = _gat._getTracker(strCode);
-                benchmarkTracker._setDomainName('cnx.org');
-                benchmarkTracker._trackPageview();
-              }
-              catch(err) {}
-            }
+	      	var _gaq = _gaq || [];
+	        function trackthisGoogleAnalytics(strCode) {
+	          try {
+	            _gaq.push(['user._setAccount', strcode]);
+	            _gaq.push(['user._trackPageview']);
+	          }
+	          catch(err) {}
+	        }
         </script>
 
       <xsl:if test="publishing/portal/@isCNX='true'">
         <!-- CNX Google Analytics tracking for Collaborative Statistics course. -->
         <xsl:if test="$courseid = 'col10522'">
           <script type="text/javascript">
-            if(typeof(_gat) == 'object') {
-              var pageTracker = _gat._getTracker("UA-5153795-1");
-              pageTracker._setDomainName('cnx.org');
-              pageTracker._setCookiePath('/content/');
-              pageTracker._trackPageview();
-            }
+			var _gaq = _gaq || [];
+			_gaq.push(['collabstats._setAccount', 'UA-5153795-1']);
+			_gaq.push(['collabstats._initData']);
+			_gaq.push(['collabstats._setCookiePath', '/content/']);
+			_gaq.push(['collabstats._trackPageview']);
           </script>
+	      <xsl:if test="display/context">
+	      	<script type="text/javascript">
+	      		_gaq.push(['_trackPageview', window.location.pathname+'?event=module:view:in-collection']);
+	      	</script>
+	      </xsl:if>
         </xsl:if>
         <!-- CNX Google Analytics tracking for the William and Flora Hewlett Foundation. -->
         <script type="text/javascript">
-            /* Benchmark Tracker */
-            trackthisGoogleAnalytics("UA-7903479-1");
-            /* Overall Tracker */
-            trackthisGoogleAnalytics("UA-5033010-1");
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-7903479-1']);
+			_gaq.push(['_setDomainName', '.cnx.org']);
+			_gaq.push(['_trackPageview']);
+			_gaq.push(['hewlett._setAccount', 'UA-5033010-1']);
+			_gaq.push(['hewlett._setDomainName', 'cnx.org']);
+			_gaq.push(['hewlett._trackPageview']);
         </script>
       </xsl:if>
 
@@ -1037,6 +1044,9 @@
 
             <xsl:if test="display/context/orderable">
               <a id="cnx_order_link" href="{display/context/orderable/@url}" target="_blank">
+              	<xsl:if test="publishing/portal/@isCNX='true'">
+              		<xsl:attribute name="onmousedown">try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:order');}catch(err){}</xsl:attribute>
+              	</xsl:if>
                 Order printed collection
               </a>
             </xsl:if>
