@@ -147,12 +147,12 @@
       </h3>
       <div class="cnx_actions_group">
         <tal:pdf tal:condition="collectionpdf">
-          <a href="#" i18n:translate="text_collection_pdf"
+          <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
              tal:attributes="href collectionpdf">Collection PDF</a>
           <tal:sep condition="python:collmmzip or modulepdf">|</tal:sep>
         </tal:pdf>
         <tal:zip tal:condition="collmmzip">
-          <a href="#" i18n:translate="text_collection_zip"
+          <a href="#" i18n:translate="text_collection_zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:zip', 100);}catch(err){}"
              tal:attributes="href collmmzip">Collection multimedia ZIP</a>
           <span class="lensinfowrap">
             <a href="" class="lenslink" i18n:translate="text_generic_help"
@@ -163,7 +163,7 @@
           <tal:sep condition="modulepdf">|</tal:sep>
         </tal:zip>
         <tal:pdf tal:condition="modulepdf">
-          <a href="#" i18n:translate="text_module_zip"
+          <a href="#" i18n:translate="text_module_zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
              tal:attributes="href modulepdf">Module PDF</a>
         </tal:pdf>
       </div>
