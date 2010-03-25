@@ -184,12 +184,9 @@
                                  condition="python:not aview.can_checkout(contentId, version)">
 
               <p i18n:translate="">
-                You do not have any roles or permissions on this                
+                <strong>You do not have any roles or permissions on this                
                 <span i18n:name="content"
-                      tal:replace="python:aview.content(contentId, version).portal_type.lower() "/>.
-              </p>
-
-              <p i18n:translate="">
+                      tal:replace="python:aview.content(contentId, version).portal_type.lower() "/>.</strong>
                 Would you like to
               </p>
 
@@ -203,7 +200,7 @@
               </td>
               <td valign="top">
               <label for="cannot_checkout_action_1" i18n:translate="">
-                Derive a copy<!-- (what's this - Hedley needs help here)-->
+                <strong>Derive a copy</strong><!-- (what's this - Hedley needs help here)-->
 
 <!--                
 <span class="lensinfowrap">
@@ -235,8 +232,7 @@
               </td>
               <td valign="top">
               <label for="cannot_checkout_action_2">
-                <span i18n:translate="">Check it out anyway.</span>
-                <br />
+                <strong i18n:translate="">Check it out anyway.</strong>
                 <span i18n:translate="">
                   To publish your edit you will need to
                 </span>
