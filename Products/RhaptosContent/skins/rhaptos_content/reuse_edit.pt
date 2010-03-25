@@ -24,16 +24,8 @@
           <option tal:define="member context/portal_membership/getAuthenticatedMember"
                   tal:attributes="value string:Members/${member/id}"
                   i18n:translate="label_personal_workspace">Personal Workspace</option>
-          <option disabled="1"> </option>
-          <option i18n:translate="shared_workgroups" disabled="1">Shared Workgroups</option>
-          <option disabled="1">-------------------------</option>
-          <tal:loop repeat="item python:context.getWorkspaces({'id':None, 'title':None, 'folder':None})">
-            <option tal:define="pth python:'/'.join(item['folder'].getPhysicalPath())"
-                    tal:attributes="value pth;
-                                    selected python:pth == area_path"
-                    tal:content="item/title">
-            </option>
-          </tal:loop>
+          <option disabled="disabled"> </option>
+          <metal:reuse use-macro="here/search_macros/macros/workgroupoptions">asdf</metal:reuse>
         </select>
         </div>
 
