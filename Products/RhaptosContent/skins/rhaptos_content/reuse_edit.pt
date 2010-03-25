@@ -15,7 +15,7 @@
 
       <tal:norender condition="nothing">
       <metal:macro define-macro="checkout">
-        <p i18n:translate="">Select an area in which to work on your content.</p>
+        <p i18n:translate="text_select_workarea">Select an area in which to work on your content.</p>
               
         <div class="field">
         <select tal:define="area_path area_path | options/area_path | request/area_path | nothing;
@@ -23,7 +23,7 @@
                 name="area_path">
           <option tal:define="member context/portal_membership/getAuthenticatedMember"
                   tal:attributes="value string:Members/${member/id}"
-                  i18n:translate="">Personal Workspace</option>
+                  i18n:translate="label_personal_workspace">Personal Workspace</option>
           <option disabled="1"> </option>
           <option i18n:translate="shared_workgroups" disabled="1">Shared Workgroups</option>
           <option disabled="1">-------------------------</option>
@@ -40,7 +40,7 @@
         <div class="field">
           <input type="checkbox" id="reuse_edit_now" 
                  name="reuse_edit_now" />
-          <label for="reuse_edit_now" i18n:translate="">
+          <label for="reuse_edit_now" i18n:translate="text_edit_content_now">
             Edit the content now
           </label>
         </div>
@@ -124,7 +124,7 @@
       </metal:macro>
       </tal:norender>
 
-      <h1 i18n:translate="">Heading</h1>
+      <h1>Heading</h1>
 
       <metal:heart define-macro="inner"
                    tal:define="errors python:request.get('errors', {});
@@ -156,7 +156,9 @@
 
         <tal:auth condition="not:isAnon">
         <tal:data condition="not:hasdata">
-          <p i18n:translate="text_no_data"><strong>Error!</strong> Cannot determine content information.</p>
+          <p i18n:translate="text_no_data">
+            <strong i18n:name="error"><span i18n:translate="text_error_exclamation">Error!</span></strong> 
+            Cannot determine content information.</p>
         </tal:data>
 
         <form tal:condition="hasdata"
@@ -183,11 +185,11 @@
             <tal:cannot_checkout define="aview nocall:context/@@reuse-edit-view"
                                  condition="python:not aview.can_checkout(contentId, version)">
 
-              <p i18n:translate="">
-                <strong>You do not have any roles or permissions on this                
+              <p>
+                <strong i18n:translate="text_no_permissions">You do not have any roles or permissions on this                
                 <span i18n:name="content"
                       tal:replace="python:aview.content(contentId, version).portal_type.lower() "/>.</strong>
-                Would you like to
+                <span i18n:translate="text_would_you_like_to">Would you like to</span>
               </p>
 
               <table class="reuse_edit_table">
@@ -199,8 +201,8 @@
                      value="derive" checked="1" />
               </td>
               <td valign="top">
-              <label for="cannot_checkout_action_1" i18n:translate="">
-                <strong>Derive a copy</strong><!-- (what's this - Hedley needs help here)-->
+              <label for="cannot_checkout_action_1">
+                <strong i18n:translate="label_derive_copy">Derive a copy</strong><!-- (what's this - Hedley needs help here)-->
 
 <!--                
 <span class="lensinfowrap">
@@ -232,17 +234,17 @@
               </td>
               <td valign="top">
               <label for="cannot_checkout_action_2">
-                <strong i18n:translate="">Check it out anyway.</strong>
-                <span i18n:translate="">
+                <strong i18n:translate="label_checkout_anyway">Check it out anyway.</strong>
+                <span i18n:translate="text_publish_reqs">
                   To publish your edit you will need to
                 </span>
                 <ul>
-                  <li i18n:translate="">request to be an author</li>
-                  <li i18n:translate="">
+                  <li i18n:translate="text_request_authorship">request to be an author</li>
+                  <li i18n:translate="text_invite_author">
                     invite an author into your workgroup and ask them to 
                     publish your edits
                   </li>
-                  <li i18n:translate="">derive a copy later</li>
+                  <li i18n:translate="text_derive_later">derive a copy later</li>
                 </ul>
               </label>
               </td>
