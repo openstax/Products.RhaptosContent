@@ -39,6 +39,7 @@
 
         <div class="field">
           <input type="checkbox" id="reuse_edit_now" 
+                 class="noborder"
                  name="reuse_edit_now" />
           <label for="reuse_edit_now" i18n:translate="text_edit_content_now">
             Edit the content now
@@ -197,6 +198,7 @@
               <tr>
               <td valign="top">
               <input name="cannot_checkout_action"
+                     class="noborder" 
                      type="radio" id="cannot_checkout_action_1" 
                      value="derive" checked="1" />
               </td>
@@ -229,6 +231,7 @@
               <tr>
               <td valign="top">
               <input name="cannot_checkout_action"
+                     class="noborder" 
                      type="radio" id="cannot_checkout_action_2"
                      value="checkout_anyway" />
               </td>
@@ -303,8 +306,9 @@
             <tal:if condition="not:request/reuse_edit_now|nothing">
               <div class="field">
                 <input type="checkbox" id="edit_existing_now" 
-                        name="edit_existing_now" />
-                <label for="reuse_edit_now" i18n:translate="">
+                       class="noborder" 
+                       name="edit_existing_now" />
+                <label for="reuse_edit_now" i18n:translate="label_edit_existing_now">
                   Edit existing copy now
                 </label>
               </div>
