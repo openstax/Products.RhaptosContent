@@ -61,7 +61,7 @@
         <tal:def define="aview nocall:context/@@reuse-edit-view;
                          content python:aview.content(contentId, version)">
           <p>
-            <span tal:replace="context/portal_type" />:
+            <span tal:replace="content/portal_type" />:
             <span tal:replace="content/Title" />
           </p>
 
