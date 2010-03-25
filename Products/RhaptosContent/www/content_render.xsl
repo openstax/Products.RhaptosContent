@@ -135,8 +135,8 @@
     <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
-    <script type="text/javascript" src="/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
-    <script type="text/javascript" src="/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
