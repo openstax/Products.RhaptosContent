@@ -1130,7 +1130,7 @@ h4 .lenslink{
   margin-left: 0;
 }
 
-/* ===== add-to-lens popup styling ==========*/
+/* ===== ajax popup styling ==========*/
 
 #cnx_lens_inner{
   padding: 1em;
@@ -1194,6 +1194,10 @@ label{
   margin-bottom:0px;
   padding-top:0px;
   padding-bottom:0px;
+}
+
+.cnx_ajax_working img{
+  vertical-align: middle;
 }
 
 /* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */

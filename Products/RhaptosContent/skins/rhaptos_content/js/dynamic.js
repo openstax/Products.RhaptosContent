@@ -520,7 +520,7 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
             event.preventDefault();
             var form = jQuery("#reuse_edit_form");
             var serialized = form.formSerialize();
-            jQuery("#cnx_reuse_edit_inner").html('<img src="ajax_loading.gif" />');
+            jQuery("#cnx_reuse_edit_inner").html('<span class="cnx_ajax_working"><img src="ajax_loading.gif" /> Working</span>');
             jQuery.post(
                 form.attr('action'), 
                 serialized,
