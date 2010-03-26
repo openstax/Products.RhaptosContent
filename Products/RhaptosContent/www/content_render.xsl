@@ -499,8 +499,8 @@
 	</form>
       </div>
       <h1 id="cnx_portal-logo">
-	<a href="{publishing/portal/@href}" title="{publishing/portal/description}">
-	  <xsl:value-of select="publishing/portal/description"/>
+	<a href="{publishing/portal/@href}" title="{publishing/portal/title}">
+	  <xsl:value-of select="publishing/portal/title"/>
 	</a>
       </h1>
       <div id="cnx_portal-globalnav">
