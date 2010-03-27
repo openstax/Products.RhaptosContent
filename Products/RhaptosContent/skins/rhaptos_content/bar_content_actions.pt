@@ -214,15 +214,17 @@
 
         <div class="lensinfowrap ca_help_link"
              id="cnx_actions_reuseeditwhat">
-          <a href="/help/lens_what"
+          <a href="/help/authoring/reuseedit"
              tal:attributes="href string:$portal_url/help/reuse_edit_what"
              class="lenslink">(How do I reuse or edit?)</a>
+          <metal:macro define-macro="reuse_edit_help">
           <div class="lensinfo hiddenStructure"
                i18n:translate="">
             If you have permission to edit this content, using the "Reuse&#160;/&#160;Edit" action will allow you to check the content out into your Personal Workspace or 
             a shared Workgroup and then make your edits. If you don't have permission to edit the content, you can still use "Reuse&#160;/&#160;Edit" to adapt the content 
             by creating a derived copy of it and then editing and publishing the copy.
           </div>
+          </metal:macro>
         </div>
 
       </div>

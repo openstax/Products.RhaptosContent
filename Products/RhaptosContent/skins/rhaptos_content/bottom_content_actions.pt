@@ -328,28 +328,35 @@
     <!-- reuse / edit -->
     <div class="cnx_actions_category"
          id="cnx_actions_category_reuse_edit"
-         tal:define="addto view/addto;
-                     addtomod addto/mod | nothing;
-                     addtocol addto/col | nothing;
-                     addtoboth python: addtomod and addtocol;
-                     modfav addtomod/favorite | nothing;
-                     colfav addtocol/favorite | nothing;">
+         tal:define="addto view/addto;">
       <h3 i18n:translate="header_reuse_slash_edit">Reuse / Edit:</h3>
       <div class="cnx_actions_group">
       <tal:if define="suffix string:c;
-                      addtoinfo view/addto/col|nothing"
+                      addtoinfo addto/col | nothing"
               condition="addtoinfo">
         <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
           <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_collection" tal:omit-tag="">Reuse or edit collection</span></metal:fill>
         </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/reuse_edit_what">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
       </tal:if>
       <tal:if define="suffix string:d;
-                      addtoinfo view/addto/mod|nothing"
+                      addtoinfo addto/mod | nothing"
               condition="addtoinfo">
-        <tal:sep condition="view/addto/col|nothing">|</tal:sep>
+        <tal:sep condition="addto/col | nothing">|</tal:sep>
         <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
           <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_module" tal:omit-tag="">Reuse or edit module</span></metal:fill>
         </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/reuse_edit_what">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
       </tal:if>
       </div>
     </div>
