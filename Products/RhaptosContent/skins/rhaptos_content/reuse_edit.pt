@@ -32,6 +32,7 @@
         <div class="field">
           <input type="checkbox" id="reuse_edit_now" 
                  class="noborder"
+                 checked="checked"
                  name="reuse_edit_now" />
           <label for="reuse_edit_now" i18n:translate="text_edit_content_now">
             Edit the content now
