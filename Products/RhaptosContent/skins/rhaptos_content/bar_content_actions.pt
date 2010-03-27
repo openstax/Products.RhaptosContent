@@ -92,7 +92,7 @@
                  i18n:translate="text_media_zip">
                 Multimedia ZIP
               </a>
-              <div id="cnx_actions_zipwhat">
+              <div id="cnx_actions_zipwhat" class="ca_help_link">
                 <a href="/help/viewing/multimediazip"
                    tal:define="help nocall:portal/help/viewing/multimediazip/absolute_url | nothing" tal:condition="nocall:help"
                    tal:attributes="href help"
@@ -159,11 +159,8 @@
       <div id="cnx_actions_reuse_edit_contents" class="ca_drop_contents">
         <a href="#" class="ca_drop_close">x</a>
 
-        <ul>
-
           <tal:norender condition="nothing">
             <metal:macro define-macro="reuse_edit_listitem">
-            <li>
               <span class="lensinfowrap">
               <a id="cnx_actions_reuse_edit_popup_link"
                    class="lenslink cnx_reuse_edit_trigger_link"
@@ -182,31 +179,40 @@
                     tal:condition="isAnon"
                     i18n:translate="text_login_required">Login Required</span>
               </span>
-            </li>
             </metal:macro>
           </tal:norender>
 
           <tal:if define="suffix string:a;
                           addtoinfo view/addto/col|nothing"
                   condition="addtoinfo">
-            <metal:use use-macro="template/macros/reuse_edit_listitem">
-              <metal:fill fill-slot="label">
-                <span i18n:translate="collection" tal:omit-tag="">Collection</span></metal:fill>
-            </metal:use>
+            <h3 class="ca_header" 
+                i18n:translate="text_menu_header_collection">Collection:</h3>
+            <ul class="ca_list">
+              <li class="ca_list_item ca_reuse_edit">
+              <metal:use use-macro="template/macros/reuse_edit_listitem">
+                <metal:fill fill-slot="label">
+                  <span i18n:translate="label_reuse_or_edit" tal:omit-tag="">Reuse or edit</span></metal:fill>
+              </metal:use>
+              </li>
+            </ul>
           </tal:if>
 
           <tal:if define="suffix string:b;
                           addtoinfo view/addto/mod|nothing"
                   condition="addtoinfo">
-            <metal:use use-macro="template/macros/reuse_edit_listitem">
-              <metal:fill fill-slot="label">
-                <span i18n:translate="module" tal:omit-tag="">Module</span></metal:fill>
-            </metal:use>
+            <h3 class="ca_header" 
+                i18n:translate="text_menu_header_module">Module:</h3>
+              <ul class="ca_list">
+              <li class="ca_list_item ca_reuse_edit">
+              <metal:use use-macro="template/macros/reuse_edit_listitem">
+                <metal:fill fill-slot="label">
+                  <span i18n:translate="label_reuse_or_edit" tal:omit-tag="">Reuse or edit</span></metal:fill>
+              </metal:use>
+              </li>
+            </ul>
           </tal:if>
 
-        </ul>
-
-        <div class="lensinfowrap"
+        <div class="lensinfowrap ca_help_link"
              id="cnx_actions_reuseeditwhat">
           <a href="/help/lens_what"
              tal:attributes="href string:$portal_url/help/reuse_edit_what"
@@ -308,7 +314,7 @@
             </li>
           </ul>
         </tal:mod>
-        <div class="lensinfowrap"
+        <div class="lensinfowrap ca_help_link"
              id="cnx_actions_lenswhat">
           <a href="/help/viewing/lenses"
              tal:define="help nocall:portal/help/viewing/lenses | nothing" tal:condition="nocall:help"
@@ -318,7 +324,7 @@
             Explanation of lenses
           </div>
         </div>
-        <div class="lensinfowrap"
+        <div class="lensinfowrap ca_help_link"
              id="cnx_actions_openlenswhat" tal:condition="context/@@siyavula|nothing">
           <a href="/help/openlens_what"
              tal:attributes="href string:$portal_url/help/openlens_what"
@@ -405,7 +411,7 @@
           </ul>
         </tal:mod>
 
-        <div class="lensinfowrap"
+        <div class="lensinfowrap ca_help_link"
              id="cnx_actions_favoriteswhat">
           <a href="/help/viewing/lenses" class="lenslink"
              i18n:translate="text_what_is_my_favorites"

@@ -186,7 +186,7 @@
               </p>
 
               <table class="reuse_edit_table">
-
+              <tbody>
               <tr>
               <td valign="top">
               <input name="cannot_checkout_action"
@@ -244,7 +244,7 @@
               </label>
               </td>
               </tr>
-
+              </tbody>
               </table>
 
               <input i18n:attributes="value continue"

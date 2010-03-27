@@ -334,30 +334,24 @@
                      addtoboth python: addtomod and addtocol;
                      modfav addtomod/favorite | nothing;
                      colfav addtocol/favorite | nothing;">
-      <span class="h3_inline">
-        <span i18n:translate="reuse">REUSE</span> / 
-        <span i18n:translate="edit">EDIT</span>:
-      </span>
-    
-      <ul class="linear">
+      <h3 i18n:translate="header_reuse_slash_edit">Reuse / Edit:</h3>
+      <div class="cnx_actions_group">
       <tal:if define="suffix string:c;
                       addtoinfo view/addto/col|nothing"
               condition="addtoinfo">
         <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
-          <metal:fill fill-slot="label"><span i18n:translate="collection" tal:omit-tag="">Collection</span></metal:fill>
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_collection" tal:omit-tag="">Reuse or edit collection</span></metal:fill>
         </metal:use>
       </tal:if>
-
       <tal:if define="suffix string:d;
                       addtoinfo view/addto/mod|nothing"
               condition="addtoinfo">
-        <li>|</li>
+        <tal:sep condition="view/addto/col|nothing">|</tal:sep>
         <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
-          <metal:fill fill-slot="label"><span i18n:translate="module" tal:omit-tag="">Module</span></metal:fill>
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_module" tal:omit-tag="">Reuse or edit module</span></metal:fill>
         </metal:use>
       </tal:if>
-      </ul>
-
+      </div>
     </div>
 
 
