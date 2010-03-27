@@ -659,7 +659,7 @@ li{
 
 /* ========== warnings ========== */
 
-.cnx_warning{
+.cnx_warning, .popuperror{
   background-color: #ffce7b;
   border: 1px solid #ffa500;
   font-weight: bold;
@@ -672,6 +672,17 @@ li{
 
 .cnx_warning a{
   color: black;
+}
+
+.popuperror{
+  clear: both;
+  margin: 2em 0 1.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.x-window-body .popuperror{
+  margin: 1em 0;
 }
 
 #cnx_no_menclose_support_example{
