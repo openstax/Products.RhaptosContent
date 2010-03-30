@@ -659,7 +659,7 @@ li{
 
 /* ========== warnings ========== */
 
-.cnx_warning, .popuperror{
+.cnx_warning, .cnx_success_message{
   background-color: #ffce7b;
   border: 1px solid #ffa500;
   font-weight: bold;
@@ -674,15 +674,11 @@ li{
   color: black;
 }
 
-.popuperror{
+.cnx_success_message{
   clear: both;
   margin: 2em 0 1.5em;
   padding-top: 1em;
   padding-bottom: 1em;
-}
-
-.x-window-body .popuperror{
-  margin: 1em 0;
 }
 
 #cnx_no_menclose_support_example{
@@ -1215,6 +1211,14 @@ label{
 
 .cnx_ajax_working img{
   vertical-align: middle;
+}
+
+.popuperror{
+  background-color: #ffce7b;
+  border: 1px solid #ffa500;
+  padding: 1em;
+  margin: 0 0 1em 0;
+  width: 95%;
 }
 
 /* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */

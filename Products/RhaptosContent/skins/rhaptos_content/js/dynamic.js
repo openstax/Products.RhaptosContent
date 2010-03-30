@@ -529,7 +529,7 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
                     if (data.indexOf('close:') == 0)                    
                     {
                         var msg = data.substr(7);
-                        jQuery("#content_template_messages").html('<div class="popuperror">'+msg+'</div>');
+                        jQuery("#content_template_messages").html('<div class="cnx_success_message">'+msg+'</div>');
                         reuse_edit_dialog.close();
                     }
                     else if (data.indexOf('Redirect:') == 0)                    
