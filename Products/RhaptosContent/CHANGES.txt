@@ -1,3 +1,6 @@
+RhaptosContent-0.47
+  - Google Analytics addition for file downloads
+
 RhaptosContent-0.46
   - generic setup factor. Rhaptos 2.0 release
 
