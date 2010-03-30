@@ -282,21 +282,10 @@ class ReuseEditView(BrowserView):
 
         # EDIT EXISTING COPY BUTTON
         # https://trac.rhaptos.org/trac/rhaptos/attachment/wiki/Express%20Edit%20or%20Reuse/Design/conflict-message-chose-edit-originally.jpg
+        # and
+        # https://trac.rhaptos.org/trac/rhaptos/attachment/wiki/Express%20Edit%20or%20Reuse/Design/conflict-message-chose-noedit-originally.jpg
         if button == 'edit_existing_copy':
             print "REDIR 1"
             # Redirect to edit page of the checked out content
             obj = portal.restrictedTraverse(form['obj_path'])
             return "Redirect: %s" % obj.absolute_url()            
-
-
-        # OK BUTTON
-        # https://trac.rhaptos.org/trac/rhaptos/attachment/wiki/Express%20Edit%20or%20Reuse/Design/conflict-message-chose-noedit-originally.jpg
-        if button == 'ok':
-            print "REDIR 2"
-            if form.get('edit_existing_now'):
-                # Redirect to edit page of the checked out content
-                obj = portal.restrictedTraverse(form['obj_path'])
-                return "Redirect: %s" % obj.absolute_url()
-            else:
-                return "close: The %s was successfully checked out to %s" \
-                    % (obj.portal_type.lower(), area.Title())

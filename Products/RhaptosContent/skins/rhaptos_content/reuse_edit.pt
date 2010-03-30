@@ -274,8 +274,8 @@
 
           <tal:have_copy condition="python:section == 'already_have_copy'">
             <p>
-              This <span tal:replace="content_type/lower "/> is already in 
-              <span tal:replace="area/Title" />
+              A conflicting copy of the <span tal:replace="content_type/lower "/> already exists in 
+              <span tal:replace="area/Title" />, so the checkout was not completed.
             </p>
 
             <input tal:define="pth python:'/'.join(obj.getPhysicalPath())"
@@ -297,18 +297,16 @@
             </tal:if>
 
             <tal:if condition="not:request/reuse_edit_now|nothing">
-              <div class="field">
-                <input type="checkbox" id="edit_existing_now" 
-                       class="noborder" 
-                       name="edit_existing_now" />
-                <label for="reuse_edit_now" i18n:translate="label_edit_existing_now">
-                  Edit existing copy now
-                </label>
-              </div>
               <input i18n:attributes="value ok"
                      type="submit"
                      value="OK"
-                     name="ok"
+                     name="cancel"
+                     class="context" />
+              <input i18n:attributes="value go_to_existing_copy"
+                     id="edit_existing_copy"
+                     type="submit"
+                     value="Go To Existing Copy"
+                     name="edit_existing_copy"
                      class="context" />
             </tal:if>
 
