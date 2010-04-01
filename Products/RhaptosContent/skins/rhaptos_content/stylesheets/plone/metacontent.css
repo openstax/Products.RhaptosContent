@@ -167,13 +167,8 @@ img{
 }
 
 a{
-  text-decoration: none;
   color: #436976;
   background-color: transparent;
-}
-
-p a{
-  text-decoration: underline;
 }
 
 p a:visited{
@@ -409,7 +404,6 @@ li{
 
 #cnx_course_header #cnx_course_authors a{
   color: #76797c;
-  text-decoration: underline;
 }
 
 #cnx_course_header .cnx_email_author, #cnx_module_header .cnx_email_author{
@@ -638,10 +632,6 @@ li{
   margin-bottom: 0;
 }
 
-#cnx_attribution a{
-  text-decoration: underline;
-}
-
 #cnx_partner_logos{              
   float: right;
   margin: 0 0 .5em 2em;
@@ -686,7 +676,6 @@ li{
 }
 #ff_mathml_msg2 td a{
   font-weight: bold;
-  text-decoration: underline;
 }
 
 /* ========== table ========== */
