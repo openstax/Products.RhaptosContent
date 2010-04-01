@@ -205,6 +205,8 @@ input{
   color: Black;
   background-color: white;
   vertical-align: middle;
+  overflow: visible;
+  padding: 0 .5em;
 }
 
 ul, ol{ 
@@ -677,7 +679,9 @@ li{
 .cnx_success_message{
   clear: both;
   margin: 2em 0 1.5em;
+  margin-top: 0\9; /* For IE */
   padding-top: 1em;
+  padding-top: .5em\9; /* For IE */
   padding-bottom: 1em;
 }
 
@@ -973,6 +977,7 @@ li.cnx_lens{
 
 input.noborder{
   border: none;
+  background-color: transparent;
 }
 
 /* ========== author links box ========== */
