@@ -118,7 +118,7 @@
                                 emails python:','.join([a.getProperty('email') for a in authors]);
                                 portalemail context/email_from_address;
                                 pss modules/Products/PythonScripts/standard;
-                                portalname context/email_from_name;
+                                portalname portal/Title;
                                 portalname python:pss.url_quote(portalname);
                                 coltitle obj/Title;
                                 coltitle python:pss.url_quote(coltitle);
