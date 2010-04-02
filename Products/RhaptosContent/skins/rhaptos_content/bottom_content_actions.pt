@@ -328,7 +328,10 @@
     <!-- reuse / edit -->
     <div class="cnx_actions_category"
          id="cnx_actions_category_reuse_edit"
-         tal:define="addto view/addto;">
+         style="display:none"
+         tal:define="addto view/addto;
+                     show view/general/show | nothing;"
+         tal:attributes="style python:not show and default or nothing">
       <h3 i18n:translate="header_reuse_slash_edit">Reuse / Edit:</h3>
       <div class="cnx_actions_group">
       <tal:if define="suffix string:c;

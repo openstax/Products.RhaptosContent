@@ -404,6 +404,11 @@ Ext.onReady(function() {
       bar.dom.style.display = 'block';
     }
 
+    var re_bottom = Ext.get('cnx_actions_category_reuse_edit');
+    if (re_bottom && re_bottom.dom.style.display=='none') {
+      re_bottom.dom.style.display = 'block';
+    }
+
 });
 
 //* toggle "on" class on click
