@@ -20,11 +20,12 @@
         <div class="field">
         <select tal:define="area_path area_path | options/area_path | request/area_path | nothing;
                             aview nocall:context/@@reuse-edit-view"
-                name="area_path">
+                name="area_path"
+                onchange="disableInIE(this);">
           <option tal:define="member context/portal_membership/getAuthenticatedMember"
                   tal:attributes="value string:Members/${member/id}"
                   i18n:translate="label_personal_workspace">Personal Workspace</option>
-          <option disabled="disabled"> </option>
+          <option disabled="disabled" class="disabled"> </option>
           <metal:reuse use-macro="here/search_macros/macros/workgroupoptions">asdf</metal:reuse>
         </select>
         </div>

@@ -1226,6 +1226,10 @@ label{
   width: 95%;
 }
 
+.disabled{
+  color: #888;
+}
+
 /* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */
 
 .hiddenStructure{
