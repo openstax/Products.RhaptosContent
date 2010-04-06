@@ -343,7 +343,7 @@
         <span class="lensinfowrap">
           <a class="lenslink" 
              href="/help/authoring/reuseedit"
-             tal:attributes="href string:$portal_url/help/reuse_edit_what">(?)</a>
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
           <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
         </span>
       </tal:if>
@@ -357,7 +357,7 @@
         <span class="lensinfowrap">
           <a class="lenslink" 
              href="/help/authoring/reuseedit"
-             tal:attributes="href string:$portal_url/help/reuse_edit_what">(?)</a>
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
           <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
         </span>
       </tal:if>

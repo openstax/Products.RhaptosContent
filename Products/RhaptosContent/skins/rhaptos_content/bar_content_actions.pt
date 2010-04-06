@@ -215,7 +215,7 @@
         <div class="lensinfowrap ca_help_link"
              id="cnx_actions_reuseeditwhat">
           <a href="/help/authoring/reuseedit"
-             tal:attributes="href string:$portal_url/help/reuse_edit_what"
+             tal:attributes="href string:$portal_url/help/authoring/expressedit"
              class="lenslink">(How do I reuse or edit?)</a>
           <metal:macro define-macro="reuse_edit_help">
           <div class="lensinfo hiddenStructure"

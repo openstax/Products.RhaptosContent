@@ -198,26 +198,21 @@
               </td>
               <td valign="top">
               <label for="cannot_checkout_action_1">
-                <strong i18n:translate="label_derive_copy">Derive a copy</strong><!-- (what's this - Hedley needs help here)-->
+                <strong i18n:translate="label_derive_copy">Derive a copy</strong>
 
-<!--                
-<span class="lensinfowrap">
-            <a href="/help/lens_what" class="lenslink"
-               i18n:translate="text_generic_help"
-               tal:attributes="href string:${context/portal_url}/help/lens_what">(?)</a>
-            xxx
-</span>
+                <!-- FIXME: not sure why the white pop-up isn't working within the blue pop-up, but at least the link works for now -->
+                <span class="lensinfowrap">
+                  <a href="/help/authoring/expressedit#derive"
+                     target="_blank"
+                     class="lenslink"
+                     i18n:translate="label_whats_this"
+                     tal:attributes="href string:${context/portal_url}/help/authoring/expressedit#derive">(what's this?)</a>
+                  <p class="lensinfo hiddenStructure">
+                    A Derived Copy is a copy of a work that is modified and published as a new work under the new author's name. The original work is not changed and the 
+                    Derived Copy contains a statement of attribution to the original work and a link to the original work.
+                  </p>
+                </span>
 
-<div class="lensinfowrap"
-             id="cnx_actions_reuseeditwhat">
-          <a href="/help/lens_what"
-             tal:attributes="href string:${context/portal_url}/help/reuse_edit_what"
-             class="lenslink">(How do I reuse or edit?)</a>
-          <div class="lensinfo hiddenStructure">
-            Reuse and edit help here
-          </div>
-</div>
--->
               </label>
               </td>
               </tr>
