@@ -197,8 +197,8 @@
                      value="derive" checked="1" />
               </td>
               <td valign="top">
-              <label for="cannot_checkout_action_1">
-                <strong i18n:translate="label_derive_copy">Derive a copy</strong>
+
+                <label for="cannot_checkout_action_1" i18n:translate="label_derive_copy">Derive a copy</label>
 
                 <!-- FIXME: not sure why the white pop-up isn't working within the blue pop-up, but at least the link works for now -->
                 <span class="lensinfowrap">
@@ -213,7 +213,6 @@
                   </p>
                 </span>
 
-              </label>
               </td>
               </tr>
 
@@ -225,8 +224,7 @@
                      value="checkout_anyway" />
               </td>
               <td valign="top">
-              <label for="cannot_checkout_action_2">
-                <strong i18n:translate="label_checkout_anyway">Check it out anyway.</strong>
+                <label for="cannot_checkout_action_2" i18n:translate="label_checkout_anyway">Check it out anyway.</label>
                 <span i18n:translate="text_publish_reqs">
                   To publish your edit you will need to
                 </span>
@@ -238,7 +236,6 @@
                   </li>
                   <li i18n:translate="text_derive_later">derive a copy later</li>
                 </ul>
-              </label>
               </td>
               </tr>
               </tbody>

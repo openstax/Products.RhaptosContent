@@ -814,7 +814,7 @@ dl.portlet{
   background-color: white;
 }
 
-#cnx_lens_inner dl.portlet{
+.x-window-body dl.portlet{
   background-color: transparent;
 }
 
@@ -855,7 +855,7 @@ dt.portletHeader a:hover{
   height: 1px;
 }
 
-#cnx_lens_inner .portletItem{
+.x-window-body .portletItem{
   border-width: 0;
 }
 
@@ -1188,10 +1188,6 @@ h4 .lenslink{
 
 label{
   font-weight: bold;
-}
-
-#cnx_reuse_edit_inner label{
-  font-weight: normal;
 }
 
 .field{
