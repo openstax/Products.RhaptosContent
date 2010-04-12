@@ -233,7 +233,6 @@
               <div metal:use-macro="context/collection_view/macros/openlenshelp" />
             </span>
           </tal:siyahamba>
-          <tal:sep>|</tal:sep>
         </tal:lens>
 
         <tal:addthis metal:define-macro="addthis" tal:define="isCNX context/isCNX | nothing;">
@@ -317,7 +316,6 @@
               <div metal:use-macro="context/collection_view/macros/openlenshelp" />
             </span>
           </tal:siyahamba>
-          <tal:sep>|</tal:sep>
         </tal:lens>
         
         <a href="#" metal:use-macro="template/macros/addthis">External bookmarks</a>
