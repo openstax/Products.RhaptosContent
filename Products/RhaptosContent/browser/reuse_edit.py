@@ -254,6 +254,10 @@ class ReuseEditView(BrowserView):
             obj.setState('published')
             obj.checkout(content.objectId)    
 
+            # Adjust the title
+            title = _("Derived copy of") + " " + obj.Title()
+            obj.setTitle(title)
+
             # Do the fork
             state = ControllerState()
             self.request.set('controller_state', state)
