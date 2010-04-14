@@ -263,8 +263,8 @@ class ReuseEditView(BrowserView):
             self.request.set('controller_state', state)
             fork = obj.forkContent(license=content.getDefaultLicense(), 
                 return_context=True,
-                id=content.objectId,
             )
+            fork.setState('created')
 
             # For some reason setGoogleAnalyticsTrackingCode causes an
             # Unauthorized error in forkContent. It is supressed by the 
