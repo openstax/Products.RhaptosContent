@@ -93,7 +93,9 @@
                 To proceed, you must agree to the license.
               </div>
 
-              <metal:use use-macro="context/confirm_fork/macros/form_contents" />
+              <tal:def define="link_target string:_blank">
+                  <metal:use use-macro="context/confirm_fork/macros/form_contents" />
+              </tal:def>
               <p tal:condition="not:here/license" i18n:translate="text_conffork_noderiv">
             	Sorry, this content does not allow derivative works to be created.
               </p>
