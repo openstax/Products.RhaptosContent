@@ -490,6 +490,34 @@ Ext.onReady(function(e) {
 var reuse_edit_dialog;  // global which enables closing of window
 
 var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
+    //xxxxx
+    var morden = new Ext.Shadow({mode:'sides', offset:4});
+    morden.hide();
+
+    var hoverOn = function(e) {
+        var li = Ext.get(e.target).up('.lensinfowrap');
+        var block = li.child('.lensinfo');
+        if (block) {
+            block.removeClass('hiddenStructure');               
+            block.alignTo(li, 'tl-bl');               
+            block.show(animShow);
+            morden.show(block);
+        }
+    };
+
+    var hoverOff = function(e) {
+        var li = Ext.get(e.target).up('.lensinfowrap');
+        var block = li.child('.lensinfo');
+        if(block) {
+          block.addClass('hiddenStructure');               
+          block.hide(animHide);
+        }
+        morden.hide();
+    };
+
+    Ext.select('.lenslink').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
+    Ext.select('.lenslink').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
+
     // if login form, set came_from field intelligently
     var login = Ext.get('portlet-login');
     if (login) {
@@ -662,7 +690,7 @@ var ReuseEdit = function(){
 
             if (!dialogUpdater || difftarget) {
                 dialogUpdater = Ext.get(body).getUpdateManager();
-                dialogUpdater.update({url:urlbase+innerform,
+                dialogUpdater.update({url:urlbase+innerform,                                    
                                       callback:afterLoadReuseEdit,
                                       params: {contentId: contentId, version: version}
                                      });

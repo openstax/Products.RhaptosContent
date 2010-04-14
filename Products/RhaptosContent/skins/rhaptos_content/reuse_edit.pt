@@ -12,7 +12,7 @@
  
   <body>
     <div metal:fill-slot="main">
-
+      
       <tal:norender condition="nothing">
       <metal:macro define-macro="checkout">
         <p i18n:translate="text_select_workarea">Select an area in which to work on your content.</p>
@@ -181,7 +181,6 @@
 
             <tal:cannot_checkout define="aview nocall:context/@@reuse-edit-view"
                                  condition="python:not aview.can_checkout(contentId, version)">
-
               <p>
                 <strong i18n:translate="text_no_permissions">You do not have any roles or permissions on this                
                 <span i18n:name="content"
@@ -209,10 +208,10 @@
                      class="lenslink"
                      i18n:translate="label_whats_this"
                      tal:attributes="href string:${context/portal_url}/help/authoring/expressedit#derive">(what's this?)</a>
-                  <p class="lensinfo hiddenStructure">
+                  <div class="lensinfo hiddenStructure">
                     A Derived Copy is a copy of a work that is modified and published as a new work under the new author's name. The original work is not changed and the 
                     Derived Copy contains a statement of attribution to the original work and a link to the original work.
-                  </p>
+                  </div>
                 </span>
 
               </td>
