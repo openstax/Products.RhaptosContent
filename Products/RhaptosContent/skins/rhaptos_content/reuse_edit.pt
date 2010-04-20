@@ -227,7 +227,7 @@
               <td valign="top">
                 <label for="cannot_checkout_action_2" i18n:translate="label_checkout_anyway">Check it out anyway.</label>
                 <span i18n:translate="text_publish_reqs">
-                  To publish your edit you will need to
+                  To publish your edits you will either need to
                 </span>
                 <ul>
                   <li i18n:translate="text_request_authorship">request to be an author</li>
@@ -235,7 +235,7 @@
                     invite an author into your workgroup and ask them to 
                     publish your edits
                   </li>
-                  <li i18n:translate="text_derive_later">derive a copy later</li>
+                  <li i18n:translate="text_or_derive_later">or derive a copy later</li>
                 </ul>
               </td>
               </tr>
