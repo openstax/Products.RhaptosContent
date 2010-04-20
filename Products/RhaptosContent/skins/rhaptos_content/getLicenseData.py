@@ -12,6 +12,9 @@ from Products.CMFCore.utils import getToolByName
 if not url:
     url = context.license
 
+if not url:
+    return {'code': 'No License code', 'label': 'No license accepted yet', 'name': 'No License name', 'url': 'No License URL', 'version': 'No License version'}
+
 mdbt = getToolByName(context, 'portal_moduledb')
 licensedata = mdbt.getLicenseData(url)
 
