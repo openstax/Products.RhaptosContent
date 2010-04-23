@@ -356,7 +356,7 @@ li{
   font-size: 1em;
 }
 
-.ca_help_link{
+#cnx_actions_favoriteswhat, #cnx_actions_lenswhat{
   margin-bottom: .75em;
 }
 
@@ -814,7 +814,7 @@ dl.portlet{
   background-color: white;
 }
 
-.x-window-body dl.portlet{
+#cnx_lens_inner dl.portlet{
   background-color: transparent;
 }
 
