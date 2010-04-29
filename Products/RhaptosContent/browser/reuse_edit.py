@@ -201,7 +201,7 @@ class ReuseEditView(BrowserView):
                 # Redirect to edit page of the checked out content
                 return "Redirect: %s" % obj.absolute_url()            
             else:
-                return "close: The %s is already checked out to %s" \
+                return "close: The %s is ready to edit in %s" \
                     % (obj.portal_type.lower(), area.Title())
 
 
