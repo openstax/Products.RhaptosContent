@@ -197,7 +197,7 @@ class ReuseEditView(BrowserView):
             
             # Content was either checked out earlier in this method or it is 
             # already checked out and the versions match.
-            if form.get('reuse_edit_now'):
+            if len(form.get('reuse_edit_now', [])) > 1:
                 # Redirect to edit page of the checked out content
                 return "Redirect: %s" % obj.absolute_url()            
             else:
@@ -275,7 +275,7 @@ class ReuseEditView(BrowserView):
             if to_delete_id:
                 area.manage_delObjects(ids=[to_delete_id])
 
-            if form.get('reuse_edit_now'):
+            if len(form.get('reuse_edit_now', [])) > 1:
                 # Redirect to edit page of the checked out content
                 return "Redirect: %s" % fork.absolute_url() 
             else:

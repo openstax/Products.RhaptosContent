@@ -19,6 +19,7 @@
               
         <div class="field">
         <select tal:define="area_path area_path | options/area_path | request/area_path | nothing;
+                            target python:area_path and area_path.split('/')[-1];
                             aview nocall:context/@@reuse-edit-view"
                 name="area_path"
                 onchange="disableInIE(this);">
@@ -31,10 +32,12 @@
         </div>
 
         <div class="field">
-          <input type="checkbox" id="reuse_edit_now" 
+          <input type="hidden" name="reuse_edit_now:list" value="1" />
+          <input tal:attributes="checked python:len(request.get('reuse_edit_now', [1, 1])) > 1"
+                 type="checkbox" id="reuse_edit_now" 
                  class="noborder"
-                 checked="checked"
-                 name="reuse_edit_now" />
+                 name="reuse_edit_now:list" 
+                 value="1" />
           <label for="reuse_edit_now" i18n:translate="text_edit_content_now">
             Edit the content now
           </label>
@@ -276,7 +279,7 @@
                    tal:attributes="value request/obj_path|pth"
                    name="obj_path" type="hidden" />
 
-            <tal:if condition="request/reuse_edit_now|nothing">
+            <tal:if condition="python:len(request.get('reuse_edit_now', [])) > 1">
               <input i18n:attributes="value edit_existing_copy"
                      type="submit"
                      value="Edit Existing Copy" 
@@ -290,7 +293,7 @@
                      class="context" />
             </tal:if>
 
-            <tal:if condition="not:request/reuse_edit_now|nothing">
+            <tal:if condition="python:len(request.get('reuse_edit_now', [])) < 2">
               <input i18n:attributes="value ok"
                      type="submit"
                      value="OK"
