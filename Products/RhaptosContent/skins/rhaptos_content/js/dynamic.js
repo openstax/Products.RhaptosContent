@@ -221,9 +221,9 @@ var LensAdd = function(){
                         autoTabs:false,
                         closable:true,
                         collapsible:false,
+                        y: 175,
                         width:dialogwidth,
-                        height:dialogheight,
-                        shadow:true,
+                        shadow:false,
                         minWidth:300,
                         minHeight:250,
                         proxyDrag: true
