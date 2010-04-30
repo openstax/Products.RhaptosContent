@@ -24,7 +24,10 @@
                 name="area_path"
                 onchange="disableInIE(this);">
           <option tal:define="member context/portal_membership/getAuthenticatedMember"
-                  tal:attributes="value string:Members/${member/id}"
+                  tal:attributes="value string:Members/${member/id};
+                                  selected python:target is None and 'selected' or
+                                                  target is not None and target == member.getId() and 'selected' or
+                                                  None"
                   i18n:translate="label_personal_workspace">Personal Workspace</option>
           <option disabled="disabled" class="disabled"> </option>
           <metal:reuse use-macro="here/search_macros/macros/workgroupoptions">asdf</metal:reuse>
