@@ -93,12 +93,6 @@
                 <tal:block metal:use-macro="here/unpublishable/macros/publishblocker" />
               </tal:wrap>
 
-              <div tal:condition="errors/agree|nothing"
-                   i18n:translate="agree_error"
-                   class="popuperror">
-                To proceed, you must agree to the license.
-              </div>
-
               <tal:def define="link_target string:_blank">
                   <metal:use use-macro="context/confirm_fork/macros/form_contents" />
               </tal:def>
@@ -136,6 +130,12 @@
                                version version | options/version | request/version | nothing;
                                hasdata python:1;
                                isAnon context/portal_membership/isAnonymousUser;">
+
+              <div tal:condition="errors/agree|nothing"
+                   i18n:translate="agree_error"
+                   class="popuperror">
+                To proceed, you must agree to the license.
+              </div>
 
         <tal:anon condition="isAnon" metal:define-macro="anon"
                   tal:define="actions python:context.portal_actions.listFilteredActionsFor(context);
