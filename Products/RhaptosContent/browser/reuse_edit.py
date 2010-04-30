@@ -28,7 +28,7 @@ class ReuseEditView(BrowserView):
             render_context = context
 
         # Build extra context. These variables will be in
-        # scope for the macro.        
+        # scope for the macro.
         extra_context = {'options':{}}
         extra_context.update(kw)
         the_macro = None
@@ -37,11 +37,11 @@ class ReuseEditView(BrowserView):
         if isinstance(provider, types.StringType):
             # Page template or browser view. Traversal required.
             pt_or_view = render_context.restrictedTraverse(provider)
-            if provider.startswith('@@'):            
+            if provider.startswith('@@'):
                 the_macro = pt_or_view.index.macros[macro_name]
                 if not extra_context.has_key('view'):
                     extra_context['view'] = pt_or_view
-            else:          
+            else:
                 the_macro = pt_or_view.macros[macro_name]
 
             # template_id seems to be needed, so add to options
@@ -53,7 +53,7 @@ class ReuseEditView(BrowserView):
         # ensures that code calling this method cannot override the_macro.
         extra_context['options']['the_macro'] = the_macro
 
-        # If context is explicitly passed in then make available        
+        # If context is explicitly passed in then make available
         if context is not None:
             extra_context['context'] = context
 
@@ -81,7 +81,7 @@ class ReuseEditView(BrowserView):
         self.request.form, orig_form = kw, self.request.form
         content = self._macroContent(
                     provider=jointpath, 
-                    macro_name=path[-1],                  
+                    macro_name=path[-1],
                     **kw
                     )
         self.request.form = orig_form
@@ -89,7 +89,7 @@ class ReuseEditView(BrowserView):
         return content
 
     def content(self, contentId, version):
-        portal = getToolByName(self.context, 'portal_url').getPortalObject()        
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
         content = portal.restrictedTraverse(
              'content/%s/%s' % (contentId, version)
         )
@@ -168,14 +168,14 @@ class ReuseEditView(BrowserView):
                 area.invokeFactory(id=content.objectId, type_name=content.portal_type)
                 obj = area._getOb(content.objectId)
                 obj.setState('published')
-                obj.checkout(content.objectId)    
+                obj.checkout(content.objectId)
 
             else:
                 # Content is already in area - inspect state and version
                 obj = area._getOb(content.objectId)
 
                 if obj.state == 'published':
-                    print "Published - check out over copy"
+                    print "Published - check out published copy"
                     # Check it out on top of the published copy
                     obj.checkout(content.objectId)
 
@@ -194,12 +194,12 @@ class ReuseEditView(BrowserView):
                             obj=obj,
                             **form
                         )
-            
+
             # Content was either checked out earlier in this method or it is 
             # already checked out and the versions match.
             if len(form.get('reuse_edit_now', [])) > 1:
                 # Redirect to edit page of the checked out content
-                return "Redirect: %s" % obj.absolute_url()            
+                return "Redirect: %s" % obj.absolute_url()
             else:
                 return "close: The %s is ready to edit in %s" \
                     % (obj.portal_type.lower(), area.Title())
@@ -217,30 +217,8 @@ class ReuseEditView(BrowserView):
                             **form
                         )
             # Fetch content and area
-            content = self.content(form['contentId'], form['version'])    
+            content = self.content(form['contentId'], form['version'])
             area = portal.restrictedTraverse(form['area_path'])
-
-            # If content is not in the area or it is in the area but versions 
-            # mismatch then objects must be created.
-            must_create = False
-            if content.objectId in area.objectIds():            
-                # Content is already in area - inspect version
-                # xxx: seems the long-winded implementation does not
-                # allow multiple derivatives of the same content id
-                # irrespective of version, so we do the same.
-                '''
-                obj = area._getOb(content.objectId)
-                if obj.version != content.version:
-                    must_create = True
-                '''                    
-                pass
-            else:
-                must_create = True
-             
-            # Anything to do? 
-            if not must_create:
-                return "close: The %s is already checked out to %s" \
-                    % (content.portal_type.lower(), area.Title())
 
             # There are going to be stale items later
             to_delete_id = ''
@@ -252,7 +230,7 @@ class ReuseEditView(BrowserView):
 
             # Content must be checked out to area before a fork is possible
             obj.setState('published')
-            obj.checkout(content.objectId)    
+            obj.checkout(content.objectId)
 
             # Do the fork
             state = ControllerState()
@@ -288,4 +266,4 @@ class ReuseEditView(BrowserView):
             print "REDIR 1"
             # Redirect to edit page of the checked out content
             obj = portal.restrictedTraverse(form['obj_path'])
-            return "Redirect: %s" % obj.absolute_url()            
+            return "Redirect: %s" % obj.absolute_url()
