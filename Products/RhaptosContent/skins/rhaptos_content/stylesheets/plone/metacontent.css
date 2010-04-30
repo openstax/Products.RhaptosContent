@@ -814,10 +814,6 @@ dl.portlet{
   background-color: white;
 }
 
-#cnx_lens_inner dl.portlet{
-  background-color: transparent;
-}
-
 dl.portlet a{
   text-decoration: none;
   color: #436976;
@@ -1152,6 +1148,10 @@ h4 .lenslink{
 
 .x-window-body .formHelp{
   margin: .2em 0;
+}
+
+.x-window-body dl.portlet{
+  background-color: transparent;
 }
 
 .cnx_freeform_note{
