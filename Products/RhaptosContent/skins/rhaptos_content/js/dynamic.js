@@ -491,6 +491,9 @@ var reuse_edit_dialog;  // global which enables closing of window
 
 var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
     //xxxxx
+    var animShow = false; //{duration: 0.35};
+    var animHide = false; //true;
+
     var morden = new Ext.Shadow({mode:'sides', offset:4});
     morden.hide();
 
@@ -498,8 +501,8 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
         var li = Ext.get(e.target).up('.lensinfowrap');
         var block = li.child('.lensinfo');
         if (block) {
-            block.removeClass('hiddenStructure');               
-            block.alignTo(li, 'tl-bl');               
+            block.removeClass('hiddenStructure');
+            block.alignTo(li, 'tl-bl');
             block.show(animShow);
             morden.show(block);
         }
@@ -509,14 +512,14 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
         var li = Ext.get(e.target).up('.lensinfowrap');
         var block = li.child('.lensinfo');
         if(block) {
-          block.addClass('hiddenStructure');               
+          block.addClass('hiddenStructure');
           block.hide(animHide);
         }
         morden.hide();
     };
 
-    Ext.select('.lenslink').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
-    Ext.select('.lenslink').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
+    //Ext.select('.lenslink').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
+    //Ext.select('.lenslink').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
 
     // if login form, set came_from field intelligently
     var login = Ext.get('portlet-login');
