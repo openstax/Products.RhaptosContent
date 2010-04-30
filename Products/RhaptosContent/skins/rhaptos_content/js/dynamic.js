@@ -554,12 +554,9 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
             var form = jQuery("#reuse_edit_form");
             var serialized = form.formSerialize();
 
-            // Indicate that a request is in progress. Preserve the popup 
-            // height to avoid jitter.
+            // Indicate that a request is in progress
             var el = jQuery("#cnx_reuse_edit_inner");
-            var height = el.height();
             el.html('<span class="cnx_ajax_working"><img src="ajax_loading.gif" /> Working</span>');
-            el.height(height);
 
             jQuery.post(
                 form.attr('action'), 
@@ -583,7 +580,6 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
                         jQuery("#cnx_reuse_edit_inner").html(data);
                         binder();
                     };
-                    el.height('auto');
                 }
             );
         }
@@ -670,6 +666,9 @@ var ReuseEdit = function(){
 
                 // Windows always need to be recreated
                 var dialog = new Ext.Window({
+                        modal: true,
+                        Shadow: false,
+                        shadow: false,
                         title:title,
                         contentEl:body,
                         autoTabs:false,
@@ -677,7 +676,6 @@ var ReuseEdit = function(){
                         collapsible:false,
                         width:dialogwidth,
                         y: 175,
-                        shadow:true,
                         minWidth:300,
                         minHeight:250,
                         proxyDrag: true
