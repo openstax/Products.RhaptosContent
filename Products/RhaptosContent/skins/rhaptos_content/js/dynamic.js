@@ -666,7 +666,6 @@ var ReuseEdit = function(){
 
                 // Windows always need to be recreated
                 var dialog = new Ext.Window({
-                        modal: true,
                         Shadow: false,
                         shadow: false,
                         title:title,
