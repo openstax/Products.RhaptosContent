@@ -212,7 +212,7 @@
                   <a href="/help/authoring/expressedit#derive"
                      target="_blank"
                      class="lenslink"
-                     id="reuse_edit_whats_this"
+                     id="cnx_derive_copy_help"
                      i18n:translate="label_whats_this"
                      tal:attributes="href string:${context/portal_url}/help/authoring/expressedit#derive">(what's this?)</a>
                   <div class="lensinfo hiddenStructure">

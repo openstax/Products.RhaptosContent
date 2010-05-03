@@ -1226,6 +1226,10 @@ label{
   color: #888;
 }
 
+.x-window-body .lensinfo{
+  font-size: 1em;
+}
+
 /* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */
 
 .hiddenStructure{
