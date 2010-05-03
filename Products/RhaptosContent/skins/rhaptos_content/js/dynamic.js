@@ -168,7 +168,8 @@ var LensAdd = function(){
             if (fragment && fragment.length==1) {
                 var fragid = fragment[0].slice(preceededby.length, fragment[0].length);
                 if (fragid) {
-                    if (fragid.indexOf('_lens_') == -1) return;
+                    bLoggingInBeforeReuseEdit = ( fragid.indexOf('reuse_edit') != -1 )
+                    if (bLoggingInBeforeReuseEdit) return;
                     var trigger = Ext.get(fragid);
                     if (trigger) {
                         this.showDialog(trigger);
