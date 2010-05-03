@@ -519,8 +519,8 @@ var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
         morden.hide();
     };
 
-    //Ext.select('.lenslink').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
-    //Ext.select('.lenslink').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
+    Ext.select('#reuse_edit_whats_this').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
+    Ext.select('#reuse_edit_whats_this').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
 
     // if login form, set came_from field intelligently
     var login = Ext.get('portlet-login');
