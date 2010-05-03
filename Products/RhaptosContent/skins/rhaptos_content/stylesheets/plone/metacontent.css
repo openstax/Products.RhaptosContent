@@ -1033,7 +1033,7 @@ input.noborder{
   display: inline;
   padding: 0 .5em 0 0 !important;
   background-image: none;
-  margin: 0 !imporant;
+  margin: 0;
 }
 
 .cnx_tag_listing{
