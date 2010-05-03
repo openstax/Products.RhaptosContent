@@ -346,7 +346,7 @@
 	      	var _gaq = _gaq || [];
 	        function trackthisGoogleAnalytics(strCode) {
 	          try {
-	            _gaq.push(['user._setAccount', strcode]);
+	            _gaq.push(['user._setAccount', strCode]);
 	            _gaq.push(['user._trackPageview']);
 	          }
 	          catch(err) {}
