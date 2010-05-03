@@ -218,11 +218,17 @@
              tal:attributes="href string:$portal_url/help/authoring/expressedit"
              class="lenslink">(How do I reuse or edit?)</a>
           <metal:macro define-macro="reuse_edit_help">
-          <div class="lensinfo hiddenStructure"
-               i18n:translate="">
+          <div class="lensinfo hiddenStructure">
+            <h4 i18n:translate="label_checkout_and_edit">Check out and edit</h4>
+            <p i18n:translate="text_checkout_and_edit_explanation">
             If you have permission to edit this content, using the "Reuse&#160;/&#160;Edit" action will allow you to check the content out into your Personal Workspace or 
-            a shared Workgroup and then make your edits. If you don't have permission to edit the content, you can still use "Reuse&#160;/&#160;Edit" to adapt the content 
+            a shared Workgroup and then make your edits.
+            </p>
+            <h4 i18n:translate="label_derive_copy">Derive a copy</h4>
+            <p i18n:translate="text_derive_copy_explanation">
+            If you don't have permission to edit the content, you can still use "Reuse&#160;/&#160;Edit" to adapt the content 
             by creating a derived copy of it and then editing and publishing the copy.
+            </p>
           </div>
           </metal:macro>
         </div>
