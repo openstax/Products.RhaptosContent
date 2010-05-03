@@ -678,7 +678,7 @@ var ReuseEdit = function(){
                         closable:true,
                         collapsible:false,
                         width:dialogwidth,
-                        y: 175,
+                        y: 100,
                         minWidth:300,
                         minHeight:250,
                         proxyDrag: true
