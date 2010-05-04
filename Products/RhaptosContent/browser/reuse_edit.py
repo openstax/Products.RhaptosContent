@@ -254,7 +254,7 @@ class ReuseEditView(BrowserView):
                 return "Redirect: %s" % fork.absolute_url() 
             else:
                 # Close the popup by redirecting to the context
-                return "close: The %s was successfully checked out to %s" \
+                return "close: The %s is ready to edit in %s" \
                     % (obj.portal_type.lower(), area.Title())
 
 
