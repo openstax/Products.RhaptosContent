@@ -572,7 +572,12 @@ li{
 #cnx_actions_bottom h4{
   display: inline;
   margin: 0 .15em 0 0;
-  font-size: 1.1em;
+}
+
+#cnx_actions_bottom .lensinfo h4{
+  display: block;
+  color: black;
+  margin: 0;
 }
 
 .cnx_actions_group{
