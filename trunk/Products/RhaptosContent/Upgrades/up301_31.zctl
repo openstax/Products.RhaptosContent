@@ -1,7 +1,0 @@
-# upgrade for RAMCache application to content rendering pieces;
-# reinstall to create RAMCacheForContent
-
-app.plone.portal_quickinstaller.reinstallProducts(['RhaptosContent'])
-
-import transaction
-transaction.commit()

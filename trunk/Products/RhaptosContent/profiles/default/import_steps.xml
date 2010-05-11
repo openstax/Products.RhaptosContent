@@ -1,8 +1,0 @@
-<?xml  version="1.0"?>
-<import-steps>
-  <import-step id="rhaptos-content-cache-managers" version="20090923-01"
-      handler="Products.RhaptosContent.setuphandlers.setup_cache_managers"
-      title="Setup cache managers">
-    Setup cache managers
-  </import-step>
-</import-steps>
