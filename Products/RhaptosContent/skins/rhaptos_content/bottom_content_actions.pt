@@ -216,7 +216,7 @@
         
         <tal:lens tal:define="addtoinfo addtocol;
                               suffix string:col_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
@@ -226,6 +226,12 @@
           </span>
           <tal:siyahamba condition="context/@@siyavula|nothing">
           | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
           </tal:siyahamba>
         </tal:lens>
 
@@ -293,7 +299,7 @@
         
         <tal:lens tal:define="addtoinfo addtomod;
                               suffix string:mod_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
@@ -303,11 +309,60 @@
           </span>
           <tal:siyahamba condition="context/@@siyavula|nothing">
           | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
           </tal:siyahamba>
         </tal:lens>
+        
         <a href="#" metal:use-macro="template/macros/addthis">External bookmarks</a>
       </div>
     </div>
+
+
+    <!-- reuse / edit -->
+    <div class="cnx_actions_category"
+         id="cnx_actions_category_reuse_edit"
+         style="display:none"
+         tal:define="addto view/addto;
+                     show view/general/show | nothing;"
+         tal:attributes="style python:not show and default or nothing">
+      <h3 i18n:translate="header_reuse_slash_edit">Reuse / Edit:</h3>
+      <div class="cnx_actions_group">
+      <tal:if define="suffix string:c;
+                      addtoinfo addto/col | nothing"
+              condition="addtoinfo">
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_collection" tal:omit-tag="">Reuse or edit collection</span></metal:fill>
+        </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
+      </tal:if>
+      <tal:if define="suffix string:d;
+                      addtoinfo addto/mod | nothing"
+              condition="addtoinfo">
+        <tal:sep condition="addto/col | nothing">|</tal:sep>
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_module" tal:omit-tag="">Reuse or edit module</span></metal:fill>
+        </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
+      </tal:if>
+      </div>
+    </div>
+
+
 
   </div>
 </div>

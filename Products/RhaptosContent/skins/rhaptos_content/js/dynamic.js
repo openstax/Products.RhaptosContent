@@ -168,6 +168,8 @@ var LensAdd = function(){
             if (fragment && fragment.length==1) {
                 var fragid = fragment[0].slice(preceededby.length, fragment[0].length);
                 if (fragid) {
+                    bLoggingInBeforeReuseEdit = ( fragid.indexOf('reuse_edit') != -1 )
+                    if (bLoggingInBeforeReuseEdit) return;
                     var trigger = Ext.get(fragid);
                     if (trigger) {
                         this.showDialog(trigger);
@@ -220,9 +222,9 @@ var LensAdd = function(){
                         autoTabs:false,
                         closable:true,
                         collapsible:false,
+                        y: 175,
                         width:dialogwidth,
-                        height:dialogheight,
-                        shadow:true,
+                        shadow:false,
                         minWidth:300,
                         minHeight:250,
                         proxyDrag: true
@@ -403,6 +405,11 @@ Ext.onReady(function() {
       bar.dom.style.display = 'block';
     }
 
+    var re_bottom = Ext.get('cnx_actions_category_reuse_edit');
+    if (re_bottom && re_bottom.dom.style.display=='none') {
+      re_bottom.dom.style.display = 'block';
+    }
+
 });
 
 //* toggle "on" class on click
@@ -481,3 +488,260 @@ Ext.onReady(function(e) {
     }
 });
 
+var reuse_edit_dialog;  // global which enables closing of window
+
+var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){
+    //xxxxx
+    var animShow = false; //{duration: 0.35};
+    var animHide = false; //true;
+
+    var morden = new Ext.Shadow({mode:'sides', offset:4});
+    morden.hide();
+
+    var hoverOn = function(e) {
+        var li = Ext.get(e.target).up('.lensinfowrap');
+        var block = li.child('.lensinfo');
+        if (block) {
+            block.removeClass('hiddenStructure');
+            block.alignTo(li, 'tl-bl');
+            block.show(animShow);
+            morden.show(block);
+        }
+    };
+
+    var hoverOff = function(e) {
+        var li = Ext.get(e.target).up('.lensinfowrap');
+        var block = li.child('.lensinfo');
+        if(block) {
+          block.addClass('hiddenStructure');
+          block.hide(animHide);
+        }
+        morden.hide();
+    };
+
+    Ext.select('#cnx_derive_copy_help').on('mouseover', hoverOn, reuse_edit_dialog, {stopEvent : true});
+    Ext.select('#cnx_derive_copy_help').on('mouseout', hoverOff, reuse_edit_dialog, {stopEvent : true});
+
+    // if login form, set came_from field intelligently
+    var login = Ext.get('portlet-login');
+    if (login) {
+        // hack to get dialog relaunched; see other globalTarget uses
+        var whichdialog = "unknown";
+        if (globalTarget) {
+            whichdialog = globalTarget.id;
+        }
+
+        var came_from = login.child('input[name=came_from]');
+        var baseurl = document.URL;
+        came_from.dom.value = baseurl + "#login=" + whichdialog;
+    }
+
+    // Bind events
+    var binder = function()
+    {
+        jQuery("#reuse_edit_form :submit").click(
+            function(event){
+                if (this.name == 'cancel')
+                {
+                    event.preventDefault();
+                    reuse_edit_dialog.close();
+                }
+                else
+                    jQuery("#reuse_edit_button").attr('value', this.name);
+            }
+        );
+
+        jQuery("#reuse_edit_form").submit(
+        function(event) 
+        {
+            event.preventDefault();
+            var form = jQuery("#reuse_edit_form");
+            var serialized = form.formSerialize();
+
+            // Indicate that a request is in progress
+            var el = jQuery("#cnx_reuse_edit_inner");
+            el.html('<span class="cnx_ajax_working"><img src="ajax_loading.gif" /> Working</span>');
+
+            jQuery.post(
+                form.attr('action'), 
+                serialized,
+                function(data)
+                {
+                    if (data.indexOf('close:') == 0)                    
+                    {
+                        var msg = data.substr(7);
+                        jQuery("#content_template_messages").html('<div class="cnx_success_message">'+msg+'</div>');
+                        reuse_edit_dialog.close();
+                    }
+                    else if (data.indexOf('Redirect:') == 0)                    
+                    {
+                        var url = data.substr(10);
+                        jQuery("#cnx_reuse_edit_inner").html('Redirecting to '+ url);
+                        document.location.href = url;
+                    }
+                    else
+                    {
+                        jQuery("#cnx_reuse_edit_inner").html(data);
+                        binder();
+                    };
+                }
+            );
+        }
+        );
+    }        
+    binder();
+}
+
+// Create the reuse / edit popup application (single instance)
+var ReuseEdit = function(){
+    var targetelt, title, body, showBtn, dialogUpdater, defaultTitle;
+    var contentId, version, urlbase, innerform = "", title;
+
+    var dialogheight = 450;
+    var dialogwidth = 500;
+
+    // return a public interface
+    return {
+        init : function(){
+             Ext.select('a.cnx_reuse_edit_trigger_link', true).on('click', this.showEvent, this, {stopEvent : true});
+
+             // Strip the HTML for the popup into a title and body
+             var dialog = Ext.get("cnx_reuse_edit_popup");
+             title = dialog.first().dom.innerHTML;
+             body = dialog.last().removeClass('x-dlg-bd').dom;
+             // detach the dialog
+             dialog.dom.parentNode.removeChild(dialog.dom);
+
+            // hack to relaunch dialog after login; see also globalTarget
+            var preceededby = "#login=";
+            var fragment = document.URL.match(preceededby+".*");
+            if (fragment && fragment.length==1) {
+                var fragid = fragment[0].slice(preceededby.length, fragment[0].length);
+                if (fragid) {
+                    if (fragid.indexOf('_reuse_') == -1) return;
+                    var trigger = Ext.get(fragid);
+                    if (trigger) {
+                        this.showDialog(trigger);
+                    }
+                } else {
+                    alert("You are now logged in. Please click 'A lens' or 'My Favorites' again to continue.");
+                }
+            }
+        },
+
+        showEvent : function(event){
+            var eventTarget = event.getTarget();
+            this.showDialog(eventTarget);
+        },
+
+        showDialog : function(eventTarget){
+            var elt;
+            //var difftarget = targetelt != eventTarget;
+            var difftarget = true;
+            targetelt = eventTarget;
+            globalTarget = targetelt;
+            showBtn = Ext.get(eventTarget);
+
+            if (!contentId || difftarget) {
+                contentId = showBtn.child('input.cnx_reuse_edit_contentId').dom.value;
+            }
+            if (!version || difftarget) {
+                version = showBtn.child('input.cnx_reuse_edit_version').dom.value;
+            }
+            if (!urlbase || difftarget) {
+                elt = showBtn.child('input.cnx_reuse_edit_urlbase');
+                if (elt) {
+                    urlbase = elt.dom.value + '/';
+                } else {
+                    urlbase = "";
+                }
+            }
+
+//            alert(innerform);
+//            alert(difftarget);
+            if (!innerform || difftarget) {
+                elt = showBtn.child('input.cnx_reuse_edit_innerform');
+                if (elt) {
+                    innerform = elt.dom.value;
+                } else {
+                    innerform = "reuse_edit_inner";
+                }
+            }
+
+                // Windows always need to be recreated
+                var dialog = new Ext.Window({
+                        Shadow: false,
+                        shadow: false,
+                        title:title,
+                        contentEl:body,
+                        autoTabs:false,
+                        closable:true,
+                        collapsible:false,
+                        width:dialogwidth,
+                        y: 100,
+                        minWidth:300,
+                        minHeight:250,
+                        proxyDrag: true
+                });
+
+                //dialog.addButton('Add this Content', dialog.hide, dialog).disable();
+                //dialog.addButton('Close', dialog.hide, dialog);
+                //popupBody.dom.parentNode.removeChild(popupBody.dom);
+                defaultTitle = title;
+
+            if (!dialogUpdater || difftarget) {
+                dialogUpdater = Ext.get(body).getUpdateManager();
+                dialogUpdater.update({url:urlbase+innerform,                                    
+                                      callback:afterLoadReuseEdit,
+                                      params: {contentId: contentId, version: version}
+                                     });
+            }
+
+            elt = showBtn.child('input.cnx_reuse_edit_title');
+            if (elt) {
+                title = elt.dom.value;
+                dialog.setTitle(title);
+            }
+            else {
+                // use the default dlg title
+                title = defaultTitle;
+                dialog.setTitle(title);
+            }
+
+            // assign to global
+            reuse_edit_dialog = dialog;                 
+            
+            dialog.show(showBtn.dom);
+        },
+
+        // not used yet...
+        makeForm : function(){
+            if(!aform){ // lazy initialize the form and only create it once
+                aform = new Ext.form.Form({
+                                  labelWidth: 75,
+                                  url:'reuseEdit'
+                           });
+                aform.applyToFields('cnx_reuse_edit_form');
+            }
+        }
+    };
+}();
+
+// using onDocumentReady instead of window.onload initializes the application
+// when the DOM is ready, without waiting for images and other resources to load
+Ext.onReady(ReuseEdit.init, ReuseEdit, true);
+
+
+
+// variable and function below for preventing users in IE from choosing a disabled option 
+// in the work area dropdown (e.g. the line reading "Shared Workgroups:").
+
+var lastEnabledIndex = 0;
+
+function disableInIE(select) {
+    if(select.options[select.options.selectedIndex].disabled) {
+        select.selectedIndex = lastEnabledIndex;
+    } else {
+        lastEnabledIndex = select.selectedIndex;
+    }
+}

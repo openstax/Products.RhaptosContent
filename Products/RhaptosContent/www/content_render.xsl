@@ -135,6 +135,8 @@
     <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
@@ -331,6 +333,13 @@
           <div class="x-dlg-hd">Add to a lens</div>
           <div class="x-dlg-bd" id="cnx_lens_inner">
             Add this content to my lens:
+          </div>
+        </div>
+
+        <div id="cnx_reuse_edit_popup" class="cnx_popup" style="display:none">
+          <div class="x-dlg-hd">Reuse / Edit</div>
+          <div class="x-dlg-bd" id="cnx_reuse_edit_inner">
+            Reuse / edit:
           </div>
         </div>
 

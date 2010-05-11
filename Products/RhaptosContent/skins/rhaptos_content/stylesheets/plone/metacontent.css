@@ -167,8 +167,13 @@ img{
 }
 
 a{
+  text-decoration: none;
   color: #436976;
   background-color: transparent;
+}
+
+p a{
+  text-decoration: underline;
 }
 
 p a:visited{
@@ -200,6 +205,8 @@ input{
   color: Black;
   background-color: white;
   vertical-align: middle;
+  overflow: visible;
+  padding: 0 .5em;
 }
 
 ul, ol{ 
@@ -253,6 +260,7 @@ li{
 #cnx_actions_print .ca_button_link{ background-image: url(printer.png); }
 #cnx_actions_download .ca_button_link, .ca_pdf{ background-image: url(pdf.png); }
 #cnx_actions_addtolens .ca_button_link, .ca_lens{ background-image: url(lenses.png); }
+#cnx_actions_reuse_edit .ca_button_link, .ca_reuse_edit{ background-image: url(pencil_reuse_edit.png); }
 #cnx_actions_favorites .ca_button_link, .ca_favorites{ background-image: url(favorites-empty.png); }
 #cnx_actions_favorites .ca_in_favorites, .ca_in_favorites{ background-image: url(favorites.png); }
 .ca_zip{ background-image: url(zip.png); }
@@ -404,6 +412,7 @@ li{
 
 #cnx_course_header #cnx_course_authors a{
   color: #76797c;
+  text-decoration: underline;
 }
 
 #cnx_course_header .cnx_email_author, #cnx_module_header .cnx_email_author{
@@ -553,6 +562,7 @@ li{
 #cnx_actions_category_feedback{ background-image: url(envelope.png) }
 #cnx_actions_category_download{ background-image: url(pdf.png) }
 #cnx_actions_category_addto{ background-image: url(bookmark.png) }
+#cnx_actions_category_reuse_edit{ background-image: url(pencil_reuse_edit.png); }
 
 #cnx_actions_bottom h3, #cnx_actions_bottom h4{
   margin: 1em 0 .25em;
@@ -562,7 +572,12 @@ li{
 #cnx_actions_bottom h4{
   display: inline;
   margin: 0 .15em 0 0;
-  font-size: 1.1em;
+}
+
+#cnx_actions_bottom .lensinfo h4{
+  display: block;
+  color: black;
+  margin: 0;
 }
 
 .cnx_actions_group{
@@ -632,6 +647,10 @@ li{
   margin-bottom: 0;
 }
 
+#cnx_attribution a{
+  text-decoration: underline;
+}
+
 #cnx_partner_logos{              
   float: right;
   margin: 0 0 .5em 2em;
@@ -647,7 +666,7 @@ li{
 
 /* ========== warnings ========== */
 
-.cnx_warning{
+.cnx_warning, .cnx_success_message{
   background-color: #ffce7b;
   border: 1px solid #ffa500;
   font-weight: bold;
@@ -660,6 +679,15 @@ li{
 
 .cnx_warning a{
   color: black;
+}
+
+.cnx_success_message{
+  clear: both;
+  margin: 2em 0 1.5em;
+  margin-top: 0\9; /* For IE */
+  padding-top: 1em;
+  padding-top: .5em\9; /* For IE */
+  padding-bottom: 1em;
 }
 
 #cnx_no_menclose_support_example{
@@ -676,6 +704,7 @@ li{
 }
 #ff_mathml_msg2 td a{
   font-weight: bold;
+  text-decoration: underline;
 }
 
 /* ========== table ========== */
@@ -790,10 +819,6 @@ dl.portlet{
   background-color: white;
 }
 
-#cnx_lens_inner dl.portlet{
-  background-color: transparent;
-}
-
 dl.portlet a{
   text-decoration: none;
   color: #436976;
@@ -831,7 +856,7 @@ dt.portletHeader a:hover{
   height: 1px;
 }
 
-#cnx_lens_inner .portletItem{
+.x-window-body .portletItem{
   border-width: 0;
 }
 
@@ -953,6 +978,7 @@ li.cnx_lens{
 
 input.noborder{
   border: none;
+  background-color: transparent;
 }
 
 /* ========== author links box ========== */
@@ -1012,7 +1038,7 @@ input.noborder{
   display: inline;
   padding: 0 .5em 0 0 !important;
   background-image: none;
-  margin: 0 !imporant;
+  margin: 0;
 }
 
 .cnx_tag_listing{
@@ -1119,14 +1145,18 @@ h4 .lenslink{
   margin-left: 0;
 }
 
-/* ===== add-to-lens popup styling ==========*/
+/* ===== ajax popup styling ==========*/
 
-#cnx_lens_inner{
+.x-window-body{
   padding: 1em;
 }
 
-#cnx_lens_inner .formHelp{
+.x-window-body .formHelp{
   margin: .2em 0;
+}
+
+.x-window-body dl.portlet{
+  background-color: transparent;
 }
 
 .cnx_freeform_note{
@@ -1143,21 +1173,21 @@ h4 .lenslink{
   background-color: #f7f9fa;
 }
 
-#cnx_lens_inner legend{
+.x-window-body legend{
   display: none;
 }
 
-#cnx_lens_inner h3{
+.x-window-body h3{
   margin-bottom: 1em;
 }
 
-#cnx_lens_inner fieldset{
+.x-window-body fieldset{
   border-width: 0;
   margin: 0;
   padding: 0;
 }
 
-#cnx_lens_inner .context{
+.x-window-body .context{
   font-size: 1em;
 }
 
@@ -1183,6 +1213,26 @@ label{
   margin-bottom:0px;
   padding-top:0px;
   padding-bottom:0px;
+}
+
+.cnx_ajax_working img{
+  vertical-align: middle;
+}
+
+.popuperror{
+  background-color: #ffce7b;
+  border: 1px solid #ffa500;
+  padding: 1em;
+  margin: 0 0 1em 0;
+  width: 95%;
+}
+
+.disabled{
+  color: #888;
+}
+
+.x-window-body .lensinfo{
+  font-size: 1em;
 }
 
 /* ===== hiddenStructure (to be read by screen readers, but not seen by visual users) ===== */

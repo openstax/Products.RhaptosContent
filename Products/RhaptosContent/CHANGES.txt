@@ -1,6 +1,3 @@
-RhaptosContent-0.48
-  - Style issues for Rhaptos
-
 RhaptosContent-0.47
   - Google Analytics addition for file downloads
 
