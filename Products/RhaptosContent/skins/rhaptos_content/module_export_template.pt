@@ -318,12 +318,8 @@
       </links>
       <downloads tal:define="pfile course/getPrintedFile | nothing;
                              printable python:pfile and pfile.get_size();
-                             locked python:course.getProcessStatus() == 'locked';
-                             zfile course/getMultimediaZip | nothing;
-                             hasZip python:zfile and zfile.get_size() != 0;
-                             zdlable python:printable and (not locked or hasZip)">
+                             locked python:course.getProcessStatus() == 'locked';">
         <pdf tal:condition="printable" />
-        <multimediazip tal:condition="zdlable" />
       </downloads>
       <tal:determine-if-we-are-in-a-collection-context-and-strip-me
         tal:condition="nocall:module">

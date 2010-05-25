@@ -35,12 +35,6 @@ if collection:
     url = "%s/pdf" % colurl
     dls['collectionpdf'] = printable and url or None
 
-    zfile = collection.getMultimediaZip()
-    hasZip = zfile and zfile.get_size() != 0
-    zdlable = printable and hasZip
-    url = "%s/multimedia" % colurl
-    dls['collmmzip'] = zdlable and url or None
-
 ### add to ###
 addto = {}
 
