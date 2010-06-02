@@ -18,6 +18,7 @@ general['show'] = request.get('cnx_javascript_present', None)
 ### downloads ###
 # data
 portal_url = getToolByName(context, 'portal_url')()
+ptool = getToolByName(context, 'rhaptos_print')
 
 # decisions
 dls = {}
@@ -26,14 +27,26 @@ if module:
     pdflatextool = getToolByName(context, 'portal_pdflatex', None)
     url = "%s/content/%s/%s/?format=pdf" % (portal_url, module.objectId, module.version)
     dls['modulepdf'] = pdflatextool and url or None
+    epubable = ptool.doesFileExist(module.objectId, module.version, 'epub')
+    url = "%s/content/%s/%s/?format=epub" % (portal_url, module.objectId, module.version)
+    dls['moduleepub'] = epubable and url or None
+    offlineable = ptool.doesFileExist(module.objectId, module.version, 'offline.zip')
+    url = "%s/content/%s/%s/?format=offline" % (portal_url, module.objectId, module.version)
+    dls['moduleoffline'] = offlineable and url or None
 
 if collection:
     colurl = collection.url()
-
-    pfile = collection.getPrintedFile()
-    printable = pfile and pfile.get_size()
+    #pfile = collection.getPrintedFile()
+    #printable = pfile and pfile.get_size()
+    printable = ptool.doesFileExist(collection.objectId, collection.version, 'pdf')
     url = "%s/pdf" % colurl
     dls['collectionpdf'] = printable and url or None
+    epubable = ptool.doesFileExist(collection.objectId, collection.version, 'epub')
+    url = "%s/epub" % colurl
+    dls['collectionepub'] = epubable and url or None
+    offlineable = ptool.doesFileExist(collection.objectId, collection.version, 'offline.zip')
+    url = "%s/offline" % colurl
+    dls['collectionoffline'] = offlineable and url or None
 
 ### add to ###
 addto = {}
