@@ -13,10 +13,10 @@
   <tal:comment tal:replace="nothing">
   Requires from caller:
     'view': view data from bar_content_actions_view
-  
+
   Optional from caller:
     --
-  
+
   Rhaptos note: 
     brand new template for content actions bar, formerly of content_actions_box.
     combines functionality from collection_view and content_render/module_export_template
@@ -26,7 +26,7 @@
      style="display:none"
      tal:define="show view/general/show | nothing"
      tal:attributes="style python:not show and default or nothing">
-  
+
   <!-- PRINT -->
   <div id="cnx_actions_print" class="ca_button"
        tal:define="printknown view/printing/available | nothing"
@@ -39,14 +39,18 @@
       <span i18n:translate="text_print_page">Print this page</span>
     </a>
   </div>
-  
+
   <!-- DOWNLOAD -->
   <tal:download tal:define="dls view/downloads;
-                            modulepdf dls/modulepdf | nothing;
-                            collectionpdf dls/collectionpdf | nothing;
+                            modulepdf         dls/modulepdf         | nothing;
+                            moduleepub        dls/moduleepub        | nothing;
+                            moduleoffline     dls/moduleoffline     | nothing;
+                            collectionpdf     dls/collectionpdf     | nothing;
+                            collectionepub    dls/collectionepub    | nothing;
+                            collectionoffline dls/collectionoffline | nothing;
                             colinfo python:collectionpdf;
                             multi python:len(dls) > 1">
-    
+
     <div id="cnx_actions_download" class="ca_button"
          tal:condition="python:modulepdf and not colinfo">
       <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
@@ -56,24 +60,24 @@
         <span i18n:translate="text_download_pdf">Download PDF</span>
       </a>
     </div>
-    
+
     <div id="cnx_actions_download" class="ca_button ca_menu"
          tal:condition="colinfo">
       <a href="#"
           class="ca_button_link"
           id="cnx_actions_download_link">
-        <span i18n:translate="text_download_pdf">Download PDF</span>
+        <span i18n:translate="text_download_pdf">Download</span>
         <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
              tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
              class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
              tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
       </a>
-    
+
       <div id="cnx_actions_download_contents" class="ca_drop_contents">
         <a href="#" class="ca_drop_close">x</a>
-        <tal:collection tal:condition="python:collectionpdf">
+        <tal:collection tal:condition="python:collectionpdf or collectionepub or collectionoffline">
           <h3 class="ca_header" 
-              i18n:translate="text_menu_header_collection">Collection:</h3>
+              i18n:translate="text_menu_header_collection">Download collection as:</h3>
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf"
                 tal:condition="collectionpdf">
@@ -83,11 +87,73 @@
                 PDF
               </a>
             </li>
+            <li class="ca_list_item ca_epub"
+                tal:condition="collectionpdf">
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 0);}catch(err){}"
+                 tal:attributes="href collectionpdf"
+                 i18n:translate="text_EPUB">
+                ePub
+              </a>
+              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
+                <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                   class="lenslink">(what's this?)</a>
+                <div class="lensinfo hiddenStructure">
+                  <h3>What is an ePub?</h3>
+                  <p>
+                      ePub, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
+                  </p>
+                  <h3>Downloading to a reading device</h3>
+                  <p>
+                      If your reading device cannot download ePub files linked from the Web, you may need to provide your reader program with the URL of the ePub file.  You can do this by copying the URL of the epub via the browser's right-click context menu.
+                  </p>
+                  <p class="lensinfohelp">
+                      Click the "(what's this?)" link for more information.
+                  </p>
+                </div>
+              </span>
+            </li>
+            <li class="ca_list_item ca_zip"
+                tal:condition="collectionoffline">
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 0);}catch(err){}"
+                 tal:attributes="href collectionoffline"
+                 i18n:translate="text_OfflineZIP">
+                Offline ZIP <!-- since we aint testing this much --><span style="color:red">Beta</span>
+              </a>
+              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
+                <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                   class="lenslink">(what's this?)</a>
+                <div class="lensinfo hiddenStructure">
+                  <h3>For general use</h3>
+                  <p>
+                    The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/ePub to view multimedia files not displayable there.
+                  </p>
+                  <h3>For software developers</h3>
+                  <p>
+                    The Offline ZIP also contains all of the original source code behind the content for use in off-site transforms, imports, etc.
+                  </p>
+                  <h3>To access the contents:</h3>
+                  <ol>
+                    <li>
+                      download the ZIP
+                    </li>
+                    <li>
+                      extract all of its files to a location on your hard drive
+                    </li>
+                    <li>
+                      open the README.txt file for instructions, or simply open the cleverly hidden index.html file (in your Web browser) to start viewing contents.
+                    </li>
+                  </ol>
+                  <p class="lensinfohelp">
+                    Click the "(what's this?)" link for more information.
+                  </p>
+                </div>
+              </span>
+            </li>
           </ul>
         </tal:collection>
-        <tal:module tal:condition="modulepdf">
+        <tal:module tal:condition="python:modulepdf or moduleepub or moduleoffline">
           <h3 class="ca_header" 
-              i18n:translate="text_menu_header_module">Module:</h3>
+              i18n:translate="text_menu_header_module">Download module as:</h3>
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf">
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
@@ -202,7 +268,7 @@
                             modfav addtomod/favorite | nothing;
                             colfav addtocol/favorite | nothing;
                             anyfavs python:modfav or colfav">
-    
+
     <!-- LENS -->
     <div id="cnx_actions_addtolens" class="ca_button ca_menu">
       <a href="#"
@@ -303,8 +369,8 @@
         </div>
       </div>
     </div>
-    
-    
+
+
     <!-- FAVORITES -->
     <div id="cnx_actions_favorites" class="ca_button ca_menu">
       <a href="#"
@@ -397,7 +463,7 @@
         </div>
 
       </div>
-  
+
     </div>
   </tal:lensinfo>
 
