@@ -270,7 +270,9 @@
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Offline:</td>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Offline
+                <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>:
+              </td>
               <td valign="top">
                 <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline');}catch(err){}"
                    tal:content="string:${objectId}_${version}_offline.zip"
@@ -347,7 +349,9 @@
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Offline ZIP:</td>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Offline ZIP
+                <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>:
+              </td>
               <td valign="top">
                 <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline');}catch(err){}"
                    tal:attributes="href string:${realcontexturl}?format=offline"
