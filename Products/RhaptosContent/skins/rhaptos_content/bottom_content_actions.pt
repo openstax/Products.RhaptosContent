@@ -134,8 +134,12 @@
     <div class="cnx_actions_category"
          id="cnx_actions_category_download"
          tal:define="dls view/downloads;
-                     modulepdf dls/modulepdf | nothing;
-                     collectionpdf dls/collectionpdf | nothing;
+                     modulepdf         dls/modulepdf         | nothing;
+                     moduleepub        dls/moduleepub        | nothing;
+                     moduleoffline     dls/moduleoffline     | nothing;
+                     collectionpdf     dls/collectionpdf     | nothing;
+                     collectionepub    dls/collectionepub    | nothing;
+                     collectionoffline dls/collectionoffline | nothing;
                      colinfo python:collectionpdf;
                      multi python:len(dls) > 1"
          tal:condition="python:modulepdf or colinfo">
@@ -145,15 +149,64 @@
         </span>
       </h3>
       <div class="cnx_actions_group">
-        <tal:pdf tal:condition="collectionpdf">
-          <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
-             tal:attributes="href collectionpdf">Collection PDF</a>
-          <tal:sep condition="python:modulepdf">|</tal:sep>
-        </tal:pdf>
-        <tal:pdf tal:condition="modulepdf">
-          <a href="#" i18n:translate="text_module_zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
-             tal:attributes="href modulepdf">Module PDF</a>
-        </tal:pdf>
+        <tal:collection tal:condition="python:collectionpdf or collectionepub or collectionoffline">
+          <h4>Collection:</h4>
+          <tal:pdf tal:condition="collectionpdf">
+            <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
+              tal:attributes="href collectionpdf">PDF</a>
+            <tal:sep condition="python:collectionepub or collectionoffline">|</tal:sep>
+          </tal:pdf>
+          <tal:epub tal:condition="collectionepub">
+            <a href="#" i18n:translate="text_collection_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 100);}catch(err){}"
+              tal:attributes="href collectionepub">EPUB</a>
+            <span class="lensinfowrap ca_help_link">
+              <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/epubhelp" />
+            </span>
+            <tal:sep condition="python:collectionoffline">|</tal:sep>
+          </tal:epub>
+          <tal:offline tal:condition="collectionoffline">
+            <a href="#" i18n:translate="text_collection_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 100);}catch(err){}"
+              tal:attributes="href collectionoffline">Offline ZIP</a>
+            <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
+            <span class="lensinfowrap ca_help_link">
+              <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/offlineziphelp"/>
+            </span>
+          </tal:offline>
+        </tal:collection>
+      </div>
+      <div class="cnx_actions_group">
+        <tal:module tal:condition="python:modulepdf or moduleepub or moduleoffline">
+          <h4>Module:</h4>
+          <tal:pdf tal:condition="modulepdf">
+            <a href="#" i18n:translate="text_module_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
+              tal:attributes="href modulepdf">PDF</a>
+            <tal:sep condition="python:moduleepub or moduleoffline">|</tal:sep>
+          </tal:pdf>
+          <tal:epub tal:condition="moduleepub">
+            <a href="#" i18n:translate="text_module_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 100);}catch(err){}"
+              tal:attributes="href moduleepub">EPUB</a>
+            <span class="lensinfowrap ca_help_link">
+              <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/epubhelp" />
+            </span>
+            <tal:sep condition="python:moduleoffline">|</tal:sep>
+          </tal:epub>
+          <tal:offline tal:condition="moduleoffline">
+            <a href="#" i18n:translate="text_module_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 100);}catch(err){}"
+              tal:attributes="href moduleoffline">Offline ZIP</a>
+            <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
+            <span class="lensinfowrap ca_help_link">
+              <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/offlineziphelp"/>
+            </span>
+          </tal:offline>
+        </tal:module>
       </div>
     </div>
 
