@@ -219,26 +219,6 @@
               <hr />
             </td>
           </tr>
-          <tal:row tal:condition="doesCollXmlExist">
-            <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Structure XML:</td>
-              <!-- need a different a[@href] below that hits the PrintTool cache. -->
-              <td valign="top">
-                <a href="source" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:source');}catch(err){}"
-                   tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
-              </td>
-            </tr>
-          </tal:row>
-          <tal:row tal:condition="doesCompleteExist">
-            <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_collxml">All collection files:</td>
-              <td valign="top">
-                <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:complete');}catch(err){}"
-                   tal:content="string:${objectId}_${version}_complete.zip"
-                   tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
-              </td>
-            </tr>
-          </tal:row>
           <tal:row tal:condition="doesPdfExist">
             <tr>
               <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection PDF:</td>
@@ -257,6 +237,35 @@
                    tal:content="string:${objectId}_${version}.epub"
                    tal:attributes="href string:epub">col11883_6.9.epub</a>
               </td>
+              <td valign="top">
+                Electronic publication for viewing in handheld devices. <a href="/help/authoring">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
+          <tal:row tal:condition="doesCollXmlExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Structure XML:</td>
+              <!-- need a different a[@href] below that hits the PrintTool cache. -->
+              <td valign="top">
+                <a href="source" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:source');}catch(err){}"
+                   tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
+              </td>
+              <td valign="top">
+                 XML that defines the structure of the collection. Cannot be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
+          <tal:row tal:condition="doesCompleteExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_collxml">All collection files:</td>
+              <td valign="top">
+                <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:complete');}catch(err){}"
+                   tal:content="string:${objectId}_${version}_complete.zip"
+                   tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
+              </td>
+              <td valign="top">
+                The Collection Structure XML, plus the CNXML and included media files for each module in the collection.  Cannot be reimported. <a href="/help/authoring">Learn more.</a>
+              </td>
             </tr>
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
@@ -266,6 +275,9 @@
                 <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline');}catch(err){}"
                    tal:content="string:${objectId}_${version}_offline.zip"
                    tal:attributes="href string:offline">col11883_6.9_offline.zip</a>
+              </td>
+              <td valign="top">
+                An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. <a href="/help/authoring">Learn more</a>.
               </td>
             </tr>
           </tal:row>
@@ -286,27 +298,9 @@
               <hr />
             </td>
           </tr>
-          <tr>
-            <td valign="top" class="cnx_before" i18n:translate="text_cnxml">Module XML:</td>
-            <td valign="top">
-              <a href="module_export?format=plain" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:xml');}catch(err){}"
-                 tal:attributes="href string:${realcontexturl}module_export?format=plain"
-                 tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
-            </td>
-          </tr>
-          <tal:row tal:condition="doesZipExist">
-            <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">All module files:</td>
-              <td valign="top">
-                <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:zip');}catch(err){}"
-                   tal:attributes="href string:${realcontexturl}module_export?format=zip"
-                   tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
-              </td>
-            <tr>
-          </tal:row>
           <tal:row tal:condition="doesPdfExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Module PDF:</td>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">PDF:</td>
               <td valign="top">
                 <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf');}catch(err){}"
                    tal:attributes="href string:${realcontexturl}?format=pdf"
@@ -316,21 +310,51 @@
           </tal:row>
           <tal:row tal:condition="doesEpubExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Module ePub:</td>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">ePub:</td>
               <td valign="top">
                 <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub');}catch(err){}"
                    tal:attributes="href string:${realcontexturl}?format=epub"
                    tal:content="string:${objectId}_${version}.epub">m9001_2.15.epub</a>
               </td>
+              <td valign="top">
+                Electronic publication file, for viewing in handheld devices. <a href="/help/authoring">Learn more</a>.
+              </td>
+            <tr>
+          </tal:row>
+          <tr>
+            <td valign="top" class="cnx_before" i18n:translate="text_cnxml">XML:</td>
+            <td valign="top">
+              <a href="module_export?format=plain" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:xml');}catch(err){}"
+                 tal:attributes="href string:${realcontexturl}module_export?format=plain"
+                 tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
+            </td>
+              <td valign="top">
+                XML that defines the structure and contents of the module, minus any included media files. Can be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
+              </td>
+          </tr>
+          <tal:row tal:condition="doesZipExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Source Export ZIP:</td>
+              <td valign="top">
+                <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:zip');}catch(err){}"
+                   tal:attributes="href string:${realcontexturl}module_export?format=zip"
+                   tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
+              </td>
+              <td valign="top">
+                ZIP containing the module XML plus any included media files. Can be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
+              </td>
             <tr>
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Module Offline:</td>
+              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">Offline ZIP:</td>
               <td valign="top">
                 <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline');}catch(err){}"
                    tal:attributes="href string:${realcontexturl}?format=offline"
                    tal:content="string:${objectId}_${version}_offline.zip">m9001_2.15_offline.zip</a>
+              </td>
+              <td valign="top">
+                An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. <a href="/help/authoring">Learn more</a>.
               </td>
             <tr>
           </tal:row>
