@@ -97,7 +97,7 @@
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
-                <div class="lensinfo hiddenStructure">
+                <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
                   <h3>What is an ePub?</h3>
                   <p>
                       ePub, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
@@ -123,7 +123,7 @@
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
-                <div class="lensinfo hiddenStructure">
+                <div metal:define-macro="offlineziphelp" class="lensinfo hiddenStructure">
                   <h3>For general use</h3>
                   <p>
                     The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/ePub to view multimedia files not displayable there.
@@ -173,19 +173,7 @@
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
-                <div class="lensinfo hiddenStructure">
-                  <h3>What is an ePub?</h3>
-                  <p>
-                      ePub, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
-                  </p>
-                  <h3>Downloading to a reading device</h3>
-                  <p>
-                      If your reading device cannot download ePub files linked from the Web, you may need to provide your reader program with the URL of the ePub file.  You can do this by copying the URL of the epub via the browser's right-click context menu.
-                  </p>
-                  <p class="lensinfohelp">
-                      Click the "(what's this?)" link for more information.
-                  </p>
-                </div>
+                <div metal:use-macro="template/macros/epubhelp" />
               </span>
             </li>
             <li class="ca_list_item ca_zip"
@@ -199,31 +187,7 @@
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
-                <div class="lensinfo hiddenStructure">
-                  <h3>For general use</h3>
-                  <p>
-                    The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/ePub to view multimedia files not displayable there.
-                  </p>
-                  <h3>For software developers</h3>
-                  <p>
-                    The Offline ZIP also contains all of the original source code behind the content for use in off-site transforms, imports, etc.
-                  </p>
-                  <h3>To access the contents:</h3>
-                  <ol>
-                    <li>
-                      download the ZIP
-                    </li>
-                    <li>
-                      extract all of its files to a location on your hard drive
-                    </li>
-                    <li>
-                      open the README.txt file for instructions, or simply open the cleverly hidden index.html file (in your Web browser) to start viewing contents.
-                    </li>
-                  </ol>
-                  <p class="lensinfohelp">
-                    Click the "(what's this?)" link for more information.
-                  </p>
-                </div>
+                <div metal:use-macro="template/macros/offlineziphelp"/>
               </span>
             </li>
           </ul>
