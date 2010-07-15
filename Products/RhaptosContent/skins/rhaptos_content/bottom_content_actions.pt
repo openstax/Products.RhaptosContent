@@ -140,17 +140,28 @@
                      collectionpdf     dls/collectionpdf     | nothing;
                      collectionepub    dls/collectionepub    | nothing;
                      collectionoffline dls/collectionoffline | nothing;
-                     colinfo python:collectionpdf;
-                     multi python:len(dls) > 1"
-         tal:condition="python:modulepdf or colinfo">
+                     downloadmod       python: modulepdf or moduleepub or moduleoffline or nothing;
+                     downloadcol       python: collectionpdf or collectionepub or collectionoffline or nothing;
+                     downloadboth      python: downloadmod and downloadcol or nothing;
+                     ">
       <h3>
-        <span i18n:translate="header_download">
+        <span i18n:translate="header_download_module"
+              tal:condition="python: downloadmod and not downloadboth">
+          Download module as:
+        </span>
+        <span i18n:translate="header_download_collection"
+              tal:condition="python: downloadcol and not downloadboth">
+          Download collection as:
+        </span>
+        <span i18n:translate="header_download"
+              tal:condition="downloadboth">
           Download:
         </span>
       </h3>
       <div class="cnx_actions_group">
-        <tal:collection tal:condition="python:collectionpdf or collectionepub or collectionoffline">
-          <h4>Collection:</h4>
+        <tal:collection tal:condition="downloadcol">
+          <h4 tal:condition="downloadboth" 
+              i18n:translate="label_collection_as">Collection as:</h4>
           <tal:pdf tal:condition="collectionpdf">
             <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
               tal:attributes="href collectionpdf">PDF</a>
@@ -178,8 +189,9 @@
         </tal:collection>
       </div>
       <div class="cnx_actions_group">
-        <tal:module tal:condition="python:modulepdf or moduleepub or moduleoffline">
-          <h4>Module:</h4>
+        <tal:module tal:condition="downloadmod">
+          <h4 tal:condition="downloadboth" 
+              i18n:translate="label_module_as">Module as:</h4>
           <tal:pdf tal:condition="modulepdf">
             <a href="#" i18n:translate="text_module_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
               tal:attributes="href modulepdf">PDF</a>
