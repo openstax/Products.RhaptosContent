@@ -47,22 +47,10 @@
                             moduleoffline     dls/moduleoffline     | nothing;
                             collectionpdf     dls/collectionpdf     | nothing;
                             collectionepub    dls/collectionepub    | nothing;
-                            collectionoffline dls/collectionoffline | nothing;
-                            colinfo python:collectionpdf;
-                            multi python:len(dls) > 1">
-
-    <div id="cnx_actions_download" class="ca_button"
-         tal:condition="python:modulepdf and not colinfo">
-      <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
-        class="ca_single ca_button_link"
-        id="cnx_actions_download_link"
-        tal:attributes="href modulepdf">
-        <span i18n:translate="text_download_pdf">Download PDF</span>
-      </a>
-    </div>
+                            collectionoffline dls/collectionoffline | nothing;">
 
     <div id="cnx_actions_download" class="ca_button ca_menu"
-         tal:condition="colinfo">
+         tal:condition="python:modulepdf or moduleepub or moduleoffline or collectionpdf or collectionepub or collectionoffline">
       <a href="#"
           class="ca_button_link"
           id="cnx_actions_download_link">
