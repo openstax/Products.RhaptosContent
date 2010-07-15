@@ -1832,11 +1832,14 @@
                     </span>
                     <xsl:text> </xsl:text>
                     <a href="content_info">
-                      <!-- Metadata -->
                       <xsl:text>Metadata</xsl:text>
                     </a>
                     <span> | </span>
-                    <a href="content_info#cnx_history_header"><!-- Version History -->
+                    <a href="content_info#cnx_downloads_header">
+                      <xsl:text>Downloads</xsl:text>
+                    </a>
+                    <span> | </span>
+                    <a href="content_info#cnx_history_header">
                       <xsl:text>Version History</xsl:text>
                     </a>
                   </p>
