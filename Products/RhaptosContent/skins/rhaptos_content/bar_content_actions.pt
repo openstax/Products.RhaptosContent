@@ -97,13 +97,13 @@
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
                 <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
-                  <h3>What is an ePub?</h3>
+                  <h3>What is an EPUB?</h3>
                   <p>
-                      ePub, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
+                      EPUB, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
                   </p>
                   <h3>Downloading to a reading device</h3>
                   <p>
-                      If your reading device cannot download ePub files linked from the Web, you may need to provide your reader program with the URL of the ePub file.  You can do this by copying the URL of the epub via the browser's right-click context menu.
+                      If your reading device cannot download EPUB files linked from the Web, you may need to provide your reader program with the URL of the EPUB file.  You can do this by copying the URL of the EPUB via the browser's right-click context menu.
                   </p>
                   <p class="lensinfohelp">
                       Click the "(what's this?)" link for more information.
@@ -123,7 +123,7 @@
                 <div metal:define-macro="offlineziphelp" class="lensinfo hiddenStructure">
                   <h3>For general use</h3>
                   <p>
-                    The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/ePub to view multimedia files not displayable there.
+                    The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/EPUB to view multimedia files not displayable there.
                   </p>
                   <h3>For software developers</h3>
                   <p>
