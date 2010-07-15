@@ -169,7 +169,6 @@
           <tal:offline tal:condition="collectionoffline">
             <a href="#" i18n:translate="text_collection_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 100);}catch(err){}"
               tal:attributes="href collectionoffline">Offline ZIP</a>
-            <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
             <span class="lensinfowrap ca_help_link">
               <a href="help/authoring/"
                  class="lenslink">(?)</a>
@@ -199,7 +198,6 @@
           <tal:offline tal:condition="moduleoffline">
             <a href="#" i18n:translate="text_module_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 100);}catch(err){}"
               tal:attributes="href moduleoffline">Offline ZIP</a>
-            <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
             <span class="lensinfowrap ca_help_link">
               <a href="help/authoring/"
                  class="lenslink">(?)</a>

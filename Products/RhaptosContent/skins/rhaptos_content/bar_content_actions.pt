@@ -118,7 +118,6 @@
                  i18n:translate="text_OfflineZIP">
                 Offline ZIP
               </a>
-              <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
@@ -182,7 +181,6 @@
                  i18n:translate="text_OfflineZIP">
                 Offline ZIP
               </a>
-              <tal:comment tal:replace="nothing">since we aint testing this much ...</tal:comment><span style="color:red">Beta</span>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
