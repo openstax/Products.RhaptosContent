@@ -199,11 +199,12 @@
 		<span tal:content="python:m.getProperty('fullname')">[fullname]</span>
 		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
 	      </tal:person>
-	    </span>
-	  </td>
-	</tr>
+	      </span>
+	    </td>
+	  </tr>
 	</tal:block>
-        <tal:block
+      </table>
+      <tal:block
             tal:define="ptool              context/rhaptos_print;
                         utils              python:modules['Products.CMFCore.utils'];
                         ptool              python:utils.getToolByName(context, 'rhaptos_print');
@@ -214,11 +215,8 @@
                         doesPdfExist       python:ptool.doesFileExist(objectId, version, 'pdf');
                         gotPtoolFile       python:doesCollXmlExist or doesCompleteExist or doesOfflineExist or doesEpubExist or doesPdfExist;"
             tal:condition="python:isPublic and inCollection and gotPtoolFile">
-          <tr>
-            <td colspan="2">
-              <hr />
-            </td>
-          </tr>
+        <h2 id="cnx_downloads_header" class="section-header" i18n:translate="heading_downloads_section">Downloads</h2>
+        <table>
           <tal:row tal:condition="doesPdfExist">
             <tr>
               <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection PDF:</td>
@@ -281,8 +279,9 @@
               </td>
             </tr>
           </tal:row>
-        </tal:block>
-        <tal:block
+        </table>
+      </tal:block>
+      <tal:block
             tal:define="realcontext        python:isPublic and portal.content.getRhaptosObject(objectId, version);
                         realcontexturl     realcontext/url | nothing;
                         ptool              context/rhaptos_print;
@@ -293,11 +292,8 @@
                         doesEpubExist      python:ptool.doesFileExist(objectId, version, 'epub');
                         doesOfflineExist   python:ptool.doesFileExist(objectId, version, 'offline.zip');"
             tal:condition="python:isPublic and inModule">
-          <tr>
-            <td colspan="2">
-              <hr />
-            </td>
-          </tr>
+        <h2 id="cnx_downloads_header" class="section-header" i18n:translate="heading_downloads_section">Downloads</h2>
+        <table>
           <tal:row tal:condition="doesPdfExist">
             <tr>
               <td valign="top" class="cnx_before" i18n:translate="text_module_zip">PDF:</td>
@@ -358,8 +354,8 @@
               </td>
             <tr>
           </tal:row>
-        </tal:block>
-      </table>
+        </table>
+      </tal:block>
 
       </div>
 
