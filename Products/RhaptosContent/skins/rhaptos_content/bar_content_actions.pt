@@ -92,8 +92,7 @@
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 0);}catch(err){}"
                  tal:attributes="href collectionepub"
                  i18n:translate="text_EPUB">
-                EPUB
-              </a>
+                EPUB</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
                 <a href="http://bread.cnx.rice.edu:10700/help/authoring/"
                    class="lenslink">(what's this?)</a>
