@@ -725,6 +725,10 @@ td, th{
   font-size: 1em;
 }
 
+#cnx_about_history td.cnx_before{
+  white-space: nowrap;
+}
+
 #cnx_about_history .cnx_name{
   font-weight: bold;
 }
