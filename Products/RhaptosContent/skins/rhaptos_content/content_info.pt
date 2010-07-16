@@ -236,7 +236,11 @@
                    tal:attributes="href string:epub">col11883_6.9.epub</a>
               </td>
               <td valign="top">
-                Electronic publication for viewing in handheld devices. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_collection_epub">
+                  Electronic publication file, for viewing in handheld devices.
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
           </tal:row>
@@ -249,33 +253,45 @@
                    tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
               </td>
               <td valign="top">
-                 XML that defines the structure of the collection. Cannot be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_collection_xml">
+                  XML that defines the structure of the collection. Cannot be reimported in the editing interface.
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
           </tal:row>
           <tal:row tal:condition="doesCompleteExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_source">Source Export ZIP:</td>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_source_export">Source Export ZIP:</td>
               <td valign="top">
                 <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:complete');}catch(err){}"
                    tal:content="string:${objectId}_${version}_complete.zip"
                    tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
               </td>
               <td valign="top">
-                The Collection Structure XML, plus the CNXML and included media files for each module in the collection.  Cannot be reimported. <a href="/help/authoring">Learn more.</a>
+                <span i18n:translate="help_downloads_collection_source_export">
+                  The Collection Structure XML, plus the CNXML and included media files for each module in the collection.  Cannot be reimported.
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="label_downloads_offline">Offline ZIP:</td>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_offline">Offline ZIP:</td>
               <td valign="top">
                 <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline');}catch(err){}"
                    tal:content="string:${objectId}_${version}_offline.zip"
                    tal:attributes="href string:offline">col11883_6.9_offline.zip</a>
               </td>
               <td valign="top">
-                An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_collection_offline">
+                  An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. 
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
           </tal:row>
@@ -313,7 +329,11 @@
                    tal:content="string:${objectId}_${version}.epub">m9001_2.15.epub</a>
               </td>
               <td valign="top">
-                Electronic publication file, for viewing in handheld devices. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_module_epub">
+                  Electronic publication file, for viewing in handheld devices.
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             <tr>
           </tal:row>
@@ -324,9 +344,13 @@
                  tal:attributes="href string:${realcontexturl}module_export?format=plain"
                  tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
             </td>
-              <td valign="top">
-                XML that defines the structure and contents of the module, minus any included media files. Can be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
-              </td>
+            <td valign="top">
+              <span i18n:translate="help_downloads_module_xml">
+                XML that defines the structure and contents of the module, minus any included media files. Can be reimported in the editing interface. 
+              </span>
+              <a href="/help/authoring"
+                 i18n:translate="label_learn_more">Learn more</a>.
+            </td>
           </tr>
           <tal:row tal:condition="doesZipExist">
             <tr>
@@ -337,7 +361,11 @@
                    tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
               </td>
               <td valign="top">
-                ZIP containing the module XML plus any included media files. Can be reimported in the editing interface. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_module_source_export">
+                  ZIP containing the module XML plus any included media files. Can be reimported in the editing interface.
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             <tr>
           </tal:row>
@@ -350,7 +378,11 @@
                    tal:content="string:${objectId}_${version}_offline.zip">m9001_2.15_offline.zip</a>
               </td>
               <td valign="top">
-                An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. <a href="/help/authoring">Learn more</a>.
+                <span i18n:translate="help_downloads_module_offline">
+                  An offline HTML copy of the content. Also includes PDF, XML, included media files, and other support files. 
+                </span>
+                <a href="/help/authoring"
+                   i18n:translate="label_learn_more">Learn more</a>.
               </td>
             <tr>
           </tal:row>
