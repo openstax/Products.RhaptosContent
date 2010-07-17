@@ -99,7 +99,7 @@
                 </div>
               </span>
             </li>
-            <li class="ca_list_item ca_zip"
+            <li class="ca_list_item ca_offlinezip"
                 tal:condition="collectionoffline">
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 0);}catch(err){}"
                  tal:attributes="href collectionoffline"
@@ -160,7 +160,7 @@
                 <div metal:use-macro="template/macros/epubhelp" />
               </span>
             </li>
-            <li class="ca_list_item ca_zip"
+            <li class="ca_list_item ca_offlinezip"
                 tal:condition="moduleoffline">
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 0);}catch(err){}"
                  tal:attributes="href moduleoffline"

@@ -258,12 +258,14 @@ li{
 }
 
 #cnx_actions_print .ca_button_link{ background-image: url(printer.png); }
-#cnx_actions_download .ca_button_link, .ca_pdf{ background-image: url(pdf.png); }
+#cnx_actions_download .ca_button_link{ background-image: url(download.png); }
 #cnx_actions_addtolens .ca_button_link, .ca_lens{ background-image: url(lenses.png); }
 #cnx_actions_reuse_edit .ca_button_link, .ca_reuse_edit{ background-image: url(pencil_reuse_edit.png); }
 #cnx_actions_favorites .ca_button_link, .ca_favorites{ background-image: url(favorites-empty.png); }
 #cnx_actions_favorites .ca_in_favorites, .ca_in_favorites{ background-image: url(favorites.png); }
-.ca_zip{ background-image: url(zip.png); }
+.ca_pdf{ background-image: url(pdf.png); }
+.ca_epub{ background-image: url(epub.png); }
+.ca_offlinezip{ background-image: url(zip.png); }
 
 .ca_single:hover{
   border: 1px solid #8cacbb;
@@ -560,7 +562,7 @@ li{
 }
 
 #cnx_actions_category_feedback{ background-image: url(envelope.png) }
-#cnx_actions_category_download{ background-image: url(pdf.png) }
+#cnx_actions_category_download{ background-image: url(download.png) }
 #cnx_actions_category_addto{ background-image: url(bookmark.png) }
 #cnx_actions_category_reuse_edit{ background-image: url(pencil_reuse_edit.png); }
 
