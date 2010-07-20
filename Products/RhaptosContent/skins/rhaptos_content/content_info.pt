@@ -310,16 +310,14 @@
             tal:condition="python:isPublic and inModule">
         <h2 id="cnx_downloads_header" class="section-header" i18n:translate="heading_downloads_section">Downloads</h2>
         <table>
-          <tal:row tal:condition="doesPdfExist">
-            <tr>
-              <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_pdf">PDF:</td>
-              <td valign="top">
-                <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf');}catch(err){}"
-                   tal:attributes="href string:${realcontexturl}?format=pdf"
-                   tal:content="string:${objectId}_${version}.pdf">m9001_2.15.pdf</a>
-              </td>
-            <tr>
-          </tal:row>
+          <tr>
+            <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_pdf">PDF:</td>
+            <td valign="top">
+              <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf');}catch(err){}"
+                 tal:attributes="href string:${realcontexturl}?format=pdf"
+                 tal:content="string:${objectId}_${version}.pdf">m9001_2.15.pdf</a>
+            </td>
+          </tr>
           <tal:row tal:condition="doesEpubExist">
             <tr>
               <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_epub">EPUB:</td>
@@ -335,7 +333,7 @@
                 <a href="/help/authoring"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
-            <tr>
+            </tr>
           </tal:row>
           <tr>
             <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_xml">XML:</td>
@@ -367,7 +365,7 @@
                 <a href="/help/authoring"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
-            <tr>
+            </tr>
           </tal:row>
           <tal:row tal:condition="doesOfflineExist">
             <tr>
@@ -384,7 +382,7 @@
                 <a href="/help/authoring"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
-            <tr>
+            </tr>
           </tal:row>
         </table>
       </tal:block>
