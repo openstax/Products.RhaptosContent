@@ -82,7 +82,7 @@
                  i18n:translate="text_EPUB">
                 EPUB</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/view/downloads#epub"
+                <a href="/help/viewing/downloads#epub"
                    class="lenslink">(what's this?)</a>
                 <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
                   <h3>What is an EPUB?</h3>
@@ -106,7 +106,7 @@
                  i18n:translate="text_OfflineZIP">
                 Offline ZIP</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/view/downloads#offline"
+                <a href="/help/viewing/downloads#offline"
                    class="lenslink">(what's this?)</a>
                 <div metal:define-macro="offlineziphelp" class="lensinfo hiddenStructure">
                   <h3>For general use</h3>
@@ -155,7 +155,7 @@
                  i18n:translate="text_EPUB">
                 EPUB</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/view/downloads#epub"
+                <a href="/help/viewing/downloads#epub"
                    class="lenslink">(what's this?)</a>
                 <div metal:use-macro="template/macros/epubhelp" />
               </span>
@@ -167,7 +167,7 @@
                  i18n:translate="text_OfflineZIP">
                 Offline ZIP</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/view/downloads#offline"
+                <a href="/help/viewing/downloads#offline"
                    class="lenslink">(what's this?)</a>
                 <div metal:use-macro="template/macros/offlineziphelp"/>
               </span>

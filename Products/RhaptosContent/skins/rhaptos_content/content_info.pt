@@ -229,7 +229,7 @@
                 <span i18n:translate="help_downloads_collection_pdf">
                   PDF file, for viewing content offline and printing.
                 </span>
-                <a href="/help/view/downloads#pdf"
+                <a href="/help/viewing/downloads#pdf"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -246,7 +246,7 @@
                 <span i18n:translate="help_downloads_collection_epub">
                   Electronic publication file, for viewing in handheld devices.
                 </span>
-                <a href="/help/view/downloads#epub"
+                <a href="/help/viewing/downloads#epub"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -263,7 +263,7 @@
                 <span i18n:translate="help_downloads_collection_xml">
                   XML that defines the structure of the collection. Cannot be reimported in the editing interface.
                 </span>
-                <a href="/help/view/downloads#xml"
+                <a href="/help/viewing/downloads#xml"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -280,7 +280,7 @@
                 <span i18n:translate="help_downloads_collection_source_export">
                   The Collection Structure XML, plus the CNXML and included media files for each module in the collection.  Cannot be reimported.
                 </span>
-                <a href="/help/view/downloads#complete"
+                <a href="/help/viewing/downloads#export"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -297,7 +297,7 @@
                 <span i18n:translate="help_downloads_collection_offline">
                   An offline HTML copy of the content. Also includes XML, included media files, and other support files. 
                 </span>
-                <a href="/help/view/downloads#offline"
+                <a href="/help/viewing/downloads#offline"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -328,7 +328,7 @@
               <span i18n:translate="help_downloads_module_pdf">
                 PDF file, for viewing content offline and printing. 
               </span>
-              <a href="/help/view/downloads#pdf"
+              <a href="/help/viewing/downloads#pdf"
                  i18n:translate="label_learn_more">Learn more</a>.
             </td>
           </tr>
@@ -344,7 +344,7 @@
                 <span i18n:translate="help_downloads_module_epub">
                   Electronic publication file, for viewing in handheld devices.
                 </span>
-                <a href="/help/view/downloads#epub"
+                <a href="/help/viewing/downloads#epub"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -360,7 +360,7 @@
               <span i18n:translate="help_downloads_module_xml">
                 XML that defines the structure and contents of the module, minus any included media files. Can be reimported in the editing interface. 
               </span>
-              <a href="/help/view/downloads#xml"
+              <a href="/help/viewing/downloads#xml"
                  i18n:translate="label_learn_more">Learn more</a>.
             </td>
           </tr>
@@ -376,7 +376,7 @@
                 <span i18n:translate="help_downloads_module_source_export">
                   ZIP containing the module XML plus any included media files. Can be reimported in the editing interface.
                 </span>
-                <a href="/help/view/downloads#export"
+                <a href="/help/viewing/downloads#export"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
@@ -393,7 +393,7 @@
                 <span i18n:translate="help_downloads_module_offline">
                   An offline HTML copy of the content. Also includes XML, included media files, and other support files. 
                 </span>
-                <a href="/help/view/downloads#offline"
+                <a href="/help/viewing/downloads#offline"
                    i18n:translate="label_learn_more">Learn more</a>.
               </td>
             </tr>
