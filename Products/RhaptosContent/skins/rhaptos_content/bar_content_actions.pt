@@ -82,19 +82,18 @@
                  i18n:translate="text_EPUB">
                 EPUB</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/viewing/downloads#epub"
+                <a href="/help/viewing/epub-help"
                    class="lenslink">(what's this?)</a>
                 <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
                   <h3>What is an EPUB?</h3>
                   <p>
-                      EPUB, short for electronic publication, is a file that bundles all the content in a module or collection for download and reading on any number of handheld readers, such as the iPad or iPhone.
+                      EPUB is a format of electronic book (ebook) that can be downloaded for reading on any number of handheld readers, such as the iPad, iPhone, or Android.
                   </p>
                   <h3>Downloading to a reading device</h3>
                   <p>
-                      If your reading device cannot download EPUB files linked from the Web, you may need to provide your reader program with the URL of the EPUB file.  You can do this by copying the URL of the EPUB via the browser's right-click context menu.
-                  </p>
-                  <p class="lensinfohelp">
-                      Click the link for more information.
+                      For detailed instructions on how to download this content's EPUB to your specific device, click the
+                      <span metal:define-slot="link-text">"(what's this?)"</span>
+                      link.
                   </p>
                 </div>
               </span>
@@ -126,11 +125,13 @@
                       extract all of its files to a location on your hard drive
                     </li>
                     <li>
-                      open the README.txt file for instructions, or simply open the cleverly hidden index.html file (in your Web browser) to start viewing contents.
+                      open the README file to view a list of the ZIP's contents and instructions for their use.
                     </li>
                   </ol>
                   <p class="lensinfohelp">
-                    Click the link for more information.
+                    Click the 
+                    <span metal:define-slot="link-text">"(what's this?)"</span> link
+                    for more information.
                   </p>
                 </div>
               </span>
@@ -155,9 +156,9 @@
                  i18n:translate="text_EPUB">
                 EPUB</a>
               <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/viewing/downloads#epub"
+                <a href="/help/viewing/epub-help"
                    class="lenslink">(what's this?)</a>
-                <div metal:use-macro="template/macros/epubhelp" />
+                <div metal:use-macro="template/macros/epubhelp"/>
               </span>
             </li>
             <li class="ca_list_item ca_offlinezip"

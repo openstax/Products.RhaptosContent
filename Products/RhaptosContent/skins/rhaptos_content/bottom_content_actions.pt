@@ -171,9 +171,11 @@
             <a href="#" i18n:translate="text_collection_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 100);}catch(err){}"
               tal:attributes="href collectionepub">EPUB</a>
             <span class="lensinfowrap ca_help_link">
-              <a href="help/authoring/"
+              <a href="/help/viewing/epub-help"
                  class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/epubhelp" />
+              <div metal:use-macro="topmacros/epubhelp">
+                <span metal:fill-slot="link-text">"(?)"</span>
+              </div>
             </span>
             <tal:sep condition="python:collectionoffline">|</tal:sep>
           </tal:epub>
@@ -181,9 +183,11 @@
             <a href="#" i18n:translate="text_collection_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 100);}catch(err){}"
               tal:attributes="href collectionoffline">Offline ZIP</a>
             <span class="lensinfowrap ca_help_link">
-              <a href="help/authoring/"
+              <a href="/help/viewing/downloads#offline"
                  class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/offlineziphelp"/>
+              <div metal:use-macro="topmacros/offlineziphelp">
+                <span metal:fill-slot="link-text">"(?)"</span>
+              </div>
             </span>
           </tal:offline>
         </tal:collection>
@@ -201,9 +205,11 @@
             <a href="#" i18n:translate="text_module_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 100);}catch(err){}"
               tal:attributes="href moduleepub">EPUB</a>
             <span class="lensinfowrap ca_help_link">
-              <a href="help/authoring/"
+              <a href="/help/viewing/epub-help"
                  class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/epubhelp" />
+              <div metal:use-macro="topmacros/epubhelp">
+                <span metal:fill-slot="link-text">"(?)"</span>
+              </div>
             </span>
             <tal:sep condition="python:moduleoffline">|</tal:sep>
           </tal:epub>
@@ -211,9 +217,11 @@
             <a href="#" i18n:translate="text_module_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 100);}catch(err){}"
               tal:attributes="href moduleoffline">Offline ZIP</a>
             <span class="lensinfowrap ca_help_link">
-              <a href="help/authoring/"
+              <a href="/help/viewing/downloads#offline"
                  class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/offlineziphelp"/>
+              <div metal:use-macro="topmacros/offlineziphelp">
+                <span metal:fill-slot="link-text">"(?)"</span>
+              </div>
             </span>
           </tal:offline>
         </tal:module>
