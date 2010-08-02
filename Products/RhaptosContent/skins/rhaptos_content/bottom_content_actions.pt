@@ -136,12 +136,10 @@
          tal:define="dls view/downloads;
                      modulepdf         dls/modulepdf         | nothing;
                      moduleepub        dls/moduleepub        | nothing;
-                     moduleoffline     dls/moduleoffline     | nothing;
                      collectionpdf     dls/collectionpdf     | nothing;
                      collectionepub    dls/collectionepub    | nothing;
-                     collectionoffline dls/collectionoffline | nothing;
-                     downloadmod       python: modulepdf or moduleepub or moduleoffline or nothing;
-                     downloadcol       python: collectionpdf or collectionepub or collectionoffline or nothing;
+                     downloadmod       python: modulepdf or moduleepub or nothing;
+                     downloadcol       python: collectionpdf or collectionepub or nothing;
                      downloadboth      python: downloadmod and downloadcol or nothing;
                      ">
       <h3>
@@ -165,7 +163,7 @@
           <tal:pdf tal:condition="collectionpdf">
             <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
               tal:attributes="href collectionpdf">PDF</a>
-            <tal:sep condition="python:collectionepub or collectionoffline">|</tal:sep>
+            |
           </tal:pdf>
           <tal:epub tal:condition="collectionepub">
             <a href="#" i18n:translate="text_collection_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 100);}catch(err){}"
@@ -177,19 +175,13 @@
                 <span metal:fill-slot="link-text">"(?)"</span>
               </div>
             </span>
-            <tal:sep condition="python:collectionoffline">|</tal:sep>
+            |
           </tal:epub>
-          <tal:offline tal:condition="collectionoffline">
-            <a href="#" i18n:translate="text_collection_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 100);}catch(err){}"
-              tal:attributes="href collectionoffline">Offline ZIP</a>
-            <span class="lensinfowrap ca_help_link">
-              <a href="/help/viewing/downloads#offline"
-                 class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/offlineziphelp">
-                <span metal:fill-slot="link-text">"(?)"</span>
-              </div>
-            </span>
-          </tal:offline>
+          <a href="content_info#cnx_downloads_header"
+             tal:define="contentId view/addto/col/contentId|nothing;
+                         version view/addto/col/version|nothing;"
+             tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+             i18n:translate="label_more_downloads">More downloads ...</a>
         </tal:collection>
       </div>
       <div class="cnx_actions_group">
@@ -199,7 +191,7 @@
           <tal:pdf tal:condition="modulepdf">
             <a href="#" i18n:translate="text_module_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
               tal:attributes="href modulepdf">PDF</a>
-            <tal:sep condition="python:moduleepub or moduleoffline">|</tal:sep>
+            |
           </tal:pdf>
           <tal:epub tal:condition="moduleepub">
             <a href="#" i18n:translate="text_module_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 100);}catch(err){}"
@@ -211,19 +203,13 @@
                 <span metal:fill-slot="link-text">"(?)"</span>
               </div>
             </span>
-            <tal:sep condition="python:moduleoffline">|</tal:sep>
+            |
           </tal:epub>
-          <tal:offline tal:condition="moduleoffline">
-            <a href="#" i18n:translate="text_module_offlinezip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 100);}catch(err){}"
-              tal:attributes="href moduleoffline">Offline ZIP</a>
-            <span class="lensinfowrap ca_help_link">
-              <a href="/help/viewing/downloads#offline"
-                 class="lenslink">(?)</a>
-              <div metal:use-macro="topmacros/offlineziphelp">
-                <span metal:fill-slot="link-text">"(?)"</span>
-              </div>
-            </span>
-          </tal:offline>
+          <a href="content_info#cnx_downloads_header"
+             tal:define="contentId view/addto/mod/contentId|nothing;
+                         version view/addto/mod/version|nothing;"
+             tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+             i18n:translate="label_more_downloads">More downloads ...</a>
         </tal:module>
       </div>
     </div>

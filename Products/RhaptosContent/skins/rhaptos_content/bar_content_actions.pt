@@ -44,13 +44,11 @@
   <tal:download tal:define="dls view/downloads;
                             modulepdf         dls/modulepdf         | nothing;
                             moduleepub        dls/moduleepub        | nothing;
-                            moduleoffline     dls/moduleoffline     | nothing;
                             collectionpdf     dls/collectionpdf     | nothing;
-                            collectionepub    dls/collectionepub    | nothing;
-                            collectionoffline dls/collectionoffline | nothing;">
+                            collectionepub    dls/collectionepub    | nothing;">
 
     <div id="cnx_actions_download" class="ca_button ca_menu"
-         tal:condition="python:modulepdf or moduleepub or moduleoffline or collectionpdf or collectionepub or collectionoffline">
+         tal:condition="python:modulepdf or moduleepub or collectionpdf or collectionepub">
       <a href="#"
           class="ca_button_link"
           id="cnx_actions_download_link">
@@ -63,7 +61,7 @@
 
       <div id="cnx_actions_download_contents" class="ca_drop_contents">
         <a href="#" class="ca_drop_close">x</a>
-        <tal:collection tal:condition="python:collectionpdf or collectionepub or collectionoffline">
+        <tal:collection tal:condition="python:collectionpdf or collectionepub">
           <h3 class="ca_header" 
               i18n:translate="text_menu_header_collection">Download collection as:</h3>
           <ul class="ca_list">
@@ -98,47 +96,16 @@
                 </div>
               </span>
             </li>
-            <li class="ca_list_item ca_offlinezip"
-                tal:condition="collectionoffline">
-              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline', 0);}catch(err){}"
-                 tal:attributes="href collectionoffline"
-                 i18n:translate="text_OfflineZIP">
-                Offline ZIP</a>
-              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/viewing/downloads#offline"
-                   class="lenslink">(what's this?)</a>
-                <div metal:define-macro="offlineziphelp" class="lensinfo hiddenStructure">
-                  <h3>For general use</h3>
-                  <p>
-                    The Offline ZIP provides a copy of all files needed to display the work.  You can download it for later use, for annotating, or in conjunction with the PDF/EPUB to view multimedia files not displayable there.
-                  </p>
-                  <h3>For software developers</h3>
-                  <p>
-                    The Offline ZIP also contains all of the original source code behind the content for use in off-site transforms, imports, etc.
-                  </p>
-                  <h3>To access the contents:</h3>
-                  <ol>
-                    <li>
-                      download the ZIP
-                    </li>
-                    <li>
-                      extract all of its files to a location on your hard drive
-                    </li>
-                    <li>
-                      open the README file to view a list of the ZIP's contents and instructions for their use.
-                    </li>
-                  </ol>
-                  <p class="lensinfohelp">
-                    Click the 
-                    <span metal:define-slot="link-text">"(what's this?)"</span> link
-                    for more information.
-                  </p>
-                </div>
-              </span>
+            <li class="ca_list_item">
+              <a href="content_info#cnx_downloads_header"
+                 tal:define="contentId view/addto/col/contentId|nothing;
+                             version view/addto/col/version|nothing;"
+                 tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+                 i18n:translate="label_more_downloads">More downloads ...</a>
             </li>
           </ul>
         </tal:collection>
-        <tal:module tal:condition="python:modulepdf or moduleepub or moduleoffline">
+        <tal:module tal:condition="python:modulepdf or moduleepub">
           <h3 class="ca_header" 
               i18n:translate="text_menu_header_module">Download module as:</h3>
           <ul class="ca_list">
@@ -161,17 +128,12 @@
                 <div metal:use-macro="template/macros/epubhelp"/>
               </span>
             </li>
-            <li class="ca_list_item ca_offlinezip"
-                tal:condition="moduleoffline">
-              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline', 0);}catch(err){}"
-                 tal:attributes="href moduleoffline"
-                 i18n:translate="text_OfflineZIP">
-                Offline ZIP</a>
-              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
-                <a href="/help/viewing/downloads#offline"
-                   class="lenslink">(what's this?)</a>
-                <div metal:use-macro="template/macros/offlineziphelp"/>
-              </span>
+            <li class="ca_list_item">
+              <a href="content_info#cnx_downloads_header"
+                 tal:define="contentId view/addto/mod/contentId|nothing;
+                             version view/addto/mod/version|nothing;"
+                 tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+                 i18n:translate="label_more_downloads">More downloads ...</a>
             </li>
           </ul>
         </tal:module>
