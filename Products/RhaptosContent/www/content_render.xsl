@@ -1995,20 +1995,18 @@
   
   <xsl:template name="optionalroles">
     <xsl:param name="rolename"/>
-    <xsl:if test="$rolename!='Editor'">
-      <span class="cnx_optional_role">
-	<span class="cnx_before">
-          <xsl:value-of select="@displaybyline"/>:
-	</span>
-        <xsl:text> </xsl:text>
-        <xsl:for-each select="../optionalrole[@name=$rolename]">
-          <a href="{publishing/portal/@href}/member_profile/{@id}">
-            <xsl:value-of select="name"/>
-          </a>
-          <xsl:if test="position()!=last()">, </xsl:if>
-        </xsl:for-each>
+    <span class="cnx_optional_role">
+      <span class="cnx_before">
+        <xsl:value-of select="@displaybyline"/>:
       </span>
-    </xsl:if>
+      <xsl:text> </xsl:text>
+      <xsl:for-each select="../optionalrole[@name=$rolename]">
+        <a href="{publishing/portal/@href}/member_profile/{@id}">
+          <xsl:value-of select="name"/>
+        </a>
+        <xsl:if test="position()!=last()">, </xsl:if>
+      </xsl:for-each>
+    </span>
   </xsl:template>
 
   <xsl:template name="links">
