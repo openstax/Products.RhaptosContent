@@ -140,8 +140,8 @@
                      collectionepub    dls/collectionepub    | nothing;
                      downloadmod       python: modulepdf or moduleepub or nothing;
                      downloadcol       python: collectionpdf or collectionepub or nothing;
-                     downloadboth      python: downloadmod and downloadcol or nothing;
-                     ">
+                     downloadboth      python: downloadmod and downloadcol or nothing;"
+         tal:condition="python:downloadmod or downloadcol">
       <h3>
         <span i18n:translate="header_download_module"
               tal:condition="python: downloadmod and not downloadboth">
