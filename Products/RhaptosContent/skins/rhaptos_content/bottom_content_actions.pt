@@ -172,7 +172,7 @@
               <a href="/help/viewing/epub-help"
                  class="lenslink">(?)</a>
               <div metal:use-macro="topmacros/epubhelp">
-                <span metal:fill-slot="link-text">"(?)"</span>
+                <strong metal:fill-slot="link-text">"(?)"</strong>
               </div>
             </span>
             |
@@ -200,7 +200,7 @@
               <a href="/help/viewing/epub-help"
                  class="lenslink">(?)</a>
               <div metal:use-macro="topmacros/epubhelp">
-                <span metal:fill-slot="link-text">"(?)"</span>
+                <strong metal:fill-slot="link-text">"(?)"</strong>
               </div>
             </span>
             |

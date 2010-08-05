@@ -244,7 +244,7 @@
               </td>
               <td valign="top">
                 <span i18n:translate="help_downloads_collection_epub">
-                  Electronic publication file, for viewing in handheld devices.
+                  Electronic book format file, for viewing on mobile devices.
                 </span>
                 <a href="/help/viewing/downloads#epub"
                    i18n:translate="label_learn_more">Learn more</a>.

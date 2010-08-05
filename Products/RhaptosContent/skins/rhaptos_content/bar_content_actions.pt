@@ -83,14 +83,14 @@
                 <a href="/help/viewing/epub-help"
                    class="lenslink">(what's this?)</a>
                 <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
-                  <h3>What is an EPUB?</h3>
+                  <h3>What is an EPUB file?</h3>
                   <p>
-                      EPUB is a format of electronic book (ebook) that can be downloaded for reading on any number of handheld readers, such as the iPad, iPhone, or Android.
+                      EPUB is an electronic book format that can be read on a variety of mobile devices.
                   </p>
                   <h3>Downloading to a reading device</h3>
                   <p>
                       For detailed instructions on how to download this content's EPUB to your specific device, click the
-                      <span metal:define-slot="link-text">"(what's this?)"</span>
+                      <strong metal:define-slot="link-text">"(what's this?)"</strong>
                       link.
                   </p>
                 </div>
