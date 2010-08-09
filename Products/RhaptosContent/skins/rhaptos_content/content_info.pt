@@ -24,7 +24,8 @@
                     license_data here/getLicenseData;
                     license_version license_data/version;
                     license_label license_data/label;
-                    inCollection python:context.portal_type and context.portal_type == 'Collection' or False;
+                    inLatestCollection python:hasattr(context,'getTarget') and context.getTarget().portal_type == 'Collection' or False;
+                    inCollection python:inLatestCollection or context.portal_type and context.portal_type == 'Collection' or False;
                     inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
 
     <div metal:use-macro="here/content_template/macros/global" />
