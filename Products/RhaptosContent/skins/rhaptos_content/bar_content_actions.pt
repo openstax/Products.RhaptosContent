@@ -13,10 +13,10 @@
   <tal:comment tal:replace="nothing">
   Requires from caller:
     'view': view data from bar_content_actions_view
-  
+
   Optional from caller:
     --
-  
+
   Rhaptos note: 
     brand new template for content actions bar, formerly of content_actions_box.
     combines functionality from collection_view and content_render/module_export_template
@@ -26,7 +26,7 @@
      style="display:none"
      tal:define="show view/general/show | nothing"
      tal:attributes="style python:not show and default or nothing">
-  
+
   <!-- PRINT -->
   <div id="cnx_actions_print" class="ca_button"
        tal:define="printknown view/printing/available | nothing"
@@ -39,43 +39,31 @@
       <span i18n:translate="text_print_page">Print this page</span>
     </a>
   </div>
-  
+
   <!-- DOWNLOAD -->
   <tal:download tal:define="dls view/downloads;
-                            modulepdf dls/modulepdf | nothing;
-                            collectionpdf dls/collectionpdf | nothing;
-                            collmmzip dls/collmmzip | nothing;
-                            colinfo python:collectionpdf or collmmzip;
-                            multi python:len(dls) > 1">
-    
-    <div id="cnx_actions_download" class="ca_button"
-         tal:condition="python:modulepdf and not colinfo">
-      <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
-        class="ca_single ca_button_link"
-        id="cnx_actions_download_link"
-        tal:attributes="href modulepdf">
-        <span i18n:translate="text_download_pdf">Download PDF</span>
-      </a>
-    </div>
-    
+                            modulepdf         dls/modulepdf         | nothing;
+                            moduleepub        dls/moduleepub        | nothing;
+                            collectionpdf     dls/collectionpdf     | nothing;
+                            collectionepub    dls/collectionepub    | nothing;">
+
     <div id="cnx_actions_download" class="ca_button ca_menu"
-         tal:condition="colinfo">
+         tal:condition="python:modulepdf or moduleepub or collectionpdf or collectionepub">
       <a href="#"
           class="ca_button_link"
           id="cnx_actions_download_link">
-        <span tal:condition="python:collectionpdf and collmmzip" i18n:translate="text_download_pdf_or_zip">Download PDF/ZIP</span>
-        <span tal:condition="not:collmmzip" i18n:translate="text_download_pdf">Download PDF</span>
+        <span i18n:translate="text_download_pdf">Download</span>
         <img class="ca_drop_arrow" src="/stylesheets/plone/arrow-down.png"
              tal:attributes="src string:$portal_url/stylesheets/plone/arrow-down.png"/><img 
              class="ca_drop_reverse_arrow" src="/stylesheets/plone/arrow-up.png"
              tal:attributes="src string:$portal_url/stylesheets/plone/arrow-up.png"/>
       </a>
-    
+
       <div id="cnx_actions_download_contents" class="ca_drop_contents">
         <a href="#" class="ca_drop_close">x</a>
-        <tal:collection tal:condition="python:collectionpdf or collmmzip">
+        <tal:collection tal:condition="python:collectionpdf or collectionepub">
           <h3 class="ca_header" 
-              i18n:translate="text_menu_header_collection">Collection:</h3>
+              i18n:translate="text_menu_header_collection">Download collection as:</h3>
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf"
                 tal:condition="collectionpdf">
@@ -85,49 +73,41 @@
                 PDF
               </a>
             </li>
-            <li class="lensinfowrap ca_list_item ca_zip"
-                tal:condition="collmmzip">
-              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:zip', 0);}catch(err){}"
-                 tal:attributes="href collmmzip"
-                 i18n:translate="text_media_zip">
-                Multimedia ZIP
-              </a>
-              <div id="cnx_actions_zipwhat" class="ca_help_link">
-                <a href="/help/viewing/multimediazip"
-                   tal:define="help nocall:portal/help/viewing/multimediazip/absolute_url | nothing" tal:condition="nocall:help"
-                   tal:attributes="href help"
-                   class="lenslink">(What is the ZIP for?)</a>
-                <div class="lensinfo hiddenStructure" metal:define-macro="ziphelp">
-                  <p i18n:translate="text_tooltip_multimedia_zip_explanation_1">
-                    The multimedia ZIP file provides offline access to 
-                    all the multimedia files that are not available in 
-                    the printed version (PDF) of this collection.
+            <li class="ca_list_item ca_epub"
+                tal:condition="collectionepub">
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 0);}catch(err){}"
+                 tal:attributes="href collectionepub"
+                 i18n:translate="text_EPUB">
+                EPUB</a>
+              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
+                <a href="/help/viewing/epub-help"
+                   class="lenslink">(what's this?)</a>
+                <div metal:define-macro="epubhelp" class="lensinfo hiddenStructure">
+                  <h3>What is an EPUB file?</h3>
+                  <p>
+                      EPUB is an electronic book format that can be read on a variety of mobile devices.
                   </p>
-                  <p i18n:translate="text_tooltip_multimedia_zip_explanation_2">
-                    To access the files:
+                  <h3>Downloading to a reading device</h3>
+                  <p>
+                      For detailed instructions on how to download this content's EPUB to your specific device, click the
+                      <strong metal:define-slot="link-text">"(what's this?)"</strong>
+                      link.
                   </p>
-                  <ol>
-                    <li i18n:translate="text_tooltip_step_download_zip">
-                      download the ZIP
-                    </li>
-                    <li i18n:translate="text_tooltip_step_extract_files">
-                      extract all of its files to a location on your 
-                      hard drive
-                    </li>
-                    <li i18n:translate="text_tooltip_step_open_readme">
-                      open the README file for instructions or go 
-                      directly to mediafiles.html file in your Web 
-                      browser
-                    </li>
-                  </ol>
                 </div>
-              </div>
+              </span>
+            </li>
+            <li class="ca_list_item">
+              <a href="content_info#cnx_downloads_header"
+                 tal:define="contentId view/addto/col/contentId|nothing;
+                             version view/addto/col/version|nothing;"
+                 tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+                 i18n:translate="label_more_downloads">More downloads ...</a>
             </li>
           </ul>
         </tal:collection>
-        <tal:module tal:condition="modulepdf">
+        <tal:module tal:condition="python:modulepdf or moduleepub">
           <h3 class="ca_header" 
-              i18n:translate="text_menu_header_module">Module:</h3>
+              i18n:translate="text_menu_header_module">Download module as:</h3>
           <ul class="ca_list">
             <li class="ca_list_item ca_pdf">
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
@@ -135,6 +115,25 @@
                  i18n:translate="text_PDF">
                 PDF
               </a>
+            </li>
+            <li class="ca_list_item ca_epub"
+                tal:condition="moduleepub">
+              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 0);}catch(err){}"
+                 tal:attributes="href moduleepub"
+                 i18n:translate="text_EPUB">
+                EPUB</a>
+              <span class="lensinfowrap ca_help_link" id="cnx_actions_epubwhat">
+                <a href="/help/viewing/epub-help"
+                   class="lenslink">(what's this?)</a>
+                <div metal:use-macro="template/macros/epubhelp"/>
+              </span>
+            </li>
+            <li class="ca_list_item">
+              <a href="content_info#cnx_downloads_header"
+                 tal:define="contentId view/addto/mod/contentId|nothing;
+                             version view/addto/mod/version|nothing;"
+                 tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+                 i18n:translate="label_more_downloads">More downloads ...</a>
             </li>
           </ul>
         </tal:module>
@@ -242,7 +241,7 @@
                             modfav addtomod/favorite | nothing;
                             colfav addtocol/favorite | nothing;
                             anyfavs python:modfav or colfav">
-    
+
     <!-- LENS -->
     <div id="cnx_actions_addtolens" class="ca_button ca_menu">
       <a href="#"
@@ -343,8 +342,8 @@
         </div>
       </div>
     </div>
-    
-    
+
+
     <!-- FAVORITES -->
     <div id="cnx_actions_favorites" class="ca_button ca_menu">
       <a href="#"
@@ -437,7 +436,7 @@
         </div>
 
       </div>
-  
+
     </div>
   </tal:lensinfo>
 

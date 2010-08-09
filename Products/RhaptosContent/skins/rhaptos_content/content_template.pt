@@ -238,6 +238,9 @@
           <a href="content_info" i18n:translate="label_content_footer_metadata"
              tal:attributes="href contentinfo">Metadata</a>
           <span>|</span>
+          <a href="content_info#cnx_downloads_header" i18n:translate="label_content_footer_downloads"
+             tal:attributes="href string:$contentinfo#cnx_downloads_header">Downloads</a>
+          <span>|</span>
           <a href="content_info#cnx_history_header" i18n:translate="label_content_footer_history"
              tal:attributes="href string:$contentinfo#cnx_history_header">Version History</a>
         </p>
