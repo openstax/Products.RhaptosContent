@@ -135,6 +135,8 @@
     <script type="text/javascript" src="{publishing/portal/@href}/js/qml_1-0.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/ext.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
+    <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
 
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
@@ -334,6 +336,13 @@
           </div>
         </div>
 
+        <div id="cnx_reuse_edit_popup" class="cnx_popup" style="display:none">
+          <div class="x-dlg-hd">Reuse / Edit</div>
+          <div class="x-dlg-bd" id="cnx_reuse_edit_inner">
+            Reuse / edit:
+          </div>
+        </div>
+
         <div id="cnx_login_dlg" class="cnx_popup" style="display:none">
           <div class="x-dlg-hd">Login Required</div>
           <div class="x-dlg-bd" id="cnx_login_inner">
@@ -346,7 +355,7 @@
 	      	var _gaq = _gaq || [];
 	        function trackthisGoogleAnalytics(strCode) {
 	          try {
-	            _gaq.push(['user._setAccount', strcode]);
+	            _gaq.push(['user._setAccount', strCode]);
 	            _gaq.push(['user._trackPageview']);
 	          }
 	          catch(err) {}
@@ -1823,11 +1832,14 @@
                     </span>
                     <xsl:text> </xsl:text>
                     <a href="content_info">
-                      <!-- Metadata -->
                       <xsl:text>Metadata</xsl:text>
                     </a>
                     <span> | </span>
-                    <a href="content_info#cnx_history_header"><!-- Version History -->
+                    <a href="content_info#cnx_downloads_header">
+                      <xsl:text>Downloads</xsl:text>
+                    </a>
+                    <span> | </span>
+                    <a href="content_info#cnx_history_header">
                       <xsl:text>Version History</xsl:text>
                     </a>
                   </p>
@@ -1983,20 +1995,18 @@
   
   <xsl:template name="optionalroles">
     <xsl:param name="rolename"/>
-    <xsl:if test="$rolename!='Editor'">
-      <span class="cnx_optional_role">
-	<span class="cnx_before">
-          <xsl:value-of select="@displaybyline"/>:
-	</span>
-        <xsl:text> </xsl:text>
-        <xsl:for-each select="../optionalrole[@name=$rolename]">
-          <a href="{publishing/portal/@href}/member_profile/{@id}">
-            <xsl:value-of select="name"/>
-          </a>
-          <xsl:if test="position()!=last()">, </xsl:if>
-        </xsl:for-each>
+    <span class="cnx_optional_role">
+      <span class="cnx_before">
+        <xsl:value-of select="@displaybyline"/>:
       </span>
-    </xsl:if>
+      <xsl:text> </xsl:text>
+      <xsl:for-each select="../optionalrole[@name=$rolename]">
+        <a href="{publishing/portal/@href}/member_profile/{@id}">
+          <xsl:value-of select="name"/>
+        </a>
+        <xsl:if test="position()!=last()">, </xsl:if>
+      </xsl:for-each>
+    </span>
   </xsl:template>
 
   <xsl:template name="links">

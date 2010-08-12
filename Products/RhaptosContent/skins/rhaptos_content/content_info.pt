@@ -24,9 +24,10 @@
                     license_data here/getLicenseData;
                     license_version license_data/version;
                     license_label license_data/label;
-                    inCollection python:context.portal_type and context.portal_type == 'Collection' or False;
+                    inLatestCollection python:hasattr(context,'getTarget') and context.getTarget().portal_type == 'Collection' or False;
+                    inCollection python:inLatestCollection or context.portal_type and context.portal_type == 'Collection' or False;
                     inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
-    
+
     <div metal:use-macro="here/content_template/macros/global" />
 
     <div id="cnx_columns">
@@ -199,76 +200,207 @@
 		<span tal:content="python:m.getProperty('fullname')">[fullname]</span>
 		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
 	      </tal:person>
-	    </span>
-	  </td>
-	</tr>
+	      </span>
+	    </td>
+	  </tr>
 	</tal:block>
-        <tal:block
+      </table>
+      <tal:block
             tal:define="ptool              context/rhaptos_print;
                         utils              python:modules['Products.CMFCore.utils'];
                         ptool              python:utils.getToolByName(context, 'rhaptos_print');
                         doesCollXmlExist   python:ptool.doesFileExist(objectId, version, 'xml');
-                        doesCompleteExist  python:ptool.doesFileExist(objectId, version, 'complete.zip');"
-            tal:condition="python:isPublic and inCollection and (doesCollXmlExist or doesCompleteExist)">
-          <tr>
-            <td colspan="2">
-              <hr />
-            </td>
-          </tr>
+                        doesCompleteExist  python:ptool.doesFileExist(objectId, version, 'complete.zip');
+                        doesOfflineExist   python:ptool.doesFileExist(objectId, version, 'offline.zip');
+                        doesEpubExist      python:ptool.doesFileExist(objectId, version, 'epub');
+                        doesPdfExist       python:ptool.doesFileExist(objectId, version, 'pdf');
+                        gotPtoolFile       python:doesCollXmlExist or doesCompleteExist or doesOfflineExist or doesEpubExist or doesPdfExist;"
+            tal:condition="python:isPublic and inCollection and gotPtoolFile">
+        <h2 id="cnx_downloads_header" class="section-header" i18n:translate="heading_downloads_section">Downloads</h2>
+        <table>
+          <tal:row tal:condition="doesPdfExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_pdf">PDF:</td>
+              <td valign="top">
+                <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf');}catch(err){}"
+                   tal:content="string:${objectId}_${version}.pdf"
+                   tal:attributes="href string:pdf">col11883_6.9.pdf</a>
+              </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_collection_pdf">
+                  PDF file, for viewing content offline and printing.
+                </span>
+                <a href="/help/viewing/downloads#pdf"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
+          <tal:row tal:condition="doesEpubExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_epub">EPUB:</td>
+              <td valign="top">
+                <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub');}catch(err){}"
+                   tal:content="string:${objectId}_${version}.epub"
+                   tal:attributes="href string:epub">col11883_6.9.epub</a>
+              </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_collection_epub">
+                  Electronic book format file, for viewing on mobile devices.
+                </span>
+                <a href="/help/viewing/downloads#epub"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
           <tal:row tal:condition="doesCollXmlExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_collxml">Collection Structure XML:</td>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_xml">Collection Structure XML:</td>
               <!-- need a different a[@href] below that hits the PrintTool cache. -->
               <td valign="top">
                 <a href="source" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:source');}catch(err){}"
                    tal:content="string:${objectId}_${version}_collection.xml">col11883_6.9_collection.xml</a>
               </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_collection_xml">
+                  XML that defines the structure of the collection. Cannot be reimported in the editing interface.
+                </span>
+                <a href="/help/viewing/downloads#xml"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
             </tr>
           </tal:row>
           <tal:row tal:condition="doesCompleteExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_collxml">All collection files:</td>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_source_export">Source Export ZIP:</td>
               <td valign="top">
                 <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:complete');}catch(err){}"
                    tal:content="string:${objectId}_${version}_complete.zip"
                    tal:attributes="href string:complete">col11883_6.9_complete.zip</a>
               </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_collection_source_export">
+                  The Collection Structure XML, plus the CNXML and included media files for each module in the collection.  Cannot be reimported.
+                </span>
+                <a href="/help/viewing/downloads#export"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
             </tr>
           </tal:row>
-        </tal:block>
-        <tal:block 
+          <tal:row tal:condition="doesOfflineExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_collection_offline">Offline ZIP:</td>
+              <td valign="top">
+                <a href="" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:offline');}catch(err){}"
+                   tal:content="string:${objectId}_${version}_offline.zip"
+                   tal:attributes="href string:offline">col11883_6.9_offline.zip</a>
+              </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_collection_offline">
+                  An offline HTML copy of the content. Also includes XML, included media files, and other support files. 
+                </span>
+                <a href="/help/viewing/downloads#offline"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
+        </table>
+      </tal:block>
+      <tal:block
             tal:define="realcontext        python:isPublic and portal.content.getRhaptosObject(objectId, version);
                         realcontexturl     realcontext/url | nothing;
                         ptool              context/rhaptos_print;
                         utils              python:modules['Products.CMFCore.utils'];
                         ptool              python:utils.getToolByName(context, 'rhaptos_print');
-                        doesZipExist       python:ptool.doesFileExist(objectId, version, 'zip');"
+                        doesZipExist       python:ptool.doesFileExist(objectId, version, 'zip');
+                        doesPdfExist       python:ptool.doesFileExist(objectId, version, 'pdf');
+                        doesEpubExist      python:ptool.doesFileExist(objectId, version, 'epub');
+                        doesOfflineExist   python:ptool.doesFileExist(objectId, version, 'offline.zip');"
             tal:condition="python:isPublic and inModule">
+        <h2 id="cnx_downloads_header" class="section-header" i18n:translate="heading_downloads_section">Downloads</h2>
+        <table>
           <tr>
-            <td colspan="2">
-              <hr />
+            <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_pdf">PDF:</td>
+            <td valign="top">
+              <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf');}catch(err){}"
+                 tal:attributes="href string:${realcontexturl}?format=pdf"
+                 tal:content="string:${objectId}_${version}.pdf">m9001_2.15.pdf</a>
+            </td>
+            <td valign="top">
+              <span i18n:translate="help_downloads_module_pdf">
+                PDF file, for viewing content offline and printing. 
+              </span>
+              <a href="/help/viewing/downloads#pdf"
+                 i18n:translate="label_learn_more">Learn more</a>.
             </td>
           </tr>
+          <tal:row tal:condition="doesEpubExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_epub">EPUB:</td>
+              <td valign="top">
+                <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub');}catch(err){}"
+                   tal:attributes="href string:${realcontexturl}?format=epub"
+                   tal:content="string:${objectId}_${version}.epub">m9001_2.15.epub</a>
+              </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_module_epub">
+                  Electronic publication file, for viewing in handheld devices.
+                </span>
+                <a href="/help/viewing/downloads#epub"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
           <tr>
-            <td valign="top" class="cnx_before" i18n:translate="text_cnxml">Module XML:</td>
+            <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_xml">XML:</td>
             <td valign="top">
               <a href="module_export?format=plain" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:xml');}catch(err){}"
                  tal:attributes="href string:${realcontexturl}module_export?format=plain"
                  tal:content="string:${objectId}_${version}.cnxml">m9001_2.15.cnxml</a>
             </td>
+            <td valign="top">
+              <span i18n:translate="help_downloads_module_xml">
+                XML that defines the structure and contents of the module, minus any included media files. Can be reimported in the editing interface. 
+              </span>
+              <a href="/help/viewing/downloads#xml"
+                 i18n:translate="label_learn_more">Learn more</a>.
+            </td>
           </tr>
           <tal:row tal:condition="doesZipExist">
             <tr>
-              <td valign="top" class="cnx_before" i18n:translate="text_module_zip">All module files:</td>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_source_export">Source Export ZIP:</td>
               <td valign="top">
                 <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:zip');}catch(err){}"
                    tal:attributes="href string:${realcontexturl}module_export?format=zip"
                    tal:content="string:${objectId}_${version}.zip">m9001_2.15.zip</a>
               </td>
-            <tr>
+              <td valign="top">
+                <span i18n:translate="help_downloads_module_source_export">
+                  ZIP containing the module XML plus any included media files. Can be reimported in the editing interface.
+                </span>
+                <a href="/help/viewing/downloads#export"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
           </tal:row>
-        </tal:block>
-      </table>
+          <tal:row tal:condition="doesOfflineExist">
+            <tr>
+              <td valign="top" class="cnx_before" i18n:translate="label_downloads_module_offline">Offline ZIP:</td>
+              <td valign="top">
+                <a href="module_export?format=zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:offline');}catch(err){}"
+                   tal:attributes="href string:${realcontexturl}?format=offline"
+                   tal:content="string:${objectId}_${version}_offline.zip">m9001_2.15_offline.zip</a>
+              </td>
+              <td valign="top">
+                <span i18n:translate="help_downloads_module_offline">
+                  An offline HTML copy of the content. Also includes XML, included media files, and other support files. 
+                </span>
+                <a href="/help/viewing/downloads#offline"
+                   i18n:translate="label_learn_more">Learn more</a>.
+              </td>
+            </tr>
+          </tal:row>
+        </table>
+      </tal:block>
 
       </div>
 
@@ -507,7 +639,7 @@
       	var _gaq = _gaq || [];
         function trackthisGoogleAnalytics(strCode) {
           try {
-            _gaq.push(['user._setAccount', strcode]);
+            _gaq.push(['user._setAccount', strCode]);
             _gaq.push(['user._trackPageview']);
           }
           catch(err) {}

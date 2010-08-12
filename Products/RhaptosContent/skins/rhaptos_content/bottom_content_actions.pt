@@ -12,16 +12,16 @@
                  portal context/portal_url/getPortalObject;
                  topmacros context/bar_content_actions/macros"
      id="cnx_actions_bottom">
-  
+
   <tal:comment tal:replace="nothing">
   Requires from caller:
     'view': view data from bar_content_actions_view
     'module': module context ('here' if on module)
     'collection': collection context ('here' if on collection)
-  
+
   Optional from caller:
     --
-  
+
   Rhaptos note: 
     brand new template for content actions bar, formerly of content_actions_box.
     combines functionality from collection_view and content_render/module_export_template
@@ -129,46 +129,91 @@
         </tal:rate>
       </div>
     </div>
-    
+
     <!-- download -->
     <div class="cnx_actions_category"
          id="cnx_actions_category_download"
          tal:define="dls view/downloads;
-                     modulepdf dls/modulepdf | nothing;
-                     collectionpdf dls/collectionpdf | nothing;
-                     collmmzip dls/collmmzip | nothing;
-                     colinfo python:collectionpdf or collmmzip;
-                     multi python:len(dls) > 1"
-         tal:condition="python:modulepdf or colinfo">
+                     modulepdf         dls/modulepdf         | nothing;
+                     moduleepub        dls/moduleepub        | nothing;
+                     collectionpdf     dls/collectionpdf     | nothing;
+                     collectionepub    dls/collectionepub    | nothing;
+                     downloadmod       python: modulepdf or moduleepub or nothing;
+                     downloadcol       python: collectionpdf or collectionepub or nothing;
+                     downloadboth      python: downloadmod and downloadcol or nothing;"
+         tal:condition="python:downloadmod or downloadcol">
       <h3>
-        <span i18n:translate="header_download">
+        <span i18n:translate="header_download_module"
+              tal:condition="python: downloadmod and not downloadboth">
+          Download module as:
+        </span>
+        <span i18n:translate="header_download_collection"
+              tal:condition="python: downloadcol and not downloadboth">
+          Download collection as:
+        </span>
+        <span i18n:translate="header_download"
+              tal:condition="downloadboth">
           Download:
         </span>
       </h3>
       <div class="cnx_actions_group">
-        <tal:pdf tal:condition="collectionpdf">
-          <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
-             tal:attributes="href collectionpdf">Collection PDF</a>
-          <tal:sep condition="python:collmmzip or modulepdf">|</tal:sep>
-        </tal:pdf>
-        <tal:zip tal:condition="collmmzip">
-          <a href="#" i18n:translate="text_collection_zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:zip', 100);}catch(err){}"
-             tal:attributes="href collmmzip">Collection multimedia ZIP</a>
-          <span class="lensinfowrap">
-            <a href="" class="lenslink" i18n:translate="text_generic_help"
-               tal:define="help nocall:portal/help/viewing/multimediazip | nothing" tal:condition="nocall:help"
-               tal:attributes="href help/absolute_url">(?)</a>
-            <metal:help metal:use-macro="topmacros/ziphelp" />
-          </span>
-          <tal:sep condition="modulepdf">|</tal:sep>
-        </tal:zip>
-        <tal:pdf tal:condition="modulepdf">
-          <a href="#" i18n:translate="text_module_zip" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
-             tal:attributes="href modulepdf">Module PDF</a>
-        </tal:pdf>
+        <tal:collection tal:condition="downloadcol">
+          <h4 tal:condition="downloadboth" 
+              i18n:translate="label_collection_as">Collection as:</h4>
+          <tal:pdf tal:condition="collectionpdf">
+            <a href="#" i18n:translate="text_collection_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:pdf', 100);}catch(err){}"
+              tal:attributes="href collectionpdf">PDF</a>
+            |
+          </tal:pdf>
+          <tal:epub tal:condition="collectionepub">
+            <a href="#" i18n:translate="text_collection_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:download:epub', 100);}catch(err){}"
+              tal:attributes="href collectionepub">EPUB</a>
+            <span class="lensinfowrap ca_help_link">
+              <a href="/help/viewing/epub-help"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/epubhelp">
+                <strong metal:fill-slot="link-text">"(?)"</strong>
+              </div>
+            </span>
+            |
+          </tal:epub>
+          <a href="content_info#cnx_downloads_header"
+             tal:define="contentId view/addto/col/contentId|nothing;
+                         version view/addto/col/version|nothing;"
+             tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+             i18n:translate="label_more_downloads">More downloads ...</a>
+        </tal:collection>
+      </div>
+      <div class="cnx_actions_group">
+        <tal:module tal:condition="downloadmod">
+          <h4 tal:condition="downloadboth" 
+              i18n:translate="label_module_as">Module as:</h4>
+          <tal:pdf tal:condition="modulepdf">
+            <a href="#" i18n:translate="text_module_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
+              tal:attributes="href modulepdf">PDF</a>
+            |
+          </tal:pdf>
+          <tal:epub tal:condition="moduleepub">
+            <a href="#" i18n:translate="text_module_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 100);}catch(err){}"
+              tal:attributes="href moduleepub">EPUB</a>
+            <span class="lensinfowrap ca_help_link">
+              <a href="/help/viewing/epub-help"
+                 class="lenslink">(?)</a>
+              <div metal:use-macro="topmacros/epubhelp">
+                <strong metal:fill-slot="link-text">"(?)"</strong>
+              </div>
+            </span>
+            |
+          </tal:epub>
+          <a href="content_info#cnx_downloads_header"
+             tal:define="contentId view/addto/mod/contentId|nothing;
+                         version view/addto/mod/version|nothing;"
+             tal:attributes="href string:$portal_url/content/$contentId/$version/content_info#cnx_downloads_header"
+             i18n:translate="label_more_downloads">More downloads ...</a>
+        </tal:module>
       </div>
     </div>
-    
+
     <!-- add to -->
     <div class="cnx_actions_category"
          id="cnx_actions_category_addto"
@@ -199,7 +244,7 @@
               tal:condition="addtoboth">
           <h4 i18n:translate="text_collection_to">Collection to:</h4>
         </span>
-        
+
         <tal:fav tal:define="addtoinfo addtocol;
                              suffix string:col_bottom;
                              fav colfav" >
@@ -213,10 +258,10 @@
           </span>
           <tal:sep>|</tal:sep>
         </tal:fav>
-        
+
         <tal:lens tal:define="addtoinfo addtocol;
                               suffix string:col_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
@@ -226,6 +271,12 @@
           </span>
           <tal:siyahamba condition="context/@@siyavula|nothing">
           | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
           </tal:siyahamba>
         </tal:lens>
 
@@ -268,7 +319,7 @@
         </tal:block>
         </tal:addthis>
       </div>
-      
+
       <div class="cnx_actions_group" i18n:translate="text_add_to_collection"
            tal:condition="addtomod"
            tal:define="obj nocall:module">
@@ -276,7 +327,7 @@
               tal:condition="addtoboth">
           <h4 i18n:translate="text_module_to">Module to:</h4>
         </span>
-        
+
         <tal:fav tal:define="addtoinfo addtomod;
                              suffix string:mod_bottom;
                              fav modfav" >
@@ -290,10 +341,10 @@
           </span>
           <tal:sep>|</tal:sep>
         </tal:fav>
-        
+
         <tal:lens tal:define="addtoinfo addtomod;
                               suffix string:mod_bottom">
-          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens I own</a>
+          <a href="#" metal:use-macro="topmacros/addtolensinner">A lens</a>
           <span class="lensinfowrap">
             <a href="/help/viewing/lenses" class="lenslink"
                i18n:translate="text_generic_help"
@@ -303,11 +354,60 @@
           </span>
           <tal:siyahamba condition="context/@@siyavula|nothing">
           | <a href="#" metal:use-macro="topmacros/addtoopenlensinner">An open lens</a>
+            <span class="lensinfowrap">
+              <a href="/help/openlens_what" class="lenslink"
+                 i18n:translate="text_generic_help"
+                 tal:attributes="href string:$portal_url/help/openlens_what">(?)</a>
+              <div metal:use-macro="context/collection_view/macros/openlenshelp" />
+            </span>
           </tal:siyahamba>
         </tal:lens>
+
         <a href="#" metal:use-macro="template/macros/addthis">External bookmarks</a>
       </div>
     </div>
+
+
+    <!-- reuse / edit -->
+    <div class="cnx_actions_category"
+         id="cnx_actions_category_reuse_edit"
+         style="display:none"
+         tal:define="addto view/addto;
+                     show view/general/show | nothing;"
+         tal:attributes="style python:not show and default or nothing">
+      <h3 i18n:translate="header_reuse_slash_edit">Reuse / Edit:</h3>
+      <div class="cnx_actions_group">
+      <tal:if define="suffix string:c;
+                      addtoinfo addto/col | nothing"
+              condition="addtoinfo">
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_collection" tal:omit-tag="">Reuse or edit collection</span></metal:fill>
+        </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
+      </tal:if>
+      <tal:if define="suffix string:d;
+                      addtoinfo addto/mod | nothing"
+              condition="addtoinfo">
+        <tal:sep condition="addto/col | nothing">|</tal:sep>
+        <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_listitem">
+          <metal:fill fill-slot="label"><span i18n:translate="text_reuse_edit_module" tal:omit-tag="">Reuse or edit module</span></metal:fill>
+        </metal:use>
+        <span class="lensinfowrap">
+          <a class="lenslink" 
+             href="/help/authoring/reuseedit"
+             tal:attributes="href string:$portal_url/help/authoring/expressedit">(?)</a>
+          <metal:use use-macro="context/bar_content_actions/macros/reuse_edit_help" />
+        </span>
+      </tal:if>
+      </div>
+    </div>
+
+
 
   </div>
 </div>
