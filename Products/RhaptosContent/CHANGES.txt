@@ -1,3 +1,6 @@
+RhaptosContent-0.52
+  - changes to download menu for epub
+
 RhaptosContent-0.47
   - Google Analytics addition for file downloads
 
