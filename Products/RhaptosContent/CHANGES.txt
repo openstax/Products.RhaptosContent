@@ -1,3 +1,6 @@
+RhaptosContent-0.54
+  - sword import support
+
 RhaptosContent-0.52
   - changes to download menu for epub
 
