@@ -13,9 +13,9 @@ import sys
 
 from Globals import package_home
 from AccessControl import ModuleSecurityInfo
-from Products.CMFCore import utils, CMFCorePermissions
+from Products.CMFCore import utils, permissions
 from Products.CMFCore.DirectoryView import registerDirectory
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+from Products.CMFCore.permissions import setDefaultRoles
 
 this_module = sys.modules[ __name__ ]
 
