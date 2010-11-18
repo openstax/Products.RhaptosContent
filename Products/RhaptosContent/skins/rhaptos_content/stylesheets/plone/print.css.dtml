@@ -382,6 +382,10 @@ border: 1pt solid #8cacbb;
 padding: 5pt 0;
 }
 
+.solution{
+display: block !important;
+}
+
 .term{
 font-style: normal;
 display: inline;
