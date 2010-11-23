@@ -92,6 +92,7 @@
     <html>
       
       <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
@@ -152,7 +153,6 @@
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
 
-	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
     <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
