@@ -1,0 +1,5 @@
+I customized the mml2jax.js extension to work with more of IE7 quirks.
+Most of them stem from 2 sources:
+- We prefix math elements with a "m:". When in quirks-mode (as in IE) this becomes a problem, so I try and scrub the prefix out.
+- Quirks-mode in IE garbles some elements when .innerHTML is called. For example, attributes with an empty value ar only given one double-quote and @class attributes strip off the double-quotes.
+

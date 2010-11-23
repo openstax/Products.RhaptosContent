@@ -45,12 +45,27 @@ MathJax.Extension.mml2jax = {
     }
     if (typeof(element) === "string") {element = document.getElementById(element)}
     if (!element) {element = this.config.element || document.body}
-    var math = element.getElementsByTagName("math"), i;
+
+    var math2 = element.getElementsByTagName("math"), i;
+    // IE arrays returned from getElementsByTagName aren't real arrays.
+    // IE will update (remove) elements when they are changed.
+    var math = [];
+    for (i = math2.length-1; i >= 0; i--) { math.push(math2[i]); }
+
+    //Convert all the MML elements with prefixes:
+    var prefixes = [ "m", "mml" ];
+    for (var p in prefixes) {
+      var math2 = element.getElementsByTagName(prefixes[p] + ":math");
+      for (i = math2.length-1; i >= 0; i--) { math.push(math2[i]); }
+      math2 = element.getElementsByTagName((prefixes[p] + ":math").toUpperCase());
+      for (i = math2.length-1; i >= 0; i--) { math.push(math2[i]); }
+    }
+
     if (math.length === 0 && element.getElementsByTagNameNS)
       {math = element.getElementsByTagNameNS(this.MMLnamespace,"math")}
     if (this.msieMathTagBug) {
       for (i = math.length-1; i >= 0; i--) {
-        if (math[i].nodeName === "MATH") {this.msieProcessMath(math[i])}
+        if (math[i].nodeName.match(/(\w+:)?MATH/g)) {this.msieProcessMath(math[i])}
                                     else {this.ProcessMath(math[i])}
       }
     } else {
@@ -63,34 +78,44 @@ MathJax.Extension.mml2jax = {
     var script = document.createElement("script");
     script.type = "math/mml";
     parent.insertBefore(script,math);
+    var span = MathJax.HTML.Element("span"); span.appendChild(math);
+    var html = span.innerHTML;
+    html = html.replace(/&lt;/g, "&amp;lt;");
     if (this.msieScriptBug) {
-      var html = math.outerHTML;
       html = html.replace(/<\?import .*?>/,"").replace(/<\?xml:namespace .*?\/>/,"");
-      html = html.replace(/<(\/?)m:/g,"<$1").replace(/&nbsp;/g,"&#xA0;");
+      html = html.replace(/<(\/?)\w+:/g,"<$1").replace(/&nbsp;/g,"&#xA0;");
+      html = html.replace(/ class=(\w+)/g,' class="$1"');
+      html = html.replace(/ xmlns(:\w+)?="[\w:\/\.]+"/g,"");
+      html = html.replace(/<math\ /g,'<math xmlns="' + this.MMLnamespace + '" ');
+      html = html.replace(/<(\/?)([A-Z]+)/g, this.toLowerCase);
       script.text = html;
-      parent.removeChild(math);
     } else {
-      var span = MathJax.HTML.Element("span"); span.appendChild(math);
-      MathJax.HTML.addText(script,span.innerHTML);
+      MathJax.HTML.addText(script,html);
     }
     if (this.config.preview !== "none") {this.createPreview(math,script)}
   },
   
   msieProcessMath: function (math) {
     var parent = math.parentNode;
+    if(!parent) return;
     var script = document.createElement("script");
     script.type = "math/mml";
     parent.insertBefore(script,math);
     var mml = "";
-    while (math && math.nodeName !== "/MATH") {
+    while (math && !math.nodeName.match(/\/(\w+:)?MATH/g)) {
       if (math.nodeName === "#text" || math.nodeName === "#comment")
         {mml += math.nodeValue.replace(/&/g,"&#x26;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-        else {mml += this.toLowerCase(math.outerHTML)}
+        else {mml += this.toLowerCase(math.outerHTML.replace(/<(\/?)\w+:/g,"<$1"))}
       var node = math;
       math = math.nextSibling;
       node.parentNode.removeChild(node);
     }
-    if (math && math.nodeName === "/MATH") {math.parentNode.removeChild(math)}
+    mml = mml.replace(/=" ([a-zA-Z])/g, '="" $1'); //IE7 drops the last quote when an attribute is empty
+    mml = mml.replace(/=">/g, '="">');
+    mml = mml.replace(/ class=(\w+)/g,' class="$1"'); //IE7 dropes the quotes around the class attribute
+    mml = mml.replace(/ xmlns(:\w+)?="[\w:\/\.]+"/g,""); //Remove unneccesary and confusing xmlns declarations when stripping the prefix (maybe unnecessary)
+    mml = mml.replace(/<math\ /g,'<math xmlns="' + this.MMLnamespace + '" '); //Add in the MathML namespace (maybe unneccesary)
+    if (math && math.nodeName.match(/\/(\w+:)?MATH/g)) {math.parentNode.removeChild(math)}
     script.text = mml + "</math>";
     if (this.config.preview !== "none") {this.createPreview(math,script)}
   },
@@ -102,7 +127,7 @@ MathJax.Extension.mml2jax = {
   
   createPreview: function (math,script) {
     var preview;
-    if (this.config.preview === "alttext") {
+    if (math && this.config.preview === "alttext") {
       var text = math.getAttribute("alttext");
       if (text != null) {preview = [this.filterText(text)]}
     } else if (this.config.preview instanceof Array) {preview = this.config.preview}
