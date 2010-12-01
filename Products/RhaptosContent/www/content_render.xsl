@@ -169,7 +169,7 @@
 	<xsl:if test="display/context/a">
 	  <link rel="up" href="{$collurl}" title="{$colltitle}"/>
 	</xsl:if>
-	<link rel="meta" type="application/rdf+xml" href="{publishing/portal/@href}/content_license"/>
+	<link rel="meta" type="application/rdf+xml" href="content_license"/>
 	<xsl:for-each select="//link[contains(@rel,'annotea')]">
 	  <link>
 	    <xsl:copy-of select="@*"/>
