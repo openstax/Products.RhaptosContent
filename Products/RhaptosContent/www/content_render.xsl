@@ -192,6 +192,7 @@
             MathJax.Hub.Config({
                 config: ["MMLorHTML.js"],
                 extensions: ["mml2jax.js"],
+                menuSettings: {zoom:"Click"},
                 jax: ["input/MathML","output/HTML-CSS"]
             });
         </script>

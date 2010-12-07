@@ -81,7 +81,7 @@ MathJax.Extension.mml2jax = {
     var span = MathJax.HTML.Element("span"); span.appendChild(math);
     var html = span.innerHTML;
     html = html.replace(/&lt;/g, "&amp;lt;");
-    if (this.msieScriptBug) {
+//    if (this.msieScriptBug) {
       html = html.replace(/<\?import .*?>/,"").replace(/<\?xml:namespace .*?\/>/,"");
       html = html.replace(/<(\/?)\w+:/g,"<$1").replace(/&nbsp;/g,"&#xA0;");
       html = html.replace(/ class=(\w+)/g,' class="$1"');
@@ -89,9 +89,9 @@ MathJax.Extension.mml2jax = {
       html = html.replace(/<math\ /g,'<math xmlns="' + this.MMLnamespace + '" ');
       html = html.replace(/<(\/?)([A-Z]+)/g, this.toLowerCase);
       script.text = html;
-    } else {
-      MathJax.HTML.addText(script,html);
-    }
+//    } else {
+//      MathJax.HTML.addText(script,html);
+//    }
     if (this.config.preview !== "none") {this.createPreview(math,script)}
   },
   
