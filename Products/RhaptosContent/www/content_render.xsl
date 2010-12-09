@@ -664,7 +664,7 @@
                       <!-- Contents -->
                       <xsl:text>Contents</xsl:text>
                       <xsl:text> </xsl:text>
-                      <img src="{concat($stylesheetloc,'arrow-up.png')}" id="cnx_course_navigation_collapse" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-open.png')}" id="cnx_course_navigation_collapse" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/navigationcollapsed = 'false'">display: inline;</xsl:when>
@@ -672,7 +672,7 @@
                           </xsl:choose>
                         </xsl:attribute>
                       </img>
-                      <img src="{concat($stylesheetloc,'arrow-down.png')}" id="cnx_course_navigation_expand" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-closed.png')}" id="cnx_course_navigation_expand" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/navigationcollapsed = 'true'">display: inline;</xsl:when>
@@ -968,7 +968,7 @@
                       <!-- Viewed -->
                       <xsl:text>Viewed</xsl:text>
                       <xsl:text> </xsl:text>
-                      <img src="{concat($stylesheetloc,'arrow-up.png')}" id="cnx_recentview_collapse" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-open.png')}" id="cnx_recentview_collapse" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/recentcollapsed = 'false'">display: inline;</xsl:when>
@@ -976,7 +976,7 @@
                           </xsl:choose>
                         </xsl:attribute>
                       </img>
-                      <img src="{concat($stylesheetloc,'arrow-down.png')}" id="cnx_recentview_expand" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-closed.png')}" id="cnx_recentview_expand" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/recentcollapsed = 'true'">display: inline;</xsl:when>

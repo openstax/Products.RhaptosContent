@@ -158,7 +158,7 @@ function togglerInitializeSettings(id) {
       eltcontents.style.display = 'block';
     }
     else {
-      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
       document.getElementById(id + '_contents').style.display = 'none';
     }
     twistyWrite(id, eltcontents.style.display);
@@ -174,10 +174,10 @@ function togglerCA(id) {
   var link = document.getElementById(id + '_link').style;
   if (contents.display == 'none') {
     contents.display = 'block';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-up.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-open.png)';
   } else {
     contents.display = 'none';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
   }
   twistyWrite(id, contents.display);
 }
