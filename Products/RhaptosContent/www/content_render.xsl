@@ -193,6 +193,7 @@
                 config: ["MMLorHTML.js"],
                 extensions: ["mml2jax.js"],
                 menuSettings: {zoom:"Click"},
+                "HTML-CSS": {scale:110},
                 jax: ["input/MathML","output/HTML-CSS"]
             });
         </script>
