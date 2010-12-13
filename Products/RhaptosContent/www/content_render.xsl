@@ -79,10 +79,7 @@
   <xsl:variable name="favoritescontextual" select="count($favorites/list/entry[@indirect = 'contextual'])"/>
   <xsl:variable name="google-analytics-tracking-code" select="/module/google-analytics/@code"/>
   
-  <!-- Adding method="html" because quirks-mode will garble up math elements with self-closing tags
-       For example: "<m:mo /><m:text>hi</m:mtext>" will become "<m:mo><m:mtext>hi</m:mtext></m:mo>"
-  -->
-  <xsl:output method="html" omit-xml-declaration="yes" encoding="utf-8"/>
+  <xsl:output method="xml" omit-xml-declaration="yes" encoding="utf-8"/>
   
   <xsl:template match="/|title|name|abstract">
     <xsl:apply-templates/>
@@ -189,6 +186,7 @@
 
         <script type="text/javascript" src="{publishing/portal/@href}/++resource++mathjax/unpacked/MathJax.js">
             MathJax.Hub.Config({
+                skipStartupTypeset: Ext.isGecko,
                 config: ["MMLorHTML.js"],
                 extensions: ["mml2jax.js"],
                 menuSettings: {zoom:"Click"},
