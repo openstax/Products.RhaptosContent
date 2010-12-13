@@ -181,7 +181,6 @@
 	</xsl:for-each>
 	
 	<xsl:comment>[if IE]&gt;
-	  &lt;object id="objIEAnnoteaActiveXCtrl" classid="clsid:3EC733C9-32C0-45FA-BAE4-EA62E96800AA"&gt;&lt;/object&gt;
 	  &lt;script type="text/javascript" language="JavaScript" src="/js/ie-annotations.js"&gt;<xsl:text> </xsl:text>&lt;/script&gt;
 	  &lt;![endif]</xsl:comment>
 	
