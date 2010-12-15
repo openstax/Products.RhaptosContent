@@ -112,7 +112,7 @@ cite, em, i.emphasis .cite-title i{
   font-style: normal;
 }
 
-i em, i cite, .foreign cite, .foreign em{
+i em, i cite, .foreign cite, .foreign em, .term em, em .term{
   font-style: italic;
 }
 
@@ -127,7 +127,7 @@ i em, i cite, .foreign cite, .foreign em{
   font-style: normal;
 }
 
-a, code, .term{
+a, code{
   color: #436976;
 }
 
