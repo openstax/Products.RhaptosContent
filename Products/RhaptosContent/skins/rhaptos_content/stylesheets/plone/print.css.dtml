@@ -402,7 +402,7 @@ margin: 5pt 0;
 padding: 2pt 0;
 }
 
-.foreign{
+.foreign, em .term, .term em{
 font-style: italic;
 }
 
