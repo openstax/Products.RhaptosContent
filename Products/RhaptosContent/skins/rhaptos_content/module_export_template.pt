@@ -369,12 +369,6 @@
     </twisties>
     <javascriptpresent tal:condition="request/cnx_javascript_present | nothing"
                        tal:content="python:test(request.cnx_javascript_present=='true', 'true', 'false')">[true]</javascriptpresent>
-    <tal:mathml tal:define="hasCookie request/cnx_mathml_msg|nothing">
-      <displaymathmlmsg tal:content="python:test(hasCookie and request.cnx_mathml_msg or 'unknown')">[true]</displaymathmlmsg>
-    </tal:mathml>
-    <tal:mathmlbrowser tal:define="hasCookie request/cnx_mathml_msg_browser|nothing">
-      <mathmlmsgbrowser tal:content="python:hasCookie and request.cnx_mathml_msg_browser or 'unknown'">[true]</mathmlmsgbrowser>
-    </tal:mathmlbrowser>
     <tal:branding
       tal:define="
           brandingCookie  request/lenses | nothing;
