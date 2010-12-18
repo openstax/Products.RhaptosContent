@@ -188,6 +188,12 @@
             MathJax.Hub.Config({
                 skipStartupTypeset: Ext.isGecko,
                 config: ["MMLorHTML.js"],
+                MMLorHTML: {prefer: {
+                  MSIE:    "HTML",
+                  Firefox: "MML",
+                  Opera:   "HTML",
+                  other:   "HTML"
+                }},
                 extensions: ["mml2jax.js"],
                 menuSettings: {zoom:"Click"},
                 "HTML-CSS": {scale:110},
