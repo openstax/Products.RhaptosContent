@@ -88,6 +88,7 @@ MathJax.Extension.mml2jax = {
       html = html.replace(/ xmlns(:\w+)?="[\w:\/\.]+"/g,"");
       html = html.replace(/<math\ /g,'<math xmlns="' + this.MMLnamespace + '" ');
       html = html.replace(/<(\/?)([A-Z]+)/g, this.toLowerCase);
+      html = html.replace(/&/g, '&amp;');
       script.text = html;
 //    } else {
 //      MathJax.HTML.addText(script,html);
