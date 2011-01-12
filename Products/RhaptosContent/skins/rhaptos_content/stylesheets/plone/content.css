@@ -374,15 +374,11 @@ dl.glossary dt{
   padding-bottom: .5em;
 }
 
-math{
-  font-size: 120%;
-}
-
 semantics annotation-xml{
   display: none;
 }
 
-div.MathJax_Display .MathJax{
+.MathJax{
   cursor: pointer;
 }
 
