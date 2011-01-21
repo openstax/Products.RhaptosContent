@@ -191,6 +191,9 @@
                 "HTML-CSS": {scale:110},
                 jax: ["input/MathML","output/HTML-CSS"]
             });
+            if(location.href.split("#").length != 1) {
+              MathJax.Hub.Register.StartupHook("End", function() {location.href = location.href; });
+            }
         </script>
 
       </head>
