@@ -184,9 +184,9 @@
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
 
-        <script type="text/javascript" src="{publishing/portal/@href}/++resource++mathjax/unpacked/MathJax.js">
+        <script type="text/javascript" src="{publishing/portal/@href}/++resource++mathjax/MathJax.js">
             MathJax.Hub.Config({
-                extensions: ["mml2jax.js"],
+                extensions: ["mml2jax-bugfix.js"],
                 menuSettings: {zoom:"Click"},
                 "HTML-CSS": {scale:110},
                 jax: ["input/MathML","output/HTML-CSS"]
