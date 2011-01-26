@@ -705,6 +705,15 @@ td, th{
 
 /* ========== metadata page ========== */
 
+#cnx_view_content{
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#cnx_view_content img{
+  vertical-align: middle;
+}
+
 #cnx_about_history td{
   padding: .25em .5em 0 0;
   font-size: 1em;
