@@ -112,7 +112,7 @@ cite, em, i.emphasis .cite-title i{
   font-style: normal;
 }
 
-i em, i cite, .foreign cite, .foreign em{
+i em, i cite, .foreign cite, .foreign em, .term em, em .term{
   font-style: italic;
 }
 
@@ -127,7 +127,7 @@ i em, i cite, .foreign cite, .foreign em{
   font-style: normal;
 }
 
-a, code, .term{
+a, code{
   color: #436976;
 }
 
@@ -327,7 +327,6 @@ p.table-caption{
   border: 0;
   background: none;
   float: none;
-  position: static;
 }
 
 .glossary{
@@ -375,13 +374,14 @@ dl.glossary dt{
   padding-bottom: .5em;
 }
 
-math{
-  font-size: 120%;
-}
-
 semantics annotation-xml{
   display: none;
 }
+
+.MathJax{
+  cursor: pointer;
+}
+
 
 /* =========== <list> ========= */
 

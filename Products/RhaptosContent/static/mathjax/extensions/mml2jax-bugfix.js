@@ -152,4 +152,4 @@ MathJax.Hub.Browser.Select({
 });
   
 MathJax.Hub.Register.PreProcessor(["PreProcess",MathJax.Extension.mml2jax]);
-MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
+MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax-bugfix.js");

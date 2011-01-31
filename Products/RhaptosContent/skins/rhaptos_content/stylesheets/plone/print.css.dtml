@@ -382,6 +382,10 @@ border: 1pt solid #8cacbb;
 padding: 5pt 0;
 }
 
+.solution{
+display: block !important;
+}
+
 .term{
 font-style: normal;
 display: inline;
@@ -398,7 +402,7 @@ margin: 5pt 0;
 padding: 2pt 0;
 }
 
-.foreign{
+.foreign, em .term, .term em{
 font-style: italic;
 }
 

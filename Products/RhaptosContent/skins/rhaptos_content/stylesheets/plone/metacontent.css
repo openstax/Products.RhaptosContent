@@ -692,23 +692,6 @@ li{
   padding-bottom: 1em;
 }
 
-#cnx_no_menclose_support_example{
-  float: right;
-  margin: 0 0 .5em 1.5em;
-}               
-
-#cnx_no_menclose_support_example .cnx_before{
-  display: block;
-}
-
-#ff_mathml_msg2 td{
-  font-weight: normal;
-}
-#ff_mathml_msg2 td a{
-  font-weight: bold;
-  text-decoration: underline;
-}
-
 /* ========== table ========== */
 
 td, th{
@@ -721,6 +704,15 @@ td, th{
 }
 
 /* ========== metadata page ========== */
+
+#cnx_view_content{
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#cnx_view_content img{
+  vertical-align: middle;
+}
 
 #cnx_about_history td{
   padding: .25em .5em 0 0;

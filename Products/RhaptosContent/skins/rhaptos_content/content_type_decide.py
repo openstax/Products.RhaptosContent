@@ -38,16 +38,10 @@ ns = ['http://www.w3.org/1999/xhtml']
 # So, Mathplayer has to get text/xml so we can append a charset.
 
 # If the browser accepts application/xhtml+xml, send it
-if accept.find('application/xhtml+xml') != -1:   # Mozilla/FF, pretty much
-    if ua.find('AppleWebKit') == -1:
-        mimetype = 'application/xhtml+xml'
+if accept.find('application/xhtml+xml') != -1:   # anything but IE
+    mimetype = 'application/xhtml+xml'
     if has_math:
         ns.append('http://www.w3.org/1998/Math/MathML')
         doctype = "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
-# Or if it's MathPlayer 2 (and the document has math), send application/xhtml+xml
-elif ua.find('MathPlayer 2') != -1:  # and has_math:   # IE with MathPlayer (regardless of math in doc)
-    mimetype = 'text/xml'
-    ns.append('http://www.w3.org/1998/Math/MathML')
-    doctype = "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
 
 return doctype, mimetype, ns

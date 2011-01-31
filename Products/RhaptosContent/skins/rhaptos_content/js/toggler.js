@@ -46,7 +46,7 @@ function togglerInitializeSettings(id) {
       eltcontents.style.display = 'block';
     }
     else {
-      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
       document.getElementById(id + '_contents').style.display = 'none';
     }
     twistyWrite(id, eltcontents.style.display);
@@ -62,10 +62,10 @@ function togglerCA(id) {
   var link = document.getElementById(id + '_link').style;
   if (contents.display == 'none') {
     contents.display = 'block';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-up.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-open.png)';
   } else {
     contents.display = 'none';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
   }
   twistyWrite(id, contents.display);
 }
@@ -99,47 +99,6 @@ function hideSolutions(){
   }
 }
 
-function getBB(family, ch){ 
-    var test = document.createElement("span");
-    test.setAttribute("style", "font-family: "+family+"serif;");
-    test.appendChild(document.createTextNode(ch));
-    var hidden = document.createElement("div");
-    var styles = { visibility: 'hidden', position:"absolute",
-      top:0, left:0, border:0, padding:0, margin:0 };
-    for(var i in styles) {
-      hidden.style[i] = styles[i];
-    }
-    hidden.appendChild(test);
-    var testSize = {h:hidden.offsetHeight, w:hidden.offsetWidth};
-    hidden.removeChild(test);
-    return testSize;
-}
-  
-function testFont(name) {
-    var n = '\u00c1'; 
-    var factor = 2;
-    var wh1 = getBB(name, n);
-    var wh2 = getBB(null, n);
-    return wh1.w!=wh2.w || wh1.h!=wh2.h;
-}
-
-function testFirefoxFonts()
-{
-	var ch = '\u00c1';
-    var family = "cmex10";
-    var test = getBB(family, ch);
-    var cmex10 = !(test.w*3 > test.h || test.h == 0);
-    var cmr10 = testFont("cmr10");
-    var CMEX10 = testFont("CMEX10");
-    var STIX = testFont("STIXGeneral");
-    var hasFonts = cmex10 || cmr10 || CMEX10;
-    var version = getFirefoxVersion();
-    if(version >= 3.0) {
-    	hasFonts = testFont("STIXGeneral");// && !fonts; //you MUST NOT have installed the old fonts
-    }
-    return hasFonts;
-}
-    
 function getFirefoxVersion()
 {
 	var version;
@@ -160,6 +119,7 @@ function getFirefoxVersion()
     return version;
 	
 }
+
 
 function toggleLensTags(sender)
 {
