@@ -1,3 +1,6 @@
+RhaptosContent-0.55
+  - MathJax. 'nuff said
+
 RhaptosContent-0.54
   - sword import support
 
