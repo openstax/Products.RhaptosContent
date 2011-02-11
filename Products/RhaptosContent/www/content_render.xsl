@@ -1355,8 +1355,11 @@
                       <span id="content-render-rating-ratings">
                         <xsl:text>(</xsl:text>
                         <xsl:value-of select="/module/rating/@number_of_ratings"/>
-                        <xsl:text> ratings)</xsl:text>
-                      </span>
+                  			<xsl:choose>		
+                  				<xsl:when test="/module/rating/@number_of_ratings = '1'"> rating)</xsl:when>
+                  				<xsl:otherwise> ratings)</xsl:otherwise>
+               		      </xsl:choose>     
+                      </span>	
                       <span id="content-render-rating-login" style="display: none;">
                         <xsl:text>(Login required)</xsl:text>
                       </span>
