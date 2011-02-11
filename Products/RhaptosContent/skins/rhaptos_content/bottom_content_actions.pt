@@ -116,9 +116,12 @@
                                     src whichstar;
                                     original_src whichstar" /></a></tal:star>
             </span>
-            <span id="bottom_rating_quantity" class="rating_quantity">
+            <span id="bottom_rating_quantity" class="rating_quantity"
+		          tal:define="ratingsnum context/numberOfRatings |nothing;">
               <span id="bottom-rating-ratings" i18n:translate="text_num_ratings">
-                (<span tal:replace="context/numberOfRatings" i18n:name="number">9</span> ratings)
+                (<span tal:replace="context/numberOfRatings" i18n:name="number">9</span>
+            		<span tal:condition="python:ratingsnum==1"> rating)</span>
+            		<span tal:condition="python:ratingsnum!=1"> ratings)</span>
               </span>
               <span id="bottom-rating-login" style="display: none;"
                     i18n:translate="text_log_required">
