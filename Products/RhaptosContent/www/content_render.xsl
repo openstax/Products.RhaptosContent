@@ -97,6 +97,7 @@
       
       <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
 
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
