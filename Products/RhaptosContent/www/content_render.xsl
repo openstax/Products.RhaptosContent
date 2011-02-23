@@ -1154,7 +1154,23 @@
           </div>
         </xsl:if>
 
-	    <div id="cnx_module_header">
+<div>
+
+<div class="cnx_social_media">
+    <div>
+      <iframe src="http://www.facebook.com/plugins/like.php?layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;" allowtransparency="true"></iframe>
+    </div>
+    <div style="margin-top: .5em;">
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">
+        <xsl:if test="publishing/portal/@isCNX='true'">
+          <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
+        </xsl:if>
+        <xsl:text>Tweet</xsl:text></a>
+      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    </div>
+</div>
+
+      <div id="cnx_module_header" style="clear: none;">
         <xsl:if test="not(display/offline)">
           <xsl:if test="publishing/state[text()!='public']">
             <div class="cnx_warning">
@@ -1401,7 +1417,7 @@
 
 	            
 	    </div>
-
+</div>
             <div class="cnx_clear" />
 
 	    <xsl:if test="$authorlinks and not(display/context) or $courselinks">
