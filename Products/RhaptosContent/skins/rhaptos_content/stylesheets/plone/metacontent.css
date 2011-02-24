@@ -166,6 +166,13 @@
   border-bottom-width: 0;
 }
 
+.cnx_social_actions{
+  margin: 1em 0 0;
+  padding: 0;
+  float: right;
+  text-align: right;
+}
+
 /* ========== some basic elements ========== */
 
 p{

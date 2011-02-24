@@ -157,6 +157,7 @@
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
@@ -1157,8 +1158,8 @@
 <div>
 
 <div class="cnx_social_media">
-  <xsl:variable name="encodedUrl">
-    <xsl:value-of select="display/base/@escaped-href"/>
+  <xsl:variable name="escapedUrl">
+    <xsl:value-of select="display/base/@href-escaped"/>
     <xsl:if test="display/context">
       <!-- "?collection=" -->
       <xsl:text>%3Fcollection%3D</xsl:text>
@@ -1174,15 +1175,14 @@
   </xsl:variable>
 
     <div>
-      <iframe src="http://www.facebook.com/plugins/like.php?href={$encodedUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;" allowtransparency="true"></iframe>
+      <xsl:call-template name="social.facebook">
+        <xsl:with-param name="url" select="$escapedUrl"/>
+      </xsl:call-template>
     </div>
     <div style="margin-top: .5em;">
-      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
-        <xsl:if test="publishing/portal/@isCNX='true'">
-          <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
-        </xsl:if>
-        <xsl:text>Tweet</xsl:text></a>
-      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      <xsl:call-template name="social.twitter">
+        <xsl:with-param name="url" select="$url"/>
+      </xsl:call-template>
     </div>
 </div>
 
@@ -1572,11 +1572,14 @@
               </ul>
             </xsl:if>
 
-            <xsl:if test="not(display/offline)">
-
+            <div id="cnx_actions_bottom">
+              <div class="cnx_social_actions">
+                <xsl:call-template name="social.buttons.footer"/>
+              </div>
+              <xsl:if test="not(display/offline)">
                 <xsl:apply-templates select="structure/contentactionsbottom/*|structure/contentactionsbottom/@*"/>
-
-            </xsl:if>
+              </xsl:if>
+            </div>
 
 	    <div id="cnx_footer">
 
@@ -2467,5 +2470,68 @@
     </xsl:choose>
   </xsl:template>
 
+<!-- Code that adds buttons for Facebook "Like" and "Tweet this!" -->
+<xsl:template name="social.buttons.footer">
+  <xsl:if test="display/context">
+    <div class="cnx_social_group">
+      <h4 style="font-weight: bold;">Share collection:</h4>
+
+      <xsl:call-template name="social.twitter">
+        <xsl:with-param name="url" select="display/context/a/@href"/>
+      </xsl:call-template>
+      <span> | </span>
+      <xsl:call-template name="social.facebook">
+        <xsl:with-param name="url" select="display/context/a/@href-escaped"/>
+      </xsl:call-template>
+    </div>
+  </xsl:if>
+
+  <div class="cnx_social_group" style="margin-top: .75em;">
+    <h4 style="font-weight: bold;">Share module:</h4>
+
+    <xsl:variable name="escapedUrl">
+      <xsl:value-of select="display/base/@href-escaped"/>
+      <xsl:if test="display/context">
+        <!-- "?collection=" -->
+        <xsl:text>%3Fcollection%3D</xsl:text>
+        <xsl:value-of select="display/context/a/@id"/>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="url">
+      <xsl:value-of select="display/base/@href"/>
+      <xsl:if test="display/context">
+        <xsl:text>?collection=</xsl:text>
+        <xsl:value-of select="display/context/a/@id"/>
+      </xsl:if>
+    </xsl:variable>
+
+    <xsl:call-template name="social.twitter">
+      <xsl:with-param name="url" select="$url"/>
+    </xsl:call-template>
+    <span> | </span>
+    <xsl:call-template name="social.facebook">
+      <xsl:with-param name="url" select="$escapedUrl"/>
+    </xsl:call-template>
+  </div>
+</xsl:template>
+
+<xsl:template name="social.facebook">
+  <xsl:param name="url"/>
+    <iframe src="http://www.facebook.com/plugins/like.php?href={$url}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21"
+      scrolling="no"
+      frameborder="0"
+      style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;"
+      allowtransparency="true"></iframe>
+</xsl:template>
+
+<xsl:template name="social.twitter">
+  <xsl:param name="url"/>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
+    <xsl:if test="publishing/portal/@isCNX='true'">
+      <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
+    </xsl:if>
+    <xsl:text>Tweet</xsl:text>
+  </a>
+</xsl:template>
 
 </xsl:stylesheet>

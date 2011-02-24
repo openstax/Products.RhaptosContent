@@ -248,10 +248,10 @@
 
   <discussion tal:define="url here/forumUrl" tal:condition="url" tal:attributes="href url" />
 
-  <display>
+  <display tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;">
     <offline tal:condition="options/offline | nothing" />
-    <base tal:define="url_quote_plus nocall:modules/Products.PythonScripts.standard/url_quote_plus; url here/renderBase" 
-          tal:attributes="href here/renderBase; escaped-href python:url_quote_plus(url)" />
+    <base tal:define="url here/renderBase" 
+          tal:attributes="href url; href-escaped python:url_quote(url)" />
     <viewpath tal:define="virtualPath python:request.get('VIRTUAL_URL_PARTS',(None,None))[1]; 
                           virtualPath python:virtualPath and '/%s' % virtualPath; 
                           regularPath request/environ/PATH_INFO;
@@ -285,8 +285,9 @@
             </div>
         </tal:block>
     </statusmessage>
-    <context tal:condition="nocall:module">
-      <a tal:attributes="href course/url; id course/objectId | string:new; version course/version | string:new;" 
+    <context tal:condition="nocall:module"
+             tal:define="url course/url;">
+      <a tal:attributes="href url; href-escaped python:url_quote(url); id course/objectId | string:new; version course/version | string:new;" 
          tal:content="course/Title">[content name]</a>
       <type  tal:content="course/getCollectionType"
         tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
