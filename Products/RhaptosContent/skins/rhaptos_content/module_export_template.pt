@@ -285,9 +285,9 @@
             </div>
         </tal:block>
     </statusmessage>
-    <context tal:condition="nocall:module"
-             tal:define="url course/url;">
-      <a tal:attributes="href url; href-escaped python:url_quote(url); id course/objectId | string:new; version course/version | string:new;" 
+    <context tal:condition="nocall:module">
+      <a tal:define="url course/url;"
+         tal:attributes="href url; href-escaped python:url_quote(url); id course/objectId | string:new; version course/version | string:new;" 
          tal:content="course/Title">[content name]</a>
       <type  tal:content="course/getCollectionType"
         tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
