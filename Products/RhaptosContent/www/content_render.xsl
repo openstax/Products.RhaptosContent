@@ -1157,11 +1157,27 @@
 <div>
 
 <div class="cnx_social_media">
+  <xsl:variable name="encodedUrl">
+    <xsl:value-of select="display/base/@escaped-href"/>
+    <xsl:if test="display/context">
+      <!-- "?collection=" -->
+      <xsl:text>%3Fcollection%3D</xsl:text>
+      <xsl:value-of select="display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name="url">
+    <xsl:value-of select="display/base/@href"/>
+    <xsl:if test="display/context">
+      <xsl:text>?collection=</xsl:text>
+      <xsl:value-of select="display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
+
     <div>
-      <iframe src="http://www.facebook.com/plugins/like.php?layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;" allowtransparency="true"></iframe>
+      <iframe src="http://www.facebook.com/plugins/like.php?href={$encodedUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;" allowtransparency="true"></iframe>
     </div>
     <div style="margin-top: .5em;">
-      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
         <xsl:if test="publishing/portal/@isCNX='true'">
           <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
         </xsl:if>

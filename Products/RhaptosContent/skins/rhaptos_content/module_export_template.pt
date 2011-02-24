@@ -18,6 +18,8 @@
                     cats python:ltool and objectId and 
                                 ltool.getListsIncluding(objectId, version, inside=inside) or {}">
 
+  <!-- To see the XML with collection context info, go to wget http://cnx.org/content/m11832/latest/module_export_cnxml?collection=col10218 -->
+
   <tal:recentview define="dummy python:context.setrecentview('viewed_mods', objectId, version,
                                          module and course.objectId, module and course.version)" />
 
@@ -248,7 +250,8 @@
 
   <display>
     <offline tal:condition="options/offline | nothing" />
-    <base tal:attributes="href here/renderBase" />
+    <base tal:define="url_quote_plus nocall:modules/Products.PythonScripts.standard/url_quote_plus; url here/renderBase" 
+          tal:attributes="href here/renderBase; escaped-href python:url_quote_plus(url)" />
     <viewpath tal:define="virtualPath python:request.get('VIRTUAL_URL_PARTS',(None,None))[1]; 
                           virtualPath python:virtualPath and '/%s' % virtualPath; 
                           regularPath request/environ/PATH_INFO;
