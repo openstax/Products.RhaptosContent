@@ -49,6 +49,8 @@
 
     <metal:block metal:define-slot="js_slot" />
 
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
+
     <metal:block metal:define-slot="head_slot" />
 
     <tal:simpledefines define="portal_url context/portal_url; portal context/portal_url/getPortalObject">
@@ -62,8 +64,22 @@
   </head>
 
   <body metal:define-slot="body_slot">
+
     <div metal:define-macro="header" id="cnx_module_header"
          tal:attributes="class python:test(module, 'cnx_in_course')">
+
+      <div class="cnx_social_media" style="float: right; margin: .75em 0 .25em 2em;">
+        <div>
+          <iframe src="http://www.facebook.com/plugins/like.php?layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="
+border:none; overflow:visible; width: 100px; height:21px;" allowtransparency="true"></iframe>
+        </div>
+
+        <div style="margin-top: .25em;">
+          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+        </div>
+      </div> 
+
+
       <div style="display:none">
         <!-- we need to call the PSM machinery to consume messages, but don't want to display them. yet. -->
         <div metal:use-macro="here/global_statusmessage/macros/portal_message">
