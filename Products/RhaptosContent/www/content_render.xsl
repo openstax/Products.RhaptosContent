@@ -2442,7 +2442,7 @@
       scrolling="no"
       frameborder="0"
       style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;"
-      allowtransparency="true"></iframe>
+      allowtransparency="true"><xsl:text> </xsl:text></iframe>
 </xsl:template>
 
 <xsl:template name="social.twitter">
