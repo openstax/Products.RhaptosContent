@@ -1155,8 +1155,6 @@
           </div>
         </xsl:if>
 
-<div>
-
 <div class="cnx_social_media">
   <xsl:variable name="escapedUrl">
     <xsl:value-of select="display/base/@href-escaped"/>
@@ -1356,7 +1354,7 @@
 
 	            
 	    </div>
-</div>
+
             <div class="cnx_clear" />
 
 	    <xsl:if test="$authorlinks and not(display/context) or $courselinks">
