@@ -2393,6 +2393,7 @@
 
 <!-- Code that adds buttons for Facebook "Like" and "Tweet this!" -->
 <xsl:template name="social.buttons.footer">
+<xsl:if test="publishing/state[text()='public']">
   <xsl:if test="display/context">
     <div class="cnx_social_group">
       <h4 style="font-weight: bold;">Share collection:</h4>
@@ -2434,25 +2435,30 @@
       <xsl:with-param name="url" select="$escapedUrl"/>
     </xsl:call-template>
   </div>
+</xsl:if>
 </xsl:template>
 
 <xsl:template name="social.facebook">
   <xsl:param name="url"/>
+  <xsl:if test="publishing/state[text()='public']">
     <iframe src="http://www.facebook.com/plugins/like.php?href={$url}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21"
       scrolling="no"
       frameborder="0"
       style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;"
       allowtransparency="true"><xsl:text> </xsl:text></iframe>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template name="social.twitter">
   <xsl:param name="url"/>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
-    <xsl:if test="publishing/portal/@isCNX='true'">
-      <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
-    </xsl:if>
-    <xsl:text>Tweet</xsl:text>
-  </a>
+  <xsl:if test="publishing/state[text()='public']">
+    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
+      <xsl:if test="publishing/portal/@isCNX='true'">
+        <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
+      </xsl:if>
+      <xsl:text>Tweet</xsl:text>
+    </a>
+  </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
