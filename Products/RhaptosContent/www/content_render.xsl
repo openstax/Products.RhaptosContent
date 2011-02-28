@@ -191,7 +191,15 @@
                 extensions: ["mml2jax-bugfix.js"],
                 menuSettings: {zoom:"Click"},
                 "HTML-CSS": {scale:110},
+                skipStartupTypeset: true,
                 jax: ["input/MathML","output/HTML-CSS"]
+            });
+            MathJax.Hub.Register.StartupHook("End", function() {
+                  var elts = document.getElementsByTagName('math');
+                  for (var i=0;i != elts.length;i++) {
+                    //MathJax.Hub.Typeset(elts[i]);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, elts[i].parentNode]);
+                  }
             });
             if(location.href.split("#").length != 1) {
               MathJax.Hub.Register.StartupHook("End", function() {location.href = location.href; });
