@@ -313,7 +313,7 @@
 	    <link tal:repeat="l links"
               tal:attributes="rel l/category;
                               strength l/strength;
-                              href l/target;
+                              href string:${l/target}?collection=${course/objectId};
                               title python:l.title.decode(encoding)" />
       </links>
       <downloads tal:define="pfile course/getPrintedFile | nothing;
