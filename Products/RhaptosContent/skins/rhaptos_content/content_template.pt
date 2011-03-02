@@ -81,7 +81,7 @@
 
       <metal:block metal:define-slot="before_title_slot" />
 
-      <h1>
+      <h1 id="cnx_content_title">
         <span tal:condition="template/title" tal:replace="string:${template/title}: "/>
         <span tal:replace="context/Title">[module title]</span>
       </h1>

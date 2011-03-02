@@ -457,7 +457,7 @@
 
     <div id="cnx_portal-top">
       <p class="hiddenStructure">
-        <a href="#cnx_module_header">
+        <a href="#cnx_content_title">
           <!-- Skip to content -->
           <xsl:text>Skip to content</xsl:text>
         </a> 
@@ -1163,36 +1163,7 @@
           </div>
         </xsl:if>
 
-<div class="cnx_social_media">
-  <xsl:variable name="escapedUrl">
-    <xsl:value-of select="display/base/@href-escaped"/>
-    <xsl:if test="display/context">
-      <!-- "?collection=" -->
-      <xsl:text>%3Fcollection%3D</xsl:text>
-      <xsl:value-of select="display/context/a/@id"/>
-    </xsl:if>
-  </xsl:variable>
-  <xsl:variable name="url">
-    <xsl:value-of select="display/base/@href"/>
-    <xsl:if test="display/context">
-      <xsl:text>?collection=</xsl:text>
-      <xsl:value-of select="display/context/a/@id"/>
-    </xsl:if>
-  </xsl:variable>
-
-    <div>
-      <xsl:call-template name="social.facebook">
-        <xsl:with-param name="url" select="$escapedUrl"/>
-      </xsl:call-template>
-    </div>
-    <div style="margin-top: .5em;">
-      <xsl:call-template name="social.twitter">
-        <xsl:with-param name="url" select="$url"/>
-      </xsl:call-template>
-    </div>
-</div>
-
-      <div id="cnx_module_header" style="clear: none;">
+      <div id="cnx_module_header">
         <xsl:if test="not(display/offline)">
           <xsl:if test="publishing/state[text()!='public']">
             <div class="cnx_warning">
@@ -1274,7 +1245,36 @@
                 </xsl:for-each>
               </xsl:if>
 -->
-              <h1>
+
+              <div class="cnx_social_media">
+                <xsl:variable name="escapedUrl">
+                  <xsl:value-of select="display/base/@href-escaped"/>
+                  <xsl:if test="display/context">
+                    <!-- "?collection=" -->
+                    <xsl:text>%3Fcollection%3D</xsl:text>
+                    <xsl:value-of select="display/context/a/@id"/>
+                  </xsl:if>
+                </xsl:variable>
+                <xsl:variable name="url">
+                  <xsl:value-of select="display/base/@href"/>
+                  <xsl:if test="display/context">
+                    <xsl:text>?collection=</xsl:text>
+                    <xsl:value-of select="display/context/a/@id"/>
+                  </xsl:if>
+                </xsl:variable>
+                <div>
+                  <xsl:call-template name="social.facebook">
+                    <xsl:with-param name="url" select="$escapedUrl"/>
+                  </xsl:call-template>
+                </div>
+                <div style="margin-top: .5em">
+                  <xsl:call-template name="social.twitter">
+                    <xsl:with-param name="url" select="$url"/>
+                  </xsl:call-template>
+                </div>
+              </div>
+
+              <h1 id="cnx_content_title">
                 <xsl:value-of select="$moduletitle"/>
               </h1>
 
