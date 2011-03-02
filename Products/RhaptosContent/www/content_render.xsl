@@ -1246,33 +1246,39 @@
               </xsl:if>
 -->
 
-              <div class="cnx_social_media">
-                <xsl:variable name="escapedUrl">
-                  <xsl:value-of select="display/base/@href-escaped"/>
-                  <xsl:if test="display/context">
-                    <!-- "?collection=" -->
-                    <xsl:text>%3Fcollection%3D</xsl:text>
-                    <xsl:value-of select="display/context/a/@id"/>
-                  </xsl:if>
-                </xsl:variable>
-                <xsl:variable name="url">
-                  <xsl:value-of select="display/base/@href"/>
-                  <xsl:if test="display/context">
-                    <xsl:text>?collection=</xsl:text>
-                    <xsl:value-of select="display/context/a/@id"/>
-                  </xsl:if>
-                </xsl:variable>
-                <div>
-                  <xsl:call-template name="social.facebook">
-                    <xsl:with-param name="url" select="$escapedUrl"/>
-                  </xsl:call-template>
+              <xsl:if test="publishing/state[text()='public']">
+                <div class="cnx_social_media">
+                  <xsl:variable name="escapedUrl">
+                     <xsl:value-of select="display/base/@href-escaped"/>
+                     <xsl:if test="display/context">
+                       <!-- "?collection=" -->
+                       <xsl:text>%3Fcollection%3D</xsl:text>
+                       <xsl:value-of select="display/context/a/@id"/>
+                     </xsl:if>
+                  </xsl:variable>
+                  <xsl:variable name="url">
+                    <xsl:value-of select="display/base/@href"/>
+                    <xsl:if test="display/context">
+                      <xsl:text>?collection=</xsl:text>
+                      <xsl:value-of select="display/context/a/@id"/>
+                    </xsl:if>
+                  </xsl:variable>
+                  <div>
+                    <iframe src="http://www.facebook.com/plugins/like.php?href={$escapedUrl}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
+                            scrolling="no" frameborder="0" allowtransparency="true">
+                      <xsl:text> </xsl:text>
+                    </iframe>
+                  </div>
+                  <div>
+                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
+                      <xsl:if test="publishing/portal/@isCNX='true'">
+                        <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
+                      </xsl:if>
+                      <xsl:text>Tweet</xsl:text>
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <xsl:call-template name="social.twitter">
-                    <xsl:with-param name="url" select="$url"/>
-                  </xsl:call-template>
-                </div>
-              </div>
+              </xsl:if>
 
               <h1 id="cnx_content_title">
                 <xsl:value-of select="$moduletitle"/>
@@ -2395,27 +2401,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-<xsl:template name="social.facebook">
-  <xsl:param name="url"/>
-  <xsl:if test="publishing/state[text()='public']">
-    <iframe src="http://www.facebook.com/plugins/like.php?href={$url}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
-      scrolling="no"
-      frameborder="0"
-      allowtransparency="true"><xsl:text> </xsl:text></iframe>
-  </xsl:if>
-</xsl:template>
-
-<xsl:template name="social.twitter">
-  <xsl:param name="url"/>
-  <xsl:if test="publishing/state[text()='public']">
-    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
-      <xsl:if test="publishing/portal/@isCNX='true'">
-        <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
-      </xsl:if>
-      <xsl:text>Tweet</xsl:text>
-    </a>
-  </xsl:if>
-</xsl:template>
 
 </xsl:stylesheet>
