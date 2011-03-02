@@ -1247,7 +1247,7 @@
 -->
 
               <xsl:if test="publishing/state[text()='public']">
-                <div class="cnx_social_media">
+                <div class="cnx_social_media" id="cnx_social_media_top">
                   <xsl:variable name="escapedUrl">
                      <xsl:value-of select="display/base/@href-latest-escaped"/>
                      <xsl:if test="display/context">
@@ -1263,20 +1263,20 @@
                       <xsl:value-of select="display/context/a/@id"/>
                     </xsl:if>
                   </xsl:variable>
-                  <div>
+                  <span class="cnx_facebook">
                     <iframe src="http://www.facebook.com/plugins/like.php?href={$escapedUrl}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
                             scrolling="no" frameborder="0" allowtransparency="true">
                       <xsl:text> </xsl:text>
                     </iframe>
-                  </div>
-                  <div>
+                  </span>
+                  <span class="cnx_twitter">
                     <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
                       <xsl:if test="publishing/portal/@isCNX='true'">
                         <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
                       </xsl:if>
                       <xsl:text>Tweet</xsl:text>
                     </a>
-                  </div>
+                  </span>
                 </div>
               </xsl:if>
 

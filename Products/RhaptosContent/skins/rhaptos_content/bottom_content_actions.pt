@@ -32,8 +32,8 @@
     </h2>
 
     <!-- social media -->
-    <div class="cnx_actions_category"
-         id="cnx_actions_category_social_media"
+    <div class="cnx_actions_category cnx_social_media"
+         id="cnx_social_media_bottom"
          tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;
                      col view/addto/col|nothing;
                      mod module|nothing;">
@@ -41,21 +41,24 @@
         Share content
       </h3>
       <div class="cnx_actions_group"
-           id="cnx_actions_group_social_media_collection"
+           id="cnx_social_media_bottom_collection"
            tal:condition="col"
            tal:define="contentId view/addto/col/contentId|nothing;
                        url string:$portal_url/content/$contentId/latest/;
                        escapedUrl python:url_quote(url);">
         <h4 i18n:translate="label_share_collection">Share collection:</h4>
-        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
-           tal:attributes="data-url url">Tweet</a>
-        <span> | </span>
-        <iframe scrolling="no" frameborder="0" allowtransparency="true"
-                tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
-        </iframe>
+        <span class="cnx_twitter">
+          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
+             tal:attributes="data-url url">Tweet</a>
+        </span>
+        <span class="cnx_facebook">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                  tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+          </iframe>
+        </span>
       </div>
       <div class="cnx_actions_group"
-           id="cnx_actions_group_social_media_module"
+           id="cnx_social_media_bottom_module"
            tal:condition="mod"
            tal:define="contentId view/addto/mod/contentId|nothing;
                        collId view/addto/col/contentId|nothing;
@@ -63,12 +66,15 @@
                        url python:col and url+'?collection='+collId or url;
                        escapedUrl python:url_quote(url);">
         <h4 i18n:translate="label_share_module">Share module:</h4>
-        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
-           tal:attributes="data-url url">Tweet</a>
-        <span> | </span>
-        <iframe scrolling="no" frameborder="0" allowtransparency="true"
-                tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
-        </iframe>
+        <span class="cnx_twitter">
+          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
+             tal:attributes="data-url url">Tweet</a>
+        </span>
+        <span class="cnx_facebook">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                  tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+          </iframe>
+        </span>
       </div>
     </div>
 
