@@ -154,23 +154,39 @@
   margin: -10px 0 1.5em;
 }
 
+/* ===== social media (facebook, twitter) ===== */
+
 .cnx_social_media{
-  clear: right;
-  padding: 0em 0 0;
-  font-size: 1em;
   float: right;
-  white-space: nowrap;
-  margin: .25em 0 .5em 2em;
-  border-bottom: 1px solid #ccc;
-  margin-top: 0em;
-  border-bottom-width: 0;
+  margin: 0 0 .5em 2em;
 }
 
-.cnx_social_actions{
-  margin: 1em 0 0;
-  padding: 0;
-  float: right;
+.cnx_social_media iframe{
+  vertical-align: -.5em;
+}
+
+.cnx_facebook iframe{
+  width: 100px;
+  height: 21px;
+}
+
+.cnx_twitter iframe{
+  width: 92px;
+  height: 21px;
+}
+
+#cnx_social_media_top{
+  clear: right;
+}
+
+#cnx_social_media_bottom{
   text-align: right;
+}
+
+#cnx_social_media_bottom .cnx_twitter{
+  padding-right: .5em;
+  margin-right: .5em;
+  border-right: 1px solid #666;
 }
 
 /* ========== some basic elements ========== */
