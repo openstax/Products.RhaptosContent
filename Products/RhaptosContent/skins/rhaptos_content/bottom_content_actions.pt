@@ -11,7 +11,7 @@
                  portal_url context/portal_url;
                  portal context/portal_url/getPortalObject;
                  topmacros context/bar_content_actions/macros"
-     id="cnx_actions_bottom">
+     tal:omit-tag="">
 
   <tal:comment tal:replace="nothing">
   Requires from caller:
@@ -27,16 +27,58 @@
     combines functionality from collection_view and content_render/module_export_template
   </tal:comment>
 
-  <!-- feedback -->
-  <div xmlns="http://www.w3.org/1999/xhtml">
     <h2 class="hiddenStructure" i18n:translate="header_content_actions">
       Content actions
     </h2>
+
+    <!-- social media -->
+    <div class="cnx_actions_category"
+         id="cnx_actions_category_social_media"
+         tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;
+                     col view/addto/col|nothing;
+                     mod module|nothing;">
+      <h3 class="hiddenStructure" i18n:translate="header_share_content">
+        Share content
+      </h3>
+      <div class="cnx_actions_group"
+           id="cnx_actions_group_social_media_collection"
+           tal:condition="col"
+           tal:define="contentId view/addto/col/contentId|nothing;
+                       url string:$portal_url/content/$contentId/latest/;
+                       escapedUrl python:url_quote(url);">
+        <h4 i18n:translate="label_share_collection">Share collection:</h4>
+        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
+           tal:attributes="data-url url">Tweet</a>
+        <span> | </span>
+        <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+        </iframe>
+      </div>
+      <div class="cnx_actions_group"
+           id="cnx_actions_group_social_media_module"
+           tal:condition="mod"
+           tal:define="contentId view/addto/mod/contentId|nothing;
+                       collId view/addto/col/contentId|nothing;
+                       url string:$portal_url/content/$contentId/latest/;
+                       url python:col and url+'?collection='+collId or url;
+                       escapedUrl python:url_quote(url);">
+        <h4 i18n:translate="label_share_module">Share module:</h4>
+        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
+           tal:attributes="data-url url">Tweet</a>
+        <span> | </span>
+        <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+        </iframe>
+      </div>
+    </div>
+
+
+    <!-- feedback -->
     <div class="cnx_actions_category" 
          id="cnx_actions_category_feedback">
       <h3>
         <span i18n:translate="header_give_feedback">
-          Give Feedback:
+          Give feedback:
         </span>
       </h3>
       <div class="cnx_actions_group"
@@ -340,7 +382,5 @@
     </div>
 
 
-
-  </div>
 </div>
 
