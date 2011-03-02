@@ -1267,7 +1267,7 @@
                     <xsl:with-param name="url" select="$escapedUrl"/>
                   </xsl:call-template>
                 </div>
-                <div style="margin-top: .5em">
+                <div>
                   <xsl:call-template name="social.twitter">
                     <xsl:with-param name="url" select="$url"/>
                   </xsl:call-template>
@@ -2404,8 +2404,7 @@
 <xsl:if test="publishing/state[text()='public']">
   <xsl:if test="display/context">
     <div class="cnx_social_group">
-      <h4 style="font-weight: bold;">Share collection:</h4>
-
+      <h4>Share collection:</h4>
       <xsl:call-template name="social.twitter">
         <xsl:with-param name="url" select="display/context/a/@href"/>
       </xsl:call-template>
@@ -2416,9 +2415,8 @@
     </div>
   </xsl:if>
 
-  <div class="cnx_social_group" style="margin-top: .75em;">
-    <h4 style="font-weight: bold;">Share module:</h4>
-
+  <div class="cnx_social_group">
+    <h4>Share module:</h4>
     <xsl:variable name="escapedUrl">
       <xsl:value-of select="display/base/@href-escaped"/>
       <xsl:if test="display/context">
@@ -2434,7 +2432,6 @@
         <xsl:value-of select="display/context/a/@id"/>
       </xsl:if>
     </xsl:variable>
-
     <xsl:call-template name="social.twitter">
       <xsl:with-param name="url" select="$url"/>
     </xsl:call-template>
@@ -2452,7 +2449,6 @@
     <iframe src="http://www.facebook.com/plugins/like.php?href={$url}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21"
       scrolling="no"
       frameborder="0"
-      style="border:none; overflow:visible; width: 100px; height:21px; vertical-align: -.5em;"
       allowtransparency="true"><xsl:text> </xsl:text></iframe>
   </xsl:if>
 </xsl:template>
