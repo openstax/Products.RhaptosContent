@@ -1249,7 +1249,7 @@
               <xsl:if test="publishing/state[text()='public']">
                 <div class="cnx_social_media">
                   <xsl:variable name="escapedUrl">
-                     <xsl:value-of select="display/base/@href-escaped"/>
+                     <xsl:value-of select="display/base/@href-latest-escaped"/>
                      <xsl:if test="display/context">
                        <!-- "?collection=" -->
                        <xsl:text>%3Fcollection%3D</xsl:text>
@@ -1257,7 +1257,7 @@
                      </xsl:if>
                   </xsl:variable>
                   <xsl:variable name="url">
-                    <xsl:value-of select="display/base/@href"/>
+                    <xsl:value-of select="display/base/@href-latest"/>
                     <xsl:if test="display/context">
                       <xsl:text>?collection=</xsl:text>
                       <xsl:value-of select="display/context/a/@id"/>

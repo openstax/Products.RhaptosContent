@@ -250,8 +250,12 @@
 
   <display tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;">
     <offline tal:condition="options/offline | nothing" />
-    <base tal:define="url here/renderBase" 
-          tal:attributes="href url; href-escaped python:url_quote(url)" />
+    <base tal:define="url here/renderBase;
+                      urlLatest string:$portal_url/content/$objectId/latest/;" 
+          tal:attributes="href url; 
+                          href-escaped python:url_quote(url); 
+                          href-latest urlLatest;
+                          href-latest-escaped python:url_quote(urlLatest);" />
     <viewpath tal:define="virtualPath python:request.get('VIRTUAL_URL_PARTS',(None,None))[1]; 
                           virtualPath python:virtualPath and '/%s' % virtualPath; 
                           regularPath request/environ/PATH_INFO;
