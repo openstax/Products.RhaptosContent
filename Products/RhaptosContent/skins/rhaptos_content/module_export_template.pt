@@ -185,6 +185,7 @@
                             href l/target;
                             title python:l.title.decode(encoding)" />
     </links>
+<tal:comment tal:replace="nothing">
     <similar tal:define="similarResults here/similarContent;
                          similar similarResults/list;
                          more similarResults/more"
@@ -196,6 +197,7 @@
            tal:content="o/Title">[link name]</a>
       </tal:rep>
     </similar>
+</tal:comment>
     <courses tal:define="courses python:here.content.catalog(containedModuleIds=objectId)" 
              tal:condition="courses"
              tal:attributes="more python:test(len(courses)>10, 'true', nothing)">
