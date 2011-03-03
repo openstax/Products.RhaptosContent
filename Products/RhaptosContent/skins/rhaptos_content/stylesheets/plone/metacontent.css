@@ -162,31 +162,37 @@
 }
 
 .cnx_social_media iframe{
-  vertical-align: -.5em;
+  vertical-align: -.75em;
 }
 
 .cnx_facebook iframe{
-  width: 100px;
-  height: 21px;
+  width: 100px !important;
+  height: 21px !important;
 }
 
 .cnx_twitter iframe{
-  width: 92px;
-  height: 21px;
+  width: 92px !important;
+  height: 21px !important;
 }
 
-#cnx_social_media_top{
-  clear: right;
+.cnx_twitter{
+  padding-right: .5em;
+  margin-right: .6em;
+  border-right: 1px solid #666;
+}
+
+#cnx_social_media_top .cnx_twitter{
+  padding-right: .8em;
+}
+
+#cnx_social_media_top .cnx_facebook{
+  float: right;
 }
 
 #cnx_social_media_bottom{
   text-align: right;
-}
-
-#cnx_social_media_bottom .cnx_twitter{
-  padding-right: .5em;
-  margin-right: .5em;
-  border-right: 1px solid #666;
+  margin-top: 1em;
+  padding: 0;
 }
 
 /* ========== some basic elements ========== */
