@@ -1247,7 +1247,7 @@
 -->
 
               <xsl:if test="publishing/state[text()='public']">
-                <div class="cnx_social_media" id="cnx_social_media_top">
+                <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
                   <xsl:variable name="escapedUrl">
                      <xsl:value-of select="display/base/@href-latest-escaped"/>
                      <xsl:if test="display/context">

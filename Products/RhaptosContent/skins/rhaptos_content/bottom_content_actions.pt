@@ -34,6 +34,7 @@
     <!-- social media -->
     <div class="cnx_actions_category cnx_social_media"
          id="cnx_social_media_bottom"
+         style="display: none;"
          tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;
                      col view/addto/col|nothing;
                      mod module|nothing;">
