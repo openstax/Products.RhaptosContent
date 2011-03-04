@@ -99,6 +99,38 @@
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
 
+        <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the 
+             content shows up nicely when posted to a Facebook wall.  -->
+        <meta property="og:title" content="{title}"/>
+        <meta property="og:type" content="article"/>
+        <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better 
+             than nothing (or than letting Facebook randomly pick an image for you). -->
+        <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
+        <meta property="og:url" content="{display/base/@href-latest}"/>
+        <meta property="og:site_name" content="{publishing/portal/title}"/>
+        <xsl:if test="publishing/portal/@isCNX='true'">
+          <meta property="fb:admins" content="cnx.org"/>
+        </xsl:if>
+        <meta property="og:description">
+          <xsl:attribute name="content">
+            <!-- First look for a 'summary', and then the first paragraph with text in it.  Otherwise leave it null.  -->
+            <xsl:variable name="summarytext">
+              <xsl:value-of select="normalize-space(metadata/abstract)"/>
+            </xsl:variable>
+            <xsl:variable name="firstparatext">
+              <xsl:value-of select="normalize-space(cnx:document/cnx:content/cnx:para[normalize-space(text()) != ''][1])"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$summarytext != ''">
+                <xsl:value-of select="$summarytext"/>
+              </xsl:when>
+              <xsl:when test="$firstparatext != ''">
+                <xsl:value-of select="$firstparatext"/>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:attribute>
+        </meta>
+
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
 	</xsl:if>
