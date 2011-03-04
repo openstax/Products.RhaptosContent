@@ -32,7 +32,7 @@ if bAintGotCookies:
 
 # urlCourseCookie = request.get('courseURL',     None)
 urlCourseCookie = None
-course,redir = context.current_collection()
+course = context.current_collection()
 if course:
     urlCourseCookie = course.absolute_url()
 
