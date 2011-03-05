@@ -118,7 +118,7 @@
               <xsl:value-of select="normalize-space(metadata/abstract)"/>
             </xsl:variable>
             <xsl:variable name="firstparatext">
-              <xsl:value-of select="normalize-space(cnx:document/cnx:content/cnx:para[normalize-space(text()) != ''][1])"/>
+              <xsl:value-of select="normalize-space(cnx:document/cnx:content//cnx:para[normalize-space(text()) != ''][1])"/>
             </xsl:variable>
             <xsl:choose>
               <xsl:when test="$summarytext != ''">
