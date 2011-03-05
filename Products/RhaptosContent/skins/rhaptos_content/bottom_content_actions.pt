@@ -108,6 +108,79 @@
                         tal:condition="python:len(authors)!=1">E-mail the module authors</tal:span></metal:slot>
           </metal:link>
         </tal:macroparams>
+        <tal:disabled-ratings replace="nothing">
+        <tal:sep condition="mod">|</tal:sep>
+        <tal:rate tal:define="rate_view context/rating_view"
+                  tal:condition="rate_view">
+          <span i18n:translate="text_rate_module">Rate module</span>
+          <span class="lensinfowrap">
+            <a href="/help/viewing/ratings" class="lenslink"
+                tal:define="help nocall:portal/help/viewing/ratings | nothing" tal:condition="nocall:help"
+                tal:attributes="href help/absolute_url">
+              (<span class="hiddenStructure" i18n:translate="text_how_ratings">
+                How does the rating system work</span>?)</a>
+            <div class="lensinfo hiddenStructure">
+              <h4 class="hiddenStructure" i18n:translate="header_rating_system">Rating system</h4>
+              <h5 i18n:translate="header_ratings">Ratings</h5>
+              <p i18n:translate="text_about_ratings">
+                Ratings allow you to judge the quality of modules. If other users have ranked
+                the module then its average rating is displayed below. Ratings are calculated
+                on a scale from one star (Poor) to five stars (Excellent).
+              </p>
+              <h5 i18n:translate="header_how_to_rate">How to rate a module</h5>
+              <p i18n:translate="text_how_to_rate">
+                Hover over the star that corresponds to the rating you wish to assign. Click
+                on the star to add your rating. Your rating should be based on the quality of
+                the content. You must have an account and be logged in to rate content.
+              </p>
+            </div>
+          </span>
+          <span id="cnx_bottom_rate" class="ratings">
+            <span id="cnx_bottom_stars" class="lensinfowrap ratingstars">
+              <div class="lensinfo hiddenStructure">
+                <span id="bottom-rating-exp{@value}"
+                      style="display: none;"
+                      tal:repeat="star rate_view/stars"
+                      tal:content="star/value_label"
+                      tal:attributes="id string:bottom-rating-exp${star/value}">
+                  value label
+                </span>
+              </div>
+              <tal:comment tal:replace="nothing">
+                odd code mark-up for tal:star to prevent spaces in output
+              </tal:comment><tal:star 
+                        tal:repeat="star rate_view/stars"><a 
+                   href="rate?value:int={@value}" onmouseout="clearRatings(5, 'bottom-');"
+                  tal:define="value star/value;
+                              selected star/selected;
+                              full python:selected=='1' and '%s/full_star.png' % portal_url or None;
+                              half python:selected=='0.5' and '%s/half_star.png' % portal_url or None;
+                              empty string:$portal_url/empty_star.png;
+                              whichstar python:full or half or empty"
+                  tal:attributes="class python:rate_view['can_rate'] and 'lenslink' or 'lenslink cannotrate';
+                                  onmouseover string:previewRating($value, 5, ${rate_view/can_rate}, 'bottom-');;;
+                                  href string:rate?value:int=$value"><img 
+                     id="bottom-rating-star{@value}"
+                    src="{$whichstar}" original_src="{$whichstar}"
+                    tal:attributes="id string:bottom-rating-star${value};
+                                    src whichstar;
+                                    original_src whichstar" /></a></tal:star>
+            </span>
+            <span id="bottom_rating_quantity" class="rating_quantity"
+		          tal:define="ratingsnum context/numberOfRatings |nothing;">
+              <span id="bottom-rating-ratings" i18n:translate="text_num_ratings">
+                (<span tal:replace="context/numberOfRatings" i18n:name="number">9</span>
+            		<span tal:condition="python:ratingsnum==1"> rating)</span>
+            		<span tal:condition="python:ratingsnum!=1"> ratings)</span>
+              </span>
+              <span id="bottom-rating-login" style="display: none;"
+                    i18n:translate="text_log_required">
+                (Login required)
+              </span>
+            </span>
+          </span>
+        </tal:rate>
+        </tal:disabled-ratings>
       </div>
     </div>
 
