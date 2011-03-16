@@ -43,7 +43,7 @@
       </h3>
       <div class="cnx_actions_group"
            id="cnx_social_media_bottom_collection"
-           tal:condition="col"
+           tal:condition="python:col and not mod"
            tal:define="contentId view/addto/col/contentId|nothing;
                        url string:$portal_url/content/$contentId/latest/;
                        escapedUrl python:url_quote(url);">
