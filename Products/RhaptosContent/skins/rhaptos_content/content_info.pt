@@ -2,11 +2,11 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal" 
       xmlns:tal="http://xml.zope.org/namespaces/tal" 
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="context/content_template/macros/master"
+      metal:use-macro="context/main_template/macros/master"
       i18n:domain="rhaptos">
 
   <head>
-    <title metal:fill-slot="title_slot"
+    <title metal:fill-slot="top_slot"
       i18n:translate="title_content_info_about">About 
       <span i18n:name="module_name" tal:replace="here/Title">[Module Title]</span>
     </title>
@@ -15,9 +15,9 @@
     </metal:header>
   </head>
 
-  <body metal:fill-slot="body_slot" id="cnx_about_history"
-        tal:define="utool nocall:here/portal_url;
-                    portal utool/getPortalObject;
+  <body metal:fill-slot="body" id="cnx_about_history"
+        tal:define="utool nocall:context/portal_url;
+                    portal context/@@plone_portal_state/portal;
                     objectId context/objectId | nothing;
                     version context/version;
                     isPublic context/isPublic;
@@ -28,15 +28,11 @@
                     inCollection python:inLatestCollection or context.portal_type and context.portal_type == 'Collection' or False;
                     inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
 
-    <div metal:use-macro="here/content_template/macros/global" />
-
     <div id="cnx_columns">
       <div id="cnx_content_column">
 
-    <div metal:use-macro="here/content_template/macros/header" />
-
     <div id="cnx_main" tal:define="authors python:map(here.desecured.getMemberById, path('here/authors'));
-                                   object_url string:${here/portal_url}/content/${objectId}/${here/version}/;">
+                                   object_url string:${context/portal_url}/content/${objectId}/${here/version}/;">
 
       <p>
         <a class="cnxn" href="." i18n:translate="label_view_content_main">View content</a>

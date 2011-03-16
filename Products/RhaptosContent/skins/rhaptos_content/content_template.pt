@@ -57,7 +57,7 @@
     <link rel="search" href="" title="Connexions"
           type="application/opensearchdescription+xml"
           tal:attributes="href string:$portal_url/opensearchdescription;
-                          title portal/Title" />
+                          title context/@@plone_portal_state/portal_title" />
     </tal:simpledefines>
   </head>
 
@@ -122,7 +122,7 @@
                                 emails python:','.join([a.getProperty('email') for a in authors]);
                                 portalemail context/email_from_address;
                                 pss modules/Products/PythonScripts/standard;
-                                portalname portal/Title;
+                                portalname context/@@plone_portal_state/portal_title;
                                 portalname python:pss.url_quote(portalname);
                                 coltitle obj/Title;
                                 coltitle python:pss.url_quote(coltitle);
@@ -314,8 +314,9 @@
     </div>
 
     <div id="cnx_portal-top" metal:define-macro="global"
-         tal:define="ptitle portal/Title;
-                     pdesc portal/Description">
+         tal:define=" title context/@@plone_portal_state/portal_title ;
+                     portal context/@@plone_portal_state/portal;
+                     pdesc portal/description">
 
       <div id="cnx_portal-siteactions">
         <div metal:use-macro="context/global_siteactions/macros/site_actions">
@@ -340,19 +341,13 @@
        </a>
       </h1>
 
-      <div id="cnx_portal-globalnav">
-        <div metal:use-macro="context/global_sections/macros/portal_tabs">
-          The global sections tabs. (Welcome, News etc)
-        </div>
-      </div>
-
       <div id="cnx_portal-breadcrumbs">
         <span i18n:translate="you_are_here">You are here:</span>
         <a href="/" i18n:translate="tabs_home"
-           tal:attributes="hef portal_url">Home</a>
+           tal:attributes="hef context/portal_url">Home</a>
          &#187;
         <a href="/content/" i18n:translate="tabs_content"
-           tal:attributes="hef string:$portal_url/content">Content</a>
+           tal:attributes="hef string:${context/portal_url}/content">Content</a>
          &#187;
         <span tal:omit-tag="" tal:content="context/title">[Course Title]</span>
       </div>
