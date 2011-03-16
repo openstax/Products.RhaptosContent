@@ -78,6 +78,21 @@
   <xsl:variable name="favoritesdirect" select="count($favorites/list/entry[not(@indirect)])"/>
   <xsl:variable name="favoritescontextual" select="count($favorites/list/entry[@indirect = 'contextual'])"/>
   <xsl:variable name="google-analytics-tracking-code" select="/module/google-analytics/@code"/>
+  <xsl:variable name="social-url-escaped">
+    <xsl:value-of select="/module/display/base/@href-latest-escaped"/>
+    <xsl:if test="/module/display/context">
+      <!-- "?collection=" -->
+      <xsl:text>%3Fcollection%3D</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name="social-url">
+    <xsl:value-of select="/module/display/base/@href-latest"/>
+    <xsl:if test="/module/display/context">
+      <xsl:text>?collection=</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
   
   <xsl:output method="xml" omit-xml-declaration="yes" encoding="utf-8"/>
   
@@ -106,7 +121,7 @@
         <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better 
              than nothing (or than letting Facebook randomly pick an image for you). -->
         <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
-        <meta property="og:url" content="{display/base/@href-latest}"/>
+        <meta property="og:url" content="{$social-url}"/>
         <meta property="og:site_name" content="{publishing/portal/title}"/>
         <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically 
              to populate this property, since it's required. -->
@@ -1283,29 +1298,14 @@
 
               <xsl:if test="publishing/state[text()='public']">
                 <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
-                  <xsl:variable name="escapedUrl">
-                     <xsl:value-of select="display/base/@href-latest-escaped"/>
-                     <xsl:if test="display/context">
-                       <!-- "?collection=" -->
-                       <xsl:text>%3Fcollection%3D</xsl:text>
-                       <xsl:value-of select="display/context/a/@id"/>
-                     </xsl:if>
-                  </xsl:variable>
-                  <xsl:variable name="url">
-                    <xsl:value-of select="display/base/@href-latest"/>
-                    <xsl:if test="display/context">
-                      <xsl:text>?collection=</xsl:text>
-                      <xsl:value-of select="display/context/a/@id"/>
-                    </xsl:if>
-                  </xsl:variable>
                   <span class="cnx_facebook">
-                    <iframe src="http://www.facebook.com/plugins/like.php?href={$escapedUrl}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
+                    <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
                             scrolling="no" frameborder="0" allowtransparency="true">
                       <xsl:text> </xsl:text>
                     </iframe>
                   </span>
                   <span class="cnx_twitter">
-                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$url}">
+                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$social-url}">
                       <xsl:if test="publishing/portal/@isCNX='true'">
                         <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
                       </xsl:if>
