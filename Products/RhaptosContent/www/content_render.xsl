@@ -116,7 +116,7 @@
         </xsl:if>
         <meta property="og:description">
           <xsl:attribute name="content">
-            <!-- First look for a 'summary', and then the first paragraph with text in it.  Otherwise leave it null.  -->
+            <!-- First look for a 'summary'. If not found, then look for the first paragraph with text in it.  Otherwise leave it null.  -->
             <xsl:variable name="summarytext">
               <xsl:value-of select="normalize-space(metadata/abstract)"/>
             </xsl:variable>
