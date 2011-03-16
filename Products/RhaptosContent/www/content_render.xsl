@@ -108,8 +108,11 @@
         <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
         <meta property="og:url" content="{display/base/@href-latest}"/>
         <meta property="og:site_name" content="{publishing/portal/title}"/>
+        <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically 
+             to populate this property, since it's required. -->
+        <meta property="fb:admins" content="100002202416123" />
         <xsl:if test="publishing/portal/@isCNX='true'">
-          <meta property="fb:admins" content="cnx.org"/>
+          <meta property="fb:page_id" content="81379287964" />
         </xsl:if>
         <meta property="og:description">
           <xsl:attribute name="content">
