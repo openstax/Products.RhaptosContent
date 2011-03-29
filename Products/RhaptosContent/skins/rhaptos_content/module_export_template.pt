@@ -15,6 +15,8 @@
                     version context/version;
                     ltool context/lens_tool | nothing;
                     inside python:module and (course.objectId, course.version) or nothing;
+                    public python:course and course.isPublic() or None;
+                    collection request/collection | python:course and '/'.join(course.url().rstrip('/').split('/')[-2:]) or None;
                     cats python:ltool and objectId and 
                                 ltool.getListsIncluding(objectId, version, inside=inside) or {}">
 
@@ -284,8 +286,8 @@
     </statusmessage>
     <context tal:condition="nocall:module">
       <a tal:attributes="href course/url; id course/objectId | string:new; version course/version | string:new;" 
-         tal:content="course/Title">[content name]</a>
-      <type  tal:content="course/getCollectionType"
+         tal:content="python:course.getTitle()">[content name]</a>
+      <type  tal:content="python:course.getCollectionType()"
         tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
                         fulltype python:course.getCollectionType('full');">[collectionType]</type>
       <authors tal:define="authors course/authors">
@@ -313,7 +315,7 @@
 	    <link tal:repeat="l links"
               tal:attributes="rel l/category;
                               strength l/strength;
-                              href string:${l/target}?collection=${course/objectId};
+                              href string:${l/target}?collection=${collection};
                               title python:l.title.decode(encoding)" />
       </links>
       <downloads tal:define="pfile course/getPrintedFile | nothing;
