@@ -185,6 +185,8 @@
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
 	</xsl:if>
 
+   <!-- boy this twitter js doesn't play nice: it needs to be right here, before everyone else, or it interferes -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/toggler.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/exercise.js"><xsl:text> </xsl:text></script>
@@ -206,8 +208,6 @@
              would be nice, if someone can figure out how. See lens_add near portlet_log macro -->
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
-
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
