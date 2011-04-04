@@ -229,10 +229,6 @@
 	  </link>
 	</xsl:for-each>
 	
-	<xsl:comment>[if IE]&gt;
-	  &lt;script type="text/javascript" language="JavaScript" src="/js/ie-annotations.js"&gt;<xsl:text> </xsl:text>&lt;/script&gt;
-	  &lt;![endif]</xsl:comment>
-	
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
 
