@@ -185,6 +185,8 @@
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
 	</xsl:if>
 
+   <!-- boy this twitter js doesn't play nice: it needs to be right here, before everyone else, or it interferes -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/toggler.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/exercise.js"><xsl:text> </xsl:text></script>
@@ -207,8 +209,6 @@
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
     <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
@@ -228,10 +228,6 @@
 	    <xsl:copy-of select="@*"/>
 	  </link>
 	</xsl:for-each>
-	
-	<xsl:comment>[if IE]&gt;
-	  &lt;script type="text/javascript" language="JavaScript" src="/js/ie-annotations.js"&gt;<xsl:text> </xsl:text>&lt;/script&gt;
-	  &lt;![endif]</xsl:comment>
 	
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
