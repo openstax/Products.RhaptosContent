@@ -185,8 +185,6 @@
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
 	</xsl:if>
 
-   <!-- boy this twitter js doesn't play nice: it needs to be right here, before everyone else, or it interferes -->
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/toggler.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/js/exercise.js"><xsl:text> </xsl:text></script>
@@ -1293,12 +1291,18 @@
                     </iframe>
                   </span>
                   <span class="cnx_twitter">
-                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="{$social-url}">
-                      <xsl:if test="publishing/portal/@isCNX='true'">
-                        <xsl:attribute name="data-via"><xsl:text>cnxorg</xsl:text></xsl:attribute>
-                      </xsl:if>
-                      <xsl:text>Tweet</xsl:text>
-                    </a>
+                    <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button">
+                      <xsl:attribute name="src">
+                        <xsl:text>http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=</xsl:text>
+                        <xsl:value-of select="$moduletitle"/>
+                        <xsl:text>&amp;url=</xsl:text>
+                        <xsl:value-of select="$social-url-escaped"/>
+                        <xsl:if test="publishing/portal/@isCNX='true'">
+                          <xsl:text>&amp;via=cnxorg</xsl:text>
+                        </xsl:if>
+                      </xsl:attribute>
+                      <xsl:text> </xsl:text>
+                    </iframe>
                   </span>
                 </div>
               </xsl:if>

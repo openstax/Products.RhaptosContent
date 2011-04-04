@@ -16,8 +16,8 @@
   <tal:comment tal:replace="nothing">
   Requires from caller:
     'view': view data from bar_content_actions_view
-    'module': module context ('here' if on module)
-    'collection': collection context ('here' if on collection)
+    'module': module context ('context' if on module)
+    'collection': collection context ('context' if on collection)
 
   Optional from caller:
     --
@@ -35,22 +35,28 @@
     <div class="cnx_actions_category cnx_social_media"
          id="cnx_social_media_bottom"
          style="display: none;"
-         tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;
-                     col view/addto/col|nothing;
-                     mod module|nothing;">
+         tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote;
+                     col nocall:collection|nothing;
+                     mod nocall:module|nothing;
+                     isCNX context/isCNX | nothing;">
       <h3 class="hiddenStructure" i18n:translate="header_share_content">
         Share content
       </h3>
       <div class="cnx_actions_group"
            id="cnx_social_media_bottom_collection"
            tal:condition="python:col and not mod"
-           tal:define="contentId view/addto/col/contentId|nothing;
+           tal:define="contentId col/objectId|nothing;
                        url string:$portal_url/content/$contentId/latest/;
+                       title col/Title|col/title|nothing;
+                       esctitle python:url_quote(title);
                        escapedUrl python:url_quote(url);">
         <h4 i18n:translate="label_share_collection">Share collection:</h4>
         <span class="cnx_twitter">
-          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
-             tal:attributes="data-url url">Tweet</a>
+          <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
+                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
+                              viastr python:isCNX and '&amp;via=cnxorg' or '';"
+                  tal:attributes="src string:${srcbase}${viastr}">
+          </iframe>
         </span>
         <span class="cnx_facebook">
           <iframe scrolling="no" frameborder="0" allowtransparency="true"
@@ -61,15 +67,20 @@
       <div class="cnx_actions_group"
            id="cnx_social_media_bottom_module"
            tal:condition="mod"
-           tal:define="contentId view/addto/mod/contentId|nothing;
-                       collId view/addto/col/contentId|nothing;
+           tal:define="contentId module/objectId|nothing;
+                       collId collection/objectId|nothing;
                        url string:$portal_url/content/$contentId/latest/;
                        url python:col and url+'?collection='+collId or url;
-                       escapedUrl python:url_quote(url);">
+                       escapedUrl python:url_quote(url);
+                       title mod/Title | mod/title | nothing;
+                       esctitle python:url_quote(title);">
         <h4 i18n:translate="label_share_module">Share module:</h4>
         <span class="cnx_twitter">
-          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal"
-             tal:attributes="data-url url">Tweet</a>
+          <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
+                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
+                              viastr python:isCNX and '&amp;via=cnxorg' or '';"
+                  tal:attributes="src string:${srcbase}${viastr}">
+          </iframe>
         </span>
         <span class="cnx_facebook">
           <iframe scrolling="no" frameborder="0" allowtransparency="true"
