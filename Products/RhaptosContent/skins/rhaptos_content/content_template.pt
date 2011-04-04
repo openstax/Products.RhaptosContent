@@ -51,8 +51,6 @@
 
     <metal:block metal:define-slot="js_slot" />
 
-    <script tal:condition="python:here.state == 'public'" type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
-
     <metal:block metal:define-slot="head_slot" />
 
     <tal:simpledefines define="portal_url context/portal_url; portal context/portal_url/getPortalObject">
