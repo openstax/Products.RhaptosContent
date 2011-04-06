@@ -64,8 +64,10 @@
   </head>
 
   <body metal:define-slot="body_slot">
+
     <div metal:define-macro="header" id="cnx_module_header"
          tal:attributes="class python:test(module, 'cnx_in_course')">
+
       <div style="display:none">
         <!-- we need to call the PSM machinery to consume messages, but don't want to display them. yet. -->
         <div metal:use-macro="here/global_statusmessage/macros/portal_message">
