@@ -20,6 +20,8 @@
                     cats python:ltool and objectId and 
                                 ltool.getListsIncluding(objectId, version, inside=inside) or {}">
 
+  <!-- To see the XML with collection context info, go to wget http://cnx.org/content/m11832/latest/module_export_cnxml?collection=col10218 -->
+
   <tal:recentview define="dummy python:context.setrecentview('viewed_mods', objectId, version,
                                          module and course.objectId, module and course.version)" />
 
@@ -290,7 +292,8 @@
         </tal:block>
     </statusmessage>
     <context tal:condition="nocall:module">
-      <a tal:attributes="href course/url; id course/objectId | string:new; version course/version | string:new;" 
+      <a tal:define="url course/url;"
+         tal:attributes="href url; href-escaped python:url_quote(url); id course/objectId | string:new; version course/version | string:new;" 
          tal:content="python:course.getTitle()">[content name]</a>
       <type  tal:content="python:course.getCollectionType()"
         tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
