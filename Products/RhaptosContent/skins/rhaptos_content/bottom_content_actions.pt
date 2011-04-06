@@ -32,6 +32,68 @@
     <h2 class="hiddenStructure" i18n:translate="header_content_actions">
       Content actions
     </h2>
+
+    <!-- social media -->
+    <div class="cnx_actions_category cnx_social_media"
+         id="cnx_social_media_bottom"
+         style="display: none;"
+         tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote;
+                     col nocall:collection|nothing;
+                     mod nocall:module|nothing;
+                     isCNX context/isCNX | nothing;">
+      <h3 class="hiddenStructure" i18n:translate="header_share_content">
+        Share content
+      </h3>
+      <div class="cnx_actions_group"
+           id="cnx_social_media_bottom_collection"
+           tal:condition="python:col and not mod"
+           tal:define="contentId col/objectId|nothing;
+                       url string:$portal_url/content/$contentId/latest/;
+                       title col/Title|col/title|nothing;
+                       esctitle python:url_quote(title);
+                       escapedUrl python:url_quote(url);">
+        <h4 i18n:translate="label_share_collection">Share collection:</h4>
+        <span class="cnx_twitter">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
+                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
+                              viastr python:isCNX and '&amp;via=cnxorg' or '';"
+                  tal:attributes="src string:${srcbase}${viastr}">
+          </iframe>
+        </span>
+        <span class="cnx_facebook">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                  tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+          </iframe>
+        </span>
+      </div>
+      <div class="cnx_actions_group"
+           id="cnx_social_media_bottom_module"
+           tal:condition="mod"
+           tal:define="contentId module/objectId|nothing;
+                       collId collection/objectId|nothing;
+                       url string:$portal_url/content/$contentId/latest/;
+                       url python:col and url+'?collection='+collId or url;
+                       escapedUrl python:url_quote(url);
+                       title mod/Title | mod/title | nothing;
+                       esctitle python:url_quote(title);">
+        <h4 i18n:translate="label_share_module">Share module:</h4>
+        <span class="cnx_twitter">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
+                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
+                              viastr python:isCNX and '&amp;via=cnxorg' or '';"
+                  tal:attributes="src string:${srcbase}${viastr}">
+          </iframe>
+        </span>
+        <span class="cnx_facebook">
+          <iframe scrolling="no" frameborder="0" allowtransparency="true"
+                  tal:attributes="src string:http://www.facebook.com/plugins/like.php?href=$escapedUrl&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"> 
+          </iframe>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- feedback -->
     <div class="cnx_actions_category" 
          id="cnx_actions_category_feedback">
       <h3>
@@ -59,6 +121,7 @@
                         tal:condition="python:len(authors)!=1">E-mail the module authors</tal:span></metal:slot>
           </metal:link>
         </tal:macroparams>
+        <tal:disabled-ratings replace="nothing">
         <tal:sep condition="mod">|</tal:sep>
         <tal:rate tal:define="rate_view context/rating_view"
                   tal:condition="rate_view">
@@ -130,6 +193,7 @@
             </span>
           </span>
         </tal:rate>
+        </tal:disabled-ratings>
       </div>
     </div>
 

@@ -27,7 +27,9 @@
     
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"
           tal:attributes="content mimetype" />
-    
+
+    <metal:block metal:define-slot="facebook_open_graph_slot" />
+
     <metal:block metal:define-slot="css_above_slot" />
 
     <tal:styles tal:repeat="s python:here.getStyles()">
@@ -77,7 +79,7 @@
 
       <metal:block metal:define-slot="before_title_slot" />
 
-      <h1>
+      <h1 id="cnx_content_title">
         <span tal:condition="template/title" tal:replace="string:${template/title}: "/>
         <span tal:replace="context/Title">[module title]</span>
       </h1>

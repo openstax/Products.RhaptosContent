@@ -410,6 +410,15 @@ Ext.onReady(function() {
       re_bottom.dom.style.display = 'block';
     }
 
+    var twitbook_top = Ext.get('cnx_social_media_top');
+    if (twitbook_top && twitbook_top.dom.style.display=='none') {
+      twitbook_top.dom.style.display = 'block';
+    }
+    var twitbook_bottom = Ext.get('cnx_social_media_bottom');
+    if (twitbook_bottom && twitbook_bottom.dom.style.display=='none') {
+      twitbook_bottom.dom.style.display = 'block';
+    }
+
 });
 
 //* toggle "on" class on click

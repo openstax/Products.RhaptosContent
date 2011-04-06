@@ -78,6 +78,21 @@
   <xsl:variable name="favoritesdirect" select="count($favorites/list/entry[not(@indirect)])"/>
   <xsl:variable name="favoritescontextual" select="count($favorites/list/entry[@indirect = 'contextual'])"/>
   <xsl:variable name="google-analytics-tracking-code" select="/module/google-analytics/@code"/>
+  <xsl:variable name="social-url-escaped">
+    <xsl:value-of select="/module/display/base/@href-latest-escaped"/>
+    <xsl:if test="/module/display/context">
+      <!-- "?collection=" -->
+      <xsl:text>%3Fcollection%3D</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name="social-url">
+    <xsl:value-of select="/module/display/base/@href-latest"/>
+    <xsl:if test="/module/display/context">
+      <xsl:text>?collection=</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
   
   <xsl:output method="xml" omit-xml-declaration="yes" encoding="utf-8"/>
   
@@ -98,6 +113,41 @@
       <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+
+        <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the 
+             content shows up nicely when posted to a Facebook wall.  -->
+        <meta property="og:title" content="{title}"/>
+        <meta property="og:type" content="article"/>
+        <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better 
+             than nothing (or than letting Facebook randomly pick an image for you). -->
+        <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
+        <meta property="og:url" content="{$social-url}"/>
+        <meta property="og:site_name" content="{publishing/portal/title}"/>
+        <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically 
+             to populate this property, since it's required. -->
+        <meta property="fb:admins" content="100002202416123" />
+        <xsl:if test="publishing/portal/@isCNX='true'">
+          <meta property="fb:page_id" content="81379287964" />
+        </xsl:if>
+        <meta property="og:description">
+          <xsl:attribute name="content">
+            <!-- First look for a 'summary'. If not found, then look for the first paragraph with text in it.  Otherwise leave it null.  -->
+            <xsl:variable name="summarytext">
+              <xsl:value-of select="normalize-space(metadata/abstract)"/>
+            </xsl:variable>
+            <xsl:variable name="firstparatext">
+              <xsl:value-of select="normalize-space(cnx:document/cnx:content//cnx:para[normalize-space(text()) != ''][1])"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$summarytext != ''">
+                <xsl:value-of select="$summarytext"/>
+              </xsl:when>
+              <xsl:when test="$firstparatext != ''">
+                <xsl:value-of select="$firstparatext"/>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:attribute>
+        </meta>
 
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
@@ -448,7 +498,7 @@
 
     <div id="cnx_portal-top">
       <p class="hiddenStructure">
-        <a href="#cnx_module_header">
+        <a href="#cnx_content_title">
           <!-- Skip to content -->
           <xsl:text>Skip to content</xsl:text>
         </a> 
@@ -1236,7 +1286,33 @@
                 </xsl:for-each>
               </xsl:if>
 -->
-              <h1>
+
+              <xsl:if test="publishing/state[text()='public']">
+                <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
+                  <span class="cnx_facebook">
+                    <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
+                            scrolling="no" frameborder="0" allowtransparency="true">
+                      <xsl:text> </xsl:text>
+                    </iframe>
+                  </span>
+                  <span class="cnx_twitter">
+                    <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button">
+                      <xsl:attribute name="src">
+                        <xsl:text>http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=</xsl:text>
+                        <xsl:value-of select="$moduletitle"/>
+                        <xsl:text>&amp;url=</xsl:text>
+                        <xsl:value-of select="$social-url-escaped"/>
+                        <xsl:if test="publishing/portal/@isCNX='true'">
+                          <xsl:text>&amp;via=cnxorg</xsl:text>
+                        </xsl:if>
+                      </xsl:attribute>
+                      <xsl:text> </xsl:text>
+                    </iframe>
+                  </span>
+                </div>
+              </xsl:if>
+
+              <h1 id="cnx_content_title">
                 <xsl:value-of select="$moduletitle"/>
               </h1>
 
@@ -1294,6 +1370,7 @@
 		  </p>
 	      </xsl:if>
 
+              <!-- Ratings disabled, but ratings code left in, in case there are other Rhaptos instances using them.
               <xsl:if test="/module/rating">
                 <div id="cnx_rate" class="ratings">
                   <span class="cnx_before">User rating </span>
@@ -1370,6 +1447,7 @@
                 </div>
 
               </xsl:if>
+              -->
 
 	      <xsl:if test="metadata/abstract">
 		<p id="cnx_abstract">
@@ -1540,9 +1618,11 @@
               </ul>
             </xsl:if>
 
-            <xsl:if test="not(display/offline)">
-
+            <div id="cnx_actions_bottom">
+              <xsl:if test="not(display/offline)">
                 <xsl:apply-templates select="structure/contentactionsbottom/*|structure/contentactionsbottom/@*"/>
+              </xsl:if>
+            </div>
 
             </xsl:if>
 
