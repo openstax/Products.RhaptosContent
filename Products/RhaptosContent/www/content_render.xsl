@@ -1624,8 +1624,6 @@
               </xsl:if>
             </div>
 
-            </xsl:if>
-
 	    <div id="cnx_footer">
 
               <h2 class="hiddenStructure">
