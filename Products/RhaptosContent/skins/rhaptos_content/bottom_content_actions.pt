@@ -11,13 +11,13 @@
                  portal_url context/portal_url;
                  portal context/portal_url/getPortalObject;
                  topmacros context/bar_content_actions/macros"
-     id="cnx_actions_bottom">
+     tal:omit-tag="">
 
   <tal:comment tal:replace="nothing">
   Requires from caller:
     'view': view data from bar_content_actions_view
-    'module': module context ('here' if on module)
-    'collection': collection context ('here' if on collection)
+    'module': module context ('context' if on module)
+    'collection': collection context ('context' if on collection)
 
   Optional from caller:
     --
@@ -27,8 +27,6 @@
     combines functionality from collection_view and content_render/module_export_template
   </tal:comment>
 
-  <!-- feedback -->
-  <div xmlns="http://www.w3.org/1999/xhtml">
     <h2 class="hiddenStructure" i18n:translate="header_content_actions">
       Content actions
     </h2>
@@ -98,7 +96,7 @@
          id="cnx_actions_category_feedback">
       <h3>
         <span i18n:translate="header_give_feedback">
-          Give Feedback:
+          Give feedback:
         </span>
       </h3>
       <div class="cnx_actions_group"
@@ -475,7 +473,5 @@
     </div>
 
 
-
-  </div>
 </div>
 

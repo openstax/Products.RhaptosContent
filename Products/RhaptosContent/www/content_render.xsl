@@ -207,7 +207,6 @@
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
-
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
     <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
@@ -227,10 +226,6 @@
 	    <xsl:copy-of select="@*"/>
 	  </link>
 	</xsl:for-each>
-	
-	<xsl:comment>[if IE]&gt;
-	  &lt;script type="text/javascript" language="JavaScript" src="/js/ie-annotations.js"&gt;<xsl:text> </xsl:text>&lt;/script&gt;
-	  &lt;![endif]</xsl:comment>
 	
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
@@ -1204,7 +1199,7 @@
           </div>
         </xsl:if>
 
-	    <div id="cnx_module_header">
+      <div id="cnx_module_header">
         <xsl:if test="not(display/offline)">
           <xsl:if test="publishing/state[text()!='public']">
             <div class="cnx_warning">
@@ -2512,6 +2507,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
 
 </xsl:stylesheet>
