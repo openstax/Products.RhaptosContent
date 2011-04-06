@@ -41,6 +41,11 @@
   height: 1px;
 }
 
+#cnx_portal-top{
+  margin-left: 1.125%;
+  width: 97.75%
+}
+
 #cnx_portal-siteactions{
   white-space: nowrap;
   list-style: none;
@@ -91,13 +96,23 @@
 
 #cnx_portal-globalnav {
     clear: both;
-    font-size: 80%;
-    background: #ddd;
+    background-color: #ddd;
     /* ensure top navigation dont touches portlets, content etc.. #10491 */
     margin: 0 0 1em 0;
 }
+
+#cnx_portal-globalnav ul{
+    white-space: nowrap;
+    list-style: none;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    background-color: #ddd;
+}
+
 #cnx_portal-globalnav li {
-  display: inline;
+    float: left;
 }
 #cnx_portal-globalnav li a {
     display: inline-block;
@@ -162,6 +177,7 @@
 */
 
 #cnx_portal-breadcrumbs{
+  clear: left;
   background-color: #dee7ec;
   border-top: 1px solid #8cacbb;
   line-height: 1.3em;
@@ -225,7 +241,7 @@ p a:active{
 }
 
 body{
-  font: 100% Arial, FreeSans, sans-serif;
+  font: 80% Arial, FreeSans, sans-serif;
   background-color: white;
   color: Black;
   margin: 0;
