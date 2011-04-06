@@ -19,6 +19,7 @@
   <!-- Don't actually display gallery if there are no mpegs -->
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
+  <xsl:param name="modern-textbook" select="0"/>
   
   <xsl:param name="stylesheet_path" select="'/stylesheets/plone'"/>
   
@@ -183,6 +184,9 @@
 	<link rel="stylesheet" type="text/css" href="{$stylesheet_path}/print.css" media="print"/>
 	<xsl:if test="$xsl_gallery">
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
+	</xsl:if>
+	<xsl:if test="$modern-textbook">
+	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/modern-textbook.css" media="screen"/>
 	</xsl:if>
 
     <script type="text/javascript" src="{publishing/portal/@href}/rhaptosutils.js"><xsl:text> </xsl:text></script>
