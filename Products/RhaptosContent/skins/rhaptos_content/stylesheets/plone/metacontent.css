@@ -11,6 +11,7 @@
   margin: 0.75em 0em 0.75em 1.5em;
   padding: 0;
   width: 250px;
+
 }
 
 * html #cnx_portal-logo{
@@ -88,6 +89,38 @@
   font-size: .9em;
 }
 
+#cnx_portal-globalnav {
+    clear: both;
+    font-size: 80%;
+    background: #ddd;
+    /* ensure top navigation dont touches portlets, content etc.. #10491 */
+    margin: 0 0 1em 0;
+}
+#cnx_portal-globalnav li {
+  display: inline;
+}
+#cnx_portal-globalnav li a {
+    display: inline-block;
+    padding: 0.5em 1em 2em 1em;
+    background: #ddd;
+    min-width: 6em;
+    white-space: normal;
+    /*TODO: Once we have removed the whitespace from the nav template, this can be put back*/
+    /*border-bottom: 0.1em solid White;*/
+    border-right: 0.1em solid white;
+}
+
+#cnx_portal-globalnav .selected a,
+#cnx_portal-globalnav a:hover {
+    background: #205c90;
+    color: White;
+}
+#cnx_portal-globalnav .selected a:hover {
+    background: #ddd;
+    color: #205c90;
+}
+
+/*
 #cnx_portal-globalnav ul{
   white-space: nowrap;
   list-style: none;
@@ -126,10 +159,11 @@
   color: #436976;
 }
 
+*/
+
 #cnx_portal-breadcrumbs{
   background-color: #dee7ec;
   border-top: 1px solid #8cacbb;
-  border-bottom: 1px solid #8cacbb;
   line-height: 1.3em;
   color: Black;
   padding: .2em 2em;
@@ -191,7 +225,7 @@ p a:active{
 }
 
 body{
-  font: 69% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  font: 100% Arial, FreeSans, sans-serif;
   background-color: white;
   color: Black;
   margin: 0;
@@ -199,7 +233,7 @@ body{
 }
 
 input{
-  font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  font-family: Arial, FreeSans, sans-serif;
   visibility: visible;
   border: 1px solid #8cacbb;  
   color: Black;
