@@ -638,52 +638,12 @@
 
     </div>
 
-    <xsl:if test='/module/display/branding'>
-      <div id='cnx_branding_banner'>
-        <xsl:attribute name="style">background-color:#<xsl:value-of select="/module/display/branding/@bannerColor"/>;color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
-        <xsl:choose>
-          <xsl:when test="/module/display/branding/@category='Endorsement'">
-            Content endorsed by:
-          </xsl:when>
-          <xsl:when test="/module/display/branding/@category='Affiliation'">
-            Content affiliated with:
-          </xsl:when>
-          <xsl:otherwise>
-            Content included in lens:
-          </xsl:otherwise>
-        </xsl:choose>
-        <a>
-          <xsl:attribute name="href">
-            <xsl:value-of select="/module/display/branding/@location"/>
-          </xsl:attribute>
-          <xsl:attribute name="style">color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
-          <xsl:value-of select="/module/display/branding/@title"/>
-        </a>
-      </div>
-    </xsl:if>
+    <xsl:apply-templates select='/module/display/branding'/>
 
     <div id="cnx_columns">
 
       <div id="cnx_sidebar_column">
-
-        <xsl:if test='/module/display/branding/@logo'>
-          <div id="cnx_branding_logo">
-            <a>
-                <xsl:attribute name="href">
-                  <xsl:value-of select="/module/display/branding/@location"/>
-                </xsl:attribute>
-              <img>
-                <xsl:attribute name="src">
-                  <xsl:value-of select="/module/display/branding/@logo"/>
-                </xsl:attribute>
-                <xsl:attribute name="alt">
-                  <xsl:value-of select="/module/display/branding/@title"/>
-                </xsl:attribute>
-              </img>
-            </a>
-          </div>
-        </xsl:if>
-
+      <xsl:apply-templates select="/module/display/branding/@logo"/>
         <h2 class="hiddenStructure">
           <!-- Navigation -->
           <xsl:text>Navigation</xsl:text>
@@ -1788,6 +1748,10 @@
       </div>
 
     </div>
+   <!-- light-weight-branding: IE needs this code to be at the bottom of the page ( see #9797)
+        Otherwise, it could be done right after lenses are loaded.
+   -->
+   <script type="text/javascript" src="{publishing/portal/@href}/lightweight-branding-banner.js"></script>
 
   </xsl:template>
 
@@ -1945,6 +1909,49 @@
     </xsl:attribute>
   </xsl:template>
 
+  <!-- branding banners -->
+  <xsl:template match="/module/display/branding">
+    <div class="cnx_branding_banner">
+      <xsl:attribute name="style">display: none; background-color:#<xsl:value-of select="@bannerColor"/>;color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@category='Endorsement'">
+          Content endorsed by:
+        </xsl:when>
+        <xsl:when test="@category='Affiliation'">
+          Content affiliated with:
+        </xsl:when>
+        <xsl:otherwise>
+          Content included in lens:
+        </xsl:otherwise>
+      </xsl:choose>
+      <a>
+        <xsl:attribute name="href">
+          <xsl:value-of select="@location"/>
+        </xsl:attribute>
+        <xsl:attribute name="style">color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
+        <xsl:value-of select="@title"/>
+      </a>
+    </div>
+  </xsl:template>
+
+  <!-- branding logos -->
+  <xsl:template match="/module/display/branding/@logo">
+    <div class="cnx_branding_logo" style="display: none;">
+      <a>
+          <xsl:attribute name="href">
+            <xsl:value-of select="../@location"/>
+          </xsl:attribute>
+        <img>
+          <xsl:attribute name="src">
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+          <xsl:attribute name="alt">
+            <xsl:value-of select="../@title"/>
+          </xsl:attribute>
+        </img>
+      </a>
+    </div>
+  </xsl:template>
 
   <!-- Lens entries -->
   <xsl:template name="lens">

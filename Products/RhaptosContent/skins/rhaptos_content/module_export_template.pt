@@ -380,33 +380,26 @@
     <javascriptpresent tal:condition="request/cnx_javascript_present | nothing"
                        tal:content="python:test(request.cnx_javascript_present=='true', 'true', 'false')">[true]</javascriptpresent>
     <tal:branding
-      tal:define="
-          brandingCookie  request/lenses | nothing;
-          brandingDict    python:context.findBrandingLens(cats,brandingCookie);
-          gotBranding     python:brandingDict is not None;"
-      tal:condition="gotBranding">
-      <branding
-          lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo=""
-          tal:define="
-              brandingLensId          python:brandingDict['lensId'] or None;
-              brandingColor           python:brandingDict['lensInfo']['bannerColor']or None;
-              brandingForegroundColor python:brandingDict['lensInfo']['bannerForegroundColor'] or None;
-              brandingCategory        python:brandingDict['lensInfo']['category']or None;
-              brandingLocation        python:brandingDict['lensInfo']['location']or None;
-              brandingTitle           python:brandingDict['lensInfo']['title']or None;
-              brandingLogo            python:brandingDict['lensInfo']['logo'] == 'true'
-                                             and (brandingDict['lensInfo']['location']+'/logo') or None;"
-          tal:attributes="
-              lensId                brandingLensId;
-              title                 brandingTitle;
-              location              brandingLocation;
-              category              brandingCategory;
-              bannerColor           brandingColor;
-              bannerForegroundColor brandingForegroundColor;
-              logo                  brandingLogo;">
-        <tal:comment replace="nothing">brandingLens  ltool.restrictedTraverse(brandingLensId); </tal:comment>
-        <tal:comment replace="nothing">brandingDict is <span tal:content="string:${brandingDict}"/> </tal:comment>
-      </branding>
+      tal:repeat="branding cats/values">
+      <tal:lens
+        tal:repeat="lensdict branding/items">
+          <branding 
+              lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo="" 
+              tal:define="
+                  lensId python:lensdict[0];
+                  lensInfo python:lensdict[1][0]"
+              tal:condition="python:lensInfo.get('banner',None) == 'true'"
+              tal:attributes="
+                  lensId                python:lensId or None;
+                  bannerColor           python:lensInfo.get('bannerColor',None);
+                  bannerForegroundColor python:lensInfo.get('bannerForegroundColor',None);
+                  category              python:lensInfo.get('category',None);
+                  location              python:lensInfo.get('location',None);
+                  title                 python:lensInfo.get('title',None);
+                  logo                  python:lensInfo['logo'] == 'true'
+                                               and (lensInfo['location']+'/logo') or None;">
+          </branding>
+       </tal:lens>
     </tal:branding>
   </display>
 
