@@ -145,11 +145,11 @@
 
 /* ===== light-weight branding ==========*/
 
-#cnx_branding_banner{
+.cnx_branding_banner{
   padding: 0.2em 2em;
 }
 
-#cnx_branding_logo{
+.cnx_branding_logo{
   text-align: center;
   margin: -10px 0 1.5em;
 }
