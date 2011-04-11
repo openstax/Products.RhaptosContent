@@ -1487,6 +1487,10 @@
 	            
 	    </div>
 
+            <xsl:if test="cnx:document/@class='introduction' and cnx:document//cnx:figure/@class='splash'">
+              <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
+            </xsl:if>
+
             <div class="cnx_clear" />
 
 	    <xsl:if test="$authorlinks and not(display/context) or $courselinks">
