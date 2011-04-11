@@ -249,6 +249,9 @@
       </head>
       
       <body onload="constructHintCounter(); togglerInitialSettings();" id="cnx_module">
+        <xsl:if test="cnx:document/@class='introduction'">
+          <xsl:attribute name="class">introduction</xsl:attribute>
+        </xsl:if>
 
       <xsl:if test="display/offline">
         <p id="nostyles" style="color: red; border: medium red solid; padding:0.5em; margin:0.5em;">
@@ -1312,6 +1315,11 @@
               </xsl:if>
 
               <h1 id="cnx_content_title">
+                <xsl:if test="cnx:document/@class='introduction'">
+                  <span class="cnx_before">
+                    <xsl:text>Module: </xsl:text>
+                  </span>
+                </xsl:if>
                 <xsl:value-of select="$moduletitle"/>
               </h1>
 
