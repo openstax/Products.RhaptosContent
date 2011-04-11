@@ -20,12 +20,12 @@
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
   <xsl:param name="modern-textbook" select="0"/>
-  <xsl:variable name="intro-module">
+  <xsl:param name="intro-module">
     <xsl:call-template name="class-test">
       <xsl:with-param name="provided-class" select="/module/cnx:document/@class"/>
       <xsl:with-param name="wanted-class">introduction</xsl:with-param>
     </xsl:call-template>
-  </xsl:variable>
+  </xsl:param>
   
   <xsl:param name="stylesheet_path" select="'/stylesheets/plone'"/>
   
