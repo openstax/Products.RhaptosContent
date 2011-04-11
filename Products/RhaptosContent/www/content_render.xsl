@@ -20,6 +20,12 @@
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
   <xsl:param name="modern-textbook" select="0"/>
+  <xsl:variable name="intro-module">
+    <xsl:call-template name="class-test">
+      <xsl:with-param name="provided-class" select="/module/cnx:document/@class"/>
+      <xsl:with-param name="wanted-class">introduction</xsl:with-param>
+    </xsl:call-template>
+  </xsl:variable>
   
   <xsl:param name="stylesheet_path" select="'/stylesheets/plone'"/>
   
@@ -249,7 +255,7 @@
       </head>
       
       <body onload="constructHintCounter(); togglerInitialSettings();" id="cnx_module">
-        <xsl:if test="cnx:document/@class='introduction'">
+        <xsl:if test="$intro-module='1' and $modern-textbook">
           <xsl:attribute name="class">introduction</xsl:attribute>
         </xsl:if>
 
@@ -1315,7 +1321,7 @@
               </xsl:if>
 
               <h1 id="cnx_content_title">
-                <xsl:if test="cnx:document/@class='introduction'">
+                <xsl:if test="$intro-module='1' and $modern-textbook">
                   <span class="cnx_before">
                     <xsl:text>Module: </xsl:text>
                   </span>
@@ -1487,7 +1493,7 @@
 	            
 	    </div>
 
-            <xsl:if test="cnx:document/@class='introduction' and cnx:document//cnx:figure/@class='splash'">
+            <xsl:if test="$intro-module='1' and cnx:document//cnx:figure/@class='splash' and $modern-textbook">
               <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
             </xsl:if>
 
