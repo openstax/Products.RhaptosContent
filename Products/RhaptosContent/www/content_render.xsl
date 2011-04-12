@@ -194,6 +194,8 @@
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
 
+   <script type="text/javascript" src="{publishing/portal/@href}/lightweight-branding-banner.js"><xsl:text> </xsl:text></script>
+
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
 
@@ -1748,11 +1750,6 @@
       </div>
 
     </div>
-   <!-- light-weight-branding: IE needs this code to be at the bottom of the page ( see #9797)
-        Otherwise, it could be done right after lenses are loaded.
-   -->
-   <script type="text/javascript" src="{publishing/portal/@href}/lightweight-branding-banner.js"></script>
-
   </xsl:template>
 
   <!-- MP3 (Gallery style) -->
