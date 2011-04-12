@@ -1493,6 +1493,21 @@
 	            
 	    </div>
 
+            <!-- Banner showing chapter number and title for 'Modern Textbook' introduction modules. -->
+            <xsl:for-each select="display/context/navigation/ul//li[@id=$objectId]">
+              <xsl:if test="$intro-module='1' and $modern-textbook and ancestor::li">
+                <div id="cnx_chapter_intro_banner">
+                  <span id="cnx_chapter_intro_banner_number">
+                    <xsl:number count="display/context/navigation/ul//li[ul]" level="multiple"/>
+                  </span>
+                  <span id="cnx_chapter_intro_banner_title">
+                    <xsl:value-of select="ancestor::li[1]/*[@class='cnx_chapter_header']/text()"/>
+                  </span>
+                </div>
+              </xsl:if>
+            </xsl:for-each>
+
+            <!-- Splash image for 'Modern Textbook' introduction modules. -->
             <xsl:if test="$intro-module='1' and cnx:document//cnx:figure/@class='splash' and $modern-textbook">
               <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
             </xsl:if>
