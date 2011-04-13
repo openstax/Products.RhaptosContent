@@ -1518,10 +1518,15 @@
             </xsl:for-each>
 
             <!-- Splash image for 'Modern Textbook' introduction modules. -->
-            <xsl:if test="$intro-module='1' and cnx:document//cnx:figure/@class='splash' and $modern-textbook">
-              <div id="cnx_splash">
-                <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
-              </div>
+            <xsl:if test="$intro-module='1' and $modern-textbook">
+              <xsl:for-each select="cnx:document//cnx:figure[@class='splash' and cnx:media/cnx:image[not(@for='pdf')]][1]">
+                <div id="cnx_splash">
+                  <div id="cnx_splash_image">
+                    <xsl:apply-templates select="cnx:media"/>
+                  </div>
+                  <xsl:call-template name="caption"/>
+                </div>
+              </xsl:for-each>
             </xsl:if>
 
             <div class="cnx_clear" />
@@ -1599,6 +1604,14 @@
 		</dl>
 	      </div>
 	    </xsl:if>
+
+            <xsl:if test="$intro-module='1' and $modern-textbook">
+              <div id="cnx_intro_title">
+                <h1>
+                  <xsl:value-of select="$moduletitle"/>
+                </h1>
+              </div>
+            </xsl:if>
 
 	    <xsl:apply-templates select="cnx:document"/>
 
