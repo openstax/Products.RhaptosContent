@@ -1519,7 +1519,9 @@
 
             <!-- Splash image for 'Modern Textbook' introduction modules. -->
             <xsl:if test="$intro-module='1' and cnx:document//cnx:figure/@class='splash' and $modern-textbook">
-              <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
+              <div id="cnx_splash">
+                <xsl:apply-templates select="cnx:document//cnx:figure[@class='splash'][1]" mode="extract-splash" />
+              </div>
             </xsl:if>
 
             <div class="cnx_clear" />
