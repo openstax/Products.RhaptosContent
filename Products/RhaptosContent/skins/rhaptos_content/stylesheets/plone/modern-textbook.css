@@ -349,13 +349,17 @@ blockquote{
   position: relative;
 }
 
-#cnx_splash table, #cnx_splash tbody, #cnx_splash tr, #cnx_splash td, #cnx_splash caption{
+#cnx_splash caption{
   display: block;
   width: 100%;
 }
 
+#cnx_splash_image{
+  text-align: center;
+}
+
 #cnx_splash_image img{
-  width: 100%;
+  max-width: 100%;
 }
 
 #cnx_intro_title{
