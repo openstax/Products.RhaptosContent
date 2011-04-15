@@ -1524,7 +1524,9 @@
                   <div id="cnx_splash_image">
                     <xsl:apply-templates select="cnx:media"/>
                   </div>
-                  <xsl:call-template name="caption"/>
+                  <xsl:call-template name="caption">
+                    <xsl:with-param name="captionelement">div</xsl:with-param>
+                  </xsl:call-template>
                 </div>
               </xsl:for-each>
             </xsl:if>
