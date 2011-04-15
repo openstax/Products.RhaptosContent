@@ -109,10 +109,12 @@
     margin: 0;
     height: auto;
     background-color: #ddd;
+    overflow: hidden;
 }
 
 #cnx_portal-globalnav li {
     float: left;
+    margin-bottom: 0;
 }
 #cnx_portal-globalnav li a {
     display: inline-block;
