@@ -1259,6 +1259,8 @@
                         <xsl:value-of select="$moduletitle"/>
                         <xsl:text>&amp;url=</xsl:text>
                         <xsl:value-of select="$social-url-escaped"/>
+                        <xsl:text>&amp;counturl=</xsl:text>
+                        <xsl:value-of select="/module/display/base/@href-latest-escaped"/>
                         <xsl:if test="publishing/portal/@isCNX='true'">
                           <xsl:text>&amp;via=cnxorg</xsl:text>
                         </xsl:if>
