@@ -197,13 +197,51 @@
 
 /* ===== light-weight branding ==========*/
 
-#cnx_branding_banner{
+.cnx_branding_banner{
   padding: 0.2em 2em;
 }
 
-#cnx_branding_logo{
+.cnx_branding_logo{
   text-align: center;
   margin: -10px 0 1.5em;
+}
+
+/* ===== social media (facebook, twitter) ===== */
+
+.cnx_social_media iframe{
+  vertical-align: -.75em;
+}
+
+.cnx_facebook iframe{
+  width: 100px !important;
+  height: 21px !important;
+}
+
+.cnx_twitter iframe{
+  width: 96px !important;
+  height: 21px !important;
+}
+
+.cnx_twitter{
+  padding-right: .5em;
+  margin-right: .6em;
+  border-right: 1px solid #666;
+}
+
+#cnx_social_media_top .cnx_twitter, #cnx_social_media_top .cnx_facebook{
+  float: right;
+  margin-bottom: .5em;
+}
+
+#cnx_social_media_top .cnx_twitter{
+  padding-right: .8em;
+}
+
+#cnx_social_media_bottom{
+  text-align: right;
+  margin-top: 1em;
+  padding: 0;
+  float: right;
 }
 
 /* ========== some basic elements ========== */
@@ -744,23 +782,6 @@ li{
   padding-bottom: 1em;
 }
 
-#cnx_no_menclose_support_example{
-  float: right;
-  margin: 0 0 .5em 1.5em;
-}               
-
-#cnx_no_menclose_support_example .cnx_before{
-  display: block;
-}
-
-#ff_mathml_msg2 td{
-  font-weight: normal;
-}
-#ff_mathml_msg2 td a{
-  font-weight: bold;
-  text-decoration: underline;
-}
-
 /* ========== table ========== */
 
 td, th{
@@ -773,6 +794,15 @@ td, th{
 }
 
 /* ========== metadata page ========== */
+
+#cnx_view_content{
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#cnx_view_content img{
+  vertical-align: middle;
+}
 
 #cnx_about_history td{
   padding: .25em .5em 0 0;

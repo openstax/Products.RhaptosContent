@@ -15,118 +15,6 @@ function togglerInitialSettings() {
     createCookie('cnx_javascript_present', 'true', 365);
     hideSolutions();
   }
-  toggleMathMLMsg("init");
-  
-}
-
-function toggleMathMLMsg(cmd)
-{
-    var isFirefox = navigator.userAgent.indexOf("Firefox") != -1 ? true : false;
-    var isIE = navigator.userAgent.indexOf("MSIE") != -1 ? true : false;
-    var isChrome = navigator.userAgent.indexOf("Chrome") != -1 ? true : false;
-    var isSafari = navigator.userAgent.indexOf("Safari") != -1 ? true : false;
-    var isMac = navigator.userAgent.indexOf("Mac") != -1 ? true : false;
-    
-    if(isFirefox)
-    {
-        setFirefoxCookie();
-        toggleFirefox(cmd);
-    }
-    else if(isIE)
-    {
-        if(isMac)
-        {
-            createCookie('cnx_mathml_msg_browser', 'ie-mac', 365);
-        }
-        else
-        {
-            createCookie('cnx_mathml_msg_browser', 'ie', 365);
-        }
-        toggleIE(cmd, isMac);
-    }
-    else if(isChrome)
-    {
-        createCookie('cnx_mathml_msg_browser', 'chrome', 365);
-        toggleChrome(cmd);
-    }
-    else if(isSafari)
-    {
-        createCookie('cnx_mathml_msg_browser', 'safari', 365);
-        toggleSafari(cmd);
-    }
-    
-}
-
-function toggleFirefox(cmd)
-{
-    var hasFFFonts = testFirefoxFonts();
-    var cookieValue = readCookie('cnx_mathml_msg');
-    if(cmd == "init")
-    {
-        if(!hasFFFonts)
-        {
-            if (cookieValue == null){
-                displayInitialMathMLMsg("firefox");
-            }
-            else if(cookieValue == 'display')
-            {
-                displayInitialMathMLMsg("firefox");
-            }
-        }
-
-    }
-    else if(cmd == "hide")
-    {
-        hideMathMLMsg("firefox");
-    }
-    else if(cmd == "display")
-    {
-        displayInitialMathMLMsg("firefox");
-    }
-    else if(cmd == "dismiss")
-    {
-       mathmlCorrect("firefox");
-    }
-}
-
-function toggleIE(cmd, isMac)
-{
-    //var isMac = navigator.userAgent.indexOf("Mac") != -1 ? true : false;
-    var hasMathPlayer= navigator.userAgent.indexOf("MathPlayer 2") != -1 ? true : false;
-    
-    if(cmd == "init" && !isMac)
-    {
-        if(!hasMathPlayer)
-        {
-            displayInitialMathMLMsg("ie");
-        }
-        else
-        {
-            mathmlCorrect("ie");
-        }
-    }
-}
-
-function toggleSafari(cmd)
-{
-    if(cmd == "init")
-    {
-        document.getElementById('safari_msg').style.display = 'inline';
-        document.getElementById('no_mathml_support').style.display = 'inline';
-        document.getElementById('default_mathml_msg2').style.display = 'inline';
-    }
-    
-}
-
-function toggleChrome(cmd)
-{
-    if(cmd == "init")
-    {
-        document.getElementById('chrome_msg').style.display = 'inline';
-        document.getElementById('no_mathml_support').style.display = 'inline';
-        document.getElementById('default_mathml_msg2').style.display = 'inline';
-    }
-    
 }
 
 
@@ -158,7 +46,7 @@ function togglerInitializeSettings(id) {
       eltcontents.style.display = 'block';
     }
     else {
-      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+      document.getElementById(id + '_link').style.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
       document.getElementById(id + '_contents').style.display = 'none';
     }
     twistyWrite(id, eltcontents.style.display);
@@ -174,10 +62,10 @@ function togglerCA(id) {
   var link = document.getElementById(id + '_link').style;
   if (contents.display == 'none') {
     contents.display = 'block';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-up.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-open.png)';
   } else {
     contents.display = 'none';
-    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-down.png)';
+    link.backgroundImage = 'url(' + stylesheetloc + 'arrow-closed.png)';
   }
   twistyWrite(id, contents.display);
 }
@@ -211,56 +99,6 @@ function hideSolutions(){
   }
 }
 
-function hideMathMLMsg(browser)
-{
-    createCookie('cnx_mathml_msg', 'nag', 365);
-    determineFirefoxMessageByVersion();
-    document.getElementById('cnx_display_ff_msg_link').style.display = 'block';
-    document.getElementById('ff_mathml_msg2').style.display = 'none';
-    return null;
-}
-
-function getBB(family, ch){ 
-    var test = document.createElement("span");
-    test.setAttribute("style", "font-family: "+family+"serif;");
-    test.appendChild(document.createTextNode(ch));
-    var hidden = document.createElement("div");
-    var styles = { visibility: 'hidden', position:"absolute",
-      top:0, left:0, border:0, padding:0, margin:0 };
-    for(var i in styles) {
-      hidden.style[i] = styles[i];
-    }
-    hidden.appendChild(test);
-    var testSize = {h:hidden.offsetHeight, w:hidden.offsetWidth};
-    hidden.removeChild(test);
-    return testSize;
-}
-  
-function testFont(name) {
-    var n = '\u00c1'; 
-    var factor = 2;
-    var wh1 = getBB(name, n);
-    var wh2 = getBB(null, n);
-    return wh1.w!=wh2.w || wh1.h!=wh2.h;
-}
-
-function testFirefoxFonts()
-{
-	var ch = '\u00c1';
-    var family = "cmex10";
-    var test = getBB(family, ch);
-    var cmex10 = !(test.w*3 > test.h || test.h == 0);
-    var cmr10 = testFont("cmr10");
-    var CMEX10 = testFont("CMEX10");
-    var STIX = testFont("STIXGeneral");
-    var hasFonts = cmex10 || cmr10 || CMEX10;
-    var version = getFirefoxVersion();
-    if(version >= 3.0) {
-    	hasFonts = testFont("STIXGeneral");// && !fonts; //you MUST NOT have installed the old fonts
-    }
-    return hasFonts;
-}
-    
 function getFirefoxVersion()
 {
 	var version;
@@ -282,84 +120,6 @@ function getFirefoxVersion()
 	
 }
 
-function setFirefoxCookie()
-{
-    var version = getFirefoxVersion();
-    if(version >= 3.0)
-    {
-        createCookie('cnx_mathml_msg_browser', 'firefox3', 365);
-    }
-    else
-    {
-        createCookie('cnx_mathml_msg_browser', 'firefox2', 365);
-    }
-}
-
-function displayInitialMathMLMsg(browser)
-{
-    createCookie('cnx_mathml_msg', 'display', 365);
-    if(browser == "firefox")
-    {
-        determineFirefoxMessageByVersion();
-        if (document.getElementById('ff_mathml_msg2')) { document.getElementById('ff_mathml_msg2').style.display = 'block'; }
-        if (document.getElementById('cnx_display_ff_msg_link')) { document.getElementById('cnx_display_ff_msg_link').style.display = 'none'; }
-        if (document.getElementById('no_mathml_support')) { document.getElementById('no_mathml_support').style.display = 'none'; }
-    }
-    else if(browser == "ie")
-    {
-        if (document.getElementById('ie_mathml_msg')) { document.getElementById('ie_mathml_msg').style.display = 'inline'; }
-        if (document.getElementById('default_mathml_msg2')) { document.getElementById('default_mathml_msg2').style.display = 'inline'; }
-        if (document.getElementById('no_mathml_support')) { document.getElementById('no_mathml_support').style.display = 'inline'; }
-    }
-}
-
-function determineFirefoxMessageByVersion()
-{
-    var version = getFirefoxVersion();
-
-    if(version >= 3.0)
-    {
-        if (document.getElementById("ff3_mathml_msg")) { document.getElementById("ff3_mathml_msg").style.display = 'inline'; }
-    }
-    else
-    {
-        if (document.getElementById("ff2_mathml_msg1")) { document.getElementById("ff2_mathml_msg1").style.display = 'inline'; }
-    }
-}
-
-function mathmlCorrect(browser)
-{
-    createCookie('cnx_mathml_msg', 'dismiss', 365);
-    var ffMsgLink = document.getElementById('cnx_display_ff_msg_link')
-    if(ffMsgLink != null)
-    {
-        document.getElementById('cnx_display_ff_msg_link').style.display = 'none';
-    }
-
-    var defaultMsg1 = document.getElementById('default_mathml_msg1')
-    if(defaultMsg1 != null)
-    {
-        document.getElementById('default_mathml_msg1').style.display = 'none'; 
-    }
-
-    var defaultMsg2 = document.getElementById('default_mathml_msg2')
-    if(defaultMsg2 != null)
-    {
-        document.getElementById('default_mathml_msg2').style.display = 'none'; 
-    }
-
-    var ieMsg = document.getElementById('ie_mathml_msg')
-    if(ieMsg != null)
-    {
-        document.getElementById('ie_mathml_msg').style.display = 'none'; 
-    }
-
-    var ffMsg2 = document.getElementById('ff_mathml_msg2')
-    if(ffMsg2 != null)
-    {
-        document.getElementById('ff_mathml_msg2').style.display = 'none';
-    }
-}
 
 function toggleLensTags(sender)
 {

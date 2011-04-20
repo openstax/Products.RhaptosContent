@@ -1,3 +1,15 @@
+RhaptosContent-0.58
+  - caching
+
+RhaptosContent-0.57
+  - twitbook buttons
+
+RhaptosContent-0.56
+  - Sprint-2011 bugfixes
+
+RhaptosContent-0.55
+  - MathJax. 'nuff said
+
 RhaptosContent-0.54
   - sword import support
 

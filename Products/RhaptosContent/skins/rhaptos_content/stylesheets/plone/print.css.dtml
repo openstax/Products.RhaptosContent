@@ -9,7 +9,8 @@
 #cnx_portal-siteactions, #cnx_portal-searchbox, #cnx_portal-globalnav,
 #cnx_sidebar_column, #musical-examples, .title-bar, #cnx_actions_bottom,
 #cnx_prev_next_top, #cnx_author_links_togglers, .hiddenStructure,
-.solution-toggles, .ca_button, #cnx_order_link, .cnx_email_author, .lensinfo{
+.solution-toggles, .ca_button, #cnx_order_link, .cnx_email_author, .lensinfo, 
+#cnx_social_media_top{
 display: none !important;
 }
 
@@ -382,6 +383,10 @@ border: 1pt solid #8cacbb;
 padding: 5pt 0;
 }
 
+.solution{
+display: block !important;
+}
+
 .term{
 font-style: normal;
 display: inline;
@@ -398,7 +403,7 @@ margin: 5pt 0;
 padding: 2pt 0;
 }
 
-.foreign{
+.foreign, em .term, .term em{
 font-style: italic;
 }
 

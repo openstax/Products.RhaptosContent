@@ -2,10 +2,11 @@
             tal:define="contenttype context/content_type_decide;
                         mimetype python: '%s;; charset=utf-8' % contenttype[1];
                         dtd python:context.dtdmapping(contenttype[0]);
-                        dummy python:request.RESPONSE.setHeader('Content-Type', mimetype)">
-<span tal:replace="structure dtd" />
+                        dummy python:request.RESPONSE.setHeader('Content-Type', mimetype)"
+><span tal:replace="structure dtd" />
 
   <tal:comment replace="nothing">
+  the above tal:replace needs to not have whitespace in front of it. Ross
   i18n by maxwell
   </tal:comment>
 
@@ -27,7 +28,9 @@
     
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"
           tal:attributes="content mimetype" />
-    
+
+    <metal:block metal:define-slot="facebook_open_graph_slot" />
+
     <metal:block metal:define-slot="css_above_slot" />
 
     <tal:styles tal:repeat="s python:here.getStyles()">
@@ -62,8 +65,10 @@
   </head>
 
   <body metal:define-slot="body_slot">
+
     <div metal:define-macro="header" id="cnx_module_header"
          tal:attributes="class python:test(module, 'cnx_in_course')">
+
       <div style="display:none">
         <!-- we need to call the PSM machinery to consume messages, but don't want to display them. yet. -->
         <div metal:use-macro="here/global_statusmessage/macros/portal_message">
@@ -77,7 +82,7 @@
 
       <metal:block metal:define-slot="before_title_slot" />
 
-      <h1>
+      <h1 id="cnx_content_title">
         <span tal:condition="template/title" tal:replace="string:${template/title}: "/>
         <span tal:replace="context/Title">[module title]</span>
       </h1>

@@ -15,8 +15,12 @@
                     version context/version;
                     ltool context/lens_tool | nothing;
                     inside python:module and (course.objectId, course.version) or nothing;
+                    public python:course and course.isPublic() or None;
+                    collection request/collection | python:course and '/'.join(course.url().rstrip('/').split('/')[-2:]) or None;
                     cats python:ltool and objectId and 
                                 ltool.getListsIncluding(objectId, version, inside=inside) or {}">
+
+  <!-- To see the XML with collection context info, go to wget http://cnx.org/content/m11832/latest/module_export_cnxml?collection=col10218 -->
 
   <tal:recentview define="dummy python:context.setrecentview('viewed_mods', objectId, version,
                                          module and course.objectId, module and course.version)" />
@@ -248,9 +252,14 @@
 
   <discussion tal:define="url here/forumUrl" tal:condition="url" tal:attributes="href url" />
 
-  <display>
+  <display tal:define="url_quote nocall:modules/Products.PythonScripts.standard/url_quote_plus;">
     <offline tal:condition="options/offline | nothing" />
-    <base tal:attributes="href here/renderBase" />
+    <base tal:define="url here/renderBase;
+                      urlLatest string:$portal_url/content/$objectId/latest/;" 
+          tal:attributes="href url; 
+                          href-escaped python:url_quote(url); 
+                          href-latest urlLatest;
+                          href-latest-escaped python:url_quote(urlLatest);" />
     <viewpath tal:define="virtualPath python:request.get('VIRTUAL_URL_PARTS',(None,None))[1]; 
                           virtualPath python:virtualPath and '/%s' % virtualPath; 
                           regularPath request/environ/PATH_INFO;
@@ -285,9 +294,10 @@
         </tal:block>
     </statusmessage>
     <context tal:condition="nocall:module">
-      <a tal:attributes="href course/url; id course/objectId | string:new; version course/version | string:new;" 
-         tal:content="course/Title">[content name]</a>
-      <type  tal:content="course/getCollectionType"
+      <a tal:define="url course/url;"
+         tal:attributes="href url; href-escaped python:url_quote(url); id course/objectId | string:new; version course/version | string:new;" 
+         tal:content="python:course.getTitle()">[content name]</a>
+      <type  tal:content="python:course.getCollectionType()"
         tal:attributes="shorttype python:course.getCollectionType('short') or 'Collection';
                         fulltype python:course.getCollectionType('full');">[collectionType]</type>
       <authors tal:define="authors course/authors">
@@ -315,7 +325,7 @@
 	    <link tal:repeat="l links"
               tal:attributes="rel l/category;
                               strength l/strength;
-                              href l/target;
+                              href string:${l/target}?collection=${collection};
                               title python:l.title.decode(encoding)" />
       </links>
       <downloads tal:define="pfile course/getPrintedFile | nothing;
@@ -371,40 +381,27 @@
     </twisties>
     <javascriptpresent tal:condition="request/cnx_javascript_present | nothing"
                        tal:content="python:test(request.cnx_javascript_present=='true', 'true', 'false')">[true]</javascriptpresent>
-    <tal:mathml tal:define="hasCookie request/cnx_mathml_msg|nothing">
-      <displaymathmlmsg tal:content="python:test(hasCookie and request.cnx_mathml_msg or 'unknown')">[true]</displaymathmlmsg>
-    </tal:mathml>
-    <tal:mathmlbrowser tal:define="hasCookie request/cnx_mathml_msg_browser|nothing">
-      <mathmlmsgbrowser tal:content="python:hasCookie and request.cnx_mathml_msg_browser or 'unknown'">[true]</mathmlmsgbrowser>
-    </tal:mathmlbrowser>
     <tal:branding
-      tal:define="
-          brandingCookie  request/lenses | nothing;
-          brandingDict    python:context.findBrandingLens(cats,brandingCookie);
-          gotBranding     python:brandingDict is not None;"
-      tal:condition="gotBranding">
-      <branding
-          lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo=""
-          tal:define="
-              brandingLensId          python:brandingDict['lensId'] or None;
-              brandingColor           python:brandingDict['lensInfo']['bannerColor']or None;
-              brandingForegroundColor python:brandingDict['lensInfo']['bannerForegroundColor'] or None;
-              brandingCategory        python:brandingDict['lensInfo']['category']or None;
-              brandingLocation        python:brandingDict['lensInfo']['location']or None;
-              brandingTitle           python:brandingDict['lensInfo']['title']or None;
-              brandingLogo            python:brandingDict['lensInfo']['logo'] == 'true'
-                                             and (brandingDict['lensInfo']['location']+'/logo') or None;"
-          tal:attributes="
-              lensId                brandingLensId;
-              title                 brandingTitle;
-              location              brandingLocation;
-              category              brandingCategory;
-              bannerColor           brandingColor;
-              bannerForegroundColor brandingForegroundColor;
-              logo                  brandingLogo;">
-        <tal:comment replace="nothing">brandingLens  ltool.restrictedTraverse(brandingLensId); </tal:comment>
-        <tal:comment replace="nothing">brandingDict is <span tal:content="string:${brandingDict}"/> </tal:comment>
-      </branding>
+      tal:repeat="branding cats/values">
+      <tal:lens
+        tal:repeat="lensdict branding/items">
+          <branding 
+              lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo="" 
+              tal:define="
+                  lensId python:lensdict[0];
+                  lensInfo python:lensdict[1][0]"
+              tal:condition="python:lensInfo.get('banner',None) == 'true'"
+              tal:attributes="
+                  lensId                python:lensId or None;
+                  bannerColor           python:lensInfo.get('bannerColor',None);
+                  bannerForegroundColor python:lensInfo.get('bannerForegroundColor',None);
+                  category              python:lensInfo.get('category',None);
+                  location              python:lensInfo.get('location',None);
+                  title                 python:lensInfo.get('title',None);
+                  logo                  python:lensInfo['logo'] == 'true'
+                                               and (lensInfo['location']+'/logo') or None;">
+          </branding>
+       </tal:lens>
     </tal:branding>
   </display>
 

@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cnx="http://cnx.rice.edu/cnxml" xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:m="http://www.w3.org/1998/Math/MathML" version="1.0">
+<xsl:stylesheet 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cnx="http://cnx.rice.edu/cnxml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    version="1.0">
 
   <!-- You should install the CNXML package and catalog so this can use a local copy-->
   <xsl:import href="http://cnx.rice.edu/technology/cnxml/stylesheet/cnxml_render.xsl"/>
@@ -74,8 +78,23 @@
   <xsl:variable name="favoritesdirect" select="count($favorites/list/entry[not(@indirect)])"/>
   <xsl:variable name="favoritescontextual" select="count($favorites/list/entry[@indirect = 'contextual'])"/>
   <xsl:variable name="google-analytics-tracking-code" select="/module/google-analytics/@code"/>
+  <xsl:variable name="social-url-escaped">
+    <xsl:value-of select="/module/display/base/@href-latest-escaped"/>
+    <xsl:if test="/module/display/context">
+      <!-- "?collection=" -->
+      <xsl:text>%3Fcollection%3D</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name="social-url">
+    <xsl:value-of select="/module/display/base/@href-latest"/>
+    <xsl:if test="/module/display/context">
+      <xsl:text>?collection=</xsl:text>
+      <xsl:value-of select="/module/display/context/a/@id"/>
+    </xsl:if>
+  </xsl:variable>
   
-  <xsl:output omit-xml-declaration="yes" encoding="utf-8"/>
+  <xsl:output method="xml" omit-xml-declaration="yes" encoding="utf-8"/>
   
   <xsl:template match="/|title|name|abstract">
     <xsl:apply-templates/>
@@ -92,6 +111,43 @@
     <html>
       
       <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+
+        <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the 
+             content shows up nicely when posted to a Facebook wall.  -->
+        <meta property="og:title" content="{title}"/>
+        <meta property="og:type" content="article"/>
+        <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better 
+             than nothing (or than letting Facebook randomly pick an image for you). -->
+        <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
+        <meta property="og:url" content="{$social-url}"/>
+        <meta property="og:site_name" content="{publishing/portal/title}"/>
+        <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically 
+             to populate this property, since it's required. -->
+        <meta property="fb:admins" content="100002202416123" />
+        <xsl:if test="publishing/portal/@isCNX='true'">
+          <meta property="fb:page_id" content="81379287964" />
+        </xsl:if>
+        <meta property="og:description">
+          <xsl:attribute name="content">
+            <!-- First look for a 'summary'. If not found, then look for the first paragraph with text in it.  Otherwise leave it null.  -->
+            <xsl:variable name="summarytext">
+              <xsl:value-of select="normalize-space(metadata/abstract)"/>
+            </xsl:variable>
+            <xsl:variable name="firstparatext">
+              <xsl:value-of select="normalize-space(cnx:document/cnx:content//cnx:para[normalize-space(text()) != ''][1])"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$summarytext != ''">
+                <xsl:value-of select="$summarytext"/>
+              </xsl:when>
+              <xsl:when test="$firstparatext != ''">
+                <xsl:value-of select="$firstparatext"/>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:attribute>
+        </meta>
 
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
@@ -138,6 +194,8 @@
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript" src="{publishing/portal/@href}/extjs/adapter/jquery/jquery-plugins.js"><xsl:text> </xsl:text></script>
 
+   <script type="text/javascript" src="{publishing/portal/@href}/lightweight-branding-banner.js"><xsl:text> </xsl:text></script>
+
     <script type="text/javascript" src="{publishing/portal/@href}/js/dynamic.js"><xsl:text> </xsl:text></script>
     <script type="text/javascript">var portal_url="<xsl:value-of select="publishing/portal/@href"/>";</script>
 
@@ -151,8 +209,6 @@
              <script type="text/javascript" src="{publishing/portal/@href}/register_function.js"><xsl:text> </xsl:text></script>
              <script type="text/javascript" src="{publishing/portal/@href}/login.js"><xsl:text> </xsl:text></script>
 
-
-	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
     <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
@@ -166,20 +222,27 @@
 	<xsl:if test="display/context/a">
 	  <link rel="up" href="{$collurl}" title="{$colltitle}"/>
 	</xsl:if>
-	<link rel="meta" type="application/rdf+xml" href="{publishing/portal/@href}/content_license"/>
+	<link rel="meta" type="application/rdf+xml" href="content_license"/>
 	<xsl:for-each select="//link[contains(@rel,'annotea')]">
 	  <link>
 	    <xsl:copy-of select="@*"/>
 	  </link>
 	</xsl:for-each>
 	
-	<xsl:comment>[if IE]&gt;
-	  &lt;object id="objIEAnnoteaActiveXCtrl" classid="clsid:3EC733C9-32C0-45FA-BAE4-EA62E96800AA"&gt;&lt;/object&gt;
-	  &lt;script type="text/javascript" language="JavaScript" src="/js/ie-annotations.js"&gt;<xsl:text> </xsl:text>&lt;/script&gt;
-	  &lt;![endif]</xsl:comment>
-	
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
+
+        <script type="text/javascript" src="{publishing/portal/@href}/++resource++mathjax/MathJax.js">
+            MathJax.Hub.Config({
+                extensions: ["mml2jax-bugfix.js"],
+                menuSettings: {zoom:"Click"},
+                "HTML-CSS": {scale:110},
+                jax: ["input/MathML","output/HTML-CSS"]
+            });
+            if(location.href.split("#").length != 1) {
+              MathJax.Hub.Register.StartupHook("End", function() {location.href = location.href; });
+            }
+        </script>
 
       </head>
       
@@ -432,7 +495,7 @@
 
     <div id="cnx_portal-top">
       <p class="hiddenStructure">
-        <a href="#cnx_module_header">
+        <a href="#cnx_content_title">
           <!-- Skip to content -->
           <xsl:text>Skip to content</xsl:text>
         </a> 
@@ -577,52 +640,12 @@
 
     </div>
 
-    <xsl:if test='/module/display/branding'>
-      <div id='cnx_branding_banner'>
-        <xsl:attribute name="style">background-color:#<xsl:value-of select="/module/display/branding/@bannerColor"/>;color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
-        <xsl:choose>
-          <xsl:when test="/module/display/branding/@category='Endorsement'">
-            Content endorsed by:
-          </xsl:when>
-          <xsl:when test="/module/display/branding/@category='Affiliation'">
-            Content affiliated with:
-          </xsl:when>
-          <xsl:otherwise>
-            Content included in lens:
-          </xsl:otherwise>
-        </xsl:choose>
-        <a>
-          <xsl:attribute name="href">
-            <xsl:value-of select="/module/display/branding/@location"/>
-          </xsl:attribute>
-          <xsl:attribute name="style">color:#<xsl:value-of select="/module/display/branding/@bannerForegroundColor"/>;</xsl:attribute>
-          <xsl:value-of select="/module/display/branding/@title"/>
-        </a>
-      </div>
-    </xsl:if>
+    <xsl:apply-templates select='/module/display/branding'/>
 
     <div id="cnx_columns">
 
       <div id="cnx_sidebar_column">
-
-        <xsl:if test='/module/display/branding/@logo'>
-          <div id="cnx_branding_logo">
-            <a>
-                <xsl:attribute name="href">
-                  <xsl:value-of select="/module/display/branding/@location"/>
-                </xsl:attribute>
-              <img>
-                <xsl:attribute name="src">
-                  <xsl:value-of select="/module/display/branding/@logo"/>
-                </xsl:attribute>
-                <xsl:attribute name="alt">
-                  <xsl:value-of select="/module/display/branding/@title"/>
-                </xsl:attribute>
-              </img>
-            </a>
-          </div>
-        </xsl:if>
-
+      <xsl:apply-templates select="/module/display/branding/@logo"/>
         <h2 class="hiddenStructure">
           <!-- Navigation -->
           <xsl:text>Navigation</xsl:text>
@@ -647,7 +670,7 @@
                       <!-- Contents -->
                       <xsl:text>Contents</xsl:text>
                       <xsl:text> </xsl:text>
-                      <img src="{concat($stylesheetloc,'arrow-up.png')}" id="cnx_course_navigation_collapse" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-open.png')}" id="cnx_course_navigation_collapse" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/navigationcollapsed = 'false'">display: inline;</xsl:when>
@@ -655,7 +678,7 @@
                           </xsl:choose>
                         </xsl:attribute>
                       </img>
-                      <img src="{concat($stylesheetloc,'arrow-down.png')}" id="cnx_course_navigation_expand" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-closed.png')}" id="cnx_course_navigation_expand" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/navigationcollapsed = 'true'">display: inline;</xsl:when>
@@ -951,7 +974,7 @@
                       <!-- Viewed -->
                       <xsl:text>Viewed</xsl:text>
                       <xsl:text> </xsl:text>
-                      <img src="{concat($stylesheetloc,'arrow-up.png')}" id="cnx_recentview_collapse" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-open.png')}" id="cnx_recentview_collapse" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/recentcollapsed = 'false'">display: inline;</xsl:when>
@@ -959,7 +982,7 @@
                           </xsl:choose>
                         </xsl:attribute>
                       </img>
-                      <img src="{concat($stylesheetloc,'arrow-down.png')}" id="cnx_recentview_expand" alt="">
+                      <img src="{concat($stylesheetloc,'arrow-closed.png')}" id="cnx_recentview_expand" alt="">
                         <xsl:attribute name="style">
                           <xsl:choose>
                             <xsl:when test="display/twisties/recentcollapsed = 'true'">display: inline;</xsl:when>
@@ -1138,7 +1161,7 @@
           </div>
         </xsl:if>
 
-	    <div id="cnx_module_header">
+      <div id="cnx_module_header">
         <xsl:if test="not(display/offline)">
           <xsl:if test="publishing/state[text()!='public']">
             <div class="cnx_warning">
@@ -1220,7 +1243,35 @@
                 </xsl:for-each>
               </xsl:if>
 -->
-              <h1>
+
+              <xsl:if test="publishing/state[text()='public']">
+                <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
+                  <span class="cnx_facebook">
+                    <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
+                            scrolling="no" frameborder="0" allowtransparency="true">
+                      <xsl:text> </xsl:text>
+                    </iframe>
+                  </span>
+                  <span class="cnx_twitter">
+                    <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button">
+                      <xsl:attribute name="src">
+                        <xsl:text>http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=</xsl:text>
+                        <xsl:value-of select="$moduletitle"/>
+                        <xsl:text>&amp;url=</xsl:text>
+                        <xsl:value-of select="$social-url-escaped"/>
+                        <xsl:text>&amp;counturl=</xsl:text>
+                        <xsl:value-of select="/module/display/base/@href-latest-escaped"/>
+                        <xsl:if test="publishing/portal/@isCNX='true'">
+                          <xsl:text>&amp;via=cnxorg</xsl:text>
+                        </xsl:if>
+                      </xsl:attribute>
+                      <xsl:text> </xsl:text>
+                    </iframe>
+                  </span>
+                </div>
+              </xsl:if>
+
+              <h1 id="cnx_content_title">
                 <xsl:value-of select="$moduletitle"/>
               </h1>
 
@@ -1278,6 +1329,7 @@
 		  </p>
 	      </xsl:if>
 
+              <!-- Ratings disabled, but ratings code left in, in case there are other Rhaptos instances using them.
               <xsl:if test="/module/rating">
                 <div id="cnx_rate" class="ratings">
                   <span class="cnx_before">User rating </span>
@@ -1340,8 +1392,11 @@
                       <span id="content-render-rating-ratings">
                         <xsl:text>(</xsl:text>
                         <xsl:value-of select="/module/rating/@number_of_ratings"/>
-                        <xsl:text> ratings)</xsl:text>
-                      </span>
+                  			<xsl:choose>		
+                  				<xsl:when test="/module/rating/@number_of_ratings = '1'"> rating)</xsl:when>
+                  				<xsl:otherwise> ratings)</xsl:otherwise>
+               		      </xsl:choose>     
+                      </span>	
                       <span id="content-render-rating-login" style="display: none;">
                         <xsl:text>(Login required)</xsl:text>
                       </span>
@@ -1351,6 +1406,7 @@
                 </div>
 
               </xsl:if>
+              -->
 
 	      <xsl:if test="metadata/abstract">
 		<p id="cnx_abstract">
@@ -1361,263 +1417,6 @@
 		  <xsl:apply-templates select="metadata/abstract"/>
 		</p>
 	      </xsl:if>
-        
-        <xsl:if test="//*/m:menclose and (display/mathmlmsgbrowser = 'firefox3' or display/mathmlmsgbrowser = 'firefox2')">
-          <!-- menclose-Message -->
-          <div id="menclose_msg">
-            <div class="cnx_warning">
-              <p class="cnx_warning_text">
-                <span id="cnx_no_menclose_support_example">
-                  <span class="cnx_before">
-                    Example:                              
-                  </span>
-                  <img src="/menclose_cnx.png" id="cnx_menclose_example" alt="menclose example"/>
-                </span>
-                <span class="cnx_before">
-                  Note:
-                </span>
-                
-                <xsl:text>
-                      This module contains a MathML element which is not currently supported in Firefox. 
-                    This element is often used to create a strikethrough effect but can be used in other situations. 
-                    To ensure that the content on this page is displayed accurately, 
-                    please use Internet Explorer with the MathPlayer plugin.
-                </xsl:text>
-              </p>
-              <div style="clear: both;"></div>
-            </div>
-          </div>
-        </xsl:if>
-        
-        
-        <xsl:if test="not(display/displaymathmlmsg = 'dismiss' or (//*/m:menclose and (display/mathmlmsgbrowser = 'firefox3' or display/mathmlmsgbrowser = 'firefox2')))">
-          <xsl:if test="//*/m:math">
-                <!-- Default-Message -->
-                <div id="default_mathml_msg1">
-                  <div class="cnx_warning">
-                    <p class="cnx_warning_text">
-                      <span class="cnx_before">
-                        Note:
-                      </span>
-                      <span id="no_mathml_support">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'firefox3' or display/mathmlmsgbrowser = 'firefox2'">display: none;</xsl:when>
-              		          <xsl:otherwise>display: inline;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Your browser doesn't currently support MathML.  -->
-                        <xsl:text>Your browser may not currently support MathML.</xsl:text>
-                      </span>
-                      <xsl:text> </xsl:text>
-                      <span id="chrome_msg">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'chrome'">display: inline;</xsl:when>
-              		          <xsl:otherwise>display: none;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Chrome will attempt to display MathML, but it should not be considered correct. -->
-                        <xsl:text>Chrome will attempt to display MathML, but it should not be considered correct.</xsl:text>
-                        <xsl:text> </xsl:text>
-                      </span>
-                      <span id="safari_msg">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'safari'">display: inline;</xsl:when>
-              		          <xsl:otherwise>display: none;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Safari will attempt to display MathML, but it should not be considered correct. -->
-                        <xsl:text>Safari will attempt to display MathML, but it should not be considered correct.</xsl:text>
-                        <xsl:text> </xsl:text>
-                      </span>
-                      <span id="ie_mathml_msg">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'ie'">display: inline;</xsl:when>
-              		          <xsl:otherwise>display: none;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Please install the required -->
-                        <xsl:text>Please install the required</xsl:text>
-                        <xsl:text> </xsl:text>
-                        <a href="http://www.mathplayer.com/en/products/mathplayer/welcome.asp">
-                          <!-- MathPlayer plugin -->
-                          <xsl:text>MathPlayer plugin</xsl:text>
-                        </a>
-                        <xsl:text> </xsl:text>
-                        <!-- to view MathML correctly. -->
-                        <xsl:text>to view MathML correctly.</xsl:text>
-                      </span>
-                      <span id="ff2_mathml_msg1">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'firefox2'">display: inline;</xsl:when>
-              		          <xsl:otherwise>display: none;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Firefox requires additional -->
-                        <xsl:text>Firefox requires additional</xsl:text>
-                        <xsl:text> </xsl:text>
-                        <a href="http://www.mozilla.org/projects/mathml/fonts/#1.8">
-                          <!-- mathematics fonts -->
-                          <xsl:text>mathematics fonts</xsl:text>
-                        </a>
-                        <!-- to display MathML correctly. -->
-                        <xsl:text> to display MathML correctly.</xsl:text>
-                      </span>
-                      <span id="ff3_mathml_msg">
-                        <xsl:attribute name="style">
-              		        <xsl:choose>
-              			        <xsl:when test="display/mathmlmsgbrowser = 'firefox3'">display: inline;</xsl:when>
-              		          <xsl:otherwise>display: none;</xsl:otherwise>
-              			      </xsl:choose>
-              		      </xsl:attribute>
-                        <!-- Firefox requires additional -->
-                        <xsl:text>Firefox requires additional</xsl:text>
-                        <xsl:text> </xsl:text>
-                        <a href="http://www.mozilla.org/projects/mathml/fonts/#1.9">
-                          <!-- mathematics fonts package -->
-                          <xsl:text>mathematics fonts</xsl:text>
-                        </a>
-                        <!-- to display MathML correctly. -->
-                        <xsl:text> to display MathML correctly.</xsl:text>
-                      </span>
-                      <span id="default_mathml_msg2">
-                        <!-- See our -->
-                        <xsl:text> See our</xsl:text>
-                        <xsl:text> </xsl:text>
-                        <a href="{publishing/portal/@href}/help/techsupport/browsers">
-                          <!-- browser support page -->
-                          <xsl:text>browser support page</xsl:text>
-                        </a>
-                        <xsl:text> </xsl:text>
-                        <!-- for additional details. -->
-                        <xsl:text>for additional details.</xsl:text>
-                        <xsl:text> </xsl:text>
-                        <!-- You can always view the correct math in the -->
-                        <xsl:text>You can always view the correct math in the </xsl:text>
-                        <xsl:text> </xsl:text>
-                        <a href="{display/print/@href}">
-                          <!-- PDF version -->
-                          <xsl:text>PDF version</xsl:text>
-                        </a>
-                        <!-- . -->
-                        <xsl:text>.</xsl:text>
-                      </span>
-                      <xsl:if test="not(//*/m:menclose) and (display/mathmlmsgbrowser = 'firefox3' or display/mathmlmsgbrowser = 'firefox2')">
-                        <div id="cnx_display_ff_msg_link">
-                          <xsl:attribute name="style">
-                		        <xsl:choose>
-                			        <xsl:when test="(display/mathmlmsgbrowser = 'firefox2' or display/mathmlmsgbrowser = 'firefox3') and (display/displaymathmlmsg = 'nag')">display: block; text-align: right;</xsl:when>
-                		          <xsl:otherwise>display: none; text-align: right;</xsl:otherwise>
-                			      </xsl:choose>
-                		      </xsl:attribute>
-                          <a href="javascript:toggleMathMLMsg('display');">
-                            <!-- (Show MathML examples) -->
-                            <xsl:text>(Show MathML examples)</xsl:text>
-                          </a>
-                        </div>
-                      </xsl:if>
-                    </p>
-                    
-                    <xsl:if test="not(//*/m:menclose) and (display/mathmlmsgbrowser = 'firefox3' or display/mathmlmsgbrowser = 'firefox2')">
-                    <div id="ff_mathml_msg2" style="display:none">
-                      <xsl:attribute name="style">
-            		        <xsl:choose>
-            			        <xsl:when test="(display/mathmlmsgbrowser = 'firefox2' or display/mathmlmsgbrowser = 'firefox3') and (display/displaymathmlmsg = 'display')">display: block;</xsl:when>
-            		          <xsl:otherwise>display: none;</xsl:otherwise>
-            			      </xsl:choose>
-            		      </xsl:attribute>
-                    <p class="cnx_warning_text">
-                      <!-- If the two examples below are mathematically the same, your browser is correctly displaying MathML, and you can -->
-                      <xsl:text>If the two examples below are mathematically the same, your browser is correctly displaying MathML, and you can</xsl:text>
-                      <xsl:text> </xsl:text>
-                      <a href="javascript:toggleMathMLMsg('dismiss');">
-                        <!-- dismiss this message -->
-                        <xsl:text>dismiss this message</xsl:text>
-                      </a>
-                      <!-- . -->
-                      <xsl:text>.</xsl:text>
-                    </p>
-                    <table border="0" align="center">
-                      <tbody>
-                        <tr>
-                          <th style="padding-right: .25em;">
-                            <!-- Example 1: -->
-                            <xsl:text>Your Browser's Rendering:</xsl:text>
-                          </th>
-                          <td>
-                            <!--Begin MathML Sample-->
-                            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                             <mrow>
-                               <mstyle>
-                                 <mfrac>
-                                   <msqrt>
-                                     <mrow>
-                                       <mfrac>
-                                         <mi>1</mi>
-                                         <mi>2</mi>
-                                       </mfrac>
-                                     </mrow>
-                                   </msqrt>
-                                   <msqrt>
-                                     <msup>
-                                       <mrow>
-                                         <mi>f</mi>
-                                         <mo>(</mo>
-                                         <mrow>
-                                           <mi>x</mi>
-                                           <mo>+</mo>
-                                           <mi>y</mi>
-                                         </mrow>
-                                         <mo>)</mo>
-                                       </mrow>
-                                       <mstyle color="gray">
-                                         <mn>2</mn>
-                                       </mstyle>
-                                     </msup>
-                                   </msqrt>
-                                 </mfrac>
-                               </mstyle>
-                               <mfrac>
-                                 <msqrt>
-                                   <mn>1</mn>
-                                 </msqrt>
-                                 <mrow>
-                                   <mn>2</mn>
-                                 </mrow>
-                               </mfrac>
-                               <mo>&#x2329;<!-- Left bracket --></mo>
-                               <mi>&#x211D;</mi>
-                               <mo>&#x232a;<!-- Right bracket --></mo>
-                             </mrow>
-                            </math> 
-                            <!--End MathML Sample-->
-                          </td>
-                          <th style="padding: 0 .25em 0 2em;">
-                            <!-- Example 2: -->
-                            <xsl:text>Correct Rendering:</xsl:text>
-                          </th>
-                          <td>
-                            <img src="/mathmlSample.png" id="cnx_mathml_example" alt="MathML example" align="center"/>
-                          </td>
-                          <td style="padding: 0 .25em 0 2em;">
-                            <a href="javascript:toggleMathMLMsg('hide');">
-                              <!-- (Hide this message) -->
-                              <xsl:text>(Hide examples)</xsl:text>
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </div>
-                    </xsl:if>
-                  </div>
-                </div>
-          </xsl:if>
-        </xsl:if>
 
 	      <xsl:if test="not(publishing/version/@latest='true') and not(display/context)">
 		<div class="cnx_warning">
@@ -1778,11 +1577,11 @@
               </ul>
             </xsl:if>
 
-            <xsl:if test="not(display/offline)">
-
+            <div id="cnx_actions_bottom">
+              <xsl:if test="not(display/offline)">
                 <xsl:apply-templates select="structure/contentactionsbottom/*|structure/contentactionsbottom/@*"/>
-
-            </xsl:if>
+              </xsl:if>
+            </div>
 
 	    <div id="cnx_footer">
 
@@ -1953,7 +1752,6 @@
       </div>
 
     </div>
-
   </xsl:template>
 
   <!-- MP3 (Gallery style) -->
@@ -2110,6 +1908,49 @@
     </xsl:attribute>
   </xsl:template>
 
+  <!-- branding banners -->
+  <xsl:template match="/module/display/branding">
+    <div class="cnx_branding_banner">
+      <xsl:attribute name="style">display: none; background-color:#<xsl:value-of select="@bannerColor"/>;color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@category='Endorsement'">
+          Content endorsed by:
+        </xsl:when>
+        <xsl:when test="@category='Affiliation'">
+          Content affiliated with:
+        </xsl:when>
+        <xsl:otherwise>
+          Content included in lens:
+        </xsl:otherwise>
+      </xsl:choose>
+      <a>
+        <xsl:attribute name="href">
+          <xsl:value-of select="@location"/>
+        </xsl:attribute>
+        <xsl:attribute name="style">color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
+        <xsl:value-of select="@title"/>
+      </a>
+    </div>
+  </xsl:template>
+
+  <!-- branding logos -->
+  <xsl:template match="/module/display/branding/@logo">
+    <div class="cnx_branding_logo" style="display: none;">
+      <a>
+          <xsl:attribute name="href">
+            <xsl:value-of select="../@location"/>
+          </xsl:attribute>
+        <img>
+          <xsl:attribute name="src">
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+          <xsl:attribute name="alt">
+            <xsl:value-of select="../@title"/>
+          </xsl:attribute>
+        </img>
+      </a>
+    </div>
+  </xsl:template>
 
   <!-- Lens entries -->
   <xsl:template name="lens">
@@ -2672,6 +2513,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
 
 </xsl:stylesheet>

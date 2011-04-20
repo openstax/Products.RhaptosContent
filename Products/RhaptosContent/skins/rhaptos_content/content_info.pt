@@ -34,8 +34,11 @@
     <div id="cnx_main" tal:define="authors python:map(here.desecured.getMemberById, path('here/authors'));
                                    object_url string:${context/portal_url}/content/${objectId}/${here/version}/;">
 
-      <p>
-        <a class="cnxn" href="." i18n:translate="label_view_content_main">View content</a>
+      <p id="cnx_view_content">
+        <span i18n:translate="label_view_content_main">View the content:</span>
+        <a class="cnxn" href="."><img tal:condition="python:inCollection" src="/repository_icon.gif" alt=""/><img tal:condition="python:inModule" src="/module_icon.gif" alt=""/></a>
+        <a class="cnxn" href=".">
+          <span tal:replace="here/Title">[Content Title]</span>
       </p>
 
       <div class="section" id="cnx_about_section">
@@ -58,7 +61,7 @@
 	      <span tal:condition="lang" tal:replace="string:(${lang})">[language code]</span>
 	    </td>
 	</tr>
-	<tr>
+	<tr tal:condition="here/abstract">
 	  <td valign="top" class="cnx_before" i18n:translate="text_abstract_header">Summary:</td>
           <td valign="top" tal:content="structure context/abstract_render">[abstract]</td>
 	</tr>
@@ -76,7 +79,7 @@
 	  <td valign="top">
 			<tal:block tal:repeat="subj subjects"><span tal:replace="subj">[keyword]</span><tal:span tal:condition="not:repeat/subj/end">, </tal:span></tal:block></td>
 	</tr>
-	<tr>
+	<tr tal:condition="here/keywords | nothing">
 	  <td valign="top" class="cnx_before" i18n:translate="text_keywords_header">Keywords:</td>
 	  <td valign="top">
 			<tal:block tal:repeat="word here/keywords"><span tal:replace="word">[keyword]</span><tal:span tal:condition="not:repeat/word/end">, </tal:span></tal:block></td>
