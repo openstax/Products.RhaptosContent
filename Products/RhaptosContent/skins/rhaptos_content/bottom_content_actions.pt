@@ -69,15 +69,16 @@
            tal:condition="mod"
            tal:define="contentId module/objectId|nothing;
                        collId collection/objectId|nothing;
-                       url string:$portal_url/content/$contentId/latest/;
-                       url python:col and url+'?collection='+collId or url;
+                       counturl string:$portal_url/content/$contentId/latest/;
+                       url python:col and counturl+'?collection='+collId or counturl;
                        escapedUrl python:url_quote(url);
+                       escapedCountUrl python:url_quote(counturl);
                        title mod/Title | mod/title | nothing;
                        esctitle python:url_quote(title);">
         <h4 i18n:translate="label_share_module">Share module:</h4>
         <span class="cnx_twitter">
           <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
-                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
+                  tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl}&amp;counturl=${escapedCountUrl};
                               viastr python:isCNX and '&amp;via=cnxorg' or '';"
                   tal:attributes="src string:${srcbase}${viastr}">
           </iframe>
