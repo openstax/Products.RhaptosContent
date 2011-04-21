@@ -1855,34 +1855,63 @@
 
   </xsl:template>
 
-  <!-- MP3 (Gallery style) -->
-  <xsl:template match="cnx:media[@type='audio/mpeg']|cnx:audio[@mime-type='audio/mpeg']"> 
+  <!-- MP3 (Gallery style) (cnxml version 0.5 and below) -->
+  <!-- This overrides the template in media.xsl.  Instead of putting the 'id' on in-flow element, it feeds it through to the JS function. -->
+  <xsl:template match="cnx:media[@type='audio/mpeg']">
     <xsl:choose>
       <xsl:when test="$xsl_gallery">
-        <xsl:variable name="id">
-          <xsl:choose>
-            <xsl:when test="self::cnx:media">
-              <xsl:value-of select="@id"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="parent::cnx:media/@id"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-	<div class="media example musical">
-	  <span class="cnx_label">
-            <!-- Musical Example -->
-            <xsl:text>Musical Example</xsl:text>:
+        <div class="media audio">
+          <span class="cnx_label">
+            <!--Musical Example:-->
+            <xsl:call-template name="gentext">
+              <xsl:with-param name="key">MusicalExample</xsl:with-param>
+              <xsl:with-param name="lang" select="/module/metadata/language"/>
+            </xsl:call-template>:
           </span>
-	  <a class="cnxn" href="javascript:toggleBar('{$id}')">
-	    <xsl:call-template name="composer-title-comments"/>
-	  </a>
-	</div>
+          <a class="cnxn" href="javascript:toggleBar('{@id}')">
+            <xsl:call-template name="composer-title-comments"/>
+          </a>
+        </div>
       </xsl:when>
-      <xsl:otherwise><xsl:apply-imports/></xsl:otherwise>
+      <xsl:otherwise>
+        <xsl:apply-imports/>
+      </xsl:otherwise>       
     </xsl:choose>
   </xsl:template>
-  
+
+  <!-- MP3 AUDIO (Tony Brandt) (cnxml version 0.6+) -->
+  <!-- This overrides the template in media.xsl.  Instead of putting the 'id' on in-flow element, it feeds it through to the JS function. -->
+  <xsl:template match="cnx:audio[@mime-type='audio/mpeg']">
+    <xsl:choose>
+      <xsl:when test="$xsl_gallery">
+        <span class="media">
+          <xsl:if test="parent::cnx:media/@display">
+            <xsl:attribute name="class">
+              <xsl:text>media </xsl:text> 
+              <xsl:value-of select="parent::cnx:media/@display"/>
+            </xsl:attribute>
+          </xsl:if>
+          <span class="audio">
+            <xsl:call-template name="IdCheck"/>
+            <span class="cnx_label">
+              <!--Musical Example:-->
+              <xsl:call-template name="gentext">
+                <xsl:with-param name="key">MusicalExample</xsl:with-param>
+                <xsl:with-param name="lang" select="/module/metadata/language"/>
+              </xsl:call-template>:
+            </span>
+            <a class="cnxn" href="javascript:toggleBar('{parent::cnx:media/@id}')">
+              <xsl:call-template name="composer-title-comments"/>
+            </a>
+          </span>
+        </span>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-imports/>
+      </xsl:otherwise>       
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="tt">
     <xsl:if test="cnx:param[@name='total-time' and normalize-space(@value)!='']">
       <xsl:variable name="tt-number" select="number(cnx:param[@name='total-time']/@value)"/>

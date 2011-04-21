@@ -312,10 +312,16 @@ p.table-caption{
   margin-top: -1.8em;
 }
 
-.musical, .labview{
-  border: 0;
+/* =========== <media> =========== */
+
+div.media, .block{
+  display: block;
+  margin: .5em 0; 
   text-align: center;
-  margin: 0;
+}
+
+.none{
+  display: none;
 }
 
 /* ============ <glossary> ============ */
