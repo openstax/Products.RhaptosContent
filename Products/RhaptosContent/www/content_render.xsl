@@ -1855,8 +1855,13 @@
 
   </xsl:template>
 
-  <!-- MP3 (Gallery style) (cnxml version 0.5 and below) -->
-  <!-- This overrides the template in media.xsl.  Instead of putting the 'id' on in-flow element, it feeds it through to the JS function. -->
+  <!-- 
+    MP3 AUDIO (Tony Brandt Gallery style). These override less specific templates in media.xsl.  
+    Customizations:
+    - Instead of putting the "id" on in-flow element, it feeds it through to the JS function. 
+    - It creates a label of "Musical Example:" instead of "Audio File:"
+  -->
+  <!-- (cnxml version 0.5 and below) -->
   <xsl:template match="cnx:media[@type='audio/mpeg']">
     <xsl:choose>
       <xsl:when test="$xsl_gallery">
@@ -1878,9 +1883,7 @@
       </xsl:otherwise>       
     </xsl:choose>
   </xsl:template>
-
-  <!-- MP3 AUDIO (Tony Brandt) (cnxml version 0.6+) -->
-  <!-- This overrides the template in media.xsl.  Instead of putting the 'id' on in-flow element, it feeds it through to the JS function. -->
+  <!-- (cnxml version 0.6+) -->
   <xsl:template match="cnx:audio[@mime-type='audio/mpeg']">
     <xsl:choose>
       <xsl:when test="$xsl_gallery">
