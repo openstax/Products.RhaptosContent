@@ -2,10 +2,11 @@
             tal:define="contenttype context/content_type_decide;
                         mimetype python: '%s;; charset=utf-8' % contenttype[1];
                         dtd python:context.dtdmapping(contenttype[0]);
-                        dummy python:request.RESPONSE.setHeader('Content-Type', mimetype)">
-<span tal:replace="structure dtd" />
+                        dummy python:request.RESPONSE.setHeader('Content-Type', mimetype)"
+><span tal:replace="structure dtd" />
 
   <tal:comment replace="nothing">
+  the above tal:replace needs to not have whitespace in front of it. Ross
   i18n by maxwell
   </tal:comment>
 
