@@ -13,8 +13,4 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <browser:resourceDirectory
-      name="mathjax"
-      directory="static/mathjax"
-      />
 </configure>
