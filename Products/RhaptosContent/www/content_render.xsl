@@ -19,7 +19,7 @@
   <!-- Don't actually display gallery if there are no mpegs -->
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
-  <xsl:param name="modern-textbook" select="1"/>
+  <xsl:param name="modern-textbook" select="0"/>
   <xsl:param name="intro-module">
     <xsl:call-template name="class-test">
       <xsl:with-param name="provided-class" select="/module/cnx:document/@class"/>
