@@ -1241,6 +1241,17 @@
                 <xsl:text>here.</xsl:text>
               </xsl:if>
                           </p>
+
+              <xsl:if test="$modern-textbook">
+                <p class="cnx_warning_text">
+                  <span class="cnx_before">
+                    "Modern Textbook" note:
+                  </span>
+                  You are previewing this module in the "Modern Textbook" style.  When you publish the module, 
+                  it will only display in the "Modern Textbook" style when in the context of a collection that 
+                  has the "Modern Textbook" parameter set.
+                </p>
+              </xsl:if>
             </div>
           </xsl:if>
         </xsl:if>
