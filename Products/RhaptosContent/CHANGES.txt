@@ -1,3 +1,7 @@
+RhaptosContent-0.59
+  - implement separate counturl for twitter
+  - factor mathjax into its own package
+
 RhaptosContent-0.58
   - caching
 
