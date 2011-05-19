@@ -550,7 +550,7 @@
         <xsl:if test="publishing/portal/@isCNX='true'">
           <li>
             <a href="{publishing/portal/@href}/aboutus/cnx_donate">
-                <img src="{publishing/portal/@href}/cnx-donate-button.png" style="vertical-align: middle;"/>
+                <img src="{publishing/portal/@href}/cnx-donate-button.png" alt="donate button" style="vertical-align: middle;"/>
             </a>
           </li>
         </xsl:if>
