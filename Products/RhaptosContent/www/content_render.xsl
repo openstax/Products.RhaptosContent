@@ -562,8 +562,8 @@
         </xsl:if>
         <xsl:if test="publishing/portal/@isCNX='true'">
           <li>
-            <a href="/aboutus/cnx_donate">
-              <img src="cnx-donate-button.png" style="vertical-align: middle;"/>
+            <a href="{publishing/portal/@href}/aboutus/cnx_donate">
+                <img src="{publishing/portal/@href}/cnx-donate-button.png" alt="donate button" style="vertical-align: middle;"/>
             </a>
           </li>
         </xsl:if>
