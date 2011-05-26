@@ -70,7 +70,7 @@
            tal:define="contentId module/objectId|nothing;
                        collId collection/objectId|nothing;
                        counturl string:$portal_url/content/$contentId/latest/;
-                       url python:col and counturl+'?collection='+collId or counturl;
+                       url python:col and collId and counturl+'?collection='+collId or counturl;
                        escapedUrl python:url_quote(url);
                        escapedCountUrl python:url_quote(counturl);
                        title mod/Title | mod/title | nothing;
