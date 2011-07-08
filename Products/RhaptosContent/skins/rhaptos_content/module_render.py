@@ -14,6 +14,12 @@ from Products.RhaptosContent import MODULE_XSL
 # Get course options
 kw.update(context.getCourseParameters())
 
+# If a style parameter is set, use it
+# Unfortunately the XSLT currently uses the name 'modern-textbook' instead of the value
+style = context.REQUEST.get('style', None)
+if style:
+  kw[style] = 1
+
 source = context.module_export_template(**kw)
 
 # Default XSL stylesheet
