@@ -51,6 +51,12 @@
                        esctitle python:url_quote(title);
                        escapedUrl python:url_quote(url);">
         <h4 i18n:translate="label_share_collection">Share collection:</h4>
+        <span class="cnx_google">
+          <div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none;">
+            <iframe width="100%" scrolling="no" frameborder="0" vspace="0" tabindex="-1" style="position: static; left: 0pt; top: 0pt; width: 90px; height: 20px; visibility: visible;"
+  tal:attributes="src string:https://plusone.google.com/u/0/_/+1/button?hl=en-US&amp;url=$escapedUrl&amp;size=medium&amp;count=true&amp;parent=http%3A%2F%2Fcnx.org" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"> </iframe>
+          </div>
+        </span>
         <span class="cnx_twitter">
           <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
                   tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl};
@@ -76,6 +82,12 @@
                        title mod/Title | mod/title | nothing;
                        esctitle python:url_quote(title);">
         <h4 i18n:translate="label_share_module">Share module:</h4>
+        <span class="cnx_google">
+          <div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none;">
+            <iframe width="100%" scrolling="no" frameborder="0" vspace="0" tabindex="-1" style="position: static; left: 0pt; top: 0pt; width: 90px; height: 20px; visibility: visible;"
+  tal:attributes="src string:https://plusone.google.com/u/0/_/+1/button?hl=en-US&amp;url=$escapedUrl&amp;size=medium&amp;count=true&amp;parent=http%3A%2F%2Fcnx.org" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"> </iframe>
+          </div>
+        </span>
         <span class="cnx_twitter">
           <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button"
                   tal:define="srcbase string:http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=${esctitle}&amp;url=${escapedUrl}&amp;counturl=${escapedCountUrl};
