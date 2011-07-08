@@ -244,6 +244,8 @@
             }
         </script>
 
+
+        
       </head>
       
       <body onload="constructHintCounter(); togglerInitialSettings();" id="cnx_module">
@@ -1245,17 +1247,24 @@
 -->
 
               <xsl:if test="publishing/state[text()='public']">
-                <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
-                  <span class="cnx_facebook">
-                    <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
-                            scrolling="no" frameborder="0" allowtransparency="true">
+                <div class="cnx_social_media" id="cnx_social_media_top" style="display:none">
+                  
+		<span class="cnx_facebook">
+                  <iframe 
+src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
+                           scrolling="no" frameborder="0" allowtransparency="true">
                       <xsl:text> </xsl:text>
                     </iframe>
                   </span>
+
                   <span class="cnx_twitter">
-                    <iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button">
+<iframe scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-count-horizontal" title="Tweet Button">
+
+
                       <xsl:attribute name="src">
-                        <xsl:text>http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=</xsl:text>
+                        
+<xsl:text>http://platform.twitter.com/widgets/tweet_button.html?count=horizontal&amp;lang=en&amp;text=</xsl:text>
+
                         <xsl:value-of select="$moduletitle"/>
                         <xsl:text>&amp;url=</xsl:text>
                         <xsl:value-of select="$social-url-escaped"/>
@@ -1268,7 +1277,14 @@
                       <xsl:text> </xsl:text>
                     </iframe>
                   </span>
+
+ 		  <span class="cnx_google">
+                    <div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none;">
+                      <iframe width="100%" scrolling="no" frameborder="0" vspace="0" tabindex="-1" style="position: static; left: 0pt; top: 0pt; width: 90px; height: 20px; visibility: visible;" src="https://plusone.google.com/u/0/_/+1/button?hl=en-US&amp;url={$social-url-escaped}&amp;size=medium&amp;count=true&amp;parent=http%3A%2F%2Fcnx.org" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"><xsl:text> </xsl:text></iframe>
+                    </div>
+                  </span>
                 </div>
+
               </xsl:if>
 
               <h1 id="cnx_content_title">
