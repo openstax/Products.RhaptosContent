@@ -112,9 +112,9 @@
 	  <td valign="top">
 	    <span class="cnx_person" tal:repeat="m authors">
 		<tal:badauthor tal:on-error="string:(${m})">
-		<a tal:content="python:m.getProperty('fullname')"
+		<a tal:content="m/fullname"
 		tal:attributes="href string:/member_profile/${m/id}">[fullname]</a>
-		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/m/end">, </span>
+		(<a class="cnx_person" tal:define="email m/email" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/m/end">, </span>
 	    </span>
 	  </td>
 	</tr>
@@ -124,9 +124,9 @@
 	    <span class="cnx_person" tal:repeat="p here/licensors">
 	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
 		<tal:badauthor tal:on-error="string:(${p})">
-		<a tal:content="python:m.getProperty('fullname')"
+		<a tal:content="m/fullname"
 		tal:attributes="href string:/member_profile/${m/id}">[fullname] </a>
-		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">mizar@rice.edu</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+		(<a class="cnx_person" tal:define="email m/email" tal:attributes="href string:mailto:${email}" tal:content="email">mizar@rice.edu</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
 	      </tal:person>
 	    </span>
 	  </td>
@@ -137,9 +137,9 @@
 	    <span class="cnx_person" tal:repeat="p here/maintainers">
 	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
 		<tal:badauthor tal:on-error="string:(${p})">
-		<a tal:content="python:m.getProperty('fullname')"
+		<a tal:content="m/fullname"
 		tal:attributes="href string:/member_profile/${m/id}">[fullname]</a>
-		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+		(<a class="cnx_person" tal:define="email m/email" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
 	      </tal:person>
 	    </span>
 	  </td>
@@ -152,9 +152,9 @@
               <span class="cnx_person" tal:repeat="p python:role[1]">
                 <tal:person tal:define="m python:here.desecured.getMemberById(p)">
                   <tal:badauthor tal:on-error="string:(${p})">
-                    <a tal:content="python:m.getProperty('fullname')"
+                    <a tal:content="m/fullname"
                       tal:attributes="href string:/member_profile/${m/id}">[name]</a>
-                    (<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+                    (<a class="cnx_person" tal:define="email m/email" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
                 </tal:person>
               </span>
             </td>
@@ -200,8 +200,8 @@
 	      <span class="cnx_person" tal:repeat="p here/parentAuthors">
 	      <tal:person tal:define="m python:here.desecured.getMemberById(p)">
 		<tal:badauthor tal:on-error="string:(${p})">
-		<span tal:content="python:m.getProperty('fullname')">[fullname]</span>
-		(<a class="cnx_person" tal:define="email python:m.getProperty('email')" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
+		<span tal:content="m/fullname">[fullname]</span>
+		(<a class="cnx_person" tal:define="email m/email" tal:attributes="href string:mailto:${email}" tal:content="email">[email]</a>)</tal:badauthor><span tal:condition="not:repeat/p/end">, </span>
 	      </tal:person>
 	      </span>
 	    </td>
@@ -425,7 +425,7 @@
 		  <span i18n:translate="text_by">by</span> 
 		  <span tal:define="user revision/submitter | nothing; 
 		  member python:user and here.desecured.getMemberById(user);
-		  name python:member and member.getProperty('fullname') or '(Unknown)'">
+		  name python:member and member.fullname or '(Unknown)'">
 		  <a tal:condition="python:member" 
 		    tal:content="name" tal:attributes="href string:/member_profile/${user}">[submitter]</a>
 		  <span tal:condition="python:not member" tal:define="user python:user or 'Unknown'"
@@ -465,7 +465,7 @@
 			<ul class="bullet">
 	    		<li i18n:translate="text_authors_names"><span  class="cnx_before">the authors' names:  </span>
                   <tal:person tal:repeat="m authors"> 
-                  <tal:definitions tal:define="surname python:m.getProperty('surname'); firstname python:m.getProperty('firstname')">
+                  <tal:definitions tal:define="surname m/surname; firstname m/firstname)">
                         <tal:span tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span tal:condition="python:len(authors) > 1 and path('not:repeat/m/end')">, </tal:span>
                   </tal:definitions>
                 </tal:person>
@@ -494,8 +494,8 @@
 	  <h3 i18n:translate="heading_acs_citation_style">American Chemical Society (ACS) Style Guide:</h3>
 	  <p class="cnx_cite">
 	    <tal:span tal:repeat="m authors">
-	      <tal:person tal:define="surname python:m.getProperty('surname');
-				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+	      <tal:person tal:define="surname m/surname;
+				      firstinitial python:m.firstname and ', %s' % m.firstname[0]" 
 			  tal:content="string:${surname}${firstinitial}.">[surname, f.]</tal:person><tal:span tal:condition="not:repeat/m/end">; </tal:span>
 
 	  </tal:span>
@@ -509,8 +509,8 @@
 	  <h3 i18n:translate="heading_ama_citation_style">American Medical Assocation (AMA) Manual of Style:</h3>
 	  <p class="cnx_cite">
             <tal:person tal:repeat="m authors">
-              <tal:definitions tal:define="surname python:m.getProperty('surname');
-	      firstinitial python:m.getProperty('firstname') and ' %s' % m.getProperty('firstname')[0]" >
+              <tal:definitions tal:define="surname m/surname;
+	      firstinitial python:m.firstname and ' %s' % m.firstname[0]" >
 		<tal:span tal:condition="python:len(authors) &lt; 7" 
 			  tal:content="string:${surname}${firstinitial}">[surname f]</tal:span><tal:span
 			  tal:condition="python:path('not:repeat/m/end') and len(authors) &lt; 7">, </tal:span><tal:span 
@@ -532,8 +532,8 @@
 	  <p class="cnx_cite">
 	    <tal:person tal:repeat="m authors">
 	      <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> &amp; </tal:span>
-	      <tal:span tal:define="surname python:m.getProperty('surname');
-				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+	      <tal:span tal:define="surname m/surname;
+				      firstinitial python:m.firstname and ', %s' % m.firstname[0]" 
 			tal:content="string:${surname}${firstinitial}.">[surname, f.]</tal:span><tal:span
 			tal:condition="not:repeat/m/end">, </tal:span>
 	    </tal:person>
@@ -550,8 +550,8 @@
 	  <p class="cnx_cite">
             <tal:person tal:repeat="m authors">
               <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
-              <tal:definitions tal:define="surname python:m.getProperty('surname');
-					   firstname python:m.getProperty('firstname')">
+              <tal:definitions tal:define="surname m/surname;
+					   firstname m/firstname">
 		<tal:span tal:condition="repeat/m/start" 
 			  tal:content="python:surname + test(firstname,', %s'%firstname,'')">[surname, firstname]</tal:span><tal:span 
 			  tal:condition="python:len(authors) > 1 and path('repeat/m/start')">, </tal:span><tal:span 
@@ -569,8 +569,8 @@
 	  <p class="cnx_cite">
 	    <tal:person tal:repeat="m authors">
 	      <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
-	      <tal:definitions tal:define="surname python:m.getProperty('surname');
-					   firstname python:m.getProperty('firstname')">
+	      <tal:definitions tal:define="surname m/surname;
+					   firstname m/firstname">
 		<tal:span tal:condition="python:len(authors) &lt; 4">
 		  <tal:span tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span 
 			    tal:condition="python:len(authors) == 3 or path('repeat/m/end')">, </tal:span>
@@ -592,8 +592,8 @@
 	  <p class="cnx_cite">
             <tal:person tal:repeat="m authors">
               <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> &amp; </tal:span>
-              <tal:span tal:define="surname python:m.getProperty('surname');
-				      firstinitial python:m.getProperty('firstname') and ', %s' % m.getProperty('firstname')[0]" 
+              <tal:span tal:define="surname m/surname;
+				      firstinitial python:m.firstname and ', %s' % m.firstname[0]" 
                         tal:content="string:${surname}${firstinitial}.">[surname, i.]</tal:span><tal:span
                         tal:condition="not:repeat/m/end">, </tal:span>
             </tal:person>
@@ -611,8 +611,8 @@
 	  <p class="cnx_cite">
             <tal:person tal:repeat="m authors">
               <tal:span tal:condition="python:len(authors) > 1 and path('repeat/m/end')"> and </tal:span>
-              <tal:definitions tal:define="surname python:m.getProperty('surname');
-					   firstname python:m.getProperty('firstname')">
+              <tal:definitions tal:define="surname m/surname;
+					   firstname m/firstname">
 		<tal:span tal:condition="repeat/m/start" 
 			  tal:content="python:surname + test(firstname,', %s'%firstname,'')">[surname, firstname]</tal:span><tal:span 
 			  tal:condition="python:len(authors) > 1 and path('repeat/m/start')">, </tal:span><tal:span 

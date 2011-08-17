@@ -1,3 +1,6 @@
+RhaptosContent-0.60
+  - handle authors w/o a member account
+
 RhaptosContent-0.59
   - implement separate counturl for twitter
   - factor mathjax into its own package
