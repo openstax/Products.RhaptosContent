@@ -465,7 +465,7 @@
 			<ul class="bullet">
 	    		<li i18n:translate="text_authors_names"><span  class="cnx_before">the authors' names:  </span>
                   <tal:person tal:repeat="m authors"> 
-                  <tal:definitions tal:define="surname m/surname; firstname m/firstname)">
+                  <tal:definitions tal:define="surname m/surname; firstname m/firstname">
                         <tal:span tal:content="string:${firstname} ${surname}">[firstname surname]</tal:span><tal:span tal:condition="python:len(authors) > 1 and path('not:repeat/m/end')">, </tal:span>
                   </tal:definitions>
                 </tal:person>
