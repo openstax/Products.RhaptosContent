@@ -1,3 +1,6 @@
+RhaptosContent-0.60.1
+  - fix a typo in previous version
+
 RhaptosContent-0.60
   - handle authors w/o a member account
 
