@@ -19,7 +19,7 @@
   <!-- Don't actually display gallery if there are no mpegs -->
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
-  <xsl:param name="modern-textbook" select="0"/>
+  <xsl:param name="customize-style" select="''"/>
   <xsl:param name="intro-module">
     <xsl:call-template name="class-test">
       <xsl:with-param name="provided-class" select="/module/cnx:document/@class"/>
@@ -191,7 +191,7 @@
 	<xsl:if test="$xsl_gallery">
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/gallery.css" media="screen"/>
 	</xsl:if>
-	<xsl:if test="$modern-textbook">
+	<xsl:if test="$customize-style != ''">
 	  <link rel="stylesheet" type="text/css" href="{$stylesheet_path}/modern-textbook.css" media="screen"/>
 	</xsl:if>
 
@@ -257,7 +257,7 @@
       </head>
       
       <body onload="constructHintCounter(); togglerInitialSettings();" id="cnx_module">
-        <xsl:if test="$intro-module='1' and $modern-textbook">
+        <xsl:if test="$intro-module='1' and $customize-style != ''">
           <xsl:attribute name="class">introduction</xsl:attribute>
         </xsl:if>
 
@@ -1242,7 +1242,7 @@
               </xsl:if>
                           </p>
 
-              <xsl:if test="$modern-textbook">
+              <xsl:if test="$customize-style != ''">
                 <p class="cnx_warning_text">
                   <span class="cnx_before">
                     "Modern Textbook" note:
@@ -1296,7 +1296,7 @@
               </xsl:if>
 
               <h1 id="cnx_content_title">
-                <xsl:if test="$intro-module='1' and $modern-textbook">
+                <xsl:if test="$intro-module='1' and $customize-style != ''">
                   <span class="cnx_before">
                     <xsl:text>Module: </xsl:text>
                   </span>
@@ -1470,7 +1470,7 @@
 
             <!-- Banner showing chapter number and title for 'Modern Textbook' introduction modules. -->
             <xsl:for-each select="display/context/navigation/ul//li[@id=$objectId]">
-              <xsl:if test="$intro-module='1' and $modern-textbook and ancestor::li">
+              <xsl:if test="$intro-module='1' and $customize-style != '' and ancestor::li">
                 <div id="cnx_chapter_intro_banner">
                   <span id="cnx_chapter_intro_banner_number">
                     <xsl:number count="display/context/navigation/ul//li[ul]" level="multiple"/>
@@ -1493,7 +1493,7 @@
             </xsl:for-each>
 
             <!-- Splash image for 'Modern Textbook' introduction modules. -->
-            <xsl:if test="$intro-module='1' and $modern-textbook">
+            <xsl:if test="$intro-module='1' and $customize-style != ''">
               <xsl:for-each select="cnx:document//cnx:figure[@class='splash' and cnx:media/cnx:image[not(@for='pdf')]][1]">
                 <div id="cnx_splash">
                   <div id="cnx_splash_image">
@@ -1582,7 +1582,7 @@
 	      </div>
 	    </xsl:if>
 
-            <xsl:if test="$intro-module='1' and $modern-textbook">
+            <xsl:if test="$intro-module='1' and $customize-style != ''">
               <div id="cnx_intro_title">
                 <h1>
                   <xsl:value-of select="$moduletitle"/>
