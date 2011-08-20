@@ -1279,7 +1279,7 @@
                 <span class="cnx_before"><!-- Module by: -->
                   <xsl:text>Module by:</xsl:text>
                 </span>
-                <div class="lensinfowrap">
+                <span class="lensinfowrap">
                 <xsl:text> </xsl:text>
                 <xsl:for-each select="metadata/author">
                   <a class="lenslink" href="{publishing/portal/@href}/member_profile/{@id}">
@@ -1293,11 +1293,11 @@
                   </xsl:if>
                   <xsl:text> </xsl:text>
                 </xsl:for-each>
-                    <div class="lensinfo hiddenStructure">
+                    <span class="lensinfo hiddenStructure">
                                  <span id="cnx_authorship_info"></span>
 
-                    </div>
-                   </div>
+                    </span>
+                   </span>
 
                 <xsl:text> </xsl:text>
                 <xsl:call-template name="emailtheauthor">
