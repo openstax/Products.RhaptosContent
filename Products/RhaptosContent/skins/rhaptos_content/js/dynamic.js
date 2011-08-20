@@ -497,6 +497,22 @@ Ext.onReady(function(e) {
     }
 });
 
+//* Dynamically replace the user profile
+var profileUpdater;
+var profileReplace = function(e) {
+    if(!profileUpdater){
+        // Get the recently viewed HTML. Used only when viewing a module or a collection
+        // Uses magic global variable portal_url defined in main_template
+        profileUpdater = Ext.get('cnx_authorship_info').getUpdateManager();
+        profileUpdater.update({url:portal_url+"/profile_portlet_inner",
+                               params:{author:'manager1'}});// NEED TO MAKE DYNAMIC XXX
+    }
+}
+
+Ext.onReady(function(e) {
+        profileReplace(null);
+});
+
 var reuse_edit_dialog;  // global which enables closing of window
 
 var afterLoadReuseEdit = function(oElement, bSuccess, oResponse){

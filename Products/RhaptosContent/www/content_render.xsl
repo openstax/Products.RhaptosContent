@@ -1279,9 +1279,10 @@
                 <span class="cnx_before"><!-- Module by: -->
                   <xsl:text>Module by:</xsl:text>
                 </span>
+                <div class="lensinfowrap">
                 <xsl:text> </xsl:text>
                 <xsl:for-each select="metadata/author">
-                  <a href="{publishing/portal/@href}/member_profile/{@id}">
+                  <a class="lenslink" href="{publishing/portal/@href}/member_profile/{@id}">
                     <xsl:value-of select="name"/>
                   </a>
                   <xsl:if test="position()!=last()">
@@ -1292,6 +1293,12 @@
                   </xsl:if>
                   <xsl:text> </xsl:text>
                 </xsl:for-each>
+                    <div class="lensinfo hiddenStructure">
+                                 <span id="cnx_authorship_info"></span>
+
+                    </div>
+                   </div>
+
                 <xsl:text> </xsl:text>
                 <xsl:call-template name="emailtheauthor">
                   <xsl:with-param name="atbottom">0</xsl:with-param>
