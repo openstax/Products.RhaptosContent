@@ -502,6 +502,11 @@ var profileUpdater;
 var profileReplace = function(e) {
     if(!profileUpdater){
         // Get the recently viewed HTML. Used only when viewing a module or a collection
+        authors = Ext.query('.lenslink','cnx_authorship')
+
+        // retrieve the author id 
+        author = authors[0].pathname.split('/').pop()
+        
         // Uses magic global variable portal_url defined in main_template
         var profileId = Ext.get('cnx_authorship_info');
 
@@ -512,7 +517,7 @@ var profileReplace = function(e) {
 
 	profileUpdater = profileId.getUpdateManager();
         profileUpdater.update({url:portal_url+"/profile_portlet_inner",
-                               params:{author:'manager1'}});// NEED TO MAKE DYNAMIC XXX
+                               params:{author:author}});
     }
 }
 
