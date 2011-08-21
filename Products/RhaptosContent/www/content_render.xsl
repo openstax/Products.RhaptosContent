@@ -1103,14 +1103,15 @@
                   </span>
                 </p>
                 <p id="cnx_course_authors">
-                  <span class="cnx_before"> <!-- Course by:  -->
+                  <span class="cnx_before"> <!-- Course by: or Manual by: or Thesis by:  -->
                     <xsl:value-of select="display/context/type/@shorttype"/>
                     <xsl:text>&#160;</xsl:text>
                     <xsl:text>by</xsl:text>
                     <xsl:text>: </xsl:text>
                   </span>
+                <span class="lensinfowrap">
                   <xsl:for-each select="display/context/authors/author">
-                    <a href="{publishing/portal/@href}/member_profile/{@id}">
+                    <a class="lenslink" href="{publishing/portal/@href}/member_profile/{@id}">
                       <xsl:value-of select="name"/>
                     </a>
                     <xsl:if test="position()!=last()">
@@ -1120,6 +1121,10 @@
                       <xsl:text>. </xsl:text>
                     </xsl:if>
                   </xsl:for-each>
+                    <span class="lensinfo hiddenStructure">
+                                 <span id="cnx_authorship_info"></span>
+                    </span>
+                </span>
                   <xsl:text> </xsl:text>
                   <xsl:call-template name="emailtheauthor">
                     <xsl:with-param name="atbottom">0</xsl:with-param>
@@ -1277,7 +1282,7 @@
 
               <p id="cnx_authorship">
                 <span class="cnx_before"><!-- Module by: -->
-                  <xsl:text>Module by:</xsl:text>
+                  <xsl:text>Module by: </xsl:text>
                 </span>
                 <span class="lensinfowrap">
                 <xsl:text> </xsl:text>
@@ -1295,7 +1300,6 @@
                 </xsl:for-each>
                     <span class="lensinfo hiddenStructure">
                                  <span id="cnx_authorship_info"></span>
-
                     </span>
                    </span>
 
