@@ -498,17 +498,17 @@ Ext.onReady(function(e) {
 });
 
 //* Dynamically replace the user profile
-var profileUpdater;
-var profileReplace = function(e) {
-    if(!profileUpdater){
+var profileUpdate;
+var profileReplace = function(e,index) {
+    if(true){
         // Get the recently viewed HTML. Used only when viewing a module or a collection
         authors = Ext.query('.lenslink','cnx_authorship')
 
         // retrieve the author id 
-        author = authors[0].pathname.split('/').pop()
+        author = authors[index].pathname.split('/').pop()
         
         // Uses magic global variable portal_url defined in main_template
-        var profileId = Ext.get('cnx_authorship_info');
+        var profileId = Ext.get(e);
 
         // this might be a collection, this is a quick test for that
         if (!profileId){
@@ -521,8 +521,10 @@ var profileReplace = function(e) {
     }
 }
 
+
 Ext.onReady(function(e) {
-        profileReplace(null);
+        profileReplace('cnx_authorship_info1',0);
+        profileReplace('cnx_authorship_info2',1);
 });
 
 var reuse_edit_dialog;  // global which enables closing of window

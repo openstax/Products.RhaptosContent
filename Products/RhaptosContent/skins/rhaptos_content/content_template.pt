@@ -117,7 +117,7 @@
                  tal:content="python:p and p.getProperty('fullname') or aid"
                  tal:attributes="href string:/member_profile/${aid}">[fullname]</a><span tal:replace="string:, " tal:condition="not:repeat/aid/end">[, ]</span><span tal:replace="string:." tal:condition="repeat/aid/end">.</span>
             <span class="lensinfo hiddenStructure">
-                   <span id="cnx_authorship_info"></span>
+                   <span class="cnx_authorship_info" tal:attributes="id string:cnx_authorship_info${repeat/aid/number}"></span>
             </span>
            </span>
             </tal:person>
