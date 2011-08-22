@@ -1122,7 +1122,7 @@
                     </xsl:if>
                   </xsl:for-each>
                     <span class="lensinfo hiddenStructure">
-                                 <span id="cnx_authorship_info"></span>
+                                 <span id="cnx_authorship_info1"></span>
                     </span>
                 </span>
                   <xsl:text> </xsl:text>
@@ -1280,7 +1280,7 @@
                 <xsl:value-of select="$moduletitle"/>
               </h1>
 
-              <p id="cnx_authorship">
+              <p id="cnx_mod_authorship">
                 <span class="cnx_before"><!-- Module by: -->
                   <xsl:text>Module by: </xsl:text>
                 </span>
@@ -1299,7 +1299,7 @@
                   <xsl:text> </xsl:text>
                 </xsl:for-each>
                     <span class="lensinfo hiddenStructure">
-                                 <span id="cnx_authorship_info"></span>
+                                 <span id="cnx_authorship_info_module1"></span>
                     </span>
                    </span>
 

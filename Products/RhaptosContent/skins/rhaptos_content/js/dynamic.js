@@ -499,32 +499,36 @@ Ext.onReady(function(e) {
 
 //* Dynamically replace the user profile
 var profileUpdate;
-var profileReplace = function(e,index) {
+var profileReplace = function(e,authorcontainerid,index) {
     if(true){
         // Get the recently viewed HTML. Used only when viewing a module or a collection
-        authors = Ext.query('.lenslink','cnx_authorship')
+        authors = Ext.query('.lenslink', authorcontainerid)
 
         // retrieve the author id 
+        try {
         author = authors[index].pathname.split('/').pop()
-        
-        // Uses magic global variable portal_url defined in main_template
+            }
+        catch(err){
+            return
+            }
         var profileId = Ext.get(e);
 
-        // this might be a collection, this is a quick test for that
-        if (!profileId){
-                profileId = Ext.get('cnx_course_authors');
-        }
-
-	profileUpdater = profileId.getUpdateManager();
+        // Uses magic global variable portal_url defined in main_template
+	if(profileId){
+                  profileUpdater = profileId.getUpdateManager();
         profileUpdater.update({url:portal_url+"/profile_portlet_inner",
                                params:{author:author}});
+                     }
     }
 }
 
 
 Ext.onReady(function(e) {
-        profileReplace('cnx_authorship_info1',0);
-        profileReplace('cnx_authorship_info2',1);
+        profileReplace('cnx_authorship_info1','cnx_course_authors',0);
+        profileReplace('cnx_authorship_info2','cnx_course_authors',1);
+        profileReplace('cnx_authorship_info1','cnx_authorship',0);
+        profileReplace('cnx_authorship_info2','cnx_authorship',1);
+        profileReplace('cnx_authorship_info_module1','cnx_mod_authorship',0);
 });
 
 var reuse_edit_dialog;  // global which enables closing of window
