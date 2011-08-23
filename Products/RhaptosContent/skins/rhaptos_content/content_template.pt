@@ -113,7 +113,7 @@
             <tal:person tal:repeat="aid authors">
               <!-- i18n:FIXME need better localization of inline list separation -->
               <a tal:define="p python:here.desecured.getMemberById(aid)"
-                 tal:content="python:p and p.getProperty('fullname') or aid"
+                 tal:content="python:p and p.fullname or aid"
                  tal:attributes="href string:/member_profile/${aid}">[fullname]</a><span tal:replace="string:, " tal:condition="not:repeat/aid/end">[, ]</span><span tal:replace="string:." tal:condition="repeat/aid/end">.</span>
             </tal:person>
             <metal:link metal:define-macro="emailauthor">
@@ -124,7 +124,7 @@
                                 authors obj/authors;
                                 authors python:map(context.desecured.getMemberById, authors);
                                 plural python:len(authors) > 1;
-                                emails python:','.join([a.getProperty('email') for a in authors]);
+                                emails python:','.join([a.email for a in authors]);
                                 portalemail context/email_from_address;
                                 pss modules/Products/PythonScripts/standard;
                                 portalname portal/Title;
@@ -171,7 +171,7 @@
                 
                 <tal:badauthor tal:on-error="string:(${p})">
                   <tal:author tal:define="u python:here.desecured.getMemberById(p)">
-                    <a tal:content="python:u.getProperty('fullname')"
+                    <a tal:content="u/fullname"
                       tal:attributes="href string:/member_profile/${p}">[name]</a></tal:author></tal:badauthor><tal:comma tal:condition="not:repeat/p/end">, </tal:comma>
               </span>
             </span>
@@ -191,7 +191,7 @@
 	      <tal:badauthor tal:on-error="string:(${p})">
 		<!-- i18n:FIXME need better localization of inline list separation -->
 		<a tal:define="p python:here.desecured.getMemberById(p)"
-		   tal:content="python:p.getProperty('fullname')"
+		   tal:content="p/fullname"
 		   tal:attributes="href string:/member_profile/${p}">[fullname]</a></tal:badauthor><span tal:replace="string:, " tal:condition="not:repeat/p/end">[, ]</span>
 	    </tal:person>
 	  </span>
@@ -277,7 +277,7 @@
 	      </span>
 	      <tal:badauthor tal:on-error="string:(${p})">
 		<a tal:define="m python:here.desecured.getMemberById(p)" 
-		  tal:content="python:m.getProperty('fullname')"
+		  tal:content="m/fullname"
 		  tal:attributes="href string:/member_profile/${p}">
 		  [fullname]
 		</a></tal:badauthor><span tal:replace="string:, " 
@@ -300,7 +300,7 @@
 
 	<p id="cnx_updated" tal:define="user here/submitter | nothing;
 	  member python:user and here.desecured.getMemberById(user);
-	  name python:member and member.getProperty('fullname') or '(Unknown)'" 
+	  name python:member and member.fullname or '(Unknown)'" 
 	  i18n:translate="text_content_footer_last_edited">
 	  Last edited by 
 	  <span i18n:name="submitter">
