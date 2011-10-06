@@ -19,7 +19,8 @@
   <!-- Don't actually display gallery if there are no mpegs -->
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
-  <xsl:param name="customize-style" select="''"/>
+  <xsl:param name="printstyle" select="''"/>
+  <xsl:param name="customize-style" select="$printstyle"/>
   <xsl:param name="intro-module">
     <xsl:call-template name="class-test">
       <xsl:with-param name="provided-class" select="/module/cnx:document/@class"/>
