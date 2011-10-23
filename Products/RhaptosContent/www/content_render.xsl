@@ -120,7 +120,7 @@
       
       <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=IE7"/>
 
         <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the 
              content shows up nicely when posted to a Facebook wall.  -->
