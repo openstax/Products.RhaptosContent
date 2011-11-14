@@ -462,7 +462,7 @@
 			_gaq.push(['_setDomainName', '.cnx.org']);
 			_gaq.push(['_trackPageview']);
 			_gaq.push(['hewlett._setAccount', 'UA-5033010-1']);
-			_gaq.push(['hewlett._setDomainName', 'cnx.org']);
+			_gaq.push(['hewlett._setDomainName', '.cnx.org']);
 			_gaq.push(['hewlett._trackPageview']);
         </script>
       </xsl:if>
@@ -1091,7 +1091,7 @@
             <xsl:if test="display/context/orderable">
               <a id="cnx_order_link" href="{display/context/orderable/@url}" target="_blank">
               	<xsl:if test="publishing/portal/@isCNX='true'">
-              		<xsl:attribute name="onmousedown">try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:order');}catch(err){}</xsl:attribute>
+              		<xsl:attribute name="onmousedown">try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('.cnx.org'); t._trackPageview(window.location.pathname+'?event=collection:order');}catch(err){}</xsl:attribute>
               	</xsl:if>
                 Order printed collection
               </a>
