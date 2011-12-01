@@ -176,6 +176,12 @@
   border-right: 1px solid #666;
 }
 
+.cnx_google{
+  padding-right: .5em;
+  margin-right: .6em;
+  border-right: 1px solid #666;
+}
+
 #cnx_social_media_top .cnx_twitter, #cnx_social_media_top .cnx_facebook{
   float: right;
   margin-bottom: .5em;
