@@ -1270,7 +1270,10 @@
 -->
 
               <xsl:if test="publishing/state[text()='public']">
-                <div class="cnx_social_media" id="cnx_social_media_top" style="display: none;">
+                <div class="cnx_social_media" id="cnx_social_media_top" style="display: block; float: right;">
+ 		          <span class="cnx_google">
+                      <iframe scrolling="no" frameborder="0" vspace="0" tabindex="-1" style="position: static; left: 0pt; top: 0pt; width: 65px; height: 20px; visibility: visible;" src="https://plusone.google.com/_/+1/fastbutton?hl=en-US&amp;url={$social-url-escaped}&amp;size=medium&amp;annotation=bubble&amp;count=true&amp;parent=http%3A%2F%2Fcnx.org" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"><xsl:text> </xsl:text></iframe>
+                  </span> 
                   <span class="cnx_facebook">
                     <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
                             scrolling="no" frameborder="0" allowtransparency="true">
