@@ -1,0 +1,382 @@
+/* 
+
+Overrides of the default Connexions CSS in order to match the "Modern Textbook" style.
+
+*/
+
+/* ====== TEXT TREATMENTS ====== */
+
+#cnx_main, #cnx_splash{
+  font-family: times new roman, serif;
+  font-size: 1.36em;
+}
+
+#cnx_main h1, #cnx_main h2, #cnx_main h3, #cnx_main h4, #cnx_main h5, #cnx_main h6, .note, .caption, .definition dt, .solution-toggles, 
+#cnx_intro_title h1, .equation-number{
+  font-family: arial, helvetica, sans-serif;
+  font-size: .9em;
+}
+
+.glossary dt{
+  font-size: 1em;
+}
+
+#cnx_main .glossary *, .tip .note-contents, .concept-check .note-contents{
+  font-family: times new roman, serif;
+}
+
+.tip .note-contents, .concept-check .note-contents{
+  font-size: 1.1em;
+}
+
+span.cnx_label, .solution-toggle, .footnote-reference, 
+.equation-number, .view-math, .view-math a, .references-header, 
+.glossary-header, .bibtex-reference, .footnotes-header, .exercise-header{
+  color: #0061aa;
+  font-size: 1em;
+  text-transform: none;
+}
+
+code{
+  font-size: 1.05em;
+  background-color: transparent;
+  color: #060;
+}
+
+pre.codeblock{
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
+  line-height: normal;
+}
+
+.equation-number{
+  font-weight: normal;
+}
+
+#cnx_main a{
+  color: #d89016;
+  color: #a06a19;
+  border-width: 0;
+  text-decoration: underline;
+}
+
+#cnx_main .solution-toggles a{
+  text-decoration: none;
+}
+
+ul, ol{ 
+  line-height: 1.25em;
+}
+
+/* ====== SECTION ====== */
+
+#cnx_main .section-header, #cnx_main .section .section .section-header, #cnx_intro_title h1{
+  color: black;
+  border-width: 0;
+  padding: 0;
+  font-size: 1.7em; 
+}
+h3.section-header{ font-size: 1.45em !important; }
+h4.section-header{ font-size: 1.15em !important; }
+h5.section-header{ font-size: 1.05em !important; }
+h6.section-header{ font-size: .9em !important; }
+
+.section-header{
+  letter-spacing: -1px;
+}
+
+.section .section .section-header{
+  letter-spacing: 0;
+}
+
+.section{
+  margin: 2em 0;
+}
+
+.section .section{
+  margin-left: 0;
+}
+
+.section-header .title{
+  font-weight: bold;  
+}
+
+.footnotes-header, .glossary-header{
+  border-width: 0;
+  font-weight: bold;
+}
+
+.footnotes, .glossary-container{
+  border-top: 1px solid #ccc;
+  margin: 2em 0;
+}
+
+/* ====== NOTE ====== */
+
+div.note{
+  border-width: 0;
+  background-color: #fbf2e2;
+  margin: 2em 0;
+}
+
+.note-header{
+  display: block;
+  font-size: 1.05em !important;
+}
+
+.note-header .title, .note-header .cnx_label{
+  color: #0061aa;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid #faa61a;
+  font-weight: normal !important;
+}
+
+div.tip{
+  background-color: transparent;
+  text-align: center;
+  padding: 0;
+}
+
+.tip .note-header{
+  background-color: #0061aa;
+  padding: .2em 1em;
+  padding: .4em 1em\9; /* IE hack */
+  font-size: 1.1em !important;
+  display: inline;
+  position: relative;
+  z-index: 1;
+}
+
+.tip .note-header *{
+  color: white;
+  border-width: 0;
+  text-transform: none !important;
+}
+
+* html .tip .note-header *{
+  font-size: 2em !important;
+}
+
+.tip .note-contents{
+  background-color: #eff2f9;
+  display: block;
+  border: 1px solid #faa61a;
+  border-width: 1px 0;
+  margin: -.75em 0 0;
+  padding: 1.5em 2em .75em;
+  padding-top: 1em\9; /* IE hack */
+  color: #0061aa;
+}
+
+div.concept-check{
+  border: 1px solid #0061aa;
+  border-width: 1px 0;
+  background-color: #f1f6e6;
+  padding: 0 2em;
+}
+
+.concept-check .note-header{
+  margin: .45em 0 .25em;
+}
+
+.concept-check .note-header *{
+  border-width: 0;
+  text-transform: none !important;
+}
+
+.concept-check ul, .concept-check .list{
+  margin-top: .25em;
+  margin-bottom: .75em;
+}
+
+.concept-check li{
+  margin: 0;
+  list-style-image: url(concept-check-bullet.png);
+}
+
+/* ====== FIGURE & TABLE ====== */
+
+.figure table{
+  width: 100% !important;
+  margin: auto;
+}
+
+.table table{
+  width: auto !important;
+}
+
+.inner-figure{
+  padding: 0;
+  border-width: 0 !important;
+}
+
+.horizontal-subfigure-caption{
+  text-align: center;
+}
+
+.caption .cnx_label{
+  color: #d89016;
+  color: #a06a19;
+}
+
+.caption{
+  line-height: normal;
+}
+ul, ol{ 
+  line-height: 1.5em;
+}
+
+blockquote{
+  margin: 1em 3em;
+  color: black;
+  padding: 0;
+  border-width: 0;
+  line-height: normal;
+}
+
+/* ====== EXAMPLE, EXERCISE, DEFINITION, RULE ====== */
+
+.example, .check-understanding{
+  margin: 2em 0;
+  border-width: 0;
+  padding: 0;
+}
+
+.example-header, .check-understanding .exercise-header{
+  color: white;
+  background-color: #0061aa;
+  padding: .1em 1em;
+  font-size: 1em !important;
+  float: left;
+  margin: 0;
+}
+
+.check-understanding .exercise-header{
+  background-color: #8fb733;
+}
+
+.example-header .cnx_label, .check-understanding .exercise-header .cnx_label{
+  color: white;
+}
+
+.example-contents, .check-understanding .exercise-contents{
+  background-color: #f1f6e6;
+  border-top: 1px solid #faa61a;
+  padding: .5em 1em;
+  clear: left;
+  margin-top: -2em\9; /* IE hack */
+}
+
+.example .example .example-contents{
+  border: 1px solid #faa61a;
+}
+
+.example .para, .rule .para, .definition .para{
+  margin: .5em 0;
+}
+
+.exercise{
+  border-width: 0;
+  padding: 0;
+}
+
+.definition .example{
+  margin: 0;
+}
+
+.definition .example-header, .definition .example-header *{
+  display: inline;
+  background-color: transparent;
+  font-size: .95em !important;
+  color: #0061aa;
+  padding: 0;
+  float: none;
+}
+.definition .example-contents{
+  background-color: transparent;
+  border-width: 0 !important;
+  padding: 0;
+}
+
+.solution{
+  margin-left: 0;
+}
+
+.rule, .definition{
+  border-width: 0;
+  padding: 0;
+  margin: 1em 0;
+}
+
+.rule-header, .definition dt, dl.glossary dt{
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  float: none;
+}
+
+/* ====== INTRO MODULE / SPLASH IMAGE ====== */
+
+.introduction #cnx_content_title{
+  color: black;
+  font-size: 1em;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+#cnx_chapter_intro_banner{
+  background-color: #faa61a;
+  padding: .15em 20px; 
+  font-size: 4em; 
+  font-family: arial, helvetica, sans-serif;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+#cnx_chapter_intro_banner_number{
+  color: black;
+}
+#cnx_chapter_intro_banner_title{
+  color: white;
+}
+
+.introduction #cnx_module_header{
+  border-width: 0;
+}
+
+#cnx_splash .figure{
+  margin: 0;
+  position: relative;
+}
+
+#cnx_splash caption{
+  display: block;
+  width: 100%;
+}
+
+#cnx_splash_image{
+  text-align: center;
+}
+
+#cnx_splash_image img{
+  max-width: 100%;
+}
+
+#cnx_intro_title{
+  margin: 1.5em 0 1em;
+}
+
+#cnx_intro_title h1{
+  display: inline;
+  border-bottom: 1px solid #faa61a;
+  padding-right: 3em;
+  font-size: 2em;
+}
+
+.introduction #cnx_author_links{
+  margin-top: 1.9em;
+}
+
+#cnx_authorship{
+  clear: right;
+}
