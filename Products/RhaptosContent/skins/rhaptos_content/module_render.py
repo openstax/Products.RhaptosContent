@@ -14,11 +14,6 @@ from Products.RhaptosContent import MODULE_XSL
 # Get course options
 kw.update(context.getCourseParameters())
 
-# If a style parameter is set, use it
-style = context.REQUEST.get('style', None)
-if style:
-  kw['customize-style'] = style
-
 source = context.module_export_template(**kw)
 
 # Default XSL stylesheet

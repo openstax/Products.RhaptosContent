@@ -176,24 +176,26 @@
               </span>
             </span>
           </tal:optroles>
-	</p>
 
-	<p id="cnx_parent" tal:define="parent here/getParent | nothing" tal:condition="nocall:parent" i18n:translate="text_content_header_parent_authorship">
-	  <span i18n:name="based_on_colon">
-	    <span class="cnx_before" i18n:translate="text_based_on_header">Based on: </span>
-	  </span>
-	  <span i18n:name="parent_url">
-	    <a tal:attributes="href parent/url" tal:content="parent/title">[content]</a>
-	  </span>
-	  by 
-	  <span i18n:name="parent_authors">
-	    <tal:person tal:repeat="p here/parentAuthors">
-	      <tal:badauthor tal:on-error="string:(${p})">
-		<!-- i18n:FIXME need better localization of inline list separation -->
-		<a tal:define="p python:here.desecured.getMemberById(p)"
-		   tal:content="p/fullname"
-		   tal:attributes="href string:/member_profile/${p}">[fullname]</a></tal:badauthor><span tal:replace="string:, " tal:condition="not:repeat/p/end">[, ]</span>
-	    </tal:person>
+	<span i18n:name="parent_authorship">
+	  <span id="cnx_parent" tal:define="parent here/getParent | nothing" tal:condition="nocall:parent" i18n:translate="text_content_header_parent_authorship">
+	    <span i18n:name="based_on_colon">
+	      <span class="cnx_before" i18n:translate="text_based_on_header">Based on: </span>
+	    </span>
+	      <span i18n:name="parent_url">
+		<a tal:attributes="href parent/url" tal:content="parent/title">[content]</a>
+	      </span>
+	    by 
+	      <span i18n:name="parent_authors">
+		<tal:person tal:repeat="p here/parentAuthors">
+		  <tal:badauthor tal:on-error="string:(${p})">
+		    <!-- i18n:FIXME need better localization of inline list separation -->
+		    <a tal:define="p python:here.desecured.getMemberById(p)"
+		      tal:content="p/fullname"
+		      tal:attributes="href string:/member_profile/${p}">[fullname]</a></tal:badauthor><span tal:replace="string:, " tal:condition="not:repeat/p/end">[, ]</span>
+		</tal:person>
+	      </span>
+	    </span>
 	  </span>
 	</p>
 
