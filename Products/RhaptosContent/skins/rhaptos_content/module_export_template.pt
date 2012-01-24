@@ -341,7 +341,9 @@
                         courseId course/objectId;
                         autoBuy python:printable and autoBuy and autoBuy % courseId or None;
                         buyURL python:specialBuy or autoBuy;
-                        interstitial string:${course/url}/collection_print_confirmation;
+                        curl course/url;
+                        courseURL python:curl[-1] == '/' and curl[:-1] or curl;
+                        interstitial string:${courseURL}/collection_print_confirmation;
                         buyLink python:specialBuy or interstitial;
                         all_modules course/containedModules;
                         canBuy python:course.getOrderable() and all_modules and buyURL"
