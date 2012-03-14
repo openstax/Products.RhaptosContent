@@ -1,3 +1,6 @@
+RhaptosContent-0.62
+  - modern-textbook release (xhtml+css, ccap word importer)
+
 RhaptosContent-0.61
   - Google 1+ button
 
