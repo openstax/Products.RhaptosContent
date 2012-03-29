@@ -1,3 +1,6 @@
+RhaptosContent-0.63
+  - permalens always on branding
+
 RhaptosContent-0.62
   - modern-textbook release (xhtml+css, ccap word importer)
 
