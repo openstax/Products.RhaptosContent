@@ -2022,7 +2022,7 @@
   <!-- branding banners -->
   <xsl:template match="/module/display/branding">
     <div class="cnx_branding_banner">
-      <xsl:attribute name="style">display: none; background-color:#<xsl:value-of select="@bannerColor"/>;color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
+      <xsl:attribute name="style">display:<xsl:value-of select="@visibility"/>; background-color:#<xsl:value-of select="@bannerColor"/>;color:#<xsl:value-of select="@bannerForegroundColor"/>;</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@category='Endorsement'">
           Content endorsed by:
@@ -2046,7 +2046,8 @@
 
   <!-- branding logos -->
   <xsl:template match="/module/display/branding/@logo">
-    <div class="cnx_branding_logo" style="display: none;">
+    <div class="cnx_branding_logo">
+      <xsl:attribute name="style">display:<xsl:value-of select="@visibility"/>;</xsl:attribute>
       <a>
           <xsl:attribute name="href">
             <xsl:value-of select="../@location"/>

@@ -398,6 +398,7 @@
                   category              python:lensInfo.get('category',None);
                   location              python:lensInfo.get('location',None);
                   title                 python:lensInfo.get('title',None);
+                  visibility            python:lensInfo.get('permanent',None) and 'visible' or 'none';
                   logo                  python:lensInfo['logo'] == 'true'
                                                and (lensInfo['location']+'/logo') or None;">
           </branding>
