@@ -2047,7 +2047,7 @@
   <!-- branding logos -->
   <xsl:template match="/module/display/branding/@logo">
     <div class="cnx_branding_logo">
-      <xsl:attribute name="style">display:<xsl:value-of select="@visibility"/>;</xsl:attribute>
+      <xsl:attribute name="style">display:<xsl:value-of select="../@visibility"/>;</xsl:attribute>
       <a>
           <xsl:attribute name="href">
             <xsl:value-of select="../@location"/>
