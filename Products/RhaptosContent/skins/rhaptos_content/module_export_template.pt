@@ -389,8 +389,11 @@
               lensId="" title="" location="" category="" bannerColor="" bannerForegroundColor="" logo="" 
               tal:define="
                   lensId python:lensdict[0];
-                  lensInfo python:lensdict[1][0]"
-              tal:condition="python:lensInfo.get('banner',None) == 'true'"
+                  lensInfo python:lensdict[1][0];
+                  itemInfo python:lensdict[1][1][0]"
+              tal:condition="python:lensInfo.get('banner',None) == 'true' and 
+                                    (itemInfo.get('fromImplicit',None) != 'implicit' 
+                                    or (itemInfo.get('fromImplicit',None) == 'implicit' and not inside))"
               tal:attributes="
                   lensId                python:lensId or None;
                   bannerColor           python:lensInfo.get('bannerColor',None);
@@ -399,9 +402,10 @@
                   location              python:lensInfo.get('location',None);
                   title                 python:lensInfo.get('title',None);
                   visibility            python:lensInfo.get('permanent',None) and 'visible' or 'none';
+                  indirect              python:itemInfo.get('fromImplicit', None);
                   logo                  python:lensInfo['logo'] == 'true'
-                                               and (lensInfo['location']+'/logo') or None;">
-          </branding>
+                                               and (lensInfo['location']+'/logo') or None;"
+             ></branding>
        </tal:lens>
     </tal:branding>
   </display>
