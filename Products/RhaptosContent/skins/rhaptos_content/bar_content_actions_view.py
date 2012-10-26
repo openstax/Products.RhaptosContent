@@ -35,7 +35,7 @@ if module:
     dls['moduleoffline'] = offlineable and url or None
 
 if collection:
-    colurl = collection.url()
+    colurl = collection.url().rstrip('/')
     #pfile = collection.getPrintedFile()
     #printable = pfile and pfile.get_size()
     printable = ptool.doesFileExist(collection.objectId, collection.version, 'pdf')
