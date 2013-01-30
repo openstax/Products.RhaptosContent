@@ -132,10 +132,10 @@ div.note{
   font-weight: normal !important;
 }
 
-.note-header .cnx_label { display: none !important; } /*hide 'NOTE' from note-header title*/
+.note-header .cnx_label { display: none; } /*hide 'NOTE' from note-header title*/
 
 .note-contents .media img[alt*="QR"] { /*hide qr img based on alt attribute that contains a QR somewhere in value*/
-  display: none !important; 
+  display: none; 
 }
 
 div.tip{
