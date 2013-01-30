@@ -8,11 +8,11 @@ Overrides of the default Connexions CSS in order to match the "Modern Textbook" 
 
 #cnx_main, #cnx_splash{
   font-family: times new roman, serif;
-  font-size: 1.25em;
+  font-size: 1.36em;
 }
 
 #cnx_main h1, #cnx_main h2, #cnx_main h3, #cnx_main h4, #cnx_main h5, #cnx_main h6, .note, .caption, .definition dt, .solution-toggles, 
-#cnx_intro_title h1{
+#cnx_intro_title h1, .equation-number{
   font-family: arial, helvetica, sans-serif;
   font-size: .9em;
 }
@@ -39,6 +39,15 @@ span.cnx_label, .solution-toggle, .footnote-reference,
 
 code{
   font-size: 1.05em;
+  background-color: transparent;
+  color: #060;
+}
+
+pre.codeblock{
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
+  line-height: normal;
 }
 
 .equation-number{
@@ -48,6 +57,16 @@ code{
 #cnx_main a{
   color: #d89016;
   color: #a06a19;
+  border-width: 0;
+  text-decoration: underline;
+}
+
+#cnx_main .solution-toggles a{
+  text-decoration: none;
+}
+
+ul, ol{ 
+  line-height: 1.25em;
 }
 
 /* ====== SECTION ====== */
@@ -63,8 +82,34 @@ h4.section-header{ font-size: 1.15em !important; }
 h5.section-header{ font-size: 1.05em !important; }
 h6.section-header{ font-size: .9em !important; }
 
+.section-header{
+  letter-spacing: -1px;
+}
+
+.section .section .section-header{
+  letter-spacing: 0;
+}
+
+.section{
+  margin: 2em 0;
+}
+
 .section .section{
   margin-left: 0;
+}
+
+.section-header .title{
+  font-weight: bold;  
+}
+
+.footnotes-header, .glossary-header{
+  border-width: 0;
+  font-weight: bold;
+}
+
+.footnotes, .glossary-container{
+  border-top: 1px solid #ccc;
+  margin: 2em 0;
 }
 
 /* ====== NOTE ====== */
@@ -91,7 +136,7 @@ div.note{
 
 .note-contents .media img[alt*="QR"] { /*hide qr img based on alt attribute that contains a QR somewhere in value*/
   display: none !important; 
-} 
+}
 
 div.tip{
   background-color: transparent;
@@ -148,7 +193,7 @@ div.concept-check{
 
 .concept-check ul, .concept-check .list{
   margin-top: .25em;
-  margin-bottom: .5em;
+  margin-bottom: .75em;
 }
 
 .concept-check li{
@@ -181,7 +226,22 @@ div.concept-check{
   color: #a06a19;
 }
 
-/* ====== EXAMPLE and EXERCISE ====== */
+.caption{
+  line-height: normal;
+}
+ul, ol{ 
+  line-height: 1.5em;
+}
+
+blockquote{
+  margin: 1em 3em;
+  color: black;
+  padding: 0;
+  border-width: 0;
+  line-height: normal;
+}
+
+/* ====== EXAMPLE, EXERCISE, DEFINITION, RULE ====== */
 
 .example, .check-understanding{
   margin: 2em 0;
@@ -195,6 +255,7 @@ div.concept-check{
   padding: .1em 1em;
   font-size: 1em !important;
   float: left;
+  margin: 0;
 }
 
 .check-understanding .exercise-header{
@@ -217,9 +278,19 @@ div.concept-check{
   border: 1px solid #faa61a;
 }
 
-.definition .example{
-  margin: 0 0 0 3.3em;
+.example .para, .rule .para, .definition .para{
+  margin: .5em 0;
 }
+
+.exercise{
+  border-width: 0;
+  padding: 0;
+}
+
+.definition .example{
+  margin: 0;
+}
+
 .definition .example-header, .definition .example-header *{
   display: inline;
   background-color: transparent;
@@ -238,17 +309,26 @@ div.concept-check{
   margin-left: 0;
 }
 
+.rule, .definition{
+  border-width: 0;
+  padding: 0;
+  margin: 1em 0;
+}
+
+.rule-header, .definition dt, dl.glossary dt{
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  float: none;
+}
+
 /* ====== INTRO MODULE / SPLASH IMAGE ====== */
 
 .introduction #cnx_content_title{
   color: black;
   font-size: 1em;
-  margin: 1em 0 .5em;
-  margin-top: 0\9; /* IE hack */
-}
-
-.introduction #cnx_authorship{
-  margin: .5em 0 1em;
+  margin-top: 1em;
+  padding-top: 1em;
 }
 
 #cnx_chapter_intro_banner{
@@ -288,21 +368,6 @@ div.concept-check{
   max-width: 100%;
 }
 
-.introduction #cnx_social_media_top{
-  float: none;
-}
-
-.introduction #cnx_social_media_top .cnx_twitter, .introduction #cnx_social_media_top .cnx_facebook{
-  float: right;
-  margin-top: .25em;
-}
-
-.introduction #cnx_social_media_top .cnx_twitter{
-  padding-right: .5em;
-  margin-right: .6em;
-  border-right: 1px solid #666;
-}
-
 #cnx_intro_title{
   margin: 1.5em 0 1em;
 }
@@ -316,4 +381,8 @@ div.concept-check{
 
 .introduction #cnx_author_links{
   margin-top: 1.9em;
+}
+
+#cnx_authorship{
+  clear: right;
 }
