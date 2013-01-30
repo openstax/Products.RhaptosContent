@@ -125,12 +125,17 @@ div.note{
   font-size: 1.05em !important;
 }
 
-.note-header .title, .note-header .cnx_label{
+.note-header .title{
   color: #0061aa;
   text-transform: uppercase !important;
   border-bottom: 1px solid #faa61a;
   font-weight: normal !important;
 }
+
+.note-header .cnx_label { display: none; } /*hide 'NOTE' from note-header title*/
+
+/*hide qr img based on alt attribute that contains a QR somewhere in value*/
+.note-contents .media img[alt*="QR"] { display: none; }
 
 div.tip{
   background-color: transparent;
