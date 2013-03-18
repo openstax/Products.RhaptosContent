@@ -1477,7 +1477,7 @@
               <xsl:if test="$intro-module='1' and $customize-style != '' and ancestor::li">
                 <div id="cnx_chapter_intro_banner">
                   <span id="cnx_chapter_intro_banner_number">
-                    <xsl:number count="display/context/navigation/ul//li[ul]" level="multiple"/>
+                    <xsl:number count="display/context/navigation/ul//li[ul and not(ul//ul)]" level="any"/>
                   </span>
                   <span id="cnx_chapter_intro_banner_title">
                     <xsl:variable name="subcollection" select="ancestor::li[1]"/>
