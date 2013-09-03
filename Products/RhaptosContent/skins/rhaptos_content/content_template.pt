@@ -220,7 +220,7 @@
           <img alt="Creative Commons License" 
                src="http://i.creativecommons.org/l/by/2.0/88x31.png" 
                i18n:attributes="alt label_content_footer_cc_license_alt"
-               tal:attributes="src python:'http://i.creativecommons.org/l/%(code)s/%(version)/88x31.png' % license_data" /></a>
+               tal:attributes="src python:'http://i.creativecommons.org/l/%(code)s/%(version)s/88x31.png' % license_data" /></a>
 
         <a id="cnx_oer_logo" 
            tal:condition="here/license | nothing" 
