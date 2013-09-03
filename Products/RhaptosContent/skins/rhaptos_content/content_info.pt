@@ -24,6 +24,7 @@
                     license_data here/getLicenseData;
                     license_version license_data/version;
                     license_label license_data/label;
+                    license_name license_data/name;
                     inLatestCollection python:hasattr(context,'getTarget') and context.getTarget().portal_type == 'Collection' or False;
                     inCollection python:inLatestCollection or context.portal_type and context.portal_type == 'Collection' or False;
                     inModule     python:context.portal_type and context.portal_type == 'Module'     or False;">
@@ -96,8 +97,9 @@
 	  <td valign="top" class="cnx_before" i18n:translate="text_license_header">License:</td>
 	  <td valign="top">
 	    <a class="link" tal:condition="here/license"
-	    tal:attributes="href here/license" i18n:translate="label_creative_commons_attribution_license">Creative Commons Attribution License</a>
-	    <span tal:replace="license_label">[(CC-BY 3.0)]</span>
+	    tal:attributes="href here/license" i18n:translate="label_creative_commons_attribution_license"
+        ><span tal:content="license_name">Creative Commons Attribution License</span>
+	    <span tal:replace="license_label">[(CC-BY 3.0)]</span></a>
 	  </td>
 	</tr>
 	<!-- line and spacing between sections -->
