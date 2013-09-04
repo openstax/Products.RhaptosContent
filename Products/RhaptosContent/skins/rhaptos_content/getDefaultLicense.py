@@ -4,9 +4,11 @@
 ##bind namespace=
 ##bind script=script
 ##bind subpath=traverse_subpath
-##parameters=license_code='by'
+##parameters=license_code=None
 ##title= Handy temporary place to put the default license URL until we have a tool
 
+if not(license_code):
+    license_code = context.get('license','')
 if 'nc' in license_code:
     return 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
 else:
