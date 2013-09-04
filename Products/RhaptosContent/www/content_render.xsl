@@ -1671,20 +1671,15 @@
               <xsl:if test="not(display/offline)">
 
                 <div id="cnx_partner_logos">
-                  <a id="cnx_license_logo" href="{metadata/license/@href}">
+                  <a id="cnx_license_logo" href="{metadata/license/@href}" alt="{metadata/license/@name}">
                     <img>
                       <xsl:attribute name="src">
-                        <xsl:text>http://i.creativecommons.org/l/by/</xsl:text>
-                        <xsl:choose>
-                          <xsl:when test="contains(metadata/license/@href, '1.0')">1.0</xsl:when>
-                          <xsl:when test="contains(metadata/license/@href, '2.0')">2.0</xsl:when>
-                          <xsl:otherwise>3.0</xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:text>/88x31.png</xsl:text>
-                      </xsl:attribute>
-                      <xsl:attribute name="alt">
-                        <!-- Creative Commons License -->
-                        <xsl:text>Creative Commons License</xsl:text>
+                        <xsl:text>http://i.creativecommons.org/l/</xsl:text>
+                        <xsl:value-of select="metadata/license/@code"/>
+                        <xsl:text>/</xsl:text>
+                        <xsl:value-of select="metadata/license/@version"/>
+                        <xsl:text>/</xsl:text>
+                        <xsl:text>88x31.png</xsl:text>
                       </xsl:attribute>
                     </img>
                   </a>
@@ -1784,13 +1779,10 @@
                   <xsl:text> under a </xsl:text>
                   <a rel="license" href="{metadata/license/@href}">
                     <!-- Creative Commons Attribution License -->
-                    <xsl:text>Creative Commons Attribution License</xsl:text>
-                    <xsl:text> </xsl:text>
-                    <xsl:choose>
-                      <xsl:when test="contains(metadata/license/@href, '1.0')">(CC-BY 1.0)</xsl:when>
-                      <xsl:when test="contains(metadata/license/@href, '2.0')">(CC-BY 2.0)</xsl:when>
-                      <xsl:otherwise>(CC-BY 3.0)</xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:value-of select="metadata/license/@name"/>
+                    <xsl:text> (</xsl:text>
+                      <xsl:value-of select="metadata/license/@label"/>
+                    <xsl:text>)</xsl:text>
                   </a>
                   <!-- , and is an -->
                   <xsl:text>, and is an </xsl:text>

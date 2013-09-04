@@ -75,7 +75,14 @@
             xmlns:q="http://cnx.rice.edu/qml/1.0"
             tal:content="structure here/abstract">[abstract]</span>
     </abstract>
-    <license tal:condition="here/license | nothing" tal:attributes="href here/license" />
+    <license tal:condition="here/license | nothing"
+             tal:define="license_data here/getLicenseData"
+             tal:attributes="href here/license;
+                             name license_data/name;
+                             label license_data/label;
+                             version license_data/version;
+                             code license_data/code
+" />
     <language tal:condition="here/language | nothing" tal:content="here/language">[language]</language>
     <lensinfo tal:define="cats python:cats and cats.items()">
       <tal:breakout tal:repeat="item cats">
