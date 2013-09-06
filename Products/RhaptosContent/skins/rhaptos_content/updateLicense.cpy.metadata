@@ -1,0 +1,5 @@
+[default]
+title=Update License
+
+[actions]
+action.success = traverse_to_action:string:view

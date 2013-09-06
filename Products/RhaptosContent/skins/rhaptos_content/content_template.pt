@@ -218,10 +218,9 @@
       <div id="cnx_partner_logos">
         <a id="cnx_license_logo" tal:condition="here/license | nothing" tal:attributes="href here/license">
           <img alt="Creative Commons License" 
-               tal:define="license_version python:context.license.rstrip('/').split('/')[-1];"
                src="http://i.creativecommons.org/l/by/2.0/88x31.png" 
                i18n:attributes="alt label_content_footer_cc_license_alt"
-               tal:attributes="src string:http://i.creativecommons.org/l/by/${license_version}/88x31.png" /></a>
+               tal:attributes="src python:'http://i.creativecommons.org/l/%(code)s/%(version)s/88x31.png' % license_data" /></a>
 
         <a id="cnx_oer_logo" 
            tal:condition="here/license | nothing" 
@@ -287,8 +286,8 @@
 	    </tal:person>
 	  </span> under a 
 	<span i18n:name="license_name">
-	<a rel="license" tal:attributes="href here/license" i18n:translate="label_content_footer_cc_license_text">Creative Commons 
-          Attribution License
+	<a rel="license" tal:attributes="href here/license" 
+    ><span tal:content="license_data/name">Creative Commons Attribution License</span>
           (<span tal:replace="license_data/label">[CC-BY 3.0]</span>)</a></span>, and is an
         <span i18n:name="open_educational_resource">
           <a xmlns:dct="http://purl.org/dc/terms/"
