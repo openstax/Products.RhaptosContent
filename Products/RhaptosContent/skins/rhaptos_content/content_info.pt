@@ -97,7 +97,7 @@
 	  <td valign="top" class="cnx_before" i18n:translate="text_license_header">License:</td>
 	  <td valign="top">
 	    <a class="link" tal:condition="here/license"
-	    tal:attributes="href here/license" i18n:translate="label_creative_commons_attribution_license"
+	    tal:attributes="href here/license"
         ><span tal:content="license_name">Creative Commons Attribution License</span>
 	    <span tal:replace="license_label">[(CC-BY 3.0)]</span></a>
 	  </td>

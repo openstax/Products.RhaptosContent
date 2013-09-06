@@ -287,7 +287,6 @@
 	  </span> under a 
 	<span i18n:name="license_name">
 	<a rel="license" tal:attributes="href here/license" 
-       i18n:translate="label_content_footer_cc_license_text"
     ><span tal:content="license_data/name">Creative Commons Attribution License</span>
           (<span tal:replace="license_data/label">[CC-BY 3.0]</span>)</a></span>, and is an
         <span i18n:name="open_educational_resource">
