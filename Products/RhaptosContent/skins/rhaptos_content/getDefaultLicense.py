@@ -10,8 +10,8 @@
 if not(license_code):
     license_code = getattr(context,'license','')
 if 'nc' in license_code:
-    return 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
+    return 'http://creativecommons.org/licenses/by-nc-sa/4.0/'
 elif 'sa' in license_code:
-    return 'http://creativecommons.org/licenses/by-sa/3.0/'
+    return 'http://creativecommons.org/licenses/by-sa/4.0/'
 else:
-    return 'http://creativecommons.org/licenses/by/3.0/'
+    return 'http://creativecommons.org/licenses/by/4.0/'
