@@ -57,7 +57,7 @@
     <tal:simpledefines define="portal_url context/portal_url; portal context/portal_url/getPortalObject">
     <link rel="search" href="" title="Search this site"
           tal:attributes="href string:$portal_url/content/search" />
-    <link rel="search" href="" title="Connexions"
+    <link rel="search" href="" title="OpenStax CNX"
           type="application/opensearchdescription+xml"
           tal:attributes="href string:$portal_url/opensearchdescription;
                           title portal/Title" />
