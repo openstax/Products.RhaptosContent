@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<xsl:stylesheet 
+<xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:cnx="http://cnx.rice.edu/cnxml"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -11,11 +11,11 @@
   <xsl:template match="cnx:ins">
     <ins><xsl:apply-templates/></ins>
   </xsl:template>
-  
+
   <xsl:template match="cnx:del">
     <del><xsl:apply-templates/></del>
   </xsl:template>
-  
+
   <!-- Don't actually display gallery if there are no mpegs -->
   <xsl:param name="gallery" select="0"/>
   <xsl:variable name="xsl_gallery" select="$gallery and (//cnx:media[@type='audio/mpeg'] or //cnx:audio[@mime-type='audio/mpeg'])"/>
@@ -27,9 +27,9 @@
       <xsl:with-param name="wanted-class">introduction</xsl:with-param>
     </xsl:call-template>
   </xsl:param>
-  
+
   <xsl:param name="stylesheet_path" select="'/stylesheets/plone'"/>
-  
+
   <xsl:variable name="baseurl" select="/module/display/base/@href"/>
   <xsl:variable name="collurl" select="/module/display/context/a/@href"/>
   <xsl:variable name="authoremailstring">
@@ -102,13 +102,13 @@
       <xsl:value-of select="/module/display/context/a/@id"/>
     </xsl:if>
   </xsl:variable>
-  
+
   <xsl:output method="xml" omit-xml-declaration="yes" encoding="utf-8"/>
-  
+
   <xsl:template match="/|title|name|abstract">
     <xsl:apply-templates/>
   </xsl:template>
-  
+
   <xsl:template match="module">
     <xsl:if test="display/offline">
       <xsl:comment>
@@ -118,21 +118,21 @@
       </xsl:comment>
     </xsl:if>
     <html>
-      
+
       <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=IE7Compatible,IE=IE7"/>
 
-        <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the 
+        <!-- The following Open Graph (og) protocol tags are for the Facebook button so that the
              content shows up nicely when posted to a Facebook wall.  -->
         <meta property="og:title" content="{title}"/>
         <meta property="og:type" content="article"/>
-        <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better 
+        <!-- The book icon should probably not be used for Rhaptos installs, but for now it's better
              than nothing (or than letting Facebook randomly pick an image for you). -->
         <meta property="og:image" content="{publishing/portal/@href}/book_icon_cnx.png"/>
         <meta property="og:url" content="{$social-url}"/>
         <meta property="og:site_name" content="{publishing/portal/title}"/>
-        <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically 
+        <!-- The fb:admins content value is a special user ('Rhaptos McCrouton') made specifically
              to populate this property, since it's required. -->
         <meta property="fb:admins" content="100002202416123" />
         <xsl:if test="publishing/portal/@isCNX='true'">
@@ -161,7 +161,7 @@
 	<xsl:if test="publishing/state[text()='public']">
 	  <base href="{$baseurl}"/>
 	</xsl:if>
-	
+
 	<title>
           <xsl:value-of select="$moduletitle"/>
 	</title>
@@ -224,7 +224,7 @@
 	<xsl:variable name="version" select="publishing/version/text()"/>
     <link rel="source" title="Source" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/{$version}/source"/>
     <link rel="module" title="Module" type="text/xml" href="{publishing/portal/@href}/content/{$objectId}/latest/"/>
-	
+
 	<xsl:if test="$previous">
 	  <link rel="previous" href="{$previous/@href}" title="{$previous/@title}"/>
 	</xsl:if>
@@ -240,7 +240,7 @@
 	    <xsl:copy-of select="@*"/>
 	  </link>
 	</xsl:for-each>
-	
+
         <link rel="search" title="Search this site" href="{publishing/portal/@href}/content/search"/>
         <link rel="search" title="{publishing/portal/title}" href="{publishing/portal/@href}/opensearchdescription" type="application/opensearchdescription+xml"/>
 
@@ -257,7 +257,7 @@
         </script>
 
       </head>
-      
+
       <body onload="constructHintCounter(); togglerInitialSettings();" id="cnx_module">
         <xsl:if test="$intro-module='1' and $customize-style != ''">
           <xsl:attribute name="class">introduction</xsl:attribute>
@@ -279,8 +279,8 @@
 	<xsl:if test="not($xsl_gallery)">
 	  <xsl:call-template name="ingredients"/>
 	</xsl:if>
-	
-	
+
+
 	<!-- LISTENING GALLERY -->
 	<xsl:if test="$xsl_gallery">
 	  <div id="musical-examples">
@@ -305,7 +305,7 @@
               </xsl:for-each>
 	    </ol>
 	  </div>
-	  
+
 	  <!-- MUSIC APPLET TITLE BARS -->
 	  <xsl:for-each select="//cnx:media[@type='audio/mpeg']|//cnx:audio[@mime-type='audio/mpeg']">
             <xsl:variable name="id">
@@ -326,7 +326,7 @@
 		</xsl:choose>
 	      </xsl:attribute>
 	      <div class="titles">
-		<div class="title shadow">                  
+		<div class="title shadow">
 		  <xsl:call-template name="composer-title-comments"/>
 		  <xsl:call-template name="tt"/>
 		</div>
@@ -352,7 +352,7 @@
 		      <param name="movie" value="http://music.cnx.rice.edu/flash/cnxplayer.swf?song={@src}"/>
 		    </xsl:otherwise>
 		  </xsl:choose>
-		  
+
 		  <param name="quality" value="high"/>
 		  <embed width="600" align="center" quality="high" bgcolor="4A79A5" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
 		    <xsl:choose>
@@ -371,7 +371,7 @@
 		    </xsl:choose>
 		    <p>You need to install <a href="http://www.macromedia.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash&amp;application/x-shockwave-flash"> Macromedia Flash</a> to display this.</p>
 		  </embed>
-		  
+
 		  <param name="bgcolor" value="4A79A5"/>
 		  <xsl:if test="cnx:param[@name='total-time']">
 		    <xsl:variable name="total-time" select="cnx:param[@name='total-time']/@value"/>
@@ -385,9 +385,9 @@
 		  <xsl:if test="cnx:param[@name='interactive']">
 		    <param name="interactive" value="{cnx:param[@name='interactive']/@value}"/>
 		  </xsl:if>
-		  
+
 		  <!--<p>You need to install Macromedia Flash to display this.</p>-->
-		  
+
 		</object>
 	      </div>
 	      <div class="performance">
@@ -473,7 +473,7 @@
           <script type="text/javascript" id="user-google-analytics">
             <xsl:attribute name="user">
                 <xsl:value-of select ="$google-analytics-tracking-code" />
-            </xsl:attribute> 
+            </xsl:attribute>
             var thisElement;
             var codeGoogleAnalytics;
             thisElement = document.getElementById("user-google-analytics");
@@ -493,17 +493,17 @@
       </xsl:if>
 
     </html>
-    
+
   </xsl:template>
-  
+
 
   <xsl:param name="courselinks" select="/module/display/context/links/link[@rel='example' or @rel='supplemental' or @rel='prerequisite']"/>
   <xsl:param name="authorlinks" select="/module/related/links/link[@rel='example' or @rel='supplemental' or @rel='prerequisite']"/>
-  
+
   <xsl:key name="courselinkstype" match="/module/display/context/links/link[@rel='example' or @rel='supplemental' or @rel='prerequisite']" use="@rel"/>
   <xsl:key name="authorlinkstype" match="/module/related/links/link[@rel='example' or @rel='supplemental' or @rel='prerequisite']" use="@rel"/>
   <xsl:key name="optionalroles" match="module/metadata/optionalrole" use="@name"/>
-  
+
 
   <xsl:template name="ingredients">
 	<xsl:variable name="portalPath" select="publishing/portal/@href"/>
@@ -513,7 +513,7 @@
         <a href="#cnx_content_title">
           <!-- Skip to content -->
           <xsl:text>Skip to content</xsl:text>
-        </a> 
+        </a>
         <a href="#cnx_sidebar_column">
           <!-- Skip to navigation -->
           <xsl:text>Skip to navigation</xsl:text>
@@ -806,9 +806,9 @@
                       </a>
                     </h4>
                     <span class="lensinfo hiddenStructure">
-                      <!-- This content has been endorsed by the 
-                           organizations listed. Click each link for a 
-                           list of all content endorsed by the 
+                      <!-- This content has been endorsed by the
+                           organizations listed. Click each link for a
+                           list of all content endorsed by the
                            organization. -->
                       <xsl:text>This content has been endorsed by the organizations listed. Click each link for a list of all content endorsed by the organization.</xsl:text>
                     </span>
@@ -836,11 +836,11 @@
                       </a>
                     </h4>
                     <span class="lensinfo hiddenStructure">
-                      <!-- This content is either by members of the 
-                           organizations listed or about topics related 
-                           to the organizations listed. Click each link 
-                           to see a list of all content affiliated with 
-                           the organization. --> 
+                      <!-- This content is either by members of the
+                           organizations listed or about topics related
+                           to the organizations listed. Click each link
+                           to see a list of all content affiliated with
+                           the organization. -->
                       <xsl:text>This content is either by members of the organizations listed or about topics related to the organizations listed. Click each link to see a list of all content affiliated with the organization.</xsl:text>
                     </span>
                   </div>
@@ -1048,7 +1048,7 @@
                     <xsl:text>These tags come from the endorsement, affiliation, and other lenses that include this content.</xsl:text>
                   </span>
                 </div>
-              
+
                 <ul class="cnx_tag_listing">
                   <xsl:for-each select="metadata/lensinfo/tags/tag">
                     <li>
@@ -1057,7 +1057,7 @@
                       </a>
                     </li>
                     <xsl:text> </xsl:text>
-                  </xsl:for-each>                  
+                  </xsl:for-each>
 
                   <xsl:for-each select="metadata/lensinfo//tag_namespaces/tags[not(.=preceding::entry/tag_namespaces/tags)]/tag">
                     <li>
@@ -1074,9 +1074,9 @@
           </div>
         </xsl:if>
 
-        <!-- Force a space so that if the sidebar is empty (usually only 
-             in the case of a new module on preview), IE doesn't 
-             interpret the sidebar div to be remaining open and thus 
+        <!-- Force a space so that if the sidebar is empty (usually only
+             in the case of a new module on preview), IE doesn't
+             interpret the sidebar div to be remaining open and thus
              mess up the styling of anything following it. -->
         <xsl:text> </xsl:text>
 
@@ -1147,7 +1147,7 @@
               <ul>
                 <xsl:if test="$previous">
                   <li class="cnx_first">
-                    <a href="{$previous/@href}"> 
+                    <a href="{$previous/@href}">
                       <xsl:text>&#171; Previous</xsl:text>
                       <span class="hiddenStructure">
                         <xsl:text> module in collection</xsl:text>
@@ -1203,28 +1203,28 @@
               <!-- . -->
               <xsl:text>.</xsl:text>
                           <xsl:text> </xsl:text>
-              <!-- You must return to the editing interface to --> 
+              <!-- You must return to the editing interface to -->
               <xsl:text>You must return to the editing interface to</xsl:text>
                           <xsl:text> </xsl:text>
               <a href="module_text">
                 <!-- edit -->
                 <xsl:text>edit</xsl:text>
-              </a> 
+              </a>
                           <xsl:text> </xsl:text>
-              <!-- or --> 
+              <!-- or -->
               <xsl:text>or</xsl:text>
                           <xsl:text> </xsl:text>
               <a href="module_publish">
                 <!-- publish -->
                 <xsl:text>publish</xsl:text>
-              </a> 
+              </a>
                           <xsl:text> </xsl:text>
-              <!-- your changes. --> 
+              <!-- your changes. -->
               <xsl:text>your changes.</xsl:text>
               <xsl:if test="publishing/state[text()!='created']">
                             <xsl:text> </xsl:text>
                 <!-- You may view the -->
-                <xsl:text>You may view the</xsl:text> 
+                <xsl:text>You may view the</xsl:text>
                             <xsl:text> </xsl:text>
                 <a href="{publishing/portal/@href}/content/{$objectId}/latest/">
             <!-- latest published version -->
@@ -1249,8 +1249,8 @@
                   <span class="cnx_before">
                     "Modern Textbook" note:
                   </span>
-                  You are previewing this module in the "Modern Textbook" style.  When you publish the module, 
-                  it will only display in the "Modern Textbook" style when in the context of a collection that 
+                  You are previewing this module in the "Modern Textbook" style.  When you publish the module,
+                  it will only display in the "Modern Textbook" style when in the context of a collection that
                   has the "Modern Textbook" parameter set.
                 </p>
               </xsl:if>
@@ -1261,7 +1261,7 @@
               <xsl:if test="display/statusmessage">
                 <xsl:for-each select="display/statusmessage/div">
                   <div class="statusmessage">
-                    <xsl:comment>possible class values: portalMessage, portalWarningMessage, portalStopMessage 
+                    <xsl:comment>possible class values: portalMessage, portalWarningMessage, portalStopMessage
                        but we will mostly use portalMessage</xsl:comment>
                     <xsl:attribute name="class"><xsl:value-of select="./@class" /></xsl:attribute>
                     <xsl:value-of select="." />
@@ -1274,7 +1274,7 @@
                 <div class="cnx_social_media" id="cnx_social_media_top" style="display: block; float: right;">
  		          <span class="cnx_google">
                       <iframe scrolling="no" frameborder="0" vspace="0" tabindex="-1" style="position: static; left: 0pt; top: 0pt; width: 65px; height: 20px; visibility: visible;" src="https://plusone.google.com/_/+1/fastbutton?hl=en-US&amp;url={$social-url-escaped}&amp;size=medium&amp;annotation=bubble&amp;count=true&amp;parent=http%3A%2F%2Fcnx.org" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"><xsl:text> </xsl:text></iframe>
-                  </span> 
+                  </span>
                   <span class="cnx_facebook">
                     <iframe src="http://www.facebook.com/plugins/like.php?href={$social-url-escaped}&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"
                             scrolling="no" frameborder="0" allowtransparency="true">
@@ -1426,11 +1426,11 @@
                       <span id="content-render-rating-ratings">
                         <xsl:text>(</xsl:text>
                         <xsl:value-of select="/module/rating/@number_of_ratings"/>
-                  			<xsl:choose>		
+                  			<xsl:choose>
                   				<xsl:when test="/module/rating/@number_of_ratings = '1'"> rating)</xsl:when>
                   				<xsl:otherwise> ratings)</xsl:otherwise>
-               		      </xsl:choose>     
-                      </span>	
+               		      </xsl:choose>
+                      </span>
                       <span id="content-render-rating-login" style="display: none;">
                         <xsl:text>(Login required)</xsl:text>
                       </span>
@@ -1460,15 +1460,15 @@
                   </span>
 	          <xsl:text> </xsl:text>
 	          <!-- You are viewing an old version of this document. -->
-	          <xsl:text>You are viewing an old style version of this document.</xsl:text>   
-	          <xsl:text> </xsl:text>      
+	          <xsl:text>You are viewing an old style version of this document.</xsl:text>
+	          <xsl:text> </xsl:text>
 	      <xsl:if test="not(display/context)">
-		  <a href="http://sprint.cnx.org/content/{$objectId}/latest/">
+		  <a href="http://cnx.org/content/{$objectId}/latest/">
 	            <!-- The latest version is available here. -->
 	            <xsl:text>The new style version is available here.</xsl:text></a>
 	      </xsl:if>
 	      <xsl:if test="display/context">
-		  <a href="http://sprint.cnx.org/content/{$objectId}/{$version}/?collection={$courseid}">
+		  <a href="http://cnx.org/content/{$objectId}/{$version}/?collection={$courseid}">
 	            <!-- The latest version is available here. -->
 	            <xsl:text>The new style version is available here.</xsl:text></a>
 	      </xsl:if>
@@ -1483,8 +1483,8 @@
                   </span>
 	          <xsl:text> </xsl:text>
 	          <!-- You are viewing an old version of this document. -->
-	          <xsl:text>You are viewing an old version of this document.</xsl:text>   
-	          <xsl:text> </xsl:text>      
+	          <xsl:text>You are viewing an old version of this document.</xsl:text>
+	          <xsl:text> </xsl:text>
 		  <a href="{publishing/portal/@href}/content/{$objectId}/latest/">
 	            <!-- The latest version is available here. -->
 	            <xsl:text>The latest version is available here.</xsl:text></a>
@@ -1492,7 +1492,7 @@
 		</div>
 	      </xsl:if>
 
-	            
+
 	    </div>
 
             <!-- Banner showing chapter number and title for 'Modern Textbook' introduction modules. -->
@@ -1668,9 +1668,9 @@
                           </span>
                           <xsl:text> </xsl:text>
                           <!-- #187; -->
-                          <xsl:text> &#187; </xsl:text>                          
+                          <xsl:text> &#187; </xsl:text>
                         </span>
-                        <xsl:value-of select="$next/@title"/> 
+                        <xsl:value-of select="$next/@title"/>
                       </a>
                     </xsl:when>
                     <xsl:otherwise>&#160;</xsl:otherwise>
@@ -1707,7 +1707,7 @@
                     </img>
                   </a>
                   <xsl:text> </xsl:text>
-                  <a id="cnx_oer_logo" 
+                  <a id="cnx_oer_logo"
                      xmlns:dct="http://purl.org/dc/terms/"
                      href="http://opened.creativecommons.org/definition"
                      rel="dct:conformsTo">
@@ -1809,8 +1809,8 @@
                   </a>
                   <!-- , and is an -->
                   <xsl:text>, and is an </xsl:text>
-                  <a xmlns:dct="http://purl.org/dc/terms/" 
-                     href="http://opened.creativecommons.org/definition" 
+                  <a xmlns:dct="http://purl.org/dc/terms/"
+                     href="http://opened.creativecommons.org/definition"
                      rel="dct:conformsTo">
                     <!-- Open Educational Resource -->
                     <xsl:text>Open Educational Resource</xsl:text>
@@ -1833,7 +1833,7 @@
                   </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text> </xsl:text>
-	        <!-- on --> 
+	        <!-- on -->
 	        <xsl:text>on</xsl:text>
 	        <xsl:text> </xsl:text>
 	        <xsl:value-of select="publishing/revised"/>
@@ -1848,10 +1848,10 @@
     </div>
   </xsl:template>
 
-  <!-- 
-    MP3 AUDIO (Tony Brandt Gallery style). These override less specific templates in media.xsl.  
+  <!--
+    MP3 AUDIO (Tony Brandt Gallery style). These override less specific templates in media.xsl.
     Customizations:
-    - Instead of putting the "id" on in-flow element, it feeds it through to the JS function. 
+    - Instead of putting the "id" on in-flow element, it feeds it through to the JS function.
     - It creates a label of "Musical Example:" instead of "Audio File:"
   -->
   <!-- (cnxml version 0.5 and below) -->
@@ -1873,7 +1873,7 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-imports/>
-      </xsl:otherwise>       
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   <!-- (cnxml version 0.6+) -->
@@ -1883,7 +1883,7 @@
         <span class="media">
           <xsl:if test="parent::cnx:media/@display">
             <xsl:attribute name="class">
-              <xsl:text>media </xsl:text> 
+              <xsl:text>media </xsl:text>
               <xsl:value-of select="parent::cnx:media/@display"/>
             </xsl:attribute>
           </xsl:if>
@@ -1904,7 +1904,7 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-imports/>
-      </xsl:otherwise>       
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -1916,7 +1916,7 @@
       <i><xsl:text> (</xsl:text><xsl:value-of select="$minutes"/><xsl:text>:</xsl:text><xsl:value-of select="$seconds"/><xsl:text>) </xsl:text></i>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template name="optionalroles">
     <xsl:param name="rolename"/>
     <span class="cnx_optional_role">
@@ -1969,7 +1969,7 @@
       </xsl:for-each>
     </ul>
   </xsl:template>
-  
+
 <!-- Handle 'current' li for Collection TOC-->
   <xsl:template match="display/context/navigation//li">
     <xsl:choose>
@@ -1992,7 +1992,7 @@
     </xsl:choose>
   </xsl:template>
 <!-- -->
-  
+
   <!-- There oughta be an easier way to do this. -->
   <xsl:template match="display/context/navigation//*">
     <xsl:element name="{local-name()}">
@@ -2143,7 +2143,7 @@
                   </a>
                 </li>
                 <xsl:text> </xsl:text>
-              </xsl:for-each>    
+              </xsl:for-each>
             </ul>
           </div>
         </span>
@@ -2177,11 +2177,11 @@
                 <xsl:text>This collection is included in</xsl:text>
               </xsl:when>
 
-              <!-- If module is explicit and no explicit collection OR 
+              <!-- If module is explicit and no explicit collection OR
                    implicit collection(s) -->
               <xsl:otherwise>
-                  
-                <!-- This module is included in -->	
+
+                <!-- This module is included in -->
                 <xsl:choose>
                   <xsl:when test="entry[@approved = '1']">
                     <xsl:text>This module is approved and included in</xsl:text>
@@ -2225,7 +2225,7 @@
             <strong>
               <!-- By: -->
               <xsl:text>By: </xsl:text>
-            </strong>           
+            </strong>
             <xsl:text> </xsl:text>
             <xsl:value-of select="@creatorName"/>
 
@@ -2235,12 +2235,12 @@
               <strong>
                 <xsl:text>Tags:</xsl:text>
               <xsl:text> </xsl:text>
-              </strong> 
+              </strong>
               <xsl:value-of select="entry/@printableTags" />
             </xsl:if>
             -->
 
-          </xsl:if>         
+          </xsl:if>
           <xsl:if test="not($direct) and not($contextual)">
             <span class="lensinfohelp">
               <xsl:choose>
@@ -2430,9 +2430,9 @@
       <h5>
         <xsl:text>Lenses</xsl:text>
       </h5>
-      <!-- A lens is a custom view of the content in the repository.  You can think 
-           of it as a fancy kind of list that will let you see 
-           content through the eyes of organizations and people you 
+      <!-- A lens is a custom view of the content in the repository.  You can think
+           of it as a fancy kind of list that will let you see
+           content through the eyes of organizations and people you
            trust. -->
       <p>
         <xsl:text>A lens is a custom view of the content in the repository. You can think of it as a fancy kind of list that will let you see content through the eyes of organizations and people you trust.</xsl:text>
@@ -2441,8 +2441,8 @@
       <h5>
         <xsl:text>What is in a lens?</xsl:text>
       </h5>
-      <!-- Lens makers point to materials (modules and 
-           collections), creating a guide that includes their own 
+      <!-- Lens makers point to materials (modules and
+           collections), creating a guide that includes their own
            comments and descriptive tags about the content. -->
       <p>
         <xsl:text>Lens makers point to materials (modules and collections), creating a guide that includes their own comments and descriptive tags about the content.</xsl:text>
@@ -2451,7 +2451,7 @@
       <h5>
         <xsl:text>Who can create a lens?</xsl:text>
       </h5>
-      <!-- Any individual member, a community, or a respected 
+      <!-- Any individual member, a community, or a respected
            organization. -->
       <p>
         <xsl:text>Any individual member, a community, or a respected organization.</xsl:text>
@@ -2475,8 +2475,8 @@
         <xsl:text>mailto:</xsl:text>
         <xsl:choose>
           <xsl:when test="$whichauthors='collection'">
-            <!-- href="mailto:jdoe@example.com?cc=cnx@cnx.org&amp;subject=Feedback on Connexions collection: All about 
-                       steak&amp;body=Feedback on Connexions collection: All about steak (http://cnx.org/content/colSteak/1.1), 
+            <!-- href="mailto:jdoe@example.com?cc=cnx@cnx.org&amp;subject=Feedback on Connexions collection: All about
+                       steak&amp;body=Feedback on Connexions collection: All about steak (http://cnx.org/content/colSteak/1.1),
                        module: Grilling steaks (http://cnx.org/content/mSteak/1.1)" -->
             <xsl:value-of select="$collauthoremailstring"/>
             <xsl:text>?cc=</xsl:text>
@@ -2496,8 +2496,8 @@
             <xsl:text>)</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <!-- href="mailto:jdoe@example.com?cc=cnx@cnx.org&amp;subject=Feedback on Connexions module: Grilling 
-                       steak&amp;body=Feedback on Connexions module: Grilling steak (http://cnx.org/content/mSteak/1.1)[ as used in 
+            <!-- href="mailto:jdoe@example.com?cc=cnx@cnx.org&amp;subject=Feedback on Connexions module: Grilling
+                       steak&amp;body=Feedback on Connexions module: Grilling steak (http://cnx.org/content/mSteak/1.1)[ as used in
                        collection: All about steaks (http://cnx.org/content/colSteak/1.1)]" -->
             <xsl:value-of select="$authoremailstring"/>
             <xsl:text>?cc=</xsl:text>
