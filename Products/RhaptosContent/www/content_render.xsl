@@ -45,6 +45,7 @@
     </xsl:for-each>
   </xsl:variable>
   <xsl:variable name="objectId" select="/module/publishing/objectId/text()"/>
+  <xsl:variable name="version" select="/module/publishing/version/text()"/>
   <xsl:variable name="previous" select="/module/display/context/links/link[@rel='previous']"/>
   <xsl:variable name="next" select="/module/display/context/links/link[@rel='next']"/>
   <xsl:variable name="modlang" select="/module/metadata/language"/>
@@ -1451,6 +1452,28 @@
 		</p>
 	      </xsl:if>
 
+		<div class="cnx_warning">
+                  <p class="cnx_warning_text">
+		  <span class="cnx_before">
+                    <!-- Note: -->
+	            <xsl:text>Note:</xsl:text>
+                  </span>
+	          <xsl:text> </xsl:text>
+	          <!-- You are viewing an old version of this document. -->
+	          <xsl:text>You are viewing an old style version of this document.</xsl:text>   
+	          <xsl:text> </xsl:text>      
+	      <xsl:if test="not(display/context)">
+		  <a href="http://sprint.cnx.org/content/{$objectId}/latest/">
+	            <!-- The latest version is available here. -->
+	            <xsl:text>The new style version is available here.</xsl:text></a>
+	      </xsl:if>
+	      <xsl:if test="display/context">
+		  <a href="http://sprint.cnx.org/content/{$objectId}/{$version}/?collection={$courseid}">
+	            <!-- The latest version is available here. -->
+	            <xsl:text>The new style version is available here.</xsl:text></a>
+	      </xsl:if>
+                  </p>
+		</div>
 	      <xsl:if test="not(publishing/version/@latest='true') and not(display/context)">
 		<div class="cnx_warning">
                   <p class="cnx_warning_text">
