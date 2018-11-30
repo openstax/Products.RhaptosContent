@@ -262,11 +262,6 @@
         <tal:module tal:condition="downloadmod">
           <h4 tal:condition="downloadboth" 
               i18n:translate="label_module_as">Module as:</h4>
-          <tal:pdf tal:condition="modulepdf">
-            <a href="#" i18n:translate="text_module_pdf" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('.cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 100);}catch(err){}"
-              tal:attributes="href modulepdf">PDF</a>
-            |
-          </tal:pdf>
           <tal:epub tal:condition="moduleepub">
             <a href="#" i18n:translate="text_module_epub" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('.cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 100);}catch(err){}"
               tal:attributes="href moduleepub">EPUB</a>
