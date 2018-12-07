@@ -24,9 +24,6 @@ ptool = getToolByName(context, 'rhaptos_print')
 dls = {}
 
 if module:
-    pdflatextool = getToolByName(context, 'portal_pdflatex', None)
-    url = "%s/content/%s/%s/?format=pdf" % (portal_url, module.objectId, module.version)
-    dls['modulepdf'] = pdflatextool and url or None
     epubable = ptool.doesFileExist(module.objectId, module.version, 'epub')
     url = "%s/content/%s/%s/?format=epub" % (portal_url, module.objectId, module.version)
     dls['moduleepub'] = epubable and url or None

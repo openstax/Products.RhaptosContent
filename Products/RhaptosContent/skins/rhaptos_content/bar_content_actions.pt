@@ -109,13 +109,6 @@
           <h3 class="ca_header" 
               i18n:translate="text_menu_header_module">Download module as:</h3>
           <ul class="ca_list">
-            <li class="ca_list_item ca_pdf">
-              <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('.cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:pdf', 0);}catch(err){}"
-                 tal:attributes="href modulepdf"
-                 i18n:translate="text_PDF">
-                PDF
-              </a>
-            </li>
             <li class="ca_list_item ca_epub"
                 tal:condition="moduleepub">
               <a href="#" onmousedown="try{var t=_gat._getTracker('UA-7903479-1'); t._initData(); t._setDomainName('.cnx.org'); t._trackPageview(window.location.pathname+'?event=module:download:epub', 0);}catch(err){}"
