@@ -1,3 +1,6 @@
+RhaptosContent-0.67
+  - remove module PDF download links
+
 RhaptosContent-0.66
   - add new style warning to all legacy
 
