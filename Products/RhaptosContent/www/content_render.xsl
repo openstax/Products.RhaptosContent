@@ -562,13 +562,6 @@
             </a>
 	  </li>
         </xsl:if>
-        <xsl:if test="publishing/portal/@isCNX='true'">
-          <li>
-            <a href="{publishing/portal/@href}/aboutus/cnx_donate">
-                <img src="{publishing/portal/@href}/cnx-donate-button.png" alt="donate button" style="vertical-align: middle;"/>
-            </a>
-          </li>
-        </xsl:if>
       </ul>
       <div id="cnx_portal-searchbox">
 	<form name="content_search" action="{publishing/portal/@href}/content/search">
@@ -590,6 +583,7 @@
 	  <xsl:value-of select="publishing/portal/title"/>
 	</a>
       </h1>
+      <div><p style="padding-left:50px;color:white;font-size:1.25em;">We’re retiring our Legacy Authoring Platform on June 30, 2020. <a style="color:white;" href="https://openstax.org/blog/saying-goodbye-cnx">Learn more</a></p><br /></div>
       <div id="cnx_portal-globalnav">
       <ul>
 	<li>
