@@ -583,6 +583,7 @@
 	  <xsl:value-of select="publishing/portal/title"/>
 	</a>
       </h1>
+      <div><p style="padding-left:50px;color:white;font-size:1.25em;">We’re retiring our Legacy Authoring Platform on June 30, 2020. <a style="color:white;" href="https://openstax.org/blog/saying-goodbye-cnx">Learn more</a></p><br /></div>
       <div id="cnx_portal-globalnav">
       <ul>
 	<li>
